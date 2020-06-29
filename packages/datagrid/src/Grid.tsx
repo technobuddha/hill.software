@@ -91,6 +91,7 @@ const Grid = <T extends Record<string, any>>(props: GridProps<T>) => {
                 classes={classes?.column}
                 styles={styles?.column}
                 style={rowProps.style}
+                index={rowProps.index}
                 header={false}
                 data={data}
                 datum={datum}

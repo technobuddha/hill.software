@@ -12,6 +12,7 @@ type RowProps<T extends Record<string, any>> =
     header:                 boolean;
     datum?:                 T;
     data?:                  T[];
+    index?:                 number;
     columns:                Column<T>[];
     columnWidths:           number[];
     width:                  number;
@@ -23,7 +24,6 @@ type RowProps<T extends Record<string, any>> =
     style?:                 React.CSSProperties;
     classes?:               ColumnClasses;
     styles?:                ColumnStyles;
-
     stub?:                  boolean;
 
     children:               (props: RowRenderProps<T>) => React.ReactElement;
@@ -38,11 +38,11 @@ export type RowRenderProps<T extends Record<string, any>> = {
 //TODO row indicators for selected
 
 export const Row = <T extends Record<string, any>>(props: RowProps<T>) => {
-    const css                                   = useColumnStyles({rowHeight: props.rowHeight, scrollbarWidth: props.scrollbarWidth, controlWidth: props.controlWidth});
-    const { header, data, datum, style, classes, styles } = props;
+    const { header, data, datum, style, classes, styles, rowHeight, scrollbarWidth, controlWidth, index } = props;
+    const css = useColumnStyles({rowHeight, scrollbarWidth, controlWidth});
 
-    const handleMenuClick = (_event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-        props.menu?.({data, datum})
+    const handleMenuClick = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+        props.menu?.({event, data, datum, index})
     }
 
     return (
