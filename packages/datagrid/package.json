@@ -1,6 +1,6 @@
 {
   "name": "mui-datagrid",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Material-UI general purpose data grid",
   "main": "dist/index.js",
   "types": "dist/",
