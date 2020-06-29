@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "Material-UI general purpose data grid",
   "main": "dist/index.js",
-  "types": "dist/",
+  "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "rm -rf dist/*",
     "build": "tsc",
