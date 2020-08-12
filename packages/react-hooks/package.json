@@ -1,0 +1,42 @@
+{
+  "name": "@technobuddha/react-hooks",
+  "version": "0.0.0",
+  "description": "A small library of React hooks",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rm -rf dist/*",
+    "build": "tsc",
+    "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
+    "preversion": "npm run build",
+    "postversion": "git push && git push --tags",
+    "lint": "eslint . --ext '.ts,.tsx,.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/technobuddha/react-hooks.git"
+  },
+  "keywords": [
+    "React",
+    "hooks"
+  ],
+  "author": "Phil Hill <phil@technobuddha.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/technobuddha/react-hooks/issues"
+  },
+  "homepage": "https://github.com/technobuddha/react-hooks#readme",
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "react": "^16.14.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.165",
+    "@types/react": "^16.14.2",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^7.13.0",
+    "eslint-plugin-react": "^7.21.5",
+    "typescript": "^4.0.5"
+  }
+}
