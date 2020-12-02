@@ -7,6 +7,7 @@
   "scripts": {
     "prebuild": "rm -rf dist/*",
     "build": "tsc",
+    "postbuild": "ln src/* dist",
     "prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "version": "npm run build",
     "postversion": "git push && git push --tags",
@@ -27,10 +28,12 @@
   },
   "homepage": "https://github.com/technobuddha/vt100#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
     "lodash": "^4.17.20",
     "react": "^16.14.0"
   },
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/lodash": "^4.14.165",
     "@types/react": "^16.9.56",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
