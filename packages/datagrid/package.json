@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/technobuddha/mui-datagrid.git"
+    "url": "git+https://github.com/technobuddha/datagrid.git"
   },
   "keywords": [
     "mui",
@@ -25,9 +25,9 @@
   "author": "Phil Hill <phil@technobuddha.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/technobuddha/mui-datagrid/issues"
+    "url": "https://github.com/technobuddha/datagrid/issues"
   },
-  "homepage": "https://github.com/technobuddha/mui-datagrid#readme",
+  "homepage": "https://github.com/technobuddha/datagrid#readme",
   "dependencies": {
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.9.1",
