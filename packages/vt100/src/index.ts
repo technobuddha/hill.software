@@ -3,6 +3,10 @@ import chalk from 'chalk';
 
 export const esc  = '\u001b';
 
+const index     = `${esc}D`;    const IND = '\x84';
+const next_line = `${esc}E`;    const NEL = '\x85';
+const tab_set   = `${esc}H`;    const HTS = '\x88';
+
 export function out(text: string) {
     process.stdout.write(text);
 }
