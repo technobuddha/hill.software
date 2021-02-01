@@ -1,0 +1,56 @@
+{
+  "name": "@technobuddha/datagrid",
+  "version": "0.0.5",
+  "description": "Material-UI general purpose data grid",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rm -rf dist/*",
+    "build": "tsc",
+    "prepublishOnly": "npm version patch -m 'Publish Release %s'",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags",
+    "lint": "eslint . --ext '.ts,.tsx,.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/technobuddha/datagrid.git"
+  },
+  "keywords": [
+    "mui",
+    "material-ui",
+    "data-grid",
+    "grid"
+  ],
+  "author": "Phil Hill <phil@technobuddha.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/technobuddha/datagrid/issues"
+  },
+  "homepage": "https://github.com/technobuddha/datagrid#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@technobuddha/react-hooks": "^1.0.0",
+    "clsx": "^1.1.1",
+    "lodash": "^4.17.20",
+    "mui-size": "^1.0.0",
+    "query-string": "^6.13.8",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-window": "^1.8.6"
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.1",
+    "@types/lodash": "^4.14.168",
+    "@types/query-string": "^6.3.0",
+    "@types/react": "^16.14.2",
+    "@types/react-dom": "^16.9.10",
+    "@types/react-window": "^1.8.2",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.18.0",
+    "eslint-plugin-react": "^7.22.0",
+    "typescript": "^4.1.3"
+  }
+}
