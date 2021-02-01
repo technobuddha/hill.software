@@ -1,0 +1,48 @@
+{
+  "name": "@technobuddha/vt100",
+  "version": "0.0.0",
+  "description": "A library VT-100 terminal commands",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rm -rf dist/*",
+    "build": "tsc",
+    "postbuild": "ln src/* dist",
+    "prepublishOnly": "npm version patch -m 'Publish Release %s'",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags",
+    "lint": "eslint . --ext '.ts,.tsx,.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/technobuddha/vt100.git"
+  },
+  "keywords": [
+    "React",
+    "hooks"
+  ],
+  "author": "Phil Hill <phil@technobuddha.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/technobuddha/vt100/issues"
+  },
+  "homepage": "https://github.com/technobuddha/vt100#readme",
+  "dependencies": {
+    "ansi-colors": "^4.1.1",
+    "chalk": "^4.1.0",
+    "lodash": "^4.17.20",
+    "react": "^16.14.0"
+  },
+  "devDependencies": {
+    "@types/ansi-colors": "^3.2.2",
+    "@types/chalk": "^2.2.0",
+    "@types/lodash": "^4.14.165",
+    "@types/node": "^14.14.17",
+    "@types/react": "^16.9.56",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^7.13.0",
+    "eslint-plugin-react": "^7.21.5",
+    "typescript": "^4.0.5"
+  }
+}
