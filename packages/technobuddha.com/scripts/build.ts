@@ -55,6 +55,11 @@ function run(res: shell.ShellString) {
     }
 }
 
+function nano() {
+    const t = process.hrtime();
+    return t[0] + t[1] / 1000000000;
+}
+
 let timer: number;
 function start(task: string, text?: string) {
     out(chalk.whiteBright(task));
@@ -65,11 +70,13 @@ function start(task: string, text?: string) {
     } else {
         out(' '.repeat(20));
     }
-    timer = Date.now();
+    timer = nano();
 }
 
 function finish() {
-    out(chalk.cyanBright(`${metricUnits((Date.now() - timer) / 1000, { format: '##0.00', pad: 6 })}s\n`));
+    const clock = nano() - timer;
+
+    out(chalk.cyanBright(`${metricUnits(clock, { format: '##0.00', pad: 6 })}s\n`));
 }
 
 start('Cleaning');
