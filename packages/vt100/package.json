@@ -5,13 +5,12 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "rm -rf dist/*",
-    "build": "tsc",
-    "postbuild": "ln src/* dist",
+    "xprebuild": "rm -rf dist/*",
+    "xbuild": "tsc",
+    "xpostbuild": "ln src/* dist",
     "prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "version": "npm run build",
-    "postversion": "git push && git push --tags",
-    "lint": "eslint . --ext '.ts,.tsx,.js'"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
