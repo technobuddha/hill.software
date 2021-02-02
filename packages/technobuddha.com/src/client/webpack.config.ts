@@ -123,14 +123,15 @@ export function genClientWebpackConfig(isDevelopment = true, logger?: Logger): w
                 chunkFilename:      '[id].css',
             }),
             (isDevelopment
-                ? new CMTDWebpackPlugin({
+                ?   (new CMTDWebpackPlugin({
                         inputDirectoryName: paths.src,
                         globPattern: '**/*.css',
                         camelCase: true,
                         logger,
                         config: postcss_config,
-                    })
-                : null),
+                    }))
+                :   null
+            ),
             (isDevelopment ? new webpack.HotModuleReplacementPlugin()                                                                    : null),
             //(isDevelopment ? new BundleAnalyzerPlugin()                                                                                  : null),
         ]),

@@ -69,14 +69,14 @@ export function headerFactory<T = unknown>(column: ColumnSpecification<T>, _type
                         {column.sortBy !== null && (
                             sort?.sortBy === column.name
                                 ?   sort?.sortAscending
-                                        ?   <SortAsc
-                                                className={clsx(css.buttonSortIndicator, classes?.buttonSortIndicator)}
-                                                style={styles?.buttonSortIndicator}
-                                            />
-                                        :   <SortDesc
-                                                className={clsx(css.buttonSortIndicator, classes?.buttonSortIndicator)}
-                                                style={styles?.buttonSortIndicator}
-                                            />
+                                    ?   <SortAsc
+                                            className={clsx(css.buttonSortIndicator, classes?.buttonSortIndicator)}
+                                            style={styles?.buttonSortIndicator}
+                                        />
+                                    :   <SortDesc
+                                            className={clsx(css.buttonSortIndicator, classes?.buttonSortIndicator)}
+                                            style={styles?.buttonSortIndicator}
+                                        />
                                 :   <SortNone
                                         className={clsx(css.buttonSortIndicator, classes?.buttonSortIndicator)}
                                         style={styles?.buttonSortIndicator}

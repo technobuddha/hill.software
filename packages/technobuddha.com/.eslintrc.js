@@ -26,44 +26,18 @@ module.exports = {
         'eslint-plugin-react-hooks',
         'jsx-a11y',
         'eslint-plugin-tsdoc',
-
-        //'import',
-        //'jest',
-        //'testing-library',
     ],
     'extends': [
-        //'eslint:recommended',
-        //'plugin:@typescript-eslint/recommended',
-        //'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        //'plugin:react/recommended',
-        //'plugin:eslint-plugin-react-hooks/recommended',
-        //'plugin:jsx-a11y/recommended',
-
-        // 'plugin:import/errors',
-        // 'plugin:import/warnings',
-        // 'plugin:import/typescript',
-
-        //'plugin:jest/recommended',
-        //'plugin:testing-library/recommended',
     ],
     'settings': {
         'react': {
             'version': 'detect',
         },
-        // 'import/parsers': {
-        //     '@typescript-eslint/parser': [ '.ts', '.tsx' ],
-        // },
-        // 'import/resolver': {
-        //     'typescript': {
-        //         'project': './config/tsconfig.base.json',
-        //     },
-        // },
     },
     'env': {
         'browser': true,
         'amd': true,
         'node': true,
-        //'jest/globals': true,
     },
     'rules': {
         /* Possible Errors */

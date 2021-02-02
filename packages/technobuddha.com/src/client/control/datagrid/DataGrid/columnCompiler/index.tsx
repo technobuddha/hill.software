@@ -39,7 +39,7 @@ export function columnCompiler<T = unknown>(
     selection: boolean, controlWidth: number, columns?: ColumnSpecifications<T>
 ): Column<T>[] {
     const cols = columns
-        ?   columns.map(column => {
+        ?   (columns.map(column => {
                 if(isString(column))
                     return createDefaultColumn(column);
 
@@ -55,7 +55,7 @@ export function columnCompiler<T = unknown>(
                     sortBy:  column.sortBy === null ? null : (column.sortBy ?? [ column.name ]),
                     collate: collatorFactory(column, type, shape),
                 } as Column<T>;
-            })
+            }))
         :   getKeys().map(key => createDefaultColumn(key));
 
     if(selection) {

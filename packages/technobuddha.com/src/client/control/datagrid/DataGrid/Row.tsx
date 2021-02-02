@@ -58,7 +58,7 @@ export function Row<T = unknown>(
         >
             {
                 rowRenderer
-                    ?   rowRenderer({
+                    ?   (rowRenderer({
                             datum,
                             height: rowHeight,
                             width: columnWidths,
@@ -66,7 +66,7 @@ export function Row<T = unknown>(
                             cellStyles: styles?.cell,
                             columnClasses: classes?.column,
                             columnStyles: styles?.column,
-                        })
+                        }))
                     :   (columns.map(
                             (column, i) => (
                                 <Box
