@@ -1,40 +1,31 @@
-import webpack                  from 'webpack';
-import CMTD, { CMTDOptions }    from './index';
+import type webpack                  from 'webpack';
+import type { CMTDOptions } from './index';
+import CMTD    from './index';
 
-export class CMTDWebpackPlugin implements webpack.Plugin
-{
-    private cmtd:       CMTD;
+export class CMTDWebpackPlugin implements webpack.Plugin {
+    private readonly cmtd:       CMTD;
     private isWatching: boolean;
 
-    constructor(options: CMTDOptions)
-    {
+    constructor(options: CMTDOptions) {
         this.cmtd       = new CMTD(options);
         this.isWatching = false;
     }
 
-    public apply(compiler: webpack.Compiler)
-    {
-        compiler.hooks.beforeRun.tap
-        (
+    public apply(compiler: webpack.Compiler) {
+        compiler.hooks.beforeRun.tap(
             'CMTDWebpackPlugin',
-            (_compilation, _callback) =>
-            {
-                this.cmtd.scan();
+            (_compilation, _callback) => {
+                void this.cmtd.scan();
             }
         );
 
-        compiler.hooks.watchRun.tapPromise
-        (
+        compiler.hooks.watchRun.tapPromise(
             'CMTDWebpackPlugin',
-            () =>
-            {
-                if (this.isWatching)
-                    return Promise.resolve();
-                else
-                {
-                    this.isWatching = true;
-                    return this.cmtd.scan().then(() => this.cmtd.watch());
-                }
+            async () => {
+                if(this.isWatching)  return Promise.resolve();
+
+                this.isWatching = true;
+                return this.cmtd.scan().then(() => { this.cmtd.watch(); });
             }
         );
     }

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 
 export function useWhyDidIRender(name: string, props: Record<string, unknown>) {
@@ -6,19 +7,19 @@ export function useWhyDidIRender(name: string, props: Record<string, unknown>) {
     React.useEffect(
         () => {
             if(previousProps.current) {
-                console.log('[WDIR]:', name)
-                Object.keys({...previousProps.current, ...props}).forEach(
+                console.log('[WDIR]:', name);
+                Object.keys({ ...previousProps.current, ...props }).forEach(
                     key => {
                         if(previousProps.current![key] !== props[key])
                             console.log('...', key);
                     }
-                )
-                console.log(':[WDIR]')
+                );
+                console.log(':[WDIR]');
             }
 
             previousProps.current = props;
         }
-    )
+    );
 }
 
 export default useWhyDidIRender;

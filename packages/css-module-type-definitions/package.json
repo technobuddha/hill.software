@@ -14,7 +14,8 @@
     "pub:publish": "npm publish",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "x-version": "npm run build",
-    "x-postversion": "git push && git push --tags"
+    "x-postversion": "git push && git push --tags",
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix"
   },
   "author": "Phil Hill <phil@technobuddha.com>",
   "license": "MIT",

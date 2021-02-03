@@ -20,23 +20,23 @@ export type CMTDOptions = {
     config?:                any;
 };
 
-export interface Logger {
-    info(x: string):    void;
-    warn(x: string):    void;
-    error(x: string):   void;
-}
+export type Logger = {
+    info: (x: string) => void;
+    warn: (x: string) => void;
+    error: (x: string) => void;
+};
 
 export class CMTD {
-    private rootDirectoryPath:      string;
-    private inputDirectoryName:     string;
-    private outputDirectoryName:    string;
-    private globPattern:            string;
-    private dropExtensions:         boolean;
-    private camelCase:              boolean;
-    private logger:                 Logger;
-    private config:                 any;
+    private readonly rootDirectoryPath:      string;
+    private readonly inputDirectoryName:     string;
+    private readonly outputDirectoryName:    string;
+    private readonly globPattern:            string;
+    private readonly dropExtensions:         boolean;
+    private readonly camelCase:              boolean;
+    private readonly logger:                 Logger;
+    private readonly config:                 any;
 
-    constructor (
+    constructor(
         {
             rootDirectoryPath,
             inputDirectoryName,
@@ -45,10 +45,9 @@ export class CMTD {
             dropExtensions,
             camelCase,
             logger,
-            config
+            config,
         }:  CMTDOptions
-    )
-    {
+    ) {
         this.rootDirectoryPath      = defaultTo(rootDirectoryPath,      process.cwd());
         this.inputDirectoryName     = defaultTo(inputDirectoryName,     '.');
         this.outputDirectoryName    = defaultTo(outputDirectoryName,    this.inputDirectoryName);
@@ -60,7 +59,7 @@ export class CMTD {
     }
 
     private async generateTypes(filePath: string) {
-        return new Promise<void> (
+        return new Promise<void>(
             (resolve, _reject) => {
                 parser(filePath, this.config)
                 .then(
@@ -68,7 +67,7 @@ export class CMTD {
                         const fileName              = path.isAbsolute(filePath) ? path.relative(this.inputDirectoryName, filePath) : filePath;
                         const outputDirectoryPath   = path.resolve(this.rootDirectoryPath, this.outputDirectoryName);
                         const outputFileBase        = this.dropExtensions ? CMTD.removeExtension(fileName) : fileName;
-                        const outputFilePath        = path.join(outputDirectoryPath, outputFileBase + '.d.ts');
+                        const outputFilePath        = path.join(outputDirectoryPath, `${outputFileBase}.d.ts`);
 
                         const declarations: string[]    = [];
                         Array.from(tokens.keys()).sort().forEach(
@@ -76,26 +75,24 @@ export class CMTD {
                                 let key   = token;
                                 let valid = validateToken(key);
 
-                                if (this.camelCase) {
+                                if(this.camelCase) {
                                     const camelKey = CMTD.toCamelCase(key);
 
-                                    if (camelKey !== key) {
+                                    if(camelKey !== key) {
                                         declarations.push(`'${key}'`);
                                         key     = camelKey;
                                         valid   = validateToken(key);
                                     }
                                 }
 
-                                if (valid.isValid === true)
-                                    declarations.push(`'${key}'`);
-                                else {
+                                if(valid.isValid) { declarations.push(`'${key}'`); } else {
                                     declarations.push(`'${key}'`);
                                     this.logger.warn(`{CMTD} ${chalk.yellow(`${fileName}: ${valid.message}`)}`);
                                 }
                             }
                         );
 
-                        if (!CMTD.exists(outputDirectoryPath))
+                        if(!CMTD.exists(outputDirectoryPath))
                             fs.mkdirpSync(outputDirectoryPath);
 
                         var fileContent = [
@@ -107,7 +104,7 @@ export class CMTD {
 
                         if(declarations.length) {
                             fileContent = fileContent.concat([
-                                `export type Keys = ${declarations.join(` | `)};`,
+                                `export type Keys = ${declarations.join(' | ')};`,
                                 'export type Css = { [key in Keys]: string };',
                             ]);
                         } else {
@@ -123,20 +120,17 @@ export class CMTD {
                             'export default css;',
                         ]);
 
-                        let   existing: string        = '';
+                        let   existing        = '';
                         const replacement: string     = fileContent.join(os.EOL) + os.EOL;
-                        if (fs.existsSync(outputFilePath)) {
+                        if(fs.existsSync(outputFilePath))
                             existing = fs.readFileSync(outputFilePath, 'utf8');
-                        }
 
-                        if (existing === replacement)
-                            resolve();
-                        else {
-                            fs.writeFile(
+                        if(existing === replacement) { resolve(); } else {
+                            void fs.writeFile(
                                 outputFilePath,
                                 replacement,
                                 'utf8'
-                            ).then (
+                            ).then(
                                 () => {
                                     this.logger.info(`{CMTD} ${chalk.green('Types Generated for')} ${fileName}`);
                                     resolve();
@@ -150,18 +144,16 @@ export class CMTD {
         );
     }
 
-    public scan() {
+    public async scan() {
         return new Promise(
             (resolve, reject) => {
                 glob(
                     path.join(path.resolve(this.rootDirectoryPath, this.inputDirectoryName), this.globPattern),
                     (err, files) => {
-                        if (err)
-                            reject(err);
-                        else {
-                            Promise.all(files.map(f => this.generateTypes(f)))
+                        if(err) { reject(err); } else {
+                            Promise.all(files.map(async f => this.generateTypes(f)))
                             .then(resolve)
-                            .catch(err => { this.logger.error(`{CMTD} ${JSON.stringify(err)}`); reject(err); });
+                            .catch(err2 => { this.logger.error(`{CMTD} ${JSON.stringify(err2)}`); reject(err); });
                         }
                     }
                 );
@@ -177,26 +169,41 @@ export class CMTD {
 
         const watcher   = sane(target, { glob: this.globPattern });
 
-        watcher.on('add',    (f) => this.generateTypes(path.join(target, f)));
-        watcher.on('change', (f) => setTimeout(() => this.generateTypes(path.join(target, f)), DELAY));
+        watcher.on(
+            'add',
+            (file: string) => {
+                void (async () => this.generateTypes(path.join(target, file)))();
+            }
+        );
+        watcher.on(
+            'change',
+            (file: string) => {
+                setTimeout(
+                    () => {
+                        void (async () => this.generateTypes(path.join(target, file)))();
+                    },
+                    DELAY
+                );
+            }
+        );
     }
 
     private static removeExtension(filePath: string) {
         const ext = path.extname(filePath);
-        return filePath.replace(new RegExp(ext + '$'), '');
+        return filePath.replace(new RegExp(`${ext}$`, 'u'), '');
     }
 
     private static exists(pathname: string): boolean {
         try {
             fs.statSync(pathname);
             return true;
-        } catch {
+        } catch{
             return false;
         }
     }
 
     private static toCamelCase(str: string) {
-        return str.replace(/-+(\w)/g, (_match, firstLetter) => firstLetter.toUpperCase());
+        return str.replace(/-+(\w)/ug, (_match, firstLetter) => firstLetter.toUpperCase());
     }
 }
 

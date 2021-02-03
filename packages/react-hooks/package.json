@@ -9,8 +9,8 @@
     "build": "tsc",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "preversion": "npm run build",
-    "postversion": "git push && git push --tags",
-    "lint": "eslint . --ext '.ts,.tsx,.js'"
+    "postversion": "git push && git push --tags", 
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix"
   },
   "repository": {
     "type": "git",

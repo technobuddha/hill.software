@@ -50,12 +50,11 @@ const RESERVED_WORDS =
     ];
 
 export type Validation = { isValid: true } | { isValid: false; message: string };
-export function validateToken(token: string): Validation
-{
-    if (!/^[a-zA-Z$_][0-9a-zA-Z$_]*$/.test(token))
+export function validateToken(token: string): Validation {
+    if(!/^[a-zA-Z$_][0-9a-zA-Z$_]*$/u.test(token))
         return { isValid: false, message: `${token} is not valid TypeScript variable name.` };
 
-    if (RESERVED_WORDS.includes(token))
+    if(RESERVED_WORDS.includes(token))
         return { isValid: false, message: `${token} is TypeScript reserved word.` };
 
     return { isValid: true };
