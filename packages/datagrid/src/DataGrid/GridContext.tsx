@@ -1,14 +1,14 @@
 import React       from 'react';
 import isUndefined from 'lodash/isUndefined';
-import { getSortFromQueryString, setSortInQueryString, getFiltersFromQueryString, setFiltersInQueryString } from './query';
+import { getSortFromQueryString, setSortInQueryString, getFiltersFromQueryString, setFiltersInQueryString, decodeSort } from './query';
 
 import type { FilterValue, FilterValues } from './filter';
-import type { SortKey }                   from './Sorter';
+import type { SortKey }                   from './query';
 
 type GridState<T = unknown> = {
     data:               T[];
-    sort?:              ReturnType<typeof parseSort>;
-    changeSort:         (sort: SortKey<T>) => void;
+    sort?:              SortKey;
+    changeSort:         (sort: string) => void;
     filterValues:       FilterValues<T>;
     changeFilter:       (name: keyof T, value: FilterValue) => void;
 };
@@ -20,39 +20,30 @@ export function useGrid<T = unknown>() {
 
 type GridProviderProps<T = unknown> = {
     data:               T[];
-    defaultSort?:       SortKey<T>;
+    defaultSort?:       string;
     useLocation?:       boolean;
     children:           React.ReactNode;
 };
 
-function parseSort(sort: string) {
-    const sortAscending     = !sort.startsWith('-');
-    const sortBy            = (sortAscending ? sort : sort.slice(1));// as keyof T;
-
-    return { sortBy, sortAscending };
-}
-
-function buildSort<T = unknown>(column: keyof T, ascending: boolean) {
-    if(ascending)
-        return column;
-
-    return `-${column}`;
-}
-
 export function GridProvider<T = unknown>({ data, defaultSort, useLocation, children }: GridProviderProps<T>) {
-    function baseSort(): SortKey<T> | undefined {
-        return (useLocation ? getSortFromQueryString<T>() : undefined) ?? defaultSort;
+    function baseSort(): SortKey | undefined {
+        return (useLocation ? getSortFromQueryString() : undefined) ?? decodeSort(defaultSort);
     }
-    const [ sortCode, setSortCode ] = React.useState<(SortKey<T> | undefined)>(baseSort);
+    const [ sortCode, setSortCode ] = React.useState<(SortKey | undefined)>(baseSort);
     const changeSort                = React.useCallback(
         (columnName: string) => {
-            let newSort: string;
+            let newSort: SortKey;
 
             if(isUndefined(sortCode)) {
-                newSort = columnName;
+                newSort = {
+                    sortBy: columnName,
+                    sortAscending: true,
+                };
             } else {
-                const { sortBy, sortAscending } = parseSort(sortCode as string);
-                newSort = buildSort(columnName, (columnName === sortBy ? !sortAscending : true));
+                newSort = {
+                    sortBy: columnName,
+                    sortAscending: columnName === sortCode.sortBy ? !sortCode.sortAscending : true,
+                };
             }
 
             setSortCode(newSort);
@@ -69,7 +60,7 @@ export function GridProvider<T = unknown>({ data, defaultSort, useLocation, chil
             const newFilterValues = { ...filterValues, [name]: value };
             setFilterValues(newFilterValues);
             if(useLocation)
-                setFiltersInQueryString<T>(newFilterValues);
+                setFiltersInQueryString(newFilterValues);
         },
         [ filterValues ]
     );
@@ -94,9 +85,8 @@ export function GridProvider<T = unknown>({ data, defaultSort, useLocation, chil
         [ useLocation ]
     );
 
-    const sort = sortCode === undefined ? undefined : parseSort(sortCode);
     return (
-        <GridContext.Provider value={{ data, sort, changeSort, filterValues, changeFilter }}>
+        <GridContext.Provider value={{ data, sort: sortCode, changeSort, filterValues, changeFilter }}>
             {children}
         </GridContext.Provider>
     );

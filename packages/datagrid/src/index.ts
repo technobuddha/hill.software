@@ -1,3 +1,4 @@
-import map from 'lodash/map';
+export { default, DataGrid } from './DataGrid';
+export { Transfer } from './Transfer';
 
-process.stdout.write(JSON.stringify(map([ 1, 2, 3 ], n => n * 2)));
+export type { RowRenderer } from './DataGrid';

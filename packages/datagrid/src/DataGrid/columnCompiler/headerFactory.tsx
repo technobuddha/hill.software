@@ -12,7 +12,6 @@ import { useGrid }      from '../GridContext';
 
 import type { Shape }                                              from '../analyzer';
 import type { ColumnSpecification, ColumnType, ColumnHeaderProps } from '../column';
-import type { SortKey }                                            from '../Sorter';
 
 const useHeaderStyles = makeStyles(theme => ({
     button: {
@@ -54,7 +53,7 @@ export function headerFactory<T = unknown>(column: ColumnSpecification<T>, _type
                     size="small"
                     variant="contained"
                     color="primary"
-                    onClick={column.sortBy === null ? undefined : (() => changeSort(column.name.toString() as SortKey<T>))}
+                    onClick={column.sortBy === null ? undefined : (() => { changeSort(column.name.toString()); })}
                 >
                     <Box
                         className={clsx(css.buttonContents, classes?.buttonContents)}
@@ -68,7 +67,7 @@ export function headerFactory<T = unknown>(column: ColumnSpecification<T>, _type
                         </Box>
                         {column.sortBy !== null && (
                             sort?.sortBy === column.name
-                                ?   sort?.sortAscending
+                                ?   sort.sortAscending
                                     ?   <SortAsc
                                             className={clsx(css.buttonSortIndicator, classes?.buttonSortIndicator)}
                                             style={styles?.buttonSortIndicator}

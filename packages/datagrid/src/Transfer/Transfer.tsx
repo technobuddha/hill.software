@@ -9,7 +9,6 @@ import TransferButtons          from './TransferButtons';
 import type { OnSelectionChangedParams, DataGridClasses, DataGridStyles }     from '../DataGrid/DataGrid';
 import type { FilterSpecification }                                           from '../DataGrid/filterCompiler';
 import type { ColumnSpecification }                                           from '../DataGrid/column';
-import type { SortKey }                                                       from '../DataGrid/Sorter';
 import type { DispatchFunction, TransferButtonClasses, TransferButtonStyles } from './TransferButtons';
 
 function not<T = unknown>(a: T[], b: T[]) {
@@ -72,7 +71,7 @@ export function Transfer<T = unknown>({
     styles,
 }: TransferProps<T>) {
     const css               = useStyles();
-    const dispatch          = React.useRef<DispatchFunction>(null!);
+    const dispatch          = React.useRef<DispatchFunction | null>(null);
     const [ left, setLeft ]   = useDerivedState(leftProp,                                                                     [ leftProp ]);
     const [ right, setRight ] = useDerivedState(rightProp,                                                                    [ rightProp ]);
     const selected          = React.useMemo(() => ({ left: [] as T[], right: [] as T[] }),                                    [ leftProp, rightProp ]);
@@ -188,7 +187,7 @@ export function Transfer<T = unknown>({
                     data={left}
                     columns={columns}
                     filters={filtersR}
-                    defaultSort={name as SortKey<T>}
+                    defaultSort={name}
                     onSelectionChanged={handleSelectionChangedLeft}
                 />
             </Box>
@@ -219,7 +218,7 @@ export function Transfer<T = unknown>({
                     data={right}
                     columns={columns}
                     filters={filtersL}
-                    defaultSort={name as SortKey<T>}
+                    defaultSort={name}
                     onSelectionChanged={handleSelectionChangedRight}
                 />
             </Box>

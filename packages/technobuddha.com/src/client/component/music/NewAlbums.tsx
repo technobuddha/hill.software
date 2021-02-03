@@ -1,11 +1,11 @@
 import React          from 'react';
 import MusicNote      from '@material-ui/icons/MusicNote';
 import DelayedLoading from '#control/delayedLoading';
-import DataGrid       from '#control/datagrid';
+import DataGrid       from '@technobuddha/datagrid';
 import useApi         from '#context/api';
 import css            from './NewAlbums.module.css';
 
-import type { RowRenderer }  from '#control/datagrid';
+import type { RowRenderer }  from '@technobuddha/datagrid';
 import type { APIValue }     from '#context/api';
 import type { PromiseValue } from 'type-fest';
 

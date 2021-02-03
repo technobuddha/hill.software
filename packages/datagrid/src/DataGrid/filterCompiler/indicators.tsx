@@ -44,6 +44,7 @@ export function arrayIndicator<T = unknown>({ Icon, name, title }: IndicatorArgs
             );
         }
 
-        return false;
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        return <></>;
     };
 }

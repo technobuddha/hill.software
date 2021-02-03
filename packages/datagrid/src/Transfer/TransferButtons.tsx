@@ -9,7 +9,7 @@ import isUndefined      from 'lodash/isUndefined';
 type TransferButtonsProps = {
     classes?:       TransferButtonClasses;
     styles?:        TransferButtonStyles;
-    dispatch:       React.MutableRefObject<DispatchFunction>;
+    dispatch:       React.MutableRefObject<DispatchFunction | null>;
     onRAllClick?:   () => void;
     onRSelClick?:   () => void;
     onLSelClick?:   () => void;

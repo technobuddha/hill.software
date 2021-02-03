@@ -18,7 +18,7 @@ import type { FrameRenderProps }            from './Frame';
 import type { GridClasses, GridStyles }     from './Grid';
 import type { MenuFactory }                 from './menu';
 import type { RowRenderer }                 from './Row';
-import type { SorterRenderProps, SortKey }  from './Sorter';
+import type { SorterRenderProps }           from './Sorter';
 
 export type DataGridProps<T = unknown> = {
     className?:             string;
@@ -32,7 +32,7 @@ export type DataGridProps<T = unknown> = {
     selected?:              (datum: T) => boolean;
     filters?:               FilterSpecification<T>[];
     menu?:                  MenuFactory<T>;
-    defaultSort?:           SortKey<T>;
+    defaultSort?:           string;
     rowHeight?:             number;
     controlWidth?:          number;
     useLocation?:           boolean;
