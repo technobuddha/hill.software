@@ -103,7 +103,8 @@ export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, typ
                     };
 
                 case 'array':
-                    return () => false;
+                    // eslint-disable-next-line react/jsx-no-useless-fragment
+                    return () => <></>;
 
                 case 'unknown':
                 case 'string':
