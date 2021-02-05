@@ -1,12 +1,13 @@
 {
   "name": "@technobuddha/react-hooks",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A small library of React hooks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "rm -rf dist/*",
     "build": "tsc",
+    "postbuild": "../../scripts/bootstrap.ts @technobuddha/react-hooks",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "preversion": "npm run build",
     "postversion": "git push && git push --tags",
@@ -27,12 +28,12 @@
   },
   "homepage": "https://github.com/technobuddha/react-hooks#readme",
   "dependencies": {
-    "lodash": "^4.17.20",
-    "react": "^16.14.0"
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
-    "@types/react": "^16.14.2",
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "eslint": "^7.19.0",
@@ -40,6 +41,8 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-tsdoc": "^0.2.11",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "typescript": "^4.1.3"
   },
   "publishConfig": {

@@ -90,6 +90,7 @@ export function genClientWebpackConfig(isDevelopment = true, logger?: Logger): w
         resolve: {
             extensions,
             plugins:        [ new TsConfigPathsPlugin({ extensions }) ],
+            mainFields:     [ 'typescript', 'esnext', 'es2015', 'module', 'main' ],
         },
         // https://webpack.js.org/configuration/optimization/
         optimization: {

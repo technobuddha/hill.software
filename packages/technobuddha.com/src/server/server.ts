@@ -68,7 +68,7 @@ import type { IncomingMessage } from 'http';
     };
     process.on('exit', exit);
 
-    [ 'SIGINT', 'SIGTERM', 'SIGHUP', 'SIGQUIT', 'uncaughtException' ].forEach(
+    [ 'SIGINT', 'SIGTERM', 'SIGHUP', 'SIGQUIT' ].forEach(
         sig => process.on(
             sig,
             () => {
@@ -76,6 +76,16 @@ import type { IncomingMessage } from 'http';
                 exit();
             }
         )
+    );
+
+    process.on(
+        'uncaughtException',
+        error => {
+            logger.error(error.message);
+            if(error.stack)
+                process.stdout.write(error.stack);
+            exit();
+        }
     );
 
     const HTTP_PORT             = isDevelopment ? 8080 : 80;

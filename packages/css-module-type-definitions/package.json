@@ -9,6 +9,7 @@
     "build": "npm-run-all build:clean build:compile",
     "build:clean": "rm -rf dist && mkdir dist",
     "build:compile": "tsc",
+    "postbuild": "../../scripts/bootstrap.ts css-module-type-definitions",
     "pub": "npm-run-all clean build:compile pub:version pub:publish",
     "pub:version": "npm --no-tag-git-version version prerelease",
     "pub:publish": "npm publish",
