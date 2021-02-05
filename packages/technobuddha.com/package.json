@@ -16,10 +16,12 @@
     "supports css-grid"
   ],
   "scripts": {
+    "build": "npm run compile",
+    "compile": "scripts/build.ts",
     "start": "scripts/start.ts",
     "migrate": "node-pg-migrate --migrations-dir migrations",
     "lint": "LINT_LEVEL=1 eslint . --ext '.ts,.tsx,.js'",
-    "build": "scripts/build.ts",
+
     "clean": "rm -rf deploy && mkdir deploy deploy/bin deploy/dist"
   },
   "dependencies": {

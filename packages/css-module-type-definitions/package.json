@@ -5,13 +5,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "clean": "npm-run-all *:clean",
-    "build": "npm-run-all build:clean build:compile",
-    "build:clean": "rm -rf dist && mkdir dist",
-    "build:compile": "tsc",
+    "prebuild": "rm -rf dist && mkdir dist",
+    "build": "npm run compile",
+    "postbuild": "../../scripts/bootstrap.ts --update css-module-type-definitions",
+    "compile": "tsc",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
 
-    "postbuild": "../../scripts/bootstrap.ts css-module-type-definitions",
+    "clean": "npm-run-all *:clean",
     "pub": "npm-run-all clean build:compile pub:version pub:publish",
     "pub:version": "npm --no-tag-git-version version prerelease",
     "pub:publish": "npm publish",

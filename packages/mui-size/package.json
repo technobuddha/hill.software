@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npm-run-all build:clean build:compile",
-    "build:clean": "rm -rf dist && mkdir dist",
-    "build:compile": "tsc",
-    "postbuild": "../../scripts/bootstrap.ts mui-size",
+    "prebuild": "rm -rf dist && mkdir dist",
+    "build": "npm run compile",
+    "postbuild": "../../scripts/bootstrap.ts --update mui-size",
+    "compile": "tsc",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
     
     "issue": "npm-run-all build issue:version issue:publish",

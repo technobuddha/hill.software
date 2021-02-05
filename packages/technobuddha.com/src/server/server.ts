@@ -210,10 +210,8 @@ import type { IncomingMessage } from 'http';
     )
     .get(
         '/oeoaa',
-        (_req, _res) => {
-            // TODO Remove Debugging
-            throw new Error('Ting Tang Walla Walla Bing Bang');
-            //res.send('Ting Tang Walla Walla Bing Bang\n');
+        (_req, res) => {
+            res.send('Ting Tang Walla Walla Bing Bang\n');
         }
     )
     .use(

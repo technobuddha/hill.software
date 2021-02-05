@@ -6,8 +6,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "rm -rf dist/*",
-    "build": "tsc",
-    "postbuild": "../../scripts/bootstrap.ts @technobuddha/react-hooks",
+    "build": "npm run compile",
+    "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/react-hooks",
+    "compile": "tsc",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "preversion": "npm run build",

@@ -4,7 +4,8 @@
   "description": "hill.software monorepo",
   "main": "index.js",
   "scripts": {
-    "bootstrap": "lerna bootstrap && scripts/bootstrap.ts && lerna run build --ignore technobuddha.com && scripts/bootstrap.ts"
+    "bootstrap": "lerna bootstrap && scripts/bootstrap.ts",
+    "build": "lerna run prebuild && lerna run compile --ignore technobuddha.com && scripts/bootstrap.ts --no-recompile"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.6",
     "@types/shelljs": "^0.8.8",
+    "commander": "^7.0.0",
     "fs-extra": "^9.1.0",
     "lerna": "^3.22.1",
     "shelljs": "^0.8.4"

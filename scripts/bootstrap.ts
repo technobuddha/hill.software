@@ -4,7 +4,15 @@ import chalk                        from 'chalk';
 import shell                        from 'shelljs';
 import path                         from 'path';
 import fs                           from 'fs-extra';
+import { program }                  from 'commander';
 import type { PackageJson }         from 'type-fest';
+
+program
+    .option('--no-recompile',        'Do not recompile dependent packages')
+    .option('--update [package...]', 'Update specified package')
+    .parse(process.argv);  // ts-node is the first argument, so remove it
+
+const options = program.opts();
 
 function out(text: string | undefined) {
     if(text)
@@ -26,7 +34,6 @@ type LernaPackage = {
     location: string;
 };
 
-const args    = process.argv.slice(2);
 const rebuild = new Set<string>();
 
 const packages = Object.fromEntries((JSON.parse(shell.exec('lerna list --json', { silent: true })) as LernaPackage[]).map(p => [ p.name, p ]));
@@ -38,7 +45,7 @@ for(const dstPackage of Object.values(packages)) {
         for(const deps of [ dstPackageJson.dependencies, dstPackageJson.devDependencies ]) {
             if(deps) {
                 for(const dependencyName of Object.keys(deps)) {
-                    if(dependencyName in packages && (args.length === 0 || args.includes(dependencyName))) {
+                    if(dependencyName in packages && (!options.update || options.update.includes(dependencyName))) {
                         const srcPackage     = packages[dependencyName];
                         const srcPackageFile = path.join(srcPackage.location, 'package.json');
                         if(fs.pathExistsSync(srcPackageFile)) {
@@ -61,9 +68,12 @@ for(const dstPackage of Object.values(packages)) {
     }
 }
 
-rebuild.forEach(
-    re => {
-        process.chdir(packages[re].location);
-        shell.exec('npm run build');
-    }
-)
+if(options.recompile) {
+   rebuild.forEach(
+        re => {
+            process.chdir(packages[re].location);
+            shell.exec('npm run build');
+        }
+    ) 
+}
+
