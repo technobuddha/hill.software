@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const reduceFunctionCall    = require('reduce-function-call');
 const get                   = require('lodash/get');
 
@@ -6,12 +8,11 @@ module.exports = (opts = {}) => {
 
     return {
         postcssPlugin: 'postcss-mui-theme',
-        Once (root, { result }) {
+        Once(root, { _result }) {
             root.walkDecls(
                 decl => {
                     if(decl.value) {
-                        for(;;)
-                        {
+                        for(;;) {
                             const idxTheme = decl.value.indexOf('mui-theme(');
                             const idxSpace = decl.value.indexOf('mui-spacing(');
 
@@ -22,7 +23,7 @@ module.exports = (opts = {}) => {
                                 decl.value = reduceFunctionCall(
                                     decl.value,
                                     'mui-theme',
-                                    body => get(theme, body.replace(/-/g, '.'))
+                                    body => get(theme, body.replace(/-/ug, '.'))
                                 );
                             }
 
@@ -31,14 +32,14 @@ module.exports = (opts = {}) => {
                                     decl.value,
                                     'mui-spacing',
                                     body => `${theme.spacing(Number.parseFloat(body))}px`
-                                )
+                                );
                             }
                         }
                     }
                 }
             );
-        }
-    }
-}
+        },
+    };
+};
 
 module.exports.postcss = true;

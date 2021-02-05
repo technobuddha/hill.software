@@ -9,6 +9,8 @@
     "build:clean": "rm -rf dist && mkdir dist",
     "build:compile": "tsc",
     "postbuild": "../../scripts/bootstrap.ts mui-size",
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
+    
     "issue": "npm-run-all build issue:version issue:publish",
     "issue:version": "npm --no-tag-git-version version prerelease",
     "issue:publish": "npm publish",

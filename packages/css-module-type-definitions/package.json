@@ -9,14 +9,15 @@
     "build": "npm-run-all build:clean build:compile",
     "build:clean": "rm -rf dist && mkdir dist",
     "build:compile": "tsc",
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
+
     "postbuild": "../../scripts/bootstrap.ts css-module-type-definitions",
     "pub": "npm-run-all clean build:compile pub:version pub:publish",
     "pub:version": "npm --no-tag-git-version version prerelease",
     "pub:publish": "npm publish",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "x-version": "npm run build",
-    "x-postversion": "git push && git push --tags",
-    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix"
+    "x-postversion": "git push && git push --tags"
   },
   "author": "Phil Hill <phil@technobuddha.com>",
   "license": "MIT",

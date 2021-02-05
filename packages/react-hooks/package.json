@@ -8,10 +8,10 @@
     "prebuild": "rm -rf dist/*",
     "build": "tsc",
     "postbuild": "../../scripts/bootstrap.ts @technobuddha/react-hooks",
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "preversion": "npm run build",
-    "postversion": "git push && git push --tags",
-    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",

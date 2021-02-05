@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "postbuild": "../../scripts/bootstrap.ts @technobuddha/datagrid"
+    "postbuild": "../../scripts/bootstrap.ts @technobuddha/datagrid",
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix"
   },
   "repository": {
     "type": "git",
