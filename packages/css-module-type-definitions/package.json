@@ -1,6 +1,6 @@
 {
   "name": "css-module-type-definitions",
-  "version": "1.0.1-8",
+  "version": "1.0.2-1",
   "description": "Generate Type Definitions for CSS Modules",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,6 @@
     "postbuild": "../../scripts/bootstrap.ts --update css-module-type-definitions",
     "compile": "tsc",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
-
     "clean": "npm-run-all *:clean",
     "pub": "npm-run-all clean build:compile pub:version pub:publish",
     "pub:version": "npm --no-tag-git-version version prerelease",

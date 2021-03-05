@@ -1,6 +1,5 @@
 #!/bin/env -S ts-node --prefer-ts-exts  -r ./config/env.ts -r tsconfig-paths/register
-import path        from 'path';
-import paths       from '#config/paths';
+//import paths       from '#config/paths';
 import { db }      from '#server/db/driver';
 import nReadLines  from 'n-readlines';
 import cliProgress from 'cli-progress';
@@ -47,9 +46,9 @@ function err(text: string | undefined) {
     await db.task(async t => {
         await t.none('TRUNCATE track_new;');
 
-        for(const file of [ 'tracks0.mldata', 'tracks1.mldata' ]) {
+        for(const file of [ './data/tracks1.mldata', '/mnt/music/tracks.mldata' ]) {
             // eslint-disable-next-line new-cap
-            const lineReader = new nReadLines(path.join(paths.data, file));
+            const lineReader = new nReadLines(file);
 
             let line: Buffer | false;
             let index = 0;
@@ -112,7 +111,7 @@ function err(text: string | undefined) {
                     try {
                         await t.none(
                             `
-                            INSERT INTO track_new 
+                            INSERT INTO track_new
                             (
                                 content_id, path, modified, artist, album, performer, composer, conductor,
                                 writer, genre, subgenre, title, subtitle, track_number, is_compilation, lyrics,
