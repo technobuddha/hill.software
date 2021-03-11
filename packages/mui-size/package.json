@@ -1,5 +1,5 @@
 {
-  "name": "mui-size",
+  "name": "@technobuddha/mui-size",
   "version": "1.1.0",
   "description": "Material-UI component to measure size of children",
   "main": "dist/index.js",
