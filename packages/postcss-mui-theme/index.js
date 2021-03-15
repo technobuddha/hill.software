@@ -35,6 +35,19 @@ module.exports = (opts = {}) => {
                                 );
                             }
                         }
+
+                        for(;;) {
+                            const idxContrast = decl.value.indexOf('contrastText(');
+
+                            if(idxContrast === -1)
+                                break;
+
+                            decl.value = reduceFunctionCall(
+                                decl.value,
+                                'contrastText',
+                                body => `${theme.palette.getContrastText(body)}`
+                            );
+                        }
                     }
                 }
             );

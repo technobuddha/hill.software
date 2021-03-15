@@ -1,4 +1,4 @@
-#!/bin/env -S ts-node --prefer-ts-exts
+#!/bin/env -S ts-node --project ./tsconfig.json --prefer-ts-exts
 import process                      from 'process';
 import chalk                        from 'chalk';
 import shell                        from 'shelljs';
@@ -53,8 +53,11 @@ for(const dstPackage of Object.values(packages)) {
                             const nodeModule     = path.join(dstPackage.location, 'node_modules', srcPackage.name);
                             const dist           = (srcPackageJson.publishConfig?.directory as string | undefined) ?? '';
 
+                            console.log('rm -rf ', nodeModule);
                             run(shell.rm('-rf', nodeModule));
+                            console.log('mkdir -p', nodeModule);
                             run(shell.mkdir('-p', nodeModule));
+                            console.log('cp -r', path.join(srcPackage.location, dist, '*'), nodeModule)
                             run(shell.cp('-r', path.join(srcPackage.location, dist, '*'), nodeModule));
                             out(`${srcPackage.name.padEnd(32)} installed in ${dstPackage.name}\n`);
 
@@ -74,6 +77,6 @@ if(options.recompile) {
             process.chdir(packages[re].location);
             shell.exec('npm run build');
         }
-    ) 
+    )
 }
 

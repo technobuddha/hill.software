@@ -1,7 +1,7 @@
 import React                from 'react';
 import LinearProgress       from '@material-ui/core/LinearProgress';
 import { useDerivedState }  from '@technobuddha/react-hooks';
-import { Size }             from 'mui-size';
+import { Size }             from '@technobuddha/mui-size';
 import { useTranslation }   from '#context/i18n';
 import { chaos }            from '#worker/chaos';
 import css                  from './Chaos.module.css';

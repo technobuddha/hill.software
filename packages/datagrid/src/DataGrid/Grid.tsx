@@ -2,7 +2,7 @@ import React             from 'react';
 import Box               from '@material-ui/core/Box';
 import { makeStyles }    from '@material-ui/core/styles';
 import clsx              from 'clsx';
-import { Size }          from 'mui-size';
+import { Size }          from '@technobuddha/mui-size';
 import { FixedSizeList } from 'react-window';
 import Row               from './Row';
 import RowHeader         from './RowHeader';

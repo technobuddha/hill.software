@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "rm -rf dist && mkdir dist",
     "build": "npm run compile",
-    "postbuild": "../../scripts/bootstrap.ts --update mui-size",
+    "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/mui-size",
     "compile": "tsc",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
     "issue": "npm-run-all build issue:version issue:publish",
@@ -53,8 +53,5 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "typescript": "^4.1.3"
-  },
-  "publishConfig": {
-    "directory": "dist"
   }
 }

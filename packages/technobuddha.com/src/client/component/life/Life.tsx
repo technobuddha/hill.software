@@ -4,7 +4,7 @@ import { useDerivedState }   from '@technobuddha/react-hooks';
 import splitLines           from '@technobuddha/library/splitLines';
 import clean                from '@technobuddha/library/clean';
 import { space }            from '@technobuddha/library/constants';
-import { Size }             from 'mui-size';
+import { Size }             from '@technobuddha/mui-size';
 
 const MOVES = [[ 1, 1 ], [ 1, 0 ], [ 1, -1 ], [ 0, -1 ], [ -1, -1 ], [ -1, 0 ], [ -1, 1 ], [ 0, 1 ]];
 const SIZE  = 4;

@@ -1,2 +1,2 @@
-# mui-size
+# @technobuddha/mui-size
 Material-UI component to measure size of children
