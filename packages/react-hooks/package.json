@@ -5,10 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "rm -rf dist/*",
     "build": "npm run compile",
     "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/react-hooks",
-    "compile": "tsc",
+    "compile": "npm-run-all compile:clean compile:compile",
+    "compile:clean": "rm -rf dist/*",
+    "compile:compile": "tsc",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "preversion": "npm run build",
@@ -29,7 +30,7 @@
   },
   "homepage": "https://github.com/technobuddha/react-hooks#readme",
   "dependencies": {
-    "@technobuddha/library": "^1.0.1-8",
+    "@technobuddha/library": "^1.1.2",
     "lodash": "^4.17.20"
   },
   "devDependencies": {
@@ -43,6 +44,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-tsdoc": "^0.2.11",
+    "npm-run-all": "^4.1.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "typescript": "^4.1.3"

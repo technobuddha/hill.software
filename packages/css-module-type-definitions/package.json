@@ -5,10 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "rm -rf dist && mkdir dist",
     "build": "npm run compile",
     "postbuild": "../../scripts/bootstrap.ts --update css-module-type-definitions",
-    "compile": "tsc",
+    "compile": "npm-run-all compile:clean compile:compile",
+    "compile:clean": "rm -rf dist && mkdir dist",
+    "compile:compile": "tsc",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
     "clean": "npm-run-all *:clean",
     "pub": "npm-run-all clean build:compile pub:version pub:publish",
