@@ -13,7 +13,7 @@ program
     .option('--update [package...]', 'Update specified package')
     .parse(process.argv);  // ts-node is the first argument, so remove it
 
-// const options = program.opts();
+const options = program.opts();
 
 function out(text: string | undefined) {
     if(text)
@@ -42,22 +42,24 @@ const packages    = Object.fromEntries((JSON.parse(shell.exec('lerna list --json
 const versions:   Record<string, string>   = {};
 const dependsOn:  Record<string, string[]> = Object.fromEntries(Object.keys(packages).map(name => [name, []]));
 
-for(const dstPackage of Object.values(packages)) {
-    const packageName    = dstPackage.name;
-    const dstPackageFile = path.join(dstPackage.location, 'package.json');
+for(const pkg of Object.values(packages)) {
+    const packageName    = pkg.name;
+    const dstPackageFile = path.join(pkg.location, 'package.json');
     if(fs.pathExistsSync(dstPackageFile)) {
         const dstPackageJson = JSON.parse(fs.readFileSync(dstPackageFile).toString()) as PackageJson;
 
-        if(dstPackage.version)
+        if(pkg.version)
             versions[packageName] = dstPackageJson.version!;
 
         for(const deps of [ dstPackageJson.dependencies, dstPackageJson.devDependencies ]) {
             if(deps) {
                 for(const dependencyName of Object.keys(deps)) {
                     if(dependencyName in packages) {
-                        if(!(packageName in dependsOn))
-                            dependsOn[packageName] = [];
-                        dependsOn[packageName].push(dependencyName);
+                        if(!options.update || options.update.includes(dependencyName)) {
+                            if(!(packageName in dependsOn))
+                                dependsOn[packageName] = [];
+                            dependsOn[packageName].push(dependencyName);
+                        }
                     }
                 }
             }
@@ -65,17 +67,21 @@ for(const dstPackage of Object.values(packages)) {
     }
 }
 
-// Compute the build order
-const buildOrder: string[] = [];
-while(!isEmpty(dependsOn)) {
-    for(const [ name, depends ] of Object.entries({ ...dependsOn })) {
-        if(depends.length === 0) {
-            buildOrder.push(name);
-            delete dependsOn[name];
+let buildOrder: string[] = [];
+if(options.update) {
+    buildOrder = Object.entries(dependsOn).filter(([ , dep ]) => dep.length > 0).map(([ key ]) => key);
+} else {
+    // Compute the build order
+    while(!isEmpty(dependsOn)) {
+        for(const [ name, depends ] of Object.entries({ ...dependsOn })) {
+            if(depends.length === 0) {
+                buildOrder.push(name);
+                delete dependsOn[name];
 
-            for(const d of Object.values(dependsOn)) {
-                if(d.includes(name)) {
-                    d.splice(d.indexOf(name), 1);
+                for(const d of Object.values(dependsOn)) {
+                    if(d.includes(name)) {
+                        d.splice(d.indexOf(name), 1);
+                    }
                 }
             }
         }
@@ -110,7 +116,7 @@ for(const name of buildOrder) {
         for(const deps of [ dstPackageJson.dependencies, dstPackageJson.devDependencies ]) {
             if(deps) {
                 for(const dependencyName of Object.keys(deps)) {
-                    if(dependencyName in packages) { // && (!options.update || options.update.includes(dependencyName))) {
+                    if(dependencyName in packages && (!options.update || options.update.includes(dependencyName))) {
                         const srcPackage     = packages[dependencyName];
                         const srcPackageFile = path.join(srcPackage.location, 'package.json');
                         if(fs.pathExistsSync(srcPackageFile)) {
@@ -131,6 +137,8 @@ for(const name of buildOrder) {
         }
     }
 
-    process.chdir(packages[name].location);
-    shell.exec('npm run compile');
+    if(!options.update) {
+        process.chdir(packages[name].location);
+        shell.exec('npm run compile');
+    }
 }
