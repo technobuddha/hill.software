@@ -50,7 +50,7 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
 
             // TODO remove debugging
             // eslint-disable-next-line no-console
-            console.log('Row Provider initialized with ', selectedCount, data.length);
+            // console.log('Row Provider initialized with ', selectedCount, data.length);
 
             return { map, selectedCount, unselectedCount: data.length - selectedCount, now: Date.now() };
         },
@@ -64,7 +64,7 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
                 return current.selected;
             // TODO remove debugging
             // eslint-disable-next-line no-console
-            console.error('Attempt to get selected state for row not in dataset', datum);
+            // console.error('Attempt to get selected state for row not in dataset', datum);
             return false;
         },
         [ state ]
@@ -89,7 +89,7 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
             } else {
                 // TODO better error recovery
                 // eslint-disable-next-line no-console
-                console.error('Attempt to set selected state for row not in dataset', datum);
+                // console.error('Attempt to set selected state for row not in dataset', datum);
             }
         },
         [ state ]
@@ -116,7 +116,7 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
                 } else {
                     // TODO remove debugging
                     // eslint-disable-next-line no-console
-                    console.error('Row is not in the WeakMap');
+                    // console.error('Row is not in the WeakMap');
                 }
             });
 

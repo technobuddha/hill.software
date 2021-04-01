@@ -7,6 +7,7 @@ import isEmpty         from 'lodash/isEmpty';
 import isNil           from 'lodash/isNil';
 import isObject        from 'lodash/isObject';
 import toString        from 'lodash/toString';
+import isDate          from 'lodash/isDate';
 
 import type { DataType } from './DataGrid';
 
@@ -85,10 +86,15 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+function isNonDateObject(value: any): value is object {
+    return isObject(value) && !isDate(value);
+}
+
 export function Anything({ children, type, className, top = true }: AnythingParams) {
     const css = useStyles();
 
-    if(isNil(children) || (isObject(children) && isEmpty(children)))
+    if(isNil(children) || (isNonDateObject(children) && isEmpty(children)))
         return <div className={clsx(className, css.null, className)}>&nbsp;</div>;
 
     if(isArray(children)) {
@@ -97,7 +103,7 @@ export function Anything({ children, type, className, top = true }: AnythingPara
                 {children.map((datum, index) => <Anything key={index} className={css.member} top={false}>{datum}</Anything>)}
             </div>
         );
-    } else if(isObject(children)) {
+    } else if(isNonDateObject(children)) {
         return (
             <div className={clsx(css.object, className, top && css.top)}>
                 {Object.entries(children).map(([ key, value ]) => (

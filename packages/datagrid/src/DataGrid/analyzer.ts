@@ -161,7 +161,7 @@ function analyze<T = unknown>({ data, columns }: { data: T[]; columns?: ColumnSp
 
     // TODO Remove debugging
     // eslint-disable-next-line no-console
-    console.log('analyser', { types, shape });
+    // console.log('analyser', { types, shape });
     return { types, shape };
 }
 

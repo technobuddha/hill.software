@@ -23,7 +23,7 @@ export function Sorter<T = unknown>({ data, columns, children }: SorterProps<T>)
 
         // TODO remove debugging
         // eslint-disable-next-line no-console
-        console.log('Sorter', sort.sortBy, sort.sortAscending);
+        // console.log('Sorter', sort.sortBy, sort.sortAscending);
 
         if(column?.sortBy && column.sortBy.length) {
             const collators = compact(column.sortBy.map(s => columns.find(col => col.name === s)?.collate)).map(collate => collate(sort.sortAscending));
@@ -42,7 +42,7 @@ export function Sorter<T = unknown>({ data, columns, children }: SorterProps<T>)
     } else {
         //TODO Better error recovery
         // eslint-disable-next-line no-console
-        console.log('NO SORT COLUMN');
+        // console.log('NO SORT COLUMN');
     }
 
     return children({ data });

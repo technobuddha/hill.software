@@ -62,7 +62,7 @@ export function Filterer<T = unknown>({ filters, children }: FiltererProps<T>) {
         () => {
             // TODO Remove debugging
             // eslint-disable-next-line no-console
-            console.log('Filtering...');
+            // console.log('Filtering...');
 
             let fData = [ ...data ];
             filters.forEach(filter => { fData = filter.execute(fData, filterValues[filter.name]); });
