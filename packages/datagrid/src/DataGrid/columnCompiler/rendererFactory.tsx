@@ -1,5 +1,5 @@
 import React                from 'react';
-import toDateUTCString      from '@technobuddha/library/toDateUTCString';
+import toDateUTCString      from '@technobuddha/library/toDateLocaleString';
 import Box                  from '@material-ui/core/Box';
 import { makeStyles }       from '@material-ui/core/styles';
 import clsx                 from 'clsx';

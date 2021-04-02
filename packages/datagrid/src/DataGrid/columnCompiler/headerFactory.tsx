@@ -27,12 +27,14 @@ const useHeaderStyles = makeStyles(theme => ({
     },
     buttonTitle: {
         flexGrow: 1,
+        color: theme.palette.getContrastText(theme.palette.primary.light),
     },
     buttonSortIndicator: {
         position: 'relative',
         top: '2px',
         width: '18px',
         height: '18px',
+        color: theme.palette.getContrastText(theme.palette.primary.light),
     },
 }));
 
@@ -52,7 +54,6 @@ export function headerFactory<T = unknown>(column: ColumnSpecification<T>, _type
                     disableElevation={true}
                     size="small"
                     variant="contained"
-                    color="primary"
                     onClick={column.sortBy === null ? undefined : (() => { changeSort(column.name.toString()); })}
                 >
                     <Box

@@ -1,13 +1,13 @@
-import React           from 'react';
-import { makeStyles }  from '@material-ui/core/styles';
-import toDateUTCString from '@technobuddha/library/toDateUTCString';
-import clsx            from 'clsx';
-import isArray         from 'lodash/isArray';
-import isEmpty         from 'lodash/isEmpty';
-import isNil           from 'lodash/isNil';
-import isObject        from 'lodash/isObject';
-import toString        from 'lodash/toString';
-import isDate          from 'lodash/isDate';
+import React                from 'react';
+import { makeStyles }       from '@material-ui/core/styles';
+import toDateLocaleString   from '@technobuddha/library/toDateLocaleString';
+import clsx                 from 'clsx';
+import isArray              from 'lodash/isArray';
+import isEmpty              from 'lodash/isEmpty';
+import isNil                from 'lodash/isNil';
+import isObject             from 'lodash/isObject';
+import toString             from 'lodash/toString';
+import isDate               from 'lodash/isDate';
 
 import type { DataType } from './DataGrid';
 
@@ -121,7 +121,7 @@ export function Anything({ children, type, className, top = true }: AnythingPara
             return <div className={clsx(className, css.primitive, css.right)}>{toString(children)}</div>;
 
         case 'date':
-            return <div className={clsx(className, css.primitive, css.left)}>{toDateUTCString(children)}</div>;
+            return <div className={clsx(className, css.primitive, css.left)}>{toDateLocaleString(children)}</div>;
 
         default:
             return <div className={clsx(className, css.primitive, css.left)}>{toString(children)}</div>;
