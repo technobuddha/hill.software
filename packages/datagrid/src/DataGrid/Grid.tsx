@@ -111,7 +111,7 @@ function Grid<T = unknown>({
     };
 
     // eslint-disable-next-line no-console
-    console.log('Grid rendering...');   // TODO Remove debug
+    // console.log('Grid rendering...');   // TODO Remove debug
 
     return (
         <>
