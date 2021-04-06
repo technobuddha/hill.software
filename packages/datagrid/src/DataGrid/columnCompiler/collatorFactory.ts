@@ -36,7 +36,8 @@ export function collatorFactory<T = unknown>(column: ColumnSpecification<T>, typ
                     };
                 }
 
-                case 'number': {
+                case 'number':
+                case 'boolean': {
                     return (ascending: boolean) => {
                         return ascending
                             ?   (x: T, y: T) => {
@@ -92,7 +93,8 @@ export function collatorFactory<T = unknown>(column: ColumnSpecification<T>, typ
                                 };
                     };
 
-                case 'number': {
+                case 'number':
+                case 'boolean': {
                     return (ascending: boolean) => {
                         return ascending
                             ?   (x: T, y: T) => {
@@ -140,7 +142,8 @@ export function collatorFactory<T = unknown>(column: ColumnSpecification<T>, typ
                     );
                 }
 
-                case 'number': {
+                case 'number':
+                case 'boolean': {
                     return (ascending: boolean) => (
                         ascending
                             ?   (x: T, y: T) => (isNil(x) ? (isNil(y) ? 0 : +1) : (isNil(y) ? -1 : toNumber(x) - toNumber(y)))

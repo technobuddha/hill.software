@@ -144,6 +144,8 @@ function analyze<T = unknown>({ data, columns }: { data: T[]; columns?: ColumnSp
 
             if(identified.size === 1 && identified.has('number'))
                 types[key] = { dataType: 'number',  nullable };
+            else if(identified.size === 1 && identified.has('boolean'))
+                types[key] = { dataType: 'boolean', nullable };
             else if(identified.size === 1 && (identified.has('date') || identified.has('iso-date')))
                 types[key] = { dataType: 'date',    nullable };
             else if(identified.size === 1 && identified.has('string'))

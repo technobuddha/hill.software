@@ -43,6 +43,7 @@ export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, typ
 
             switch(type.dataType) {
                 case 'number':
+                case 'boolean':
                     return ({ datum }: ColumnRenderProps<T>) => {
                         const css = useCellStyles();
                         const field = (datum as unknown as unknown[])[key];
@@ -85,6 +86,7 @@ export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, typ
         case 'polymorphic': {
             switch(type.dataType) {
                 case 'number':
+                case 'boolean':
                     return ({ datum }: ColumnRenderProps<T>) => {
                         const css = useCellStyles();
                         return <Box className={clsx(css.cell, css.right)}>{toString(datum)}</Box>;

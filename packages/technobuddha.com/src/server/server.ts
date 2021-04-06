@@ -88,8 +88,8 @@ import type { IncomingMessage } from 'http';
         }
     );
 
-    const HTTP_PORT             = isDevelopment ? 8080 : 80;
-    const HTTPS_PORT            = isDevelopment ? 8443 : 443;
+    const HTTP_PORT             = isDevelopment ? 8081 : 80;
+    const HTTPS_PORT            = isDevelopment ? 8444 : 443;
     const title                 = settings.title   ?? 'Untitled';
     const favicon               = settings.favicon ?? '/assets/favicon.ico';
 

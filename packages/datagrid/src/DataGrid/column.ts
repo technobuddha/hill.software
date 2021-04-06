@@ -27,7 +27,7 @@ export type ColumnHeaderProps<T = unknown> = {
 
 export type SortProperties = { sortBy: string; sortAscending: boolean };
 
-export type DataType = 'string' | 'number' | 'date' | 'object' | 'array' | 'unknown';
+export type DataType = 'string' | 'number' | 'boolean' | 'date' | 'object' | 'array' | 'unknown';
 export type ColumnType = {
     dataType:   DataType;
     nullable:   boolean;
