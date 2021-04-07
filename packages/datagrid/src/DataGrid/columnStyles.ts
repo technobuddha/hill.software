@@ -11,15 +11,14 @@ type RowClassnames = {
     menuIconHeader?:        string;
     stub?:                  string;
 };
-export type RowClasses = RowClassnames & { header: HeaderClasses; column?: Record<string, string> };
-export type RowStyles  = {[key in keyof RowClassnames]: React.CSSProperties} & { header: HeaderStyles; column?: Record<string, React.CSSProperties> };
+export type RowClasses = RowClassnames & { header?: HeaderClasses; column?: Record<string, string> };
+export type RowStyles  = {[key in keyof RowClassnames]: React.CSSProperties} & { header?: HeaderStyles; column?: Record<string, React.CSSProperties> };
 
 export type HeaderClasses = {
-    button:                 string;
-    buttonContents:         string;
-    buttonTitle:            string;
-    buttonSortIndicator:    string;
-    [key: string]:          string;
+    button?:                string;
+    buttonContents?:        string;
+    buttonTitle?:           string;
+    buttonSortIndicator?:   string;
 };
 export type HeaderStyles = {[key in keyof HeaderClasses]: React.CSSProperties};
 
@@ -42,6 +41,7 @@ const ucs = makeStyles(theme => ({
         '&:not(:first-child)': {
             borderLeft: `1px solid ${theme.palette.divider}`,
         },
+        padding: theme.spacing(0.5),
     },
     cellHeader: {
         backgroundColor: theme.palette.primary.light,
