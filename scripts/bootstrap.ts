@@ -137,7 +137,7 @@ for(const name of buildOrder) {
         }
     }
 
-    if(!options.update) {
+    if(!options.update && !(name === 'technobuddha.com' || name === 'ams')) {
         process.chdir(packages[name].location);
         shell.exec('npm run compile');
     }
