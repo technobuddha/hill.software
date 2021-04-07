@@ -1,6 +1,6 @@
 {
   "name": "@technobuddha/datagrid",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Material-UI general purpose data grid",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
