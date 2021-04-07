@@ -28,6 +28,7 @@ const useHeaderStyles = makeStyles(theme => ({
     buttonTitle: {
         flexGrow: 1,
         color: theme.palette.getContrastText(theme.palette.primary.light),
+        textAlign: 'left',
     },
     buttonSortIndicator: {
         position: 'relative',
