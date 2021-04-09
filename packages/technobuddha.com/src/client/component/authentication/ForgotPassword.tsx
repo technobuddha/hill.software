@@ -4,7 +4,7 @@ import { empty }                from '@technobuddha/library/constants';
 import Typography               from '@material-ui/core/Typography';
 import Button                   from '@material-ui/core/Button';
 import TextField                from '#control/textField';
-import Email                    from '@material-ui/icons/Email';
+import { MdEmail }              from '%icons/md/MdEmail';
 //import useAuthentication        from '#context/authentication';
 import useTranslation           from '#context/i18n';
 
@@ -38,7 +38,7 @@ export const ForgotPassword: React.FC = () => {
                 onValidation={setValidEmail}
                 label={t('Email address')}
                 value={email}
-                startAdornment={<Email />}
+                startAdornment={<MdEmail />}
                 name="username"
                 validation={emailRegExp}
                 required={true}

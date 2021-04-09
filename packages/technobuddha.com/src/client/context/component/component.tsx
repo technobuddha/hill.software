@@ -1,6 +1,6 @@
-import React            from 'react';
+import React              from 'react';
 import { useTranslation } from '#context/i18n';
-import components       from '#settings/components';
+import components         from '#settings/components';
 
 import type { Component } from '#settings/components';
 

@@ -4,7 +4,7 @@ import Box                from '@material-ui/core/Box';
 import { useTranslation } from '#context/i18n';
 import useComponents      from '#context/component';
 import Spinner            from './Spinner';
-import css                from './Home.module.css';
+import css                from './Home.css';
 
 export type HomeProps = {
     children?:  never;

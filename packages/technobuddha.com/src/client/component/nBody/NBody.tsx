@@ -2,7 +2,7 @@
 /* eslint-disable space-in-parens */
 /* eslint-disable max-len */
 import React from 'react';
-import css   from './NBody.module.css';
+import css   from './NBody.css';
 
 export const NBody: React.FC = () => {
     const div = React.useRef<HTMLDivElement>(null);

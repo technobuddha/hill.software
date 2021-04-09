@@ -2,7 +2,6 @@ import React              from 'react';
 import useTranslation     from '#context/i18n';
 import useAuthentication  from '#context/authentication';
 import useHistory         from '#context/router';
-import { makeStyles }       from '#context/mui';
 import PasswordField      from '#control/passwordField';
 import TextField          from '#control/textField';
 import Email              from '@material-ui/icons/Email';
@@ -10,23 +9,10 @@ import Box                from '@material-ui/core/Box';
 import Button             from '@material-ui/core/Button';
 import Typography         from '@material-ui/core/Typography';
 import Alert              from '@material-ui/lab/Alert';
-
-const useStyles = makeStyles(theme => ({
-    login: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    input: {
-        margin: `${theme.spacing(1)} 0`,
-    },
-    message: {
-        margin: `${theme.spacing(1)} 0`,
-    },
-}));
+import css                from './Login.css';
 
 export const Login: React.FC = () => {
-    const css                                   = useStyles();
-    const { t }                                   = useTranslation();
+    const { t }                                 = useTranslation();
     const authentication                        = useAuthentication();
     const history                               = useHistory();
     const [ username, setUsername ]               = React.useState<string>('');

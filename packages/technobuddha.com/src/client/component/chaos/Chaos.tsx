@@ -4,7 +4,7 @@ import { useDerivedState }  from '@technobuddha/react-hooks';
 import { Size }             from '@technobuddha/mui-size';
 import { useTranslation }   from '#context/i18n';
 import { chaos }            from '#worker/chaos';
-import css                  from './Chaos.module.css';
+import css                  from './Chaos.css';
 
 import type { RGBV }        from '#worker/chaos';
 

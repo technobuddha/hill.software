@@ -1,27 +1,18 @@
 import React                from 'react';
 import Box                  from '@material-ui/core/Box';
 import { Route, Switch }    from '#context/router';
-import { makeStyles }       from '#context/mui';
 import useComponents        from '#context/component';
+import css                  from './Main.css';
 
 type MainProps = {
     children?: never;
 };
 
-const useStyles = makeStyles({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        flexGrow: 1,
-    },
-});
-
-export const Content: React.FC<MainProps> = () => {
-    const css   = useStyles();
+export const Main: React.FC<MainProps> = () => {
     const components = useComponents();
 
     return (
-        <Box className={css.root}>
+        <Box className={css.main}>
             <Switch>
                 {
                     components.map((component, i) => (
@@ -36,4 +27,4 @@ export const Content: React.FC<MainProps> = () => {
     );
 };
 
-export default Content;
+export default Main;

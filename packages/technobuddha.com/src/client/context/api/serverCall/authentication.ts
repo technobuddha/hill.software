@@ -1,9 +1,8 @@
-import fetchAPI from '../fetchAPI';
-
-import type { Account } from '#schema/account';
+import type { FetchAPI } from '../APIContext';
+import type { Account }  from '#schema/account';
 
 type CPS = { score: number; warning: string; suggestions: string[] };
-export const authentication = {
+export const authentication = (fetchAPI: FetchAPI) => ({
     async readSession() {
         return fetchAPI<Account>('/api/authentication/session', { method: 'GET', validStatuses: [ 200, 401 ]});
     },
@@ -23,6 +22,6 @@ export const authentication = {
     async createAccount(first: string, last: string, email: string, password: string) {
         return fetchAPI<Account>('/api/authentication/account', { method: 'PUT' }, { first, last, email, password });
     },
-};
+});
 
 export default authentication;

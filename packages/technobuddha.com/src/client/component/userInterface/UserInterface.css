@@ -1,0 +1,17 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+    .frame {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+}

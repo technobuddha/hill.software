@@ -1,11 +1,11 @@
 import React            from 'react';
-import clsx       from 'clsx';
+import clsx             from 'clsx';
 import uuid             from 'uuid';
-import TextField        from '~src/client/control/textField/TextField';
+import TextField        from '#control/textField';
 import IconButton       from '@material-ui/core/IconButton';
-import Search           from '@material-ui/icons/Search';
-import Cancel           from '@material-ui/icons/Cancel';
-import css              from './SearchInput.module.css';
+import { MdSearch }     from '%icons/md/MdSearch';
+import { MdCancel }     from '%icons/md/MdCancel';
+import css              from './SearchInput.css';
 
 type SearchInputProps =
     {
@@ -30,10 +30,10 @@ export const SearchInput: React.FC<SearchInputProps> = (props: SearchInputProps)
             label={props.label}
             value={search}
             helperText={props.helperText}
-            startAdornment={<Search />}
+            startAdornment={<MdSearch />}
             endAdornment={(
                 <IconButton onClick={handleCancel} tabIndex={-1}>
-                    <Cancel />
+                    <MdCancel />
                 </IconButton>
             )}
         />

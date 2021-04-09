@@ -1,2 +1,2 @@
-export { default, makeStyles, useTheme, ThemeProvider } from './mui';
+export { default, makeStyles, useTheme, ThemeProvider, theme } from './mui';
 export type { Theme } from './mui';

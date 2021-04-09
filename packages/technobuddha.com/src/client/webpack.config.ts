@@ -12,7 +12,7 @@ import postcss_config        from '#config/postcss.config';
 import type { Logger }       from 'css-module-type-definitions';
 //import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-const extensions    = [ '.ts', '.tsx', '.js', '.json', '.css', '.pcss' ];
+const extensions    = [ '.ts', '.tsx', '.js', '.json', '.css' ];
 
 export function genClientWebpackConfig(isDevelopment = true, logger?: Logger): webpack.Configuration {
     return {
@@ -45,7 +45,8 @@ export function genClientWebpackConfig(isDevelopment = true, logger?: Logger): w
                     exclude:    /node-modules/u,
                 },
                 {
-                    test:       /\.p?css$/u,
+                    test:       /\.css$/u,
+                    exclude:    /node_modules/u,
                     use: [
                         'css-hot-loader',
                         MiniCssExtractPlugin.loader,
@@ -72,6 +73,16 @@ export function genClientWebpackConfig(isDevelopment = true, logger?: Logger): w
                             options: {
                                 postcssOptions: postcss_config,
                             },
+                        },
+                    ],
+                },
+                {
+                    test:       /\.css$/u,
+                    include:    /node_modules/u,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'css-loader',
                         },
                     ],
                 },

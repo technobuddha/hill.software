@@ -4,9 +4,5 @@
         "lib": ["Webworker","ES2020"],
         "target": "ESNext",
         "module": "ESNext",
-        "typeRoots": [                            /* List of folders to include type definitions from. */
-            "./src/@types",
-            "./node_modules/@types"
-          ]
     }
 }

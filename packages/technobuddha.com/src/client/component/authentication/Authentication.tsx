@@ -4,34 +4,15 @@ import ForgotPassword    from './ForgotPassword';
 import SignUp            from './SignUp';
 import settings          from '#settings/authentication';
 import useTranslation    from '#context/i18n';
-import { makeStyles }      from '#context/mui';
 import { Switch, Route } from '#context/router';
 import Link              from '#control/link';
 import Watermark         from '#control/watermark';
 import Box               from '@material-ui/core/Box';
 import Paper             from '@material-ui/core/Paper';
 import Typography        from '@material-ui/core/Typography';
-
-const useStyles = makeStyles(theme => ({
-    main: {
-
-    },
-    outer: {
-        margin: `${theme.spacing(12)}px auto 0 auto`,
-        maxWidth: '480px',
-    },
-    inner: {
-        display: 'flex',
-        flexDirection: 'column',
-        padding: theme.spacing(4),
-    },
-    jump: {
-        marginTop: theme.spacing(2),
-    },
-}));
+import css               from './Authentication.css';
 
 export const Authentication: React.FC = () => {
-    const css   = useStyles();
     const { t } = useTranslation();
 
     return (

@@ -1,6 +1,7 @@
 import { ticksPerWeek, ticksPerHour } from '@technobuddha/library/constants';
 
 type Settings = {
+    login: boolean;
     forgotPassword: boolean;
     signUp: boolean;
     session: {
@@ -13,21 +14,24 @@ type Settings = {
         maxLength?: number | null;
         strength?:  number | null;
     };
+    tos: string | false;
     concurrentSessions: boolean;
 };
 
 export default {
-    forgotPassword:   false,
-    signUp:           true,
+    login:              false,
+    forgotPassword:     false,
+    signUp:             false,
     session: {
-        duration:     ticksPerWeek,
-        cookieAge:    ticksPerWeek,
-        keepAlive:    ticksPerHour * 0.5,
+        duration:       ticksPerWeek,
+        cookieAge:      ticksPerWeek,
+        keepAlive:      ticksPerHour * 0.5,
     },
     password: {
-        minLength: null,
-        maxLength:   72,
-        strength:     3,
+        minLength:      null,
+        maxLength:        72,
+        strength:          3,
     },
+    tos:                false,
     concurrentSessions: false,
 } as Settings;

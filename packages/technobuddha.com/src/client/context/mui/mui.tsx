@@ -37,4 +37,5 @@ export function makeStyles<Props extends object = {}, ClassKey extends string = 
 }
 
 export type { Theme } from '#settings/mui-theme';
+export { theme } from '#settings/mui-theme';
 export default makeStyles;

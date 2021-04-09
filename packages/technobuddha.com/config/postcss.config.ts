@@ -1,12 +1,13 @@
-import parser        from 'postcss-comment';
-import mapKeys       from 'lodash/mapKeys';
-import kebabCase     from 'lodash/kebabCase';
-import variables     from '#settings/css-variables';
-import theme         from '#settings/mui-theme';
+import parser       from 'postcss-comment';
+import mapKeys      from 'lodash/mapKeys';
+import kebabCase    from 'lodash/kebabCase';
+import variables    from '#settings/css-variables';
+import theme        from '#settings/mui-theme';
 
 export default {
     parser:     parser,
     plugins: {
+        'postcss-import':                   {},
         'postcss-preset-env': {
             stage: 4,
             features: {

@@ -21,31 +21,50 @@ export function useAuthentication() {
 
 const KEY       = 'authenticationProvider';
 
+const GENERIC_USER: Account = {
+    id:                 -1,
+    email:              'generic@example.com',
+    first:              'Generic',
+    last:               'User',
+    admin:              false,
+    disabled:           false,
+    confirmed:          null,
+    failed_logins:      0,
+    locked:             null,
+    created:            new Date(),
+    updated:            null,
+    policy_accepted:    null,
+};
+
 type AuthenticationProviderProps = {
     children?: React.ReactNode;
 };
 
 export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({ children }) => {
-    const [ error,   setError ]       = React.useState<boolean>(false);
-    const [ account, setAccount ]     = React.useState<Account | null>(null);
-    const [ loading, setLoading ]     = React.useState<boolean>(true);
+    const [ error,   setError ]     = React.useState<boolean>(false);
+    const [ account, setAccount ]   = React.useState<Account | null>(null);
+    const [ loading, setLoading ]   = React.useState<boolean>(true);
     const { authentication }        = useAPI();
 
     const checkLogin = async () => {
-        return authentication.readSession().then(
-            api => {
-                if(api.status === 200) {
-                    if(!shallowEquals(api.payload, account))
-                        setAccount(api.payload);
-                } else if(api.status === 401) {
-                    setAccount(null);
+        if(settings.login) {
+            return authentication.readSession().then(
+                api => {
+                    if(api.status === 200) {
+                        if(!shallowEquals(api.payload, account))
+                            setAccount(api.payload);
+                    } else if(api.status === 401) {
+                        setAccount(null);
+                    }
                 }
-                //setError(false);
-            }
-        ).catch(() => {
-            setAccount(null);
-            setError(true);
-        });
+            ).catch(() => {
+                setAccount(null);
+                setError(true);
+            });
+        }
+
+        setAccount(GENERIC_USER);
+        return Promise.resolve(GENERIC_USER);
     };
 
     const initialCheck = async () => {
@@ -62,19 +81,23 @@ export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({ 
     };
 
     const periodicCheck = async () => {
-        const checker = () => {
+        if(settings.login) {
+            const checker = () => {
+                killTimeout();
+
+                void checkLogin()
+                .then(() => sessionStorage.setItem(KEY, setTimeout(checker, settings.session.keepAlive).toString()));
+            };
+
             killTimeout();
+            sessionStorage.setItem(KEY, setTimeout(checker, settings.session.keepAlive).toString());
 
-            void checkLogin()
-            .then(() => sessionStorage.setItem(KEY, setTimeout(checker, settings.session.keepAlive).toString()));
-        };
+            return () => {
+                killTimeout();
+            };
+        }
 
-        killTimeout();
-        sessionStorage.setItem(KEY, setTimeout(checker, settings.session.keepAlive).toString());
-
-        return () => {
-            killTimeout();
-        };
+        return Promise.resolve();
     };
 
     const login = async (username: string, password: string): Promise<boolean> => {

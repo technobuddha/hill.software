@@ -161,7 +161,7 @@ module.exports = {
         'prefer-named-capture-group':                                   'off',
         'prefer-promise-reject-errors':                                 'error',
         'prefer-regex-literals':                                        'error',
-        'radix':                                                        'error',
+        'radix':                                                        'off',
         'require-await':                                                TYPESCRIPT,
         'require-unicode-regexp':                                       'warn',
         'vars-on-top':                                                  'off',

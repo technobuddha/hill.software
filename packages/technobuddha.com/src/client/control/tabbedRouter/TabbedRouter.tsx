@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Switch, Route, Redirect, useRouteMatch, useHistory } from '#context/router';
-import css from './TabbedRouter.module.css';
+import css from './TabbedRouter.css';
 
 type TabPanelProps = {
     content: React.ComponentType;

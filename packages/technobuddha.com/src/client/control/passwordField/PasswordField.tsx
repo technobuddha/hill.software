@@ -1,9 +1,9 @@
-import React                        from 'react';
-import TextField                    from '~src/client/control/textField/TextField';
-import IconButton                   from '@material-ui/core/IconButton';
-import Lock                         from '@material-ui/icons/Lock';
-import Visibility                   from '@material-ui/icons/Visibility';
-import VisibilityOff                from '@material-ui/icons/VisibilityOff';
+import React                from 'react';
+import TextField            from '#control/textField';
+import IconButton           from '@material-ui/core/IconButton';
+import { MdLock }           from '%icons/md/MdLock';
+import { MdVisibility }     from '%icons/md/MdVisibility';
+import { MdVisibilityOff }  from '%icons/md/MdVisibilityOff';
 
 type PasswordFieldProps = {
     className?:     string;
@@ -38,12 +38,12 @@ export const PasswordField: React.FC<PasswordFieldProps> = (props: PasswordField
             value={password}
             helperText={props.helperText}
             error={props.error}
-            startAdornment={<Lock />}
+            startAdornment={<MdLock />}
             required={props.required}
             validation={props.validation}
             endAdornment={
                 <IconButton onClick={handleVisibility} tabIndex={-1}>
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
                 </IconButton>
             }
         />

@@ -1,6 +1,6 @@
 import express          from 'express';
-import authentication   from './authentication';
-import music            from './music';
+import authentication   from './router/authentication';
+import music            from './router/music';
 
 export const api = express.Router();
 

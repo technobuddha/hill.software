@@ -15,13 +15,13 @@ import PasswordValidation           from '#control/passwordValidation';
 import Checkbox                     from '#control/checkbox';
 import Link                         from '#control/link';
 import Typography                   from '@material-ui/core/Typography';
-import Person                       from '@material-ui/icons/Person';
-import Email                        from '@material-ui/icons/Email';
+import { MdPerson }                 from '%icons/md/MdPerson';
+import { MdEmail }                  from '%icons/md/MdEmail';
 
 export const SignUp: React.FC = () => {
     const { t }                                                           = useTranslation();
-    const authentication                                                = useAuthentication();
-    const history                                                       = useHistory();
+    const authentication                                                  = useAuthentication();
+    const history                                                         = useHistory();
     const [ first,                       setFirst ]                       = React.useState<string>(empty);
     const [ last,                        setLast ]                        = React.useState<string>(empty);
     const [ email,                       setEmail ]                       = React.useState<string>(empty);
@@ -51,7 +51,7 @@ export const SignUp: React.FC = () => {
         validPassword &&
         validPasswordConfirmation &&
         passwordValidation &&
-        tosAccepted
+        (tosAccepted || settings.tos === false)
     );
 
     const handleExecute                     = (event: React.MouseEvent<HTMLButtonElement>) => { event.preventDefault(); handleSignup(); };
@@ -82,7 +82,7 @@ export const SignUp: React.FC = () => {
                 autoFocus={true}
                 label={t('First Name')}
                 value={first}
-                startAdornment={<Person />}
+                startAdornment={<MdPerson />}
                 name="first"
                 required={true}
             />
@@ -92,7 +92,7 @@ export const SignUp: React.FC = () => {
                 onValidation={setValidLast}
                 label={t('Last Name')}
                 value={last}
-                startAdornment={<Person />}
+                startAdornment={<MdPerson />}
                 name="last"
                 required={true}
             />
@@ -102,7 +102,7 @@ export const SignUp: React.FC = () => {
                 onValidation={setValidEmail}
                 label={t('Email address')}
                 value={email}
-                startAdornment={<Email />}
+                startAdornment={<MdEmail />}
                 name="username"
                 validation={emailRegExp}
                 required={true}
@@ -136,15 +136,18 @@ export const SignUp: React.FC = () => {
                 strength={settings.password.strength}
             />
 
-            <Checkbox
-                label={
-                    <Typography variant="caption">
-                        {t('I\'ve read and accepted the')} <Link to="/tos">{t('Terms of Service')}</Link>
-                    </Typography>
-                }
-                checked={tosAccepted}
-                onChange={handleTosAcceptedChange}
-            />
+            {
+                settings.tos &&
+                <Checkbox
+                    label={
+                        <Typography variant="caption">
+                            {t('I\'ve read and accepted the')} <Link to={settings.tos}>{t('Terms of Service')}</Link>
+                        </Typography>
+                    }
+                    checked={tosAccepted}
+                    onChange={handleTosAcceptedChange}
+                />
+            }
 
             <Box marginTop={1}>
                 <Button

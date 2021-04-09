@@ -1,7 +1,7 @@
 import React            from 'react';
 import Fade             from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import css              from './DelayedLoading.module.css';
+import css              from './DelayedLoading.css';
 
 export const DelayedLoading: React.FC = () => {
     return (

@@ -1,54 +1,39 @@
 import React                        from 'react';
-import { makeStyles }               from '#context/mui';
-import { Route, Switch/*, ErrorRoute */, Redirect }  from '#context/router';
+import uiSettings                   from '#settings/user-interface';
+import authSettings                 from '#settings/authentication';
+import { Route, Switch, Redirect }  from '#context/router';
+import useAuthentication            from '#context/authentication';
 import Box                          from '@material-ui/core/Box';
 import Nav                          from './Nav';
 import Header                       from './Header';
 import Main                         from './Main';
 import Footer                       from './Footer';
 import CssBaseLine                  from '@material-ui/core/CssBaseline';
-import Authentication               from '~src/client/component/authentication';
-
-const useStyles = makeStyles({
-    root: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'nowrap',
-        height: '100%',
-        width: '100%',
-        overflow: 'hidden',
-    },
-    frame: {
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'nowrap',
-        height: '100%',
-        width: '100%',
-        overflow: 'hidden',
-    },
-});
+import Authentication               from '#component/authentication';
+import css                          from './UserInterface.css';
 
 export const UserInterface: React.FC = () => {
-    const css = useStyles();
+    const authentication = useAuthentication();
 
     return (
         <>
             <CssBaseLine />
             <Box className={css.root}>
                 <Switch>
-                    <Route exact={true} path="/">
-                        <Redirect to="/home" />
-                    </Route>
-                    {/* <ErrorRoute component={SiteUnavailable} /> */}
                     <Route exact={true} path={[ '/login', '/sign-up', '/forgot-password' ]} component={Authentication} />
-                    <Route>
-                        <Nav />
-                        <Box className={css.frame}>
-                            <Header />
-                            <Main />
-                            <Footer />
-                        </Box>
-                    </Route>
+                    <Route exact={true} path="/"><Redirect to={uiSettings.homePage} /></Route>
+                    {
+                        (!authSettings.login || authentication.account) &&
+                        <Route>
+                            <Nav />
+                            <Box className={css.frame}>
+                                <Header />
+                                <Main />
+                                <Footer />
+                            </Box>
+                        </Route>
+                    }
+                    <Redirect to="/login" />
                 </Switch>
             </Box>
         </>

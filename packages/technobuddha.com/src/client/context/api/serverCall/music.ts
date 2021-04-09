@@ -1,8 +1,7 @@
-import fetchAPI from '../fetchAPI';
-
+import type { FetchAPI } from '../APIContext';
 import type { GetTracks, GetNewAlbums, GetArtists, GetGenres } from '#server/api';
 
-export const music = {
+export const music = (fetchAPI: FetchAPI) => ({
     async tracks() {
         return fetchAPI<GetTracks[]>('/api/music/tracks', { method: 'GET', validStatuses: [ 200 ]});
     },
@@ -18,6 +17,6 @@ export const music = {
     async genres() {
         return fetchAPI<GetGenres[]>('/api/music/genre', { method: 'GET', validStatuses: [ 200 ]});
     },
-};
+});
 
 export default music;

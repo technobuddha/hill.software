@@ -13,34 +13,11 @@ export const Router: React.FC = ({ children }: { children?: React.ReactNode }) =
     );
 };
 
-// export const AuthenticatedRoute: React.FC<RouteProps> = (props: RouteProps) => {
-//     // const { account }   = useAuthentication();
-//     const history       = useHistory();
-
-//     return (
-//         // account
-//         // ?   <Route {...props} />
-//         /*:*/   <Route>
-//                 <Redirect to={{
-//                     pathname: "/login",
-//                     state: { referrer: history.location }
-//                 }}/>
-//             </Route>
-//     )
-// }
-
-// type ErrorProps = Omit<RouteProps, 'path' | 'exact' | 'strict' | 'location' | 'sensitive'>;
-// export const ErrorRoute: React.FC<ErrorProps> = (props: ErrorProps) => {
-//     //const { error } = useAuthentication();
-
-//     return /*error ? <Route {...props} /> :*/ null;
-// }
-
 export const useHistory = () => {
     return routerUseHistory<HistoryState>();
 };
 
 export type { Location } from 'history';
-export { Route, Switch, Redirect, useLocation, useParams, useRouteMatch }     from 'react-router-dom';
+export { Route, Switch, Redirect, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 
 export default useHistory;
