@@ -106,7 +106,7 @@ export class CMTD {
                         if(declarations.length) {
                             fileContent = fileContent.concat([
                                 `export type Keys = ${declarations.join(' | ')};`,
-                                'export type Css = { [key in Keys]: string };',
+                                'export type Css = {[key in Keys]: string };',
                             ]);
                         } else {
                             fileContent = fileContent.concat([
