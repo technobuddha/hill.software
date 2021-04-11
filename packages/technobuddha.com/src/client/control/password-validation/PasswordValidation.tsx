@@ -1,20 +1,34 @@
-import React            from 'react';
-import zxcvbn           from 'zxcvbn';
-import escapeRegExp     from 'lodash/escapeRegExp';
-import { empty, nbsp }  from '@technobuddha/library/constants';
-import useTranslation   from '#context/i18n';
-import Box              from '@material-ui/core/Box';
-import Typography       from '@material-ui/core/Typography';
-import PasswordField    from '#control/passwordField';
-import { FaThumbsDown } from '%icons/fa/FaThumbsDown';
-import { FaThumbsUp }   from '%icons/fa/FaThumbsUp';
-import { useTheme }     from '#context/mui';
+import React                from 'react';
+import escapeRegExp         from 'lodash/escapeRegExp';
+import zip                  from 'lodash/zip';
+import { empty, nbsp }      from '@technobuddha/library/constants';
+import { useAPI }           from '#context/api';
+import useTranslation       from '#context/i18n';
+import Box                  from '@material-ui/core/Box';
+import Typography           from '@material-ui/core/Typography';
+import PasswordField        from '#control/passwordField';
+import { FaThumbsDown }     from '%icons/fa/FaThumbsDown';
+import { FaThumbsUp }       from '%icons/fa/FaThumbsUp';
+import { useTheme }         from '#context/mui';
 
-import css              from './password-validation.css';
+import css                  from './password-validation.css';
+
+type ValidationRule = {
+    text:   string;
+    test:   (args: ValidationArgs) => boolean;
+};
+
+type ValidationArgs = {
+    score:      number;
+    password:   string;
+    lCount:     number;
+    uCount:     number;
+    dCount:     number;
+    sCount:     number;
+    cCount:     number;
+};
 
 type PasswordValidationProps = {
-    barColors?:         [string, string, string, string, string];
-    scoreWords?:        [string, string, string, string, string];
     minLength?:         number;
     maxLength?:         number;
     strength?:          1 | 2 | 3 | 4;
@@ -29,8 +43,6 @@ type PasswordValidationProps = {
 };
 
 export const PasswordValidation: React.FC<PasswordValidationProps> = ({
-    barColors,
-    scoreWords,
     minLength,
     maxLength,
     strength,
@@ -43,126 +55,146 @@ export const PasswordValidation: React.FC<PasswordValidationProps> = ({
     userInputs,
     onChange,
 }) => {
-    const { t }                                                           = useTranslation();
-    const theme                                                           = useTheme();
-    const [ password,                    setPassword ]                    = React.useState<string>(empty);
-    const [ passwordConfirmation,        setPasswordConfirmation ]        = React.useState<string>(empty);
-    const [ validPassword,               setValidPassword ]               = React.useState<boolean>(false);
-    const [ validPasswordConfirmation,   setValidPasswordConfirmation ]   = React.useState<boolean>(false);
+    const { t }                                                        = useTranslation();
+    const { authentication }                                           = useAPI();
+    const theme                                                        = useTheme();
+    const [ myPassword,                 setMyPassword ]                = React.useState(empty);
+    const [ passwordConfirmation,       setPasswordConfirmation ]      = React.useState(empty);
+    const [ validPasswordConfirmation,  setValidPasswordConfirmation ] = React.useState(false);
+    const [ passwordScore,              setPasswordScore ]             = React.useState(0);
+    const [ passwordWarning,            setPasswordWarning ]           = React.useState(empty);
+    const [ pass,                       setPass ]                      = React.useState<boolean[]>([]);
 
-    const handlePasswordChange              = (text: string)        => { setPassword(text);             };
-    const handlePasswordConfirmationChange  = (text: string)        => { setPasswordConfirmation(text); };
-
-    if(!barColors) {
-        barColors  = [
+    const barColors         = React.useMemo(
+        () => [
             theme.palette.grey[200],
             theme.palette.error.main,
             theme.palette.warning.main,
             theme.palette.info.main,
             theme.palette.success.main,
-        ];
-    }
-
-    if(!scoreWords) {
-        scoreWords = [
+        ],
+        [ theme ]
+    );
+    const scoreWords        = React.useMemo(
+        () => [
             t('very weak'),
             t('weak'),
             t('average'),
             t('strong'),
             t('very strong'),
-        ];
-    }
+        ],
+        [ t ]
+    );
+    const validationRules   = React.useMemo(
+        () => {
+            const rules: ValidationRule[] = [];
 
-    const uCount = password.match(/\p{Lu}/gu)?.length ?? 0;
-    const lCount = password.match(/\p{Ll}/gu)?.length ?? 0;
-    const dCount = password.match(/\p{N}/gu)?.length ?? 0;
-    const sCount = password.match(/[\p{P}\p{S}]/gu)?.length ?? 0;
-    const cCount = (uCount > 0 ? 1 : 0) + (lCount > 0 ? 1 : 0) + (dCount > 0 ? 1 : 0) + (sCount > 0 ? 1 : 0);
-    const { score, feedback: { warning }} = zxcvbn(password, userInputs);  // TODO "suggestions"
+            if(strength !== undefined) {
+                rules.push({
+                    text: strength < 4
+                        ?   `${t('Password strength must be')} ${scoreWords[strength]} ${t('or better')}`
+                        :   `${t('Password strength must be')} ${scoreWords[strength]}')}`,
+                    test: ({ score }) => score >= strength,
+                });
+            }
 
-    const rules: { text: string; pass: boolean }[] = [];
+            if(minLength !== undefined) {
+                if(maxLength !== undefined) {
+                    rules.push({
+                        text: `${t('Password must be between')} ${minLength} ${t('and')} ${maxLength} ${t('character', { count: maxLength })} ${t('long')}.`,
+                        test: ({ password }) => password.length >= minLength && password.length <= maxLength,
+                    });
+                } else {
+                    rules.push({
+                        text: `${t('Password must be at least')} ${minLength} ${t('character', { count: minLength })} ${t('long')}.`,
+                        test: ({ password }) => password.length >= minLength,
+                    });
+                }
+            } else if(maxLength !== undefined) {
+                rules.push({
+                    text: `${t('Password must be shorter than')} ${maxLength} ${t('character', { count: maxLength })} ${t('long')}.`,
+                    test: ({ password }) => password.length <= maxLength,
+                });
+            }
 
-    if(strength !== undefined) {
-        rules.push({
-            text: strength < 4
-                ?   `${t('Password strength must be')} ${scoreWords[strength]} ${t('or better')}`
-                :   `${t('Password strength must be')} ${scoreWords[strength]}')}`,
-            pass: score >= strength,
-        });
-    }
+            if(uppercase !== undefined) {
+                rules.push({
+                    text: `${t('Password must contain at least')} ${uppercase} ${t('upper-case')} ${t('character', { count: uppercase })}`,
+                    test: ({ uCount }) => uCount >= uppercase,
+                });
+            }
 
-    if(minLength !== undefined) {
-        if(maxLength !== undefined) {
-            rules.push({
-                text: `${t('Password must be between')} ${minLength} ${t('and')} ${maxLength} ${t('character', { count: maxLength })} ${t('long')}.`,
-                pass: password.length >= minLength && password.length <= maxLength,
-            });
-        } else {
-            rules.push({
-                text: `${t('Password must be at least')} ${minLength} ${t('character', { count: minLength })} ${t('long')}.`,
-                pass: password.length >= minLength,
-            });
-        }
-    } else if(maxLength !== undefined) {
-        rules.push({
-            text: `${t('Password must be shorter than')} ${maxLength} ${t('character', { count: maxLength })} ${t('long')}.`,
-            pass: password.length <= maxLength,
-        });
-    }
+            if(lowercase !== undefined) {
+                rules.push({
+                    text: `${t('Password must contain at least')} ${lowercase} ${t('lower-case')} ${t('character', { count: lowercase })}`,
+                    test: ({ lCount }) => lCount >= lowercase,
+                });
+            }
 
-    if(uppercase !== undefined) {
-        rules.push({
-            text: `${t('Password must contain at least')} ${uppercase} ${t('upper-case')} ${t('character', { count: uppercase })}`,
-            pass: uCount >= uppercase,
-        });
-    }
+            if(digit !== undefined) {
+                rules.push({
+                    text: `${t('Password must contain at least')} ${digit} ${t('digit (0-9)')} ${t('character', { count: digit })}`,
+                    test: ({ dCount }) => dCount >= digit,
+                });
+            }
 
-    if(lowercase !== undefined) {
-        rules.push({
-            text: `${t('Password must contain at least')} ${lowercase} ${t('lower-case')} ${t('character', { count: lowercase })}`,
-            pass: lCount >= lowercase,
-        });
-    }
+            if(special !== undefined) {
+                rules.push({
+                    text: `${t('Password must contain at least')} ${special} ${t('special (!@#$%^& etc.)')} ${t('character', { count: special })}`,
+                    test: ({ sCount }) => sCount >= special,
+                });
+            }
 
-    if(digit !== undefined) {
-        rules.push({
-            text: `${t('Password must contain at least')} ${digit} ${t('digit (0-9)')} ${t('character', { count: digit })}`,
-            pass: dCount >= digit,
-        });
-    }
+            if(categories !== undefined) {
+                rules.push({
+                    text: `${t('Password must contain characters from at least')} ${categories} ${t('category', { count: categories })} ${t('(upper-case, lower-case, digit, special)')}`,
+                    test: ({ cCount }) => cCount >= categories,
+                });
+            }
 
-    if(special !== undefined) {
-        rules.push({
-            text: `${t('Password must contain at least')} ${special} ${t('special (!@#$%^& etc.)')} ${t('character', { count: special })}`,
-            pass: sCount >= special,
-        });
-    }
+            return rules;
+        },
+        [ strength, minLength, maxLength, uppercase, lowercase, digit, special, categories ]
+    );
 
-    if(categories !== undefined) {
-        rules.push({
-            text: `${t('Password must contain characters from at least')} ${categories} ${t('category', { count: categories })} ${t('(upper-case, lower-case, digit, special)')}`,
-            pass: cCount >= categories,
-        });
-    }
+    const handlePasswordChange              = (text: string)        => { setMyPassword(text);             };
+    const handlePasswordConfirmationChange  = (text: string)        => { setPasswordConfirmation(text); };
 
     React.useEffect(
         () => {
-            onChange?.(
-                password,
-                validPassword && validPasswordConfirmation && rules.every(rule => rule.pass)
-            );
+            authentication.checkPasswordStrength(myPassword, userInputs)
+            .then(
+                ({ payload: { score, warning }}) => {
+                    const uCount = myPassword.match(/\p{Lu}/gu)?.length ?? 0;
+                    const lCount = myPassword.match(/\p{Ll}/gu)?.length ?? 0;
+                    const dCount = myPassword.match(/\p{N}/gu)?.length ?? 0;
+                    const sCount = myPassword.match(/[\p{P}\p{S}]/gu)?.length ?? 0;
+                    const cCount = (uCount > 0 ? 1 : 0) + (lCount > 0 ? 1 : 0) + (dCount > 0 ? 1 : 0) + (sCount > 0 ? 1 : 0);
+
+                    const test = validationRules.map(rule => rule.test({ score, password: myPassword, uCount, lCount, dCount, sCount, cCount }));
+
+                    setPass(test);
+                    setPasswordScore(score);
+                    setPasswordWarning(warning);
+
+                    onChange?.(
+                        myPassword,
+                        validPasswordConfirmation && test.every(x => x),
+                    );
+                },
+            )
+            .catch((err: any) => { setPass([]); setPasswordScore(0); setPasswordWarning(err.toString()); });
         },
-        [ rules, password, onChange ]
+        [ myPassword, validPasswordConfirmation, userInputs, onChange ]
     );
 
     return (
         <Box className={css.passwordValidation}>
             <PasswordField
                 onChange={handlePasswordChange}
-                onValidation={setValidPassword}
                 label={t('Password')}
                 helperText={`${t('Password is case-sensitive')}.`}
-                value={password}
+                value={myPassword}
                 required={true}
             />
             <PasswordField
@@ -172,7 +204,7 @@ export const PasswordValidation: React.FC<PasswordValidationProps> = ({
                 value={passwordConfirmation}
                 helperText={validPasswordConfirmation ? nbsp : t('Passwords must match')}
                 required={true}
-                validation={new RegExp(`^${escapeRegExp(password)}$`, 'u')}
+                validation={new RegExp(`^${escapeRegExp(myPassword)}$`, 'u')}
             />
             <Box className={css.validation}>
                 {
@@ -186,21 +218,21 @@ export const PasswordValidation: React.FC<PasswordValidationProps> = ({
                             </Box>
                             <Box>
                                 <Typography variant="caption">
-                                    {scoreWords![score]}
+                                    {scoreWords[passwordScore]}
                                 </Typography>
                             </Box>
                         </Box>
                         <Box className={css.meter}>
-                            <Box className={css.bar} bgcolor={(score >= 1) ? barColors![score] : barColors![0]} />
-                            <Box className={css.bar} bgcolor={(score >= 2) ? barColors![score] : barColors![0]} />
-                            <Box className={css.bar} bgcolor={(score >= 3) ? barColors![score] : barColors![0]} />
-                            <Box className={css.bar} bgcolor={(score >= 4) ? barColors![score] : barColors![0]} />
+                            <Box className={css.bar} bgcolor={(passwordScore >= 1) ? barColors[passwordScore] : barColors[0]} />
+                            <Box className={css.bar} bgcolor={(passwordScore >= 2) ? barColors[passwordScore] : barColors[0]} />
+                            <Box className={css.bar} bgcolor={(passwordScore >= 3) ? barColors[passwordScore] : barColors[0]} />
+                            <Box className={css.bar} bgcolor={(passwordScore >= 4) ? barColors[passwordScore] : barColors[0]} />
                         </Box>
                         <Box height={40}>
                             {
-                                warning &&
+                                passwordWarning &&
                                 <Typography color="error" variant="caption" component="div">
-                                    {warning}
+                                    {passwordWarning}
                                 </Typography>
                             }
                         </Box>
@@ -208,11 +240,11 @@ export const PasswordValidation: React.FC<PasswordValidationProps> = ({
                 }
                 <Box className={css.rules}>
                     {
-                        rules
-                        .filter(rule => !rule.pass && !showInvalidOnly)
-                        .map((rule, i) => (
+                        (zip(validationRules, pass) as [ ValidationRule, boolean ][])
+                        .filter(([ , ok ]) => !showInvalidOnly && ok === false)
+                        .map(([ rule, ok ], i) => (
                             <React.Fragment key={i}>
-                                {rule.pass ? <FaThumbsUp className={css.good} /> : <FaThumbsDown className={css.bad} />}
+                                {ok ? <FaThumbsUp className={css.good} /> : <FaThumbsDown className={css.bad} />}
                                 <Typography variant="caption">{rule.text}</Typography>
                             </React.Fragment>
                         ))

@@ -26,7 +26,7 @@ type Settings = {
 
 export default {
     login:                  true,
-    forgotPassword:         true,
+    forgotPassword:         false,
     signUp:                 true,
     session: {
         duration:           ticksPerWeek,
