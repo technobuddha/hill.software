@@ -5,7 +5,7 @@
     .colors {
         display: grid;
         grid-template-columns: repeat(30, mui-spacing(6));
-        grid-template-rows: repeat(10, mui-spacing(4));
+        grid-template-rows: repeat(10, mui-spacing(6));
         grid-template-areas:
             "cb cb cb cb cb cb cb cb cb cb cb cb cb cb cb cw cw cw cw cw cw cw cw cw cw cw cw cw cw cw"
             "pl pl pl pl pl pl pl pl pl pl pm pm pm pm pm pm pm pm pm pm pd pd pd pd pd pd pd pd pd pd"
@@ -20,7 +20,6 @@
             "dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv dv"
             "aa aa aa aa aa ah ah ah ah ah as as as as as ad ad ad ad ad ab ab ab ab ab af af af af af"
             ;
-        font-size: 125%;
         margin: mui-spacing(5);
 
         * {

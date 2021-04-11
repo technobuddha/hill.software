@@ -18,7 +18,7 @@ export const UserInterface: React.FC = () => {
     return (
         <>
             <CssBaseLine />
-            <Box className={css.root}>
+            <Box className={css.userInterface}>
                 <Switch>
                     <Route exact={true} path={[ '/login', '/sign-up', '/forgot-password' ]} component={Authentication} />
                     <Route exact={true} path="/"><Redirect to={uiSettings.homePage} /></Route>

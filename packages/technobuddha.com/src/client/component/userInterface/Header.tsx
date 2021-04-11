@@ -20,30 +20,28 @@ export const Header: React.FC<HeaderProps> = () => {
     const handleUserClick = () => history.push('/login');
 
     return (
-        <AppBar position="static" elevation={1} component="header">
-            <Box className={css.header}>
-                <Box className={css.display}>
-                    <Typography variant="h5" className={css.site}>
-                        {t('Technobuddha')}
-                    </Typography>
-                </Box>
-                {
-                    settings.login &&
-                    <Box className={css.controls}>
-                        <Box className={css.login}>
-                            {
-                                account &&
-                                <Typography>
-                                    {account.first} {account.last}
-                                </Typography>
-                            }
-                        </Box>
-                        <IconButton onClick={handleUserClick}>
-                            <AccountCircle className={css.authorization} />
-                        </IconButton>
-                    </Box>
-                }
+        <AppBar className={css.header} position="static" elevation={1} component="header">
+            <Box className={css.display}>
+                <Typography variant="h1" className={css.site}>
+                    {t('Technobuddha')}
+                </Typography>
             </Box>
+            {
+                settings.login &&
+                <Box className={css.controls}>
+                    <Box className={css.login}>
+                        {
+                            account &&
+                            <Typography>
+                                {account.first} {account.last}
+                            </Typography>
+                        }
+                    </Box>
+                    <IconButton onClick={handleUserClick}>
+                        <AccountCircle className={css.authorization} />
+                    </IconButton>
+                </Box>
+            }
         </AppBar>
     );
 };

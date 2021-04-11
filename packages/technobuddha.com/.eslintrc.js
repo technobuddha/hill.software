@@ -221,7 +221,7 @@ module.exports = {
         'lines-around-comment':                                         'off',
         'lines-between-class-members':                                  TYPESCRIPT,
         'max-depth':                                                    'off',
-        'max-len':                                                      [ 'error', 160 ],
+        'max-len':                                                      [ 'error', 200 ],
         'max-lines':                                                    'off',
         'max-lines-per-function':                                       'off',
         'max-nested-callbacks':                                         'off',

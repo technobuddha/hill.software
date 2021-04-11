@@ -4,12 +4,14 @@ import { GiConwayLifeGlider } from '%icons/gi/GiConwayLifeGlider';
 import { GiOrbital }          from '%icons/gi/GiOrbital';
 import { GiThornyTentacle }   from '%icons/gi/GiThornyTentacle';
 import { GiChessKnight }      from '%icons/gi/GiChessKnight';
+import { GiPalette }          from '%icons/gi/GiPalette';
 import Home                 from '#component/home';
 import NBody                from '#component/nBody';
 import Music                from '#component/music';
 import Knight               from '#component/knight';
 import Life                 from '#component/life';
 import Chaos                from '#component/chaos';
+import Theme                from '#component/theme';
 
 import type React         from 'react';
 import type { IconType }  from '%icons';
@@ -90,6 +92,17 @@ export const components: (t: TFunction) => Component[] = t => [
         secondary: t('The Knight Move Problem'),
         location: '/knight',
         component: Knight,
+        todo: [
+            t('Add a description to this component'),
+            t('Clean up the UI'),
+        ],
+    },
+    {
+        icon: GiPalette,
+        primary: t('Theme'),
+        secondary: t('Visualization of the MUI theme'),
+        location: '/theme',
+        component: Theme,
         todo: [
             t('Add a description to this component'),
             t('Clean up the UI'),

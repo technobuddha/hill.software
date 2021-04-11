@@ -16,40 +16,42 @@ export const themeSettings = {
             contrastText: '#FFF',
         },
         secondary: {
-            main:   '#07BF6C',
-            contrastText: '#FFF',
+            main:   '#F49F0A',
         },
         error: {
             main:   '#DD2323',
         },
         warning: {
-            main:   '#E88B00',
+            main:   '#FEC601',
         },
         info: {
-            main:   '#029FD8',
+            main:   '#610F7F',
+        },
+        success: {
+            main:   '#07BF6C',
         },
     },
     typography: {
         fontSize:   14,
         fontFamily: '"Noto Sans", Arial, Helvetica, sans-serif',
-        // h1: {
-        //     fontSize: '2.333rem',
-        // },
-        // h2: {
-        //     fontSize: '1.750rem',
-        // },
-        // h3: {
-        //     fontSize: '1.375rem',
-        // },
-        // h4: {
-        //     fontSize: '1.166rem',
-        // },
-        // h5: {
-        //     fontSize: '0.975rem',
-        // },
-        // h6: {
-        //     fontSize: '0.785rem',
-        // },
+        h1: {
+            fontSize: '2rem',
+        },
+        h2: {
+            fontSize: '1.5rem',
+        },
+        h3: {
+            fontSize: '1.17rem',
+        },
+        h4: {
+            fontSize: '1rem',
+        },
+        h5: {
+            fontSize: '.83rem',
+        },
+        h6: {
+            fontSize: '0.67rem',
+        },
     },
 
 };

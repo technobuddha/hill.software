@@ -1,12 +1,12 @@
-import React from 'react';
+import React      from 'react';
 import Typography from '@material-ui/core/Typography';
-import css   from './Palette.css';
+import css        from './theme.css';
 
-export type PaletteProps = {
+export type ThemeProps = {
     children?:  never;
 };
 
-export const Palette: React.FC<PaletteProps> = () => {
+export const Theme: React.FC<ThemeProps> = () => {
     return (
         <div className={css.theme}>
             <div className={css.colors}>
@@ -73,4 +73,4 @@ export const Palette: React.FC<PaletteProps> = () => {
     );
 };
 
-export default Palette;
+export default Theme;

@@ -1,17 +1,15 @@
 import React                        from 'react';
-import { useTranslation }             from '#context/i18n';
-import escapeRegExp                 from 'lodash/escapeRegExp';
+import { useTranslation }           from '#context/i18n';
 import settings                     from '#settings/authentication';
 import useHistory                   from '#context/router';
 import { useAuthentication }        from '#context/authentication';
 import { email as emailRegExp }     from '@technobuddha/library/regexp';
-import { nbsp, empty }              from '@technobuddha/library/constants';
+import { empty  }                   from '@technobuddha/library/constants';
 import Button                       from '@material-ui/core/Button';
 import Box                          from '@material-ui/core/Box';
 import Alert                        from '@material-ui/lab/Alert';
 import TextField                    from '#control/textField';
-import PasswordField                from '#control/passwordField';
-import PasswordValidation           from '#control/passwordValidation';
+import PasswordValidation           from '#control/password-validation';
 import Checkbox                     from '#control/checkbox';
 import Link                         from '#control/link';
 import Typography                   from '@material-ui/core/Typography';
@@ -26,31 +24,24 @@ export const SignUp: React.FC = () => {
     const [ last,                        setLast ]                        = React.useState<string>(empty);
     const [ email,                       setEmail ]                       = React.useState<string>(empty);
     const [ password,                    setPassword ]                    = React.useState<string>(empty);
-    const [ passwordConfirmation,        setPasswordConfirmation ]        = React.useState<string>(empty);
     const [ validFirst,                  setValidFirst ]                  = React.useState<boolean>(false);
     const [ validLast,                   setValidLast ]                   = React.useState<boolean>(false);
     const [ validEmail,                  setValidEmail ]                  = React.useState<boolean>(false);
     const [ validPassword,               setValidPassword ]               = React.useState<boolean>(false);
-    const [ validPasswordConfirmation,   setValidPasswordConfirmation ]   = React.useState<boolean>(false);
-    const [ passwordValidation,          setPasswordValidation ]          = React.useState<boolean>(false);
     const [ tosAccepted,                 setTosAccepted ]                 = React.useState<boolean>(false);
     const [ errorMessage,                setErrorMessage ]                = React.useState<string>(empty);
 
-    const handleFirstChange                 = (text: string)        => { setFirst(text);                  setErrorMessage(empty); };
-    const handleLastChange                  = (text: string)        => { setLast(text);                   setErrorMessage(empty); };
-    const handleEmailChange                 = (text: string)        => { setEmail(text);                  setErrorMessage(empty); };
-    const handlePasswordChange              = (text: string)        => { setPassword(text);               setErrorMessage(empty); };
-    const handlePasswordConfirmationChange  = (text: string)        => { setPasswordConfirmation(text);   setErrorMessage(empty); };
-    const handlePasswordValidationChange    = (valid: boolean)      => { setPasswordValidation(valid); };
-    const handleTosAcceptedChange           = (checked: boolean)    => { setTosAccepted(checked);         setErrorMessage(empty); };
+    const handleFirstChange         = (text: string)                 => { setFirst(text);                             setErrorMessage(empty); };
+    const handleLastChange          = (text: string)                 => { setLast(text);                              setErrorMessage(empty); };
+    const handleEmailChange         = (text: string)                 => { setEmail(text);                             setErrorMessage(empty); };
+    const handlePasswordChange      = (text: string, valid: boolean) => { setPassword(text); setValidPassword(valid); setErrorMessage(empty); };
+    const handleTosAcceptedChange   = (checked: boolean)             => { setTosAccepted(checked);                    setErrorMessage(empty); };
 
     const isEnabled = () => (
         validFirst &&
         validLast &&
         validEmail &&
         validPassword &&
-        validPasswordConfirmation &&
-        passwordValidation &&
         (tosAccepted || settings.tos === false)
     );
 
@@ -73,7 +64,7 @@ export const SignUp: React.FC = () => {
     return (
 
         <Box onKeyPress={handleKeyPress}>
-            <Typography variant="h5">
+            <Typography variant="h1">
                 {t('Sign Up')}
             </Typography>
             <TextField
@@ -86,7 +77,6 @@ export const SignUp: React.FC = () => {
                 name="first"
                 required={true}
             />
-
             <TextField
                 onChange={handleLastChange}
                 onValidation={setValidLast}
@@ -96,7 +86,6 @@ export const SignUp: React.FC = () => {
                 name="last"
                 required={true}
             />
-
             <TextField
                 onChange={handleEmailChange}
                 onValidation={setValidEmail}
@@ -107,33 +96,17 @@ export const SignUp: React.FC = () => {
                 validation={emailRegExp}
                 required={true}
             />
-
-            <PasswordField
-                onChange={handlePasswordChange}
-                onValidation={setValidPassword}
-                label={t('Password')}
-                helperText={`${t('Password is case-sensitive')}.`}
-                value={password}
-                required={true}
-            />
-
-            <PasswordField
-                label={t('Verify Password')}
-                onChange={handlePasswordConfirmationChange}
-                onValidation={setValidPasswordConfirmation}
-                value={passwordConfirmation}
-                helperText={validPasswordConfirmation ? nbsp : t('Passwords must match')}
-                required={true}
-                validation={new RegExp(`^${escapeRegExp(password)}$`, 'u')}
-            />
-
             <PasswordValidation
-                password={password}
                 userInputs={[ first, last, email ]}
-                onChange={handlePasswordValidationChange}
+                onChange={handlePasswordChange}
                 minLength={settings.password.minLength}
                 maxLength={settings.password.maxLength}
                 strength={settings.password.strength}
+                uppercase={settings.password.uppercase}
+                lowercase={settings.password.lowercase}
+                digit={settings.password.digit}
+                special={settings.password.special}
+                categories={settings.password.categories}
             />
 
             {

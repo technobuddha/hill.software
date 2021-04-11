@@ -1,9 +1,7 @@
 .header {
     display: flex;
-    flex-direction: row;
+    flex-direction: row !important;
     height: mui-spacing(5);
-    width: 100vw;
-    margin-left: mui-spacing(1);
 
     .display {
         display: flex;

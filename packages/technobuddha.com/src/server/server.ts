@@ -349,15 +349,6 @@ if(credentials) {
     https.createServer(credentials, app)
     .listen(HTTPS_PORT, () => logger.info(`HTTPS Server listening on port ${HTTPS_PORT}`));
 } else {
-    http.createServer(
-        (req, res) => {
-            const host = req.headers.host?.split(':')[0];
-            res.writeHead(301, { Location: `http://${host}${HTTP_PORT === 80 ? '' : `:${HTTP_PORT}`}${req.url}` });
-            res.end();
-        }
-    )
-    .listen(HTTPS_PORT, () => logger.info(`HTTPS Redirector listening on port ${HTTPS_PORT}`));
-
     app.listen(
         HTTP_PORT,
         () => logger.info(`HTTP Server listening on port ${HTTP_PORT}`)
