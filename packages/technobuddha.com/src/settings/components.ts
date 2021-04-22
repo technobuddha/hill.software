@@ -5,12 +5,14 @@ import { GiOrbital }          from '%icons/gi/GiOrbital';
 import { GiThornyTentacle }   from '%icons/gi/GiThornyTentacle';
 import { GiChessKnight }      from '%icons/gi/GiChessKnight';
 import { GiPalette }          from '%icons/gi/GiPalette';
+import { GiMaze }             from '%icons/gi/GiMaze';
 import Home                 from '#component/home';
 import NBody                from '#component/nBody';
 import Music                from '#component/music';
 import Knight               from '#component/knight';
 import Life                 from '#component/life';
 import Chaos                from '#component/chaos';
+import Maze                 from '#component/maze';
 import Theme                from '#component/theme';
 
 import type React         from 'react';
@@ -98,6 +100,16 @@ export const components: (t: TFunction) => Component[] = t => [
         ],
     },
     {
+        icon: GiMaze,
+        primary: t('Maze'),
+        secondary: t('Maze generator & solver'),
+        location: '/maze',
+        component: Maze,
+        todo: [
+            t('Add a description to this component'),
+        ],
+    },
+    {
         icon: GiPalette,
         primary: t('Theme'),
         secondary: t('Visualization of the MUI theme'),
@@ -105,7 +117,6 @@ export const components: (t: TFunction) => Component[] = t => [
         component: Theme,
         todo: [
             t('Add a description to this component'),
-            t('Clean up the UI'),
         ],
     },
 ];

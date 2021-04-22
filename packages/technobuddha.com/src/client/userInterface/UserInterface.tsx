@@ -9,7 +9,7 @@ import Header                       from './Header';
 import Main                         from './Main';
 import Footer                       from './Footer';
 import CssBaseLine                  from '@material-ui/core/CssBaseline';
-import Authentication               from '#component/authentication';
+import Authentication               from '#client/authentication';
 import css                          from './UserInterface.css';
 
 export const UserInterface: React.FC = () => {

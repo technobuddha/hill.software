@@ -8,7 +8,7 @@ import { APIProvider }                      from '#context/api';
 import { AuthenticationProvider }           from '#context/authentication';
 import { Router }                           from '#context/router';
 import { ComponentsProvider }               from '#context/component';
-import UserInterface                        from '#component/userInterface';
+import UserInterface                        from '#client/userInterface';
 import AppLoading                           from './AppLoading';
 
 setConfig({ showReactDomPatchNotification: false });

@@ -3,3 +3,4 @@ export { usePrevious }      from './usePrevious';
 export { useWhyDidIRender } from './useWhyDidIRender';
 export { useWindowSize }    from './useWindowSize';
 export { useLocal }         from './useLocal';
+export { useLocalStorage }  from './useLocalStorage';

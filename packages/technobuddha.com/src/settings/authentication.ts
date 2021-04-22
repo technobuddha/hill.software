@@ -25,9 +25,9 @@ type Settings = {
 };
 
 export default {
-    login:                  true,
+    login:                  false,
     forgotPassword:         false,
-    signUp:                 true,
+    signUp:                 false,
     session: {
         duration:           ticksPerWeek,
         cookieAge:          ticksPerWeek,
