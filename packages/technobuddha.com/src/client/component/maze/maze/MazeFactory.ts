@@ -1,6 +1,6 @@
 import type { Direction } from './directions';
 import type { Cell, CellDirection } from './Maze';
-import type { MazeGenerator } from './MazeGenerator';
+import type { MazeGenerator } from '../generator/MazeGenerator';
 
 type Location  = 'top left' | 'top middle' | 'top right' | 'bottom left' | 'bottom middle' | 'bottom right' | 'middle left' | 'middle right' | 'middle';
 
@@ -11,6 +11,8 @@ export type MazeSettings = {
     context?:               CanvasRenderingContext2D;
     width?:                 number;
     height?:                number;
+    cellSize?:              number;
+    wallSize?:              number;
     entrance?:              CDSpecification;
     exit?:                  CDSpecification;
     start?:                 CSpecification;
@@ -25,11 +27,13 @@ export class MazeFactory {
     public selectNeighbor:  (neighbors: CellDirection[]) => CellDirection;
     public width:           number;
     public height:          number;
+    public cellSize:        number;
+    public wallSize:        number;
     public entrance:        CellDirection;
     public exit:            CellDirection;
     public start:           Cell;
 
-    constructor({ context, random, selectNeighbor, width, height, entrance, exit, start }: MazeSettings) {
+    constructor({ context, random, selectNeighbor, width, height, cellSize, wallSize, entrance, exit, start }: MazeSettings) {
         this.context            = context;
         this.random             = random ?? Math.random;
         this.selectNeighbor     = selectNeighbor
@@ -37,6 +41,8 @@ export class MazeFactory {
             : (neighbors: CellDirection[]) => neighbors[Math.floor(neighbors.length * this.random())];
         this.width              = width  ?? 30;
         this.height             = height ?? 30;
+        this.cellSize           = cellSize ?? 7;
+        this.wallSize           = wallSize ?? 1;
         this.entrance           = this.parsePointDirection(entrance ?? 'top left');
         this.exit               = this.parsePointDirection(exit     ?? 'bottom right');
         this.start              = this.parsePoint(start ?? 'random');
@@ -49,6 +55,8 @@ export class MazeFactory {
             selectNeighbor: this.selectNeighbor,
             width: this.width,
             height: this.height,
+            cellSize: this.cellSize,
+            wallSize: this.wallSize,
             entrance: this.entrance,
             exit: this.exit,
             start: this.start,
@@ -108,10 +116,10 @@ export class MazeFactory {
         const direction = typeof(pd) === 'string' ? undefined : pd.direction;
 
         const dir: Direction[] = [];
-        if(x < this.width  - 1)      dir.push('W');
-        if(y < this.height - 1)      dir.push('N');
-        if(x > 0)                    dir.push('E');
-        if(y > 0)                    dir.push('S');
+        if(x === this.width  - 1)    dir.push('E');
+        if(y === this.height - 1)    dir.push('S');
+        if(x === 0)                  dir.push('W');
+        if(y === 0)                  dir.push('N');
 
         return { x, y, direction: direction && dir.includes(direction) ? direction : dir[Math.floor(this.random() * dir.length)] };
     }

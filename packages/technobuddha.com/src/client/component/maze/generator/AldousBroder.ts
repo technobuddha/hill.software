@@ -1,7 +1,7 @@
 import MazeGenerator from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
 
-import type { Maze } from './Maze';
+import type { Maze } from '../maze/Maze';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
 export class AldousBroder extends MazeGenerator {

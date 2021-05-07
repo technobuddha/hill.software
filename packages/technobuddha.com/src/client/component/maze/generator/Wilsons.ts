@@ -1,8 +1,8 @@
 import create2DArray from '@technobuddha/library/create2DArray';
-import type { Maze, Cell, CellDirection } from './Maze';
+import type { Maze, Cell, CellDirection } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
-import { opposite } from './directions';
+import { opposite } from '../maze/directions';
 
 export class Wilsons extends MazeGenerator {
     private visited:      boolean[][];

@@ -1,6 +1,6 @@
-import Maze from './Maze';
+import Maze from '../maze/Maze';
 import shuffle from '@technobuddha/library/shuffle';
-import type { Cell, CellDirection } from './Maze';
+import type { Cell, CellDirection } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 

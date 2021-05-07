@@ -1,10 +1,10 @@
-import { Maze } from './Maze';
-import type { Cell, CellDirection } from './Maze';
+import { Maze } from '../maze/Maze';
+import type { CellDirection } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
-import type { Direction } from './directions';
-import { directions, opposite } from './directions';
+import type { Direction } from '../maze/directions';
+import { directions, opposite } from '../maze/directions';
 
 export class TruePrims extends MazeGenerator {
     private visited:        boolean[][];

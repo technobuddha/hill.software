@@ -1,7 +1,7 @@
-import type { Maze, Cell } from './Maze';
+import type { Maze, Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
-import type { Direction } from './directions';
+import type { Direction } from '../maze/directions';
 
 export class Sidewinder extends MazeGenerator {
     private runSet: Cell[];

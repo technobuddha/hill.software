@@ -1,11 +1,17 @@
 import React from 'react';
 import { Size } from '@technobuddha/mui-size';
-import { MazeFactory } from './generator/MazeFactory';
+import { MazeFactory } from './maze/MazeFactory';
 
 import Kruskals             from './generator/Kruskals';
 import RecursiveBacktracker from './generator/RecursiveBacktracker';
 import RecursiveDivision    from './generator/RecursiveDivision';
 import TruePrims            from './generator/TruePrims';
+//import BinaryTree           from './generator/BinaryTree';
+
+import DeadEndFiller        from './solver/DeadEndFiller';
+import WallWalking          from './solver/WallWalking';
+import DepthFirstSearch     from './solver/DepthFirstSearch';
+import BreadthFirstSearch   from './solver/BreadthFirstSearch';
 
 type MazeProps = {
     children?: never;
@@ -48,9 +54,19 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                 const contextSolve1 = canvasSolve1.current.getContext('2d')!;
                 const contextSolve2 = canvasSolve2.current.getContext('2d')!;
 
-                const factory = new MazeFactory({ context: contextMaze, width: 180, height: 80 });
+                const cz = 27;
+                const wz = 1;
 
-                contextSolve1.fillStyle = 'transparent';
+                const w = Math.floor((boxWidth  - wz * 4) / cz);
+                const h = Math.floor((boxHeight - wz * 4) / cz);
+
+                const factory = new MazeFactory({
+                    context: contextMaze,
+                    width: w,
+                    height: h,
+                    cellSize: cz,
+                    wallSize: wz,
+                });
 
                 contextSolve1.clearRect(0, 0, boxWidth, boxHeight);
                 contextSolve2.clearRect(0, 0, boxWidth, boxHeight);
@@ -59,12 +75,10 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                 .then(maze => {
                     //maze.drawDistances();
                     const n = Math.floor(Math.random() * 4);
-                    //maze.drawSolution(contextSolve1, true, 'rgba(255, 0, 0, 0.6)');
-                    //maze.drawSolution(contextSolve2, true, 'rgba(0, 0, 255, 0.4)', maze.exit, maze.entrance);
-                    (n === 0 ? maze.drawSolution(contextSolve1)
-                        :   n === 1 ? maze.drawSolution2(contextSolve1)
-                            :   n === 2 ? maze.drawSolution3(contextSolve1)
-                                : maze.drawSolution4(contextSolve1)
+                    (n === 0 ? new DepthFirstSearch({ maze, context: contextSolve1 }).solve()
+                        :   n === 1 ? new DeadEndFiller({ maze, context: contextSolve1 }).solve()
+                            :   n === 2 ? new WallWalking({ maze, context: contextSolve1 }).solve()
+                                : new BreadthFirstSearch({ maze, context: contextSolve1 }).solve()
                     )
                     .then(() => {
                         setTimeout(

@@ -1,4 +1,4 @@
-import type { Maze } from './Maze';
+import type { Maze } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 

@@ -1,10 +1,12 @@
-import type { Cell, CellDirection } from './Maze';
-import { Maze } from './Maze';
+import type { Cell, CellDirection } from '../maze/Maze';
+import { Maze } from '../maze/Maze';
 
 export type MazeGeneratorProperties = {
     context?:               CanvasRenderingContext2D;
     width:                  number;
     height:                 number;
+    cellSize:               number;
+    wallSize:               number;
     entrance:               CellDirection;
     exit:                   CellDirection;
     start:                  Cell;
@@ -18,17 +20,21 @@ export class MazeGenerator {
     public selectNeighbor:  (neighbors: CellDirection[]) => CellDirection;
     public width:           number;
     public height:          number;
+    public cellSize:        number;
+    public wallSize:        number;
     public entrance:        CellDirection;
     public exit:            CellDirection;
     public start:           Cell;
     public currentCell:     Cell;
 
-    constructor({ context, random, selectNeighbor, width, height, entrance, exit, start }: MazeGeneratorProperties) {
+    constructor({ context, random, selectNeighbor, width, height, cellSize, wallSize, entrance, exit, start }: MazeGeneratorProperties) {
         this.context            = context;
         this.random             = random;
         this.selectNeighbor     = selectNeighbor;
         this.width              = width;
         this.height             = height;
+        this.cellSize           = cellSize;
+        this.wallSize           = wallSize;
         this.entrance           = entrance;
         this.exit               = exit;
         this.start              = start;

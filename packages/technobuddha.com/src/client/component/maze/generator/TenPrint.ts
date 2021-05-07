@@ -1,7 +1,7 @@
-import { Maze } from './Maze';
+import { Maze } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
-import { opposite } from './directions';
+import { opposite } from '../maze/directions';
 
 export class TenPrint extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {

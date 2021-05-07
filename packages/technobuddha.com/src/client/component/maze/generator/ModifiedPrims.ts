@@ -1,4 +1,4 @@
-import type { Maze, Cell } from './Maze';
+import type { Maze, Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
