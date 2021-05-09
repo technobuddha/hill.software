@@ -12,7 +12,9 @@ export type MazeSettings = {
     width?:                 number;
     height?:                number;
     cellSize?:              number;
+    cellColor?:             string;
     wallSize?:              number;
+    wallColor?:             string;
     entrance?:              CDSpecification;
     exit?:                  CDSpecification;
     start?:                 CSpecification;
@@ -28,24 +30,41 @@ export class MazeFactory {
     public width:           number;
     public height:          number;
     public cellSize:        number;
+    public cellColor:       string;
     public wallSize:        number;
+    public wallColor:       string;
     public entrance:        CellDirection;
     public exit:            CellDirection;
     public start:           Cell;
 
-    constructor({ context, random, selectNeighbor, width, height, cellSize, wallSize, entrance, exit, start }: MazeSettings) {
+    constructor({
+        context,
+        random          = Math.random,
+        selectNeighbor,
+        width           = 30,
+        height          = 30,
+        cellSize        = 7,
+        cellColor       = 'white',
+        wallSize        = 1,
+        wallColor       = 'black',
+        entrance        = 'top left',
+        exit            = 'bottom right',
+        start           = 'random',
+    }: MazeSettings = {}) {
         this.context            = context;
-        this.random             = random ?? Math.random;
+        this.random             = random;
         this.selectNeighbor     = selectNeighbor
             ? (neighbors: CellDirection[]) => selectNeighbor(neighbors, this.random)
             : (neighbors: CellDirection[]) => neighbors[Math.floor(neighbors.length * this.random())];
-        this.width              = width  ?? 30;
-        this.height             = height ?? 30;
-        this.cellSize           = cellSize ?? 7;
-        this.wallSize           = wallSize ?? 1;
-        this.entrance           = this.parsePointDirection(entrance ?? 'top left');
-        this.exit               = this.parsePointDirection(exit     ?? 'bottom right');
-        this.start              = this.parsePoint(start ?? 'random');
+        this.width              = width;
+        this.height             = height;
+        this.cellSize           = cellSize;
+        this.cellColor          = cellColor;
+        this.wallSize           = wallSize;
+        this.wallColor          = wallColor;
+        this.entrance           = this.parsePointDirection(entrance);
+        this.exit               = this.parsePointDirection(exit);
+        this.start              = this.parsePoint(start);
     }
 
     public async create(Generator: typeof MazeGenerator, speed = 0) {
@@ -56,7 +75,9 @@ export class MazeFactory {
             width: this.width,
             height: this.height,
             cellSize: this.cellSize,
+            cellColor: this.cellColor,
             wallSize: this.wallSize,
+            wallColor: this.wallColor,
             entrance: this.entrance,
             exit: this.exit,
             start: this.start,

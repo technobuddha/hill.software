@@ -16,14 +16,13 @@ export class DeadEndFiller extends MazeSolver {
             (walls[cell.x][cell.y].S ? 1 : 0)
         );
 
-        this.maze.translateContext(this.context);
+        this.translateContext();
         return new Promise<void>(resolve => {
             const deadEnds: Cell[] = [];
             for(let x = 0; x < this.maze.width; ++x) {
                 for(let y = 0; y < this.maze.height; ++y) {
-                    if(sides({ x, y }) === 3 && (x !== entrance.x || y !== entrance.y) && (x !== exit.x || y !== entrance.y)) {
-                        this.context.fillStyle = 'red';
-                        this.fillCell({ x, y });
+                    if(sides({ x, y }) === 3 && (x !== entrance.x || y !== entrance.y) && (x !== exit.x || y !== exit.y)) {
+                        this.drawX({ x, y }, 'red');
                         deadEnds.push({ x, y });
                     }
                 }
@@ -47,24 +46,18 @@ export class DeadEndFiller extends MazeSolver {
                                             direction => {
                                                 if(!walls[cell!.x][cell!.y][direction]) {
                                                     walls[cell!.x][cell!.y][direction] = true;
+                                                    this.drawWall({ ...cell, direction });
 
                                                     const cell2 = Maze.move(cell!, direction);
-                                                    if(this.maze.inMaze(cell2))
+                                                    if(this.maze.inMaze(cell2)) {
                                                         walls[cell2.x][cell2.y][opposite[direction]] = true;
+                                                        this.drawWall({ ...cell2, direction: opposite[direction] });
+                                                    }
                                                 }
                                             }
                                         );
 
-                                        if(this.context) {
-                                            this.context.fillStyle = 'grey';
-                                            this.context.fillRect(
-                                                cell.x * this.maze.CELL_SIZE - this.maze.WALL_SIZE,
-                                                cell.y * this.maze.CELL_SIZE - this.maze.WALL_SIZE,
-                                                this.maze.CELL_SIZE + (this.maze.WALL_SIZE * 2),
-                                                this.maze.CELL_SIZE + (this.maze.WALL_SIZE * 2),
-                                            );
-                                        }
-
+                                        this.drawCell(cell, this.wallColor);
                                         [ cell ] = moves;
                                         gogo();
                                     } else {

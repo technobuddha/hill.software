@@ -10,7 +10,7 @@ import type { SolveArguments } from './MazeSolver';
 
 export class DepthFirstSearch extends MazeSolver {
     public async solve({ color = 'red', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
-        this.maze.translateContext(this.context);
+        this.translateContext();
 
         return new Promise<void>(resolve => {
             type CP = Cell & { parent?: CP; direction: Direction };
@@ -23,19 +23,18 @@ export class DepthFirstSearch extends MazeSolver {
             this.drawPath(entrance);
             queue.unshift(entrance);
 
-            this.context.fillStyle = color;
             const go = () => {
                 if(queue.length) {
                     requestAnimationFrame(
                         () => {
-                            this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+                            this.clear();
 
                             const cell = queue.pop();
                             let   path = cell;
                             while(path) {
                                 const next = path.parent;
                                 if(next)
-                                    this.drawPath({ ...next, direction: path.direction });
+                                    this.drawPath({ ...next, direction: path.direction }, color);
                                 path = next;
                             }
 

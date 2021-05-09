@@ -1,5 +1,5 @@
 export type Direction = 'N' | 'S' | 'E' | 'W';
-export type Diagonal = Direction | 'NE' | 'SE' | 'NW' | 'SW';
+export type Corner = 'NE' | 'SE' | 'NW' | 'SW';
 
 export const deltaX: Record<Direction, number> = {
     N:   0,

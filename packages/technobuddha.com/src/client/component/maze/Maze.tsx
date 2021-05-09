@@ -54,7 +54,7 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                 const contextSolve1 = canvasSolve1.current.getContext('2d')!;
                 const contextSolve2 = canvasSolve2.current.getContext('2d')!;
 
-                const cz = 27;
+                const cz = 15;
                 const wz = 1;
 
                 const w = Math.floor((boxWidth  - wz * 4) / cz);

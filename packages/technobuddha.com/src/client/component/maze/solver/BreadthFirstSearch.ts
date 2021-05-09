@@ -15,16 +15,23 @@ type DD = {
 };
 
 export class BreadthFirstSearch extends MazeSolver {
-    public async solve({ color = 'red', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
-        this.maze.translateContext(this.context);
+    public async solve({ color = 'rgba(0, 255, 0, 0.25)', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
+        this.translateContext();
 
         return new Promise<void>(resolve => {
             const queue: Cell[] = [];
             const distances     = create2DArray(this.maze.width, this.maze.height, () => ({ dist: Infinity } as DD));
             distances[entrance.x][entrance.y]  = { dist: 0 };
             queue.unshift(entrance);
-            this.context.fillStyle = 'rgba(0, 255, 0, 0.25)';
-            this.fillCell(entrance);
+            this.drawCell(entrance, color);
+            if(!this.maze.walls[entrance.x][entrance.y].N)
+                this.drawWall({ ...entrance, direction: 'N' }, color);
+            if(!this.maze.walls[entrance.x][entrance.y].S)
+                this.drawWall({ ...entrance, direction: 'S' }, color);
+            if(!this.maze.walls[entrance.x][entrance.y].E)
+                this.drawWall({ ...entrance, direction: 'E' }, color);
+            if(!this.maze.walls[entrance.x][entrance.y].W)
+                this.drawWall({ ...entrance, direction: 'W' }, color);
 
             const go = () => {
                 requestAnimationFrame(
@@ -44,23 +51,25 @@ export class BreadthFirstSearch extends MazeSolver {
 
                                 for(const neighbor of neighbors) {
                                     distances[neighbor.x][neighbor.y]  = { dir: neighbor.direction, dist: distance };
-                                    this.fillCell(neighbor);
+                                    this.drawCell(neighbor, color);
+                                    if(!this.maze.walls[neighbor.x][neighbor.y].N)
+                                        this.drawWall({ ...neighbor, direction: 'N' }, color);
+                                    if(!this.maze.walls[neighbor.x][neighbor.y].S)
+                                        this.drawWall({ ...neighbor, direction: 'S' }, color);
+                                    if(!this.maze.walls[neighbor.x][neighbor.y].E)
+                                        this.drawWall({ ...neighbor, direction: 'E' }, color);
+                                    if(!this.maze.walls[neighbor.x][neighbor.y].W)
+                                        this.drawWall({ ...neighbor, direction: 'W' }, color);
                                     queue.unshift(neighbor);
                                 }
                                 go();
                             }
                         } else {
-                            this.context.clearRect(
-                                -this.maze.WALL_SIZE,
-                                -this.maze.WALL_SIZE,
-                                this.maze.width * this.maze.CELL_SIZE + this.maze.WALL_SIZE * 2,
-                                this.maze.height * this.maze.CELL_SIZE + this.maze.WALL_SIZE * 2,
-                            );
-                            this.context.fillStyle = color;
+                            this.clear();
 
                             let cell = { ...exit, direction: opposite[exit.direction] };
                             for(;;) {
-                                this.drawPath({ ...cell, direction: opposite[cell.direction] });
+                                this.drawPath({ ...cell, direction: opposite[cell.direction] }, 'green');
                                 if(cell.x === entrance.x && cell.y === entrance.y)
                                     break;
                                 cell = Maze.move(cell, opposite[distances[cell.x][cell.y].dir!]);

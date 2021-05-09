@@ -1,12 +1,10 @@
 import type { Cell, CellDirection } from '../maze/Maze';
 import { Maze } from '../maze/Maze';
 
-export type MazeGeneratorProperties = {
-    context?:               CanvasRenderingContext2D;
-    width:                  number;
-    height:                 number;
-    cellSize:               number;
-    wallSize:               number;
+import { MazeRenderer } from '../maze/MazeRenderer';
+import type { MazeRendererProperties } from '../maze/MazeRenderer';
+
+export type MazeGeneratorProperties = MazeRendererProperties & {
     entrance:               CellDirection;
     exit:                   CellDirection;
     start:                  Cell;
@@ -14,27 +12,18 @@ export type MazeGeneratorProperties = {
     selectNeighbor:         (neighbors: CellDirection[]) => CellDirection;
 };
 
-export class MazeGenerator {
-    public context:         CanvasRenderingContext2D | undefined;
+export class MazeGenerator extends MazeRenderer {
     public random:          () => number;
     public selectNeighbor:  (neighbors: CellDirection[]) => CellDirection;
-    public width:           number;
-    public height:          number;
-    public cellSize:        number;
-    public wallSize:        number;
     public entrance:        CellDirection;
     public exit:            CellDirection;
     public start:           Cell;
     public currentCell:     Cell;
 
-    constructor({ context, random, selectNeighbor, width, height, cellSize, wallSize, entrance, exit, start }: MazeGeneratorProperties) {
-        this.context            = context;
+    constructor({ random, selectNeighbor, entrance, exit, start, ...props }: MazeGeneratorProperties) {
+        super(props);
         this.random             = random;
         this.selectNeighbor     = selectNeighbor;
-        this.width              = width;
-        this.height             = height;
-        this.cellSize           = cellSize;
-        this.wallSize           = wallSize;
         this.entrance           = entrance;
         this.exit               = exit;
         this.start              = start;

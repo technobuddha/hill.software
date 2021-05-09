@@ -1,9 +1,10 @@
 import create2DArray from '@technobuddha/library/create2DArray';
 import shuffle from '@technobuddha/library/shuffle';
 import { opposite, directions } from './directions';
-import { } from '@technobuddha/library/color';
 
-import type { Direction } from './directions';
+import { MazeRenderer } from './MazeRenderer';
+import type { MazeRendererProperties } from './MazeRenderer';
+import type { Direction, Corner } from './directions';
 
 export type Cell = {
     x: number;
@@ -14,14 +15,13 @@ export type CellDirection = Cell & {
     direction: Direction;
 };
 
-export type MazeProperties = {
-    context?:               CanvasRenderingContext2D;
-    width:                  number;
-    height:                 number;
+export type CellCorner = Cell & {
+    corner: Corner;
+};
+
+export type MazeProperties = MazeRendererProperties & {
     entrance:               CellDirection;
     exit:                   CellDirection;
-    cellSize:               number;
-    wallSize:               number;
 };
 
 type Wall = {
@@ -31,26 +31,20 @@ type Wall = {
     S:  boolean;
 };
 
-export class Maze {
-    public readonly CELL_SIZE;
-    public readonly WALL_SIZE;
-
-    public context:         CanvasRenderingContext2D | undefined;
-    public width:           number;
-    public height:          number;
+export class Maze extends MazeRenderer {
     public entrance:        CellDirection;
     public exit:            CellDirection;
     public walls:           Wall[][];
 
-    constructor({ context, width, height, entrance, exit, cellSize = 7, wallSize = 1 }: MazeProperties) {
-        this.context            = context;
-        this.width              = width;
-        this.height             = height;
+    constructor({
+        entrance,
+        exit,
+        ...props
+    }: MazeProperties) {
+        super(props);
         this.entrance           = entrance;
         this.exit               = exit;
         this.walls              = create2DArray(this.width, this.height, () => ({ N: true, E: true, W: true, S: true }));
-        this.CELL_SIZE          = cellSize;
-        this.WALL_SIZE          = wallSize;
 
         this.walls[entrance.x][entrance.y][entrance.direction] = false;
         this.walls[exit.x][exit.y][exit.direction]             = false;
@@ -58,228 +52,67 @@ export class Maze {
         this.draw();
     }
 
-    public translateContext(context: CanvasRenderingContext2D) {
-        context.setTransform(1, 0, 0, 1, 0, 0);
-        context.translate(
-            Math.floor((context.canvas.width - this.width * this.CELL_SIZE) / 2),
-            Math.floor((context.canvas.height - this.height * this.CELL_SIZE) / 2),
-        );
-    }
-
     public draw() {
         if(this.context) {
-            this.translateContext(this.context);
+            this.translateContext();
 
-            this.context.fillStyle = 'white';
-            this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+            this.context.fillStyle = this.cellColor;
+            this.context.fillRect(-1, -1, this.width * this.cellSize + 2, this.height * this.cellSize + 2);
 
-            this.context.fillStyle = 'black';
+            this.context.fillStyle = this.wallColor;
             for(let x = 0; x < this.width; ++x) {
                 for(let y = 0; y < this.height; ++y) {
                     const wall = this.walls[x][y];
 
-                    this.context.fillRect(
-                        x * this.CELL_SIZE,
-                        y * this.CELL_SIZE,
-                        this.WALL_SIZE,
-                        this.WALL_SIZE,
-                    );
-
-                    this.context.fillRect(
-                        x * this.CELL_SIZE + (this.CELL_SIZE - this.WALL_SIZE),
-                        y * this.CELL_SIZE,
-                        this.WALL_SIZE,
-                        this.WALL_SIZE,
-                    );
-
-                    this.context.fillRect(
-                        x * this.CELL_SIZE,
-                        y * this.CELL_SIZE + (this.CELL_SIZE - this.WALL_SIZE),
-                        this.WALL_SIZE,
-                        this.WALL_SIZE,
-                    );
-
-                    this.context.fillRect(
-                        x * this.CELL_SIZE + (this.CELL_SIZE - this.WALL_SIZE),
-                        y * this.CELL_SIZE + (this.CELL_SIZE - this.WALL_SIZE),
-                        this.WALL_SIZE,
-                        this.WALL_SIZE,
-                    );
-
-                    if(wall.N) {
-                        this.context.fillRect(
-                            x * this.CELL_SIZE + this.WALL_SIZE,
-                            y * this.CELL_SIZE,
-                            this.CELL_SIZE - (this.WALL_SIZE * 2),
-                            this.WALL_SIZE
-                        );
-                    }
-                    if(wall.S) {
-                        this.context.fillRect(
-                            x * this.CELL_SIZE + this.WALL_SIZE,
-                            y * this.CELL_SIZE + (this.CELL_SIZE - this.WALL_SIZE),
-                            this.CELL_SIZE - (this.WALL_SIZE * 2),
-                            this.WALL_SIZE
-                        );
-                    }
-                    if(wall.E) {
-                        this.context.fillRect(
-                            x * this.CELL_SIZE + (this.CELL_SIZE - this.WALL_SIZE),
-                            y * this.CELL_SIZE + this.WALL_SIZE,
-                            this.WALL_SIZE,
-                            this.CELL_SIZE - (this.WALL_SIZE * 2),
-                        );
-                    }
-                    if(wall.W) {
-                        this.context.fillRect(
-                            x * this.CELL_SIZE,
-                            y * this.CELL_SIZE + this.WALL_SIZE,
-                            this.WALL_SIZE,
-                            this.CELL_SIZE - (this.WALL_SIZE * 2),
-                        );
-                    }
+                    if(wall.N) this.drawWall({ x, y, direction: 'N' });
+                    if(wall.S) this.drawWall({ x, y, direction: 'S' });
+                    if(wall.E) this.drawWall({ x, y, direction: 'E' });
+                    if(wall.W) this.drawWall({ x, y, direction: 'W' });
+                    this.drawPillar({ x, y, corner: 'NE' });
+                    this.drawPillar({ x, y, corner: 'NW' });
+                    this.drawPillar({ x, y, corner: 'SE' });
+                    this.drawPillar({ x, y, corner: 'SW' });
                 }
             }
 
+            const x0 = -1;
+            const y0 = -1;
+            const x1 = this.width;
+            const y1 = this.height;
             for(let x = 0; x < this.width; ++x) {
-                this.context.fillRect(
-                    x * this.CELL_SIZE,
-                    -this.WALL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-                this.context.fillRect(
-                    x * this.CELL_SIZE + this.CELL_SIZE - this.WALL_SIZE,
-                    -this.WALL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-                if(this.walls[x][0].N) {
-                    this.context.fillRect(
-                        x * this.CELL_SIZE + this.WALL_SIZE,
-                        -this.WALL_SIZE,
-                        this.CELL_SIZE - this.WALL_SIZE * 2,
-                        this.WALL_SIZE,
-                    );
-                }
-
-                this.context.fillRect(
-                    x * this.CELL_SIZE,
-                    this.height * this.CELL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-
-                this.context.fillRect(
-                    x * this.CELL_SIZE + this.CELL_SIZE - this.WALL_SIZE,
-                    this.height * this.CELL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-
-                if(this.walls[x][this.height - 1].S) {
-                    this.context.fillRect(
-                        x * this.CELL_SIZE + this.WALL_SIZE,
-                        this.height * this.CELL_SIZE,
-                        this.CELL_SIZE - this.WALL_SIZE * 2,
-                        this.WALL_SIZE,
-                    );
-                }
+                this.drawPillar({ x, y: y0, corner: 'SE' });
+                this.drawPillar({ x, y: y0, corner: 'SW' });
+                this.drawPillar({ x, y: y1, corner: 'NE' });
+                this.drawPillar({ x, y: y1, corner: 'NW' });
+                if(this.walls[x][y0 + 1].N) this.drawWall({ x, y: y0, direction: 'S' }, 'purple');
+                if(this.walls[x][y1 - 1].S) this.drawWall({ x, y: y1, direction: 'N' }, 'purple');
             }
 
             for(let y = 0; y < this.height; ++y) {
-                this.context.fillRect(
-                    -this.WALL_SIZE,
-                    y * this.CELL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-                this.context.fillRect(
-                    -this.WALL_SIZE,
-                    y * this.CELL_SIZE + this.CELL_SIZE - this.WALL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-                if(this.walls[0][y].W) {
-                    this.context.fillRect(
-                        -this.WALL_SIZE,
-                        y * this.CELL_SIZE + this.WALL_SIZE,
-                        this.WALL_SIZE,
-                        this.CELL_SIZE - this.WALL_SIZE * 2,
-                    );
-                }
-
-                this.context.fillRect(
-                    this.width * this.CELL_SIZE,
-                    y * this.CELL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-
-                this.context.fillRect(
-                    this.width * this.CELL_SIZE,
-                    y * this.CELL_SIZE + this.CELL_SIZE - this.WALL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-
-                if(this.walls[this.width - 1][y].E) {
-                    this.context.fillRect(
-                        this.width * this.CELL_SIZE,
-                        y * this.CELL_SIZE + this.WALL_SIZE,
-                        this.WALL_SIZE,
-                        this.CELL_SIZE - this.WALL_SIZE * 2,
-                    );
-                }
+                this.drawPillar({ x: x0, y, corner: 'NE' });
+                this.drawPillar({ x: x0, y, corner: 'SE' });
+                this.drawPillar({ x: x1, y, corner: 'NW' });
+                this.drawPillar({ x: x1, y, corner: 'SW' });
+                if(this.walls[x0 + 1][y].W) this.drawWall({ x: x0, y, direction: 'E' }, 'purple');
+                if(this.walls[x1 - 1][y].E) this.drawWall({ x: x1, y, direction: 'W' }, 'purple');
             }
 
-            if(this.walls[0][0].N || this.walls[0][0].W) {
-                this.context.fillRect(
-                    -this.WALL_SIZE,
-                    -this.WALL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-            }
-
-            if(this.walls[this.width - 1][0].N || this.walls[this.width - 1][0].E) {
-                this.context.fillRect(
-                    this.width * this.CELL_SIZE,
-                    -this.WALL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-            }
-
-            if(this.walls[0][this.height - 1].S || this.walls[this.height - 1][0].W) {
-                this.context.fillRect(
-                    -this.WALL_SIZE,
-                    this.height * this.CELL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-            }
-
-            if(this.walls[this.width - 1][this.height - 1].S || this.walls[this.width - 1][this.height - 1].E) {
-                this.context.fillRect(
-                    this.width * this.CELL_SIZE,
-                    this.height * this.CELL_SIZE,
-                    this.WALL_SIZE,
-                    this.WALL_SIZE,
-                );
-            }
+            this.drawPillar({ x: x0, y: y0, corner: 'SE' });
+            this.drawPillar({ x: x1, y: y0, corner: 'SW' });
+            this.drawPillar({ x: x0, y: y1, corner: 'NE' });
+            this.drawPillar({ x: x1, y: y1, corner: 'NW' });
         }
     }
 
     public removeWall(cell: Cell, direction: Direction) {
         if(this.inMaze(cell)) {
             this.walls[cell.x][cell.y][direction] = false;
-            this.drawWall(cell, direction, 'white');
+            this.drawWall({ ...cell, direction }, 'white');
 
             const cell2 = Maze.move(cell, direction);
             if(this.inMaze(cell2)) {
                 this.walls[cell2.x][cell2.y][opposite[direction]] = false;
-                this.drawWall(cell2, opposite[direction], 'white');
+                this.drawWall({ ...cell2, direction: opposite[direction] }, 'white');
             }
         }
     }
@@ -287,12 +120,12 @@ export class Maze {
     public addWall(cell: Cell, direction: Direction) {
         if(this.inMaze(cell)) {
             this.walls[cell.x][cell.y][direction] = true;
-            this.drawWall(cell, direction, 'black');
+            this.drawWall({ ...cell, direction }, 'black');
 
             const cell2 = Maze.move(cell, direction);
             if(this.inMaze(cell2)) {
                 this.walls[cell2.x][cell2.y][opposite[direction]] = true;
-                this.drawWall(cell2, opposite[direction], 'black');
+                this.drawWall({ ...cell2, direction: opposite[direction] }, 'black');
             }
         }
     }
@@ -314,57 +147,11 @@ export class Maze {
             if(this.context) {
                 this.context.fillStyle = 'black';
                 this.context.fillRect(
-                    cell.x * this.CELL_SIZE - this.WALL_SIZE,
-                    cell.y * this.CELL_SIZE - this.WALL_SIZE,
-                    this.CELL_SIZE + (this.WALL_SIZE * 2),
-                    this.CELL_SIZE + (this.WALL_SIZE * 2),
+                    cell.x * this.cellSize - this.wallSize,
+                    cell.y * this.cellSize - this.wallSize,
+                    this.cellSize + (this.wallSize * 2),
+                    this.cellSize + (this.wallSize * 2),
                 );
-            }
-        }
-    }
-
-    private drawWall(cell: Cell, direction: Direction, fillStyle: string) {
-        if(this.context) {
-            const sX = cell.x * this.CELL_SIZE;
-            const sY = cell.y * this.CELL_SIZE;
-            const eX = sX + (this.CELL_SIZE - this.WALL_SIZE);
-            const eY = sY + (this.CELL_SIZE - this.WALL_SIZE);
-
-            this.context.fillStyle = fillStyle;
-
-            switch(direction) {
-                case 'N':
-                    this.context.fillRect(
-                        sX + this.WALL_SIZE,
-                        sY,
-                        this.CELL_SIZE - (this.WALL_SIZE * 2),
-                        this.WALL_SIZE
-                    );
-                    break;
-                case 'S':
-                    this.context.fillRect(
-                        sX + this.WALL_SIZE,
-                        eY,
-                        this.CELL_SIZE - (this.WALL_SIZE * 2),
-                        this.WALL_SIZE
-                    );
-                    break;
-                case 'E':
-                    this.context.fillRect(
-                        eX,
-                        sY + this.WALL_SIZE,
-                        this.WALL_SIZE,
-                        this.CELL_SIZE - (this.WALL_SIZE * 2)
-                    );
-                    break;
-                case 'W':
-                    this.context.fillRect(
-                        sX,
-                        sY + this.WALL_SIZE,
-                        this.WALL_SIZE,
-                        this.CELL_SIZE - (this.WALL_SIZE * 2)
-                    );
-                    break;
             }
         }
     }
@@ -461,41 +248,41 @@ export class Maze {
                         //`rgba(0, 0, 0, ${distances[x][y] * 0.5 / maxDistance})`;
 
                     this.context.fillRect(
-                        x * this.CELL_SIZE + this.WALL_SIZE,
-                        y * this.CELL_SIZE + this.WALL_SIZE,
-                        this.CELL_SIZE - (this.WALL_SIZE * 2),
-                        this.CELL_SIZE - (this.WALL_SIZE * 2)
+                        x * this.cellSize + this.wallSize,
+                        y * this.cellSize + this.wallSize,
+                        this.cellSize - (this.wallSize * 2),
+                        this.cellSize - (this.wallSize * 2)
                     );
                     if(!this.walls[x][y].N) {
                         this.context.fillRect(
-                            x * this.CELL_SIZE + this.WALL_SIZE,
-                            y * this.CELL_SIZE,
-                            this.CELL_SIZE - (this.WALL_SIZE * 2),
-                            this.WALL_SIZE,
+                            x * this.cellSize + this.wallSize,
+                            y * this.cellSize,
+                            this.cellSize - (this.wallSize * 2),
+                            this.wallSize,
                         );
                     }
                     if(!this.walls[x][y].S) {
                         this.context.fillRect(
-                            x * this.CELL_SIZE + this.WALL_SIZE,
-                            y * this.CELL_SIZE + (this.CELL_SIZE - this.WALL_SIZE),
-                            this.CELL_SIZE - (this.WALL_SIZE * 2),
-                            this.WALL_SIZE
+                            x * this.cellSize + this.wallSize,
+                            y * this.cellSize + (this.cellSize - this.wallSize),
+                            this.cellSize - (this.wallSize * 2),
+                            this.wallSize
                         );
                     }
                     if(!this.walls[x][y].W) {
                         this.context.fillRect(
-                            x * this.CELL_SIZE,
-                            y * this.CELL_SIZE + this.WALL_SIZE,
-                            this.WALL_SIZE,
-                            this.CELL_SIZE - (this.WALL_SIZE * 2)
+                            x * this.cellSize,
+                            y * this.cellSize + this.wallSize,
+                            this.wallSize,
+                            this.cellSize - (this.wallSize * 2)
                         );
                     }
                     if(!this.walls[x][y].E) {
                         this.context.fillRect(
-                            x * this.CELL_SIZE + (this.CELL_SIZE - this.WALL_SIZE),
-                            y * this.CELL_SIZE + this.WALL_SIZE,
-                            this.WALL_SIZE,
-                            this.CELL_SIZE - (this.WALL_SIZE * 2)
+                            x * this.cellSize + (this.cellSize - this.wallSize),
+                            y * this.cellSize + this.wallSize,
+                            this.wallSize,
+                            this.cellSize - (this.wallSize * 2)
                         );
                     }
                 }
