@@ -76,7 +76,6 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                     height: h,
                     cellSize: cz,
                     wallSize: wz,
-                    voidSize: 0,
                     entrance: 'bottom left',
                     exit: 'top right',
                 });

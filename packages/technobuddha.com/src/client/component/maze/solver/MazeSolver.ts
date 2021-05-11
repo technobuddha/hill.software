@@ -25,8 +25,6 @@ export abstract class MazeSolver extends MazeRenderer {
             cellColor: maze.cellColor,
             wallSize: maze.wallSize,
             wallColor: maze.wallColor,
-            voidSize: maze.voidSize,
-            voidColor: maze.voidColor,
         });
 
         this.maze       = maze;

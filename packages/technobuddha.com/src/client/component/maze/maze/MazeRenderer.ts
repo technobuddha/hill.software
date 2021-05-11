@@ -8,8 +8,6 @@ export type MazeRendererProperties = {
     cellColor: string;
     wallSize: number;
     wallColor: string;
-    voidSize: number;
-    voidColor: string;
 };
 
 export abstract class MazeRenderer {
@@ -17,8 +15,6 @@ export abstract class MazeRenderer {
     public readonly cellColor: string;
     public readonly wallSize: number;
     public readonly wallColor: string;
-    public readonly voidSize: number;
-    public readonly voidColor: string;
 
     public context: CanvasRenderingContext2D | undefined;
     public width: number;
@@ -32,8 +28,6 @@ export abstract class MazeRenderer {
         cellColor,
         wallSize,
         wallColor,
-        voidSize,
-        voidColor,
     }: MazeRendererProperties) {
         this.context = context;
         this.width = width;
@@ -42,19 +36,28 @@ export abstract class MazeRenderer {
         this.cellColor = cellColor;
         this.wallSize = wallSize;
         this.wallColor = wallColor;
-        this.voidSize = voidSize;
-        this.voidColor = voidColor;
     }
 
-    private offsets(n: number) {
-        const n0 = n * this.cellSize;
-        const n1 = n0 + this.voidSize;
-        const n2 = n1 + this.wallSize;
-        const n5 = n0 + this.cellSize;
-        const n4 = n5 - this.voidSize;
-        const n3 = n4 - this.wallSize;
+    private offsets({ x, y }: Cell) {
+        const margin = Math.floor(this.cellSize / 8);
 
-        return [ n0, n1, n2, n3, n4, n5 ];
+        const x0 = x  * this.cellSize;
+        const x1 = x0 + this.wallSize;
+        const x2 = x1 + margin;
+        const x5 = x0 + this.cellSize;
+        const x4 = x5 - this.wallSize;
+        const x3 = x4 - margin;
+        const xc = (x0 + x5) / 2;
+
+        const y0 = y  * this.cellSize;
+        const y1 = y0 + this.wallSize;
+        const y2 = y1 + margin;
+        const y5 = y0 + this.cellSize;
+        const y4 = y5 - this.wallSize;
+        const y3 = y4 - margin;
+        const yc = (y0 + y5) / 2;
+
+        return { x0, x1, x2, xc, x3, x4, x5, y0, y1, y2, yc, y3, y4, y5 };
     }
 
     protected prepare() {
@@ -81,155 +84,95 @@ export abstract class MazeRenderer {
 
     protected drawFloor({ x, y }: Cell, color = this.cellColor) {
         if(this.context) {
+            const { x1, x4, y1, y4 } = this.offsets({ x, y });
+
             this.context.fillStyle = color;
-            this.context.fillRect(
-                x * this.cellSize + this.voidSize + this.wallSize,
-                y * this.cellSize + this.voidSize + this.wallSize,
-                this.cellSize - (this.voidSize * 2 + this.wallSize * 2),
-                this.cellSize - (this.voidSize * 2 + this.wallSize * 2)
-            );
+            this.context.fillRect(x1, y1, x4 - x1, y4 - y1);
         }
     }
 
-    protected drawX({ x, y }: Cell, color = 'black') {
+    protected drawX({ x, y }: Cell, color = 'black', cellColor = this.cellColor) {
         if(this.context) {
-            this.context.fillStyle = this.cellColor;
-            this.context.fillRect(
-                x * this.cellSize + this.wallSize,
-                y * this.cellSize + this.wallSize,
-                this.cellSize - (this.wallSize * 2),
-                this.cellSize - (this.wallSize * 2)
-            );
+            const { x1, x2, x3, x4, y1, y2, y3, y4 } = this.offsets({ x, y });
+
+            this.context.fillStyle = cellColor;
+            this.context.fillRect(x1, y1, x4 - x1, y4 - y1);
+
             this.context.strokeStyle = color;
             this.context.beginPath();
-            this.context.moveTo(x * this.cellSize + this.wallSize, y * this.cellSize + this.wallSize);
-            this.context.lineTo(x * this.cellSize + this.cellSize - this.wallSize, y * this.cellSize + this.cellSize - this.wallSize);
-            this.context.moveTo(x * this.cellSize + this.cellSize - this.wallSize, y * this.cellSize + this.wallSize);
-            this.context.lineTo(x * this.cellSize + this.wallSize, y * this.cellSize + this.cellSize - this.wallSize);
+            this.context.moveTo(x2, y2);
+            this.context.lineTo(x3, y3);
+            this.context.moveTo(x2, y3);
+            this.context.lineTo(x3, y2);
             this.context.stroke();
         }
     }
 
     protected drawWall(cd: CellDirection, color = this.wallColor) {
         if(this.context) {
-            const sX = cd.x * this.cellSize;
-            const sY = cd.y * this.cellSize;
-            const eX = sX + (this.cellSize - this.wallSize);
-            const eY = sY + (this.cellSize - this.wallSize);
+            const { x0, x1, x4, x5, y0, y1, y4, y5 } = this.offsets(cd);
 
             this.context.fillStyle = color;
             switch(cd.direction) {
-                case 'N':
-                    this.context.fillRect(
-                        sX + this.wallSize,
-                        sY,
-                        this.cellSize - (this.wallSize * 2),
-                        this.wallSize
-                    );
-                    break;
-                case 'S':
-                    this.context.fillRect(
-                        sX + this.wallSize,
-                        eY,
-                        this.cellSize - (this.wallSize * 2),
-                        this.wallSize
-                    );
-                    break;
-                case 'E':
-                    this.context.fillRect(
-                        eX,
-                        sY + this.wallSize,
-                        this.wallSize,
-                        this.cellSize - (this.wallSize * 2)
-                    );
-                    break;
-                case 'W':
-                    this.context.fillRect(
-                        sX,
-                        sY + this.wallSize,
-                        this.wallSize,
-                        this.cellSize - (this.wallSize * 2)
-                    );
-                    break;
+                case 'N':   this.context.fillRect(x1, y0, x4 - x1, y1 - y0);    break;
+                case 'S':   this.context.fillRect(x1, y4, x4 - x1, y5 - y4);    break;
+                case 'E':   this.context.fillRect(x4, y1, x5 - x4, y4 - y1);    break;
+                case 'W':   this.context.fillRect(x0, y1, x1 - x0, y4 - y1);    break;
             }
         }
     }
 
     protected drawPillar({ x, y, corner }: CellCorner, color = this.wallColor) {
         if(this.context) {
-            const ctx = this.context;
-            const cs = this.cellSize;
-            const ws = this.wallSize;
-            const x0 = x * cs;
-            const y0 = y * cs;
-            const x1 = x * cs + cs - ws;
-            const y1 = y * cs + cs - ws;
+            const { x0, x1, x4, x5, y0, y1, y4, y5 } = this.offsets({ x, y });
 
-            ctx.fillStyle = color;
-            if(corner === 'NW') ctx.fillRect(x0, y0, ws, ws);
-            if(corner === 'NE') ctx.fillRect(x1, y0, ws, ws);
-            if(corner === 'SW') ctx.fillRect(x0, y1, ws, ws);
-            if(corner === 'SE') ctx.fillRect(x1, y1, ws, ws);
+            this.context.fillStyle = color;
+            if(corner === 'NW') this.context.fillRect(x0, y0, x1 - x0, y1 - y0);
+            if(corner === 'NE') this.context.fillRect(x4, y0, x5 - x4, y1 - y0);
+            if(corner === 'SW') this.context.fillRect(x0, y4, x1 - x0, y5 - y4);
+            if(corner === 'SE') this.context.fillRect(x4, y4, x5 - x4, y5 - y4);
         }
     }
 
-    //this.context.fillRect(
-    //    path.x * this.maze.CELL_SIZE + (d === 'E' ? -this.maze.WALL_SIZE : this.maze.WALL_SIZE),
-    //    path.y * this.maze.CELL_SIZE + (d === 'S' ? -this.maze.WALL_SIZE : this.maze.WALL_SIZE),
-    //    this.maze.CELL_SIZE - (d === 'E' || d === 'W' ? 0 : (this.maze.WALL_SIZE * 2)),
-    //    this.maze.CELL_SIZE - (d === 'S' || d === 'N' ? 0 : (this.maze.WALL_SIZE * 2)),
-    //);
-
-    protected drawPath(path: CellDirection, color = 'red') {
+    protected drawPath(cell: CellDirection, color = 'red') {
         if(this.context) {
-            const cs = this.cellSize;
-            const ws = this.wallSize;
+            const { x1, x2, xc, x3, x4, y1, y2, yc, y3, y4 } = this.offsets(cell);
 
-            const margin = this.cellSize > 24 ? 3 : this.cellSize > 16 ? 2 : 1;
+            this.context.fillStyle = color;
+            this.context.clearRect(x1, y1, x4 - x1, y4 - y1);
 
-            const x0 = path.x * cs + ws + margin;
-            const y0 = path.y * cs + ws + margin;
-            const x1 = path.x * cs + cs - (ws + margin);
-            const y1 = path.y * cs + cs - (ws + margin);
-            const xc = path.x * cs + (cs - ws) / 2;
-            const yc = path.y * cs + (cs - ws) / 2;
-
-            const ctx = this.context;
-            ctx.fillStyle = color;
-            ctx.clearRect(x0, y0, cs - ws * 2, cs - ws * 2);
-
-            switch(path.direction) {
+            switch(cell.direction) {
                 case 'N':
-                    ctx.beginPath();
-                    ctx.moveTo(x0, y1);
-                    ctx.lineTo(xc, y0);
-                    ctx.lineTo(x1, y1);
-                    ctx.closePath();
-                    ctx.fill();
+                    this.context.beginPath();
+                    this.context.moveTo(x2, y3);
+                    this.context.lineTo(xc, y2);
+                    this.context.lineTo(x3, y3);
+                    this.context.closePath();
+                    this.context.fill();
                     break;
                 case 'S':
-                    ctx.beginPath();
-                    ctx.moveTo(x0, y0);
-                    ctx.lineTo(xc, y1);
-                    ctx.lineTo(x1, y0);
-                    ctx.closePath();
-                    ctx.fill();
+                    this.context.beginPath();
+                    this.context.moveTo(x2, y2);
+                    this.context.lineTo(xc, y3);
+                    this.context.lineTo(x3, y2);
+                    this.context.closePath();
+                    this.context.fill();
                     break;
                 case 'E':
-                    ctx.beginPath();
-                    ctx.moveTo(x0, y0);
-                    ctx.lineTo(x1, yc);
-                    ctx.lineTo(x0, y1);
-                    ctx.closePath();
-                    ctx.fill();
+                    this.context.beginPath();
+                    this.context.moveTo(x2, y2);
+                    this.context.lineTo(x3, yc);
+                    this.context.lineTo(x2, y3);
+                    this.context.closePath();
+                    this.context.fill();
                     break;
                 case 'W':
-                    ctx.beginPath();
-                    ctx.moveTo(x1, y0);
-                    ctx.lineTo(x0, yc);
-                    ctx.lineTo(x1, y1);
-                    ctx.closePath();
-                    ctx.fill();
+                    this.context.beginPath();
+                    this.context.moveTo(x3, y2);
+                    this.context.lineTo(x2, yc);
+                    this.context.lineTo(x3, y3);
+                    this.context.closePath();
+                    this.context.fill();
                     break;
             }
         }

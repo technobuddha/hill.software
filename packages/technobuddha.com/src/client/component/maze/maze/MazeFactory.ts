@@ -15,8 +15,6 @@ export type MazeSettings = {
     cellColor?:             string;
     wallSize?:              number;
     wallColor?:             string;
-    voidSize?:              number;
-    voidColor?:             string;
     entrance?:              CDSpecification;
     exit?:                  CDSpecification;
     start?:                 CSpecification;
@@ -35,8 +33,6 @@ export class MazeFactory {
     public cellColor:       string;
     public wallSize:        number;
     public wallColor:       string;
-    public voidSize:        number;
-    public voidColor:       string;
     public entrance:        CellDirection;
     public exit:            CellDirection;
     public start:           Cell;
@@ -51,8 +47,6 @@ export class MazeFactory {
         cellColor       = 'white',
         wallSize        = 1,
         wallColor       = 'black',
-        voidSize        = 0,
-        voidColor       = 'white',
         entrance        = 'top left',
         exit            = 'bottom right',
         start           = 'random',
@@ -68,8 +62,6 @@ export class MazeFactory {
         this.cellColor          = cellColor;
         this.wallSize           = wallSize;
         this.wallColor          = wallColor;
-        this.voidSize           = voidSize;
-        this.voidColor          = voidColor;
         this.entrance           = this.parsePointDirection(entrance);
         this.exit               = this.parsePointDirection(exit);
         this.start              = this.parsePoint(start);
@@ -86,8 +78,6 @@ export class MazeFactory {
             cellColor: this.cellColor,
             wallSize: this.wallSize,
             wallColor: this.wallColor,
-            voidSize: this.voidSize,
-            voidColor: this.voidColor,
             entrance: this.entrance,
             exit: this.exit,
             start: this.start,
