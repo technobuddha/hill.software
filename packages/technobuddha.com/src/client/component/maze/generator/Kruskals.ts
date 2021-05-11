@@ -1,6 +1,5 @@
-import Maze from '../maze/Maze';
 import shuffle from '@technobuddha/library/shuffle';
-import type { Cell, CellDirection } from '../maze/Maze';
+import type { Maze, Cell, CellDirection } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
@@ -32,7 +31,7 @@ export class Kruskals extends MazeGenerator {
     public step(maze: Maze) {
         const edge  = this.edges.pop()!;
         const cell1 = { ...edge };
-        const cell2 = Maze.move(cell1, edge.direction);
+        const cell2 = maze.move(cell1, edge.direction);
 
         let idx1 = this.getCellIndex(cell1);
         let idx2 = this.getCellIndex(cell2);
@@ -54,6 +53,7 @@ export default Kruskals;
 class DisjointSet {
     private sets:       number[];
     private setSizes:   number[];
+
     constructor(numberOfItems = 0) {
         //Array of items. Each item has an index which points to the parent set.
         this.sets = [];

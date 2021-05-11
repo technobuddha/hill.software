@@ -6,7 +6,8 @@ import Kruskals             from './generator/Kruskals';
 import RecursiveBacktracker from './generator/RecursiveBacktracker';
 import RecursiveDivision    from './generator/RecursiveDivision';
 import TruePrims            from './generator/TruePrims';
-//import BinaryTree           from './generator/BinaryTree';
+import Blob                 from './generator/Blob';
+import GrowingTree          from './generator/GrowingTree';
 
 import DeadEndFiller        from './solver/DeadEndFiller';
 import WallWalking          from './solver/WallWalking';
@@ -39,6 +40,15 @@ const algorithms = [
     RecursiveBacktracker,
     RecursiveDivision,
     TruePrims,
+    Blob,
+    GrowingTree,
+];
+
+const solvers = [
+    DepthFirstSearch,
+    DeadEndFiller,
+    WallWalking,
+    BreadthFirstSearch,
 ];
 
 export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => {
@@ -54,7 +64,7 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                 const contextSolve1 = canvasSolve1.current.getContext('2d')!;
                 const contextSolve2 = canvasSolve2.current.getContext('2d')!;
 
-                const cz = 15;
+                const cz = 13;
                 const wz = 1;
 
                 const w = Math.floor((boxWidth  - wz * 4) / cz);
@@ -66,6 +76,9 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                     height: h,
                     cellSize: cz,
                     wallSize: wz,
+                    voidSize: 0,
+                    entrance: 'bottom left',
+                    exit: 'top right',
                 });
 
                 contextSolve1.clearRect(0, 0, boxWidth, boxHeight);
@@ -74,12 +87,8 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                 factory.create(algorithms[Math.floor(Math.random() * algorithms.length)], 10)
                 .then(maze => {
                     //maze.drawDistances();
-                    const n = Math.floor(Math.random() * 4);
-                    (n === 0 ? new DepthFirstSearch({ maze, context: contextSolve1 }).solve()
-                        :   n === 1 ? new DeadEndFiller({ maze, context: contextSolve1 }).solve()
-                            :   n === 2 ? new WallWalking({ maze, context: contextSolve1 }).solve()
-                                : new BreadthFirstSearch({ maze, context: contextSolve1 }).solve()
-                    )
+                    const Solver = solvers[Math.floor(Math.random() * solvers.length)];
+                    new Solver({ maze, context: contextSolve1 }).solve()
                     .then(() => {
                         setTimeout(
                             () => setRedraw(x => x + 1),

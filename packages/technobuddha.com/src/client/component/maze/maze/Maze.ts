@@ -46,15 +46,15 @@ export class Maze extends MazeRenderer {
         this.exit               = exit;
         this.walls              = create2DArray(this.width, this.height, () => ({ N: true, E: true, W: true, S: true }));
 
-        this.walls[entrance.x][entrance.y][entrance.direction] = false;
-        this.walls[exit.x][exit.y][exit.direction]             = false;
+        //this.walls[entrance.x][entrance.y][entrance.direction] = false;
+        //this.walls[exit.x][exit.y][exit.direction]             = false;
 
         this.draw();
     }
 
     public draw() {
         if(this.context) {
-            this.translateContext();
+            this.prepare();
 
             this.context.fillStyle = this.cellColor;
             this.context.fillRect(-1, -1, this.width * this.cellSize + 2, this.height * this.cellSize + 2);
@@ -109,7 +109,7 @@ export class Maze extends MazeRenderer {
             this.walls[cell.x][cell.y][direction] = false;
             this.drawWall({ ...cell, direction }, 'white');
 
-            const cell2 = Maze.move(cell, direction);
+            const cell2 = this.move(cell, direction);
             if(this.inMaze(cell2)) {
                 this.walls[cell2.x][cell2.y][opposite[direction]] = false;
                 this.drawWall({ ...cell2, direction: opposite[direction] }, 'white');
@@ -122,7 +122,7 @@ export class Maze extends MazeRenderer {
             this.walls[cell.x][cell.y][direction] = true;
             this.drawWall({ ...cell, direction }, 'black');
 
-            const cell2 = Maze.move(cell, direction);
+            const cell2 = this.move(cell, direction);
             if(this.inMaze(cell2)) {
                 this.walls[cell2.x][cell2.y][opposite[direction]] = true;
                 this.drawWall({ ...cell2, direction: opposite[direction] }, 'black');
@@ -137,7 +137,7 @@ export class Maze extends MazeRenderer {
                     if(!this.walls[cell.x][cell.y][direction]) {
                         this.walls[cell.x][cell.y][direction] = true;
 
-                        const cell2 = Maze.move(cell, direction);
+                        const cell2 = this.move(cell, direction);
                         if(this.inMaze(cell2))
                             this.walls[cell2.x][cell2.y][opposite[direction]] = true;
                     }
@@ -160,13 +160,20 @@ export class Maze extends MazeRenderer {
         return cell.x >= 0 && cell.x < this.width && cell.y >= 0 && cell.y < this.height;
     }
 
-    public static move(cell: Cell, direction: Direction): CellDirection {
+    public move(cell: Cell, direction: Direction): CellDirection {
+        let next: CellDirection;
+
         switch(direction) {
-            case 'N':   return { x: cell.x,     y: cell.y - 1,  direction };
-            case 'E':   return { x: cell.x + 1, y: cell.y,      direction };
-            case 'W':   return { x: cell.x - 1, y: cell.y,      direction };
-            case 'S':   return { x: cell.x,     y: cell.y + 1,  direction };
+            case 'N':   next = { x: cell.x,     y: cell.y - 1,  direction }; break;
+            case 'E':   next = { x: cell.x + 1, y: cell.y,      direction }; break;
+            case 'W':   next = { x: cell.x - 1, y: cell.y,      direction }; break;
+            case 'S':   next = { x: cell.x,     y: cell.y + 1,  direction }; break;
         }
+
+        //if(next.x < 0)              next.x += this.width;
+        //if(next.x >= this.width)    next.x -= this.width;
+
+        return next;
     }
 
     public sides(cell: Cell) {
@@ -178,14 +185,14 @@ export class Maze extends MazeRenderer {
 
     public neighbors(cell: Cell, dirs: Direction[] = [ 'N', 'E', 'W', 'S' ]): CellDirection[] {
         return dirs
-        .map(direction => Maze.move(cell, direction))
+        .map(direction => this.move(cell, direction))
         .filter(c => this.inMaze(c));
     }
 
     public validMoves(cell: Cell, dirs: Direction[] = [ 'N', 'E', 'W', 'S' ]): CellDirection[] {
         return dirs
         .filter(d => !this.walls[cell.x][cell.y][d])
-        .map(direction => Maze.move(cell, direction))
+        .map(direction => this.move(cell, direction))
         .filter(c => this.inMaze(c));
     }
 
@@ -241,11 +248,12 @@ export class Maze extends MazeRenderer {
 
             for(let x = 0; x < this.width; ++x) {
                 for(let y = 0; y < this.height; ++y) {
-                    if(distances[x][y] === Infinity)
+                    if(distances[x][y] === Infinity) {
                         this.context.fillStyle = 'black';
-                    else
-                        this.context.fillStyle = `hsla(${distances[x][y] * 360 / maxDistance}, 100%, 50%, 0.25)`;
-                        //`rgba(0, 0, 0, ${distances[x][y] * 0.5 / maxDistance})`;
+                    } else {
+                        this.context.fillStyle = //`hsla(${distances[x][y] * 360 / maxDistance}, 100%, 50%, 0.25)`;
+                        `rgba(0, 0, 0, ${distances[x][y] * 0.5 / maxDistance})`;
+                    }
 
                     this.context.fillRect(
                         x * this.cellSize + this.wallSize,

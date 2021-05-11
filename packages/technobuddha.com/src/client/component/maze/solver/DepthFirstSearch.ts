@@ -1,4 +1,3 @@
-import { Maze }             from '../maze/Maze';
 import create2DArray        from '@technobuddha/library/create2DArray';
 import shuffle              from '@technobuddha/library/shuffle';
 import type { Cell }        from '../maze/Maze';
@@ -10,7 +9,7 @@ import type { SolveArguments } from './MazeSolver';
 
 export class DepthFirstSearch extends MazeSolver {
     public async solve({ color = 'red', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
-        this.translateContext();
+        this.prepare();
 
         return new Promise<void>(resolve => {
             type CP = Cell & { parent?: CP; direction: Direction };
@@ -41,7 +40,7 @@ export class DepthFirstSearch extends MazeSolver {
                             if(cell && (cell.x !== exit.x || cell.y !== exit.y)) {
                                 for(const direction of shuffle(directions)) {
                                     if(!this.maze.walls[cell.x][cell.y][direction]) {
-                                        const next = Maze.move(cell, direction);
+                                        const next = this.maze.move(cell, direction);
 
                                         if(this.maze.inMaze(next)) {
                                             if(!discovered[next.x][next.y]) {

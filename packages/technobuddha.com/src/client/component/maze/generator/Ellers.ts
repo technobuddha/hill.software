@@ -1,7 +1,6 @@
-import { Maze } from '../maze/Maze';
 import shuffle from '@technobuddha/library/shuffle';
 import create2DArray from '@technobuddha/library/create2DArray';
-import type { Cell } from '../maze/Maze';
+import type { Maze, Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
@@ -44,7 +43,7 @@ export class Ellers extends MazeGenerator {
 
     private horizontalStep(maze: Maze) {
         const c0 = this.currentCell;
-        const c1 = Maze.move(c0, 'E');
+        const c1 = maze.move(c0, 'E');
 
         if(
             (this.cellSets[c0.x][c0.y] !== this.cellSets[c1.x][c1.y]) &&

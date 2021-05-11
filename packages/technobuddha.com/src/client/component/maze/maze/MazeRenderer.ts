@@ -1,24 +1,28 @@
 import type { Cell, CellDirection, CellCorner } from './Maze';
 
 export type MazeRendererProperties = {
-    context?:               CanvasRenderingContext2D;
-    width:                  number;
-    height:                 number;
-    cellSize:               number;
-    cellColor:              string;
-    wallSize:               number;
-    wallColor:              string;
+    context?: CanvasRenderingContext2D;
+    width: number;
+    height: number;
+    cellSize: number;
+    cellColor: string;
+    wallSize: number;
+    wallColor: string;
+    voidSize: number;
+    voidColor: string;
 };
 
 export abstract class MazeRenderer {
-    public readonly cellSize:   number;
-    public readonly cellColor:  string;
-    public readonly wallSize:   number;
-    public readonly wallColor:  string;
+    public readonly cellSize: number;
+    public readonly cellColor: string;
+    public readonly wallSize: number;
+    public readonly wallColor: string;
+    public readonly voidSize: number;
+    public readonly voidColor: string;
 
-    public context:         CanvasRenderingContext2D | undefined;
-    public width:           number;
-    public height:          number;
+    public context: CanvasRenderingContext2D | undefined;
+    public width: number;
+    public height: number;
 
     constructor({
         context,
@@ -28,17 +32,32 @@ export abstract class MazeRenderer {
         cellColor,
         wallSize,
         wallColor,
+        voidSize,
+        voidColor,
     }: MazeRendererProperties) {
-        this.context            = context;
-        this.width              = width;
-        this.height             = height;
-        this.cellSize           = cellSize;
-        this.cellColor          = cellColor;
-        this.wallSize           = wallSize;
-        this.wallColor          = wallColor;
+        this.context = context;
+        this.width = width;
+        this.height = height;
+        this.cellSize = cellSize;
+        this.cellColor = cellColor;
+        this.wallSize = wallSize;
+        this.wallColor = wallColor;
+        this.voidSize = voidSize;
+        this.voidColor = voidColor;
     }
 
-    protected translateContext() {
+    private offsets(n: number) {
+        const n0 = n * this.cellSize;
+        const n1 = n0 + this.voidSize;
+        const n2 = n1 + this.wallSize;
+        const n5 = n0 + this.cellSize;
+        const n4 = n5 - this.voidSize;
+        const n3 = n4 - this.wallSize;
+
+        return [ n0, n1, n2, n3, n4, n5 ];
+    }
+
+    protected prepare() {
         if(this.context) {
             this.context.setTransform(1, 0, 0, 1, 0, 0);
             this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
@@ -54,32 +73,39 @@ export abstract class MazeRenderer {
             this.context.clearRect(
                 -this.wallSize,
                 -this.wallSize,
-                this.width  * this.cellSize + this.wallSize * 2,
+                this.width * this.cellSize + this.wallSize * 2,
                 this.height * this.cellSize + this.wallSize * 2,
             );
         }
     }
 
-    protected drawCell({ x, y }: Cell, color = this.cellColor) {
+    protected drawFloor({ x, y }: Cell, color = this.cellColor) {
         if(this.context) {
             this.context.fillStyle = color;
+            this.context.fillRect(
+                x * this.cellSize + this.voidSize + this.wallSize,
+                y * this.cellSize + this.voidSize + this.wallSize,
+                this.cellSize - (this.voidSize * 2 + this.wallSize * 2),
+                this.cellSize - (this.voidSize * 2 + this.wallSize * 2)
+            );
+        }
+    }
+
+    protected drawX({ x, y }: Cell, color = 'black') {
+        if(this.context) {
+            this.context.fillStyle = this.cellColor;
             this.context.fillRect(
                 x * this.cellSize + this.wallSize,
                 y * this.cellSize + this.wallSize,
                 this.cellSize - (this.wallSize * 2),
                 this.cellSize - (this.wallSize * 2)
             );
-        }
-    }
-
-    protected drawX({ x, y }: Cell, color = this.cellColor) {
-        if(this.context) {
             this.context.strokeStyle = color;
             this.context.beginPath();
-            this.context.moveTo(x * this.cellSize + this.wallSize,                 y * this.cellSize + this.wallSize);
+            this.context.moveTo(x * this.cellSize + this.wallSize, y * this.cellSize + this.wallSize);
             this.context.lineTo(x * this.cellSize + this.cellSize - this.wallSize, y * this.cellSize + this.cellSize - this.wallSize);
             this.context.moveTo(x * this.cellSize + this.cellSize - this.wallSize, y * this.cellSize + this.wallSize);
-            this.context.lineTo(x * this.cellSize + this.wallSize,                 y * this.cellSize + this.cellSize - this.wallSize);
+            this.context.lineTo(x * this.cellSize + this.wallSize, y * this.cellSize + this.cellSize - this.wallSize);
             this.context.stroke();
         }
     }
@@ -132,12 +158,12 @@ export abstract class MazeRenderer {
     protected drawPillar({ x, y, corner }: CellCorner, color = this.wallColor) {
         if(this.context) {
             const ctx = this.context;
-            const cs  = this.cellSize;
-            const ws  = this.wallSize;
-            const x0  = x * cs;
-            const y0  = y * cs;
-            const x1  = x * cs + cs - ws;
-            const y1  = y * cs + cs - ws;
+            const cs = this.cellSize;
+            const ws = this.wallSize;
+            const x0 = x * cs;
+            const y0 = y * cs;
+            const x1 = x * cs + cs - ws;
+            const y1 = y * cs + cs - ws;
 
             ctx.fillStyle = color;
             if(corner === 'NW') ctx.fillRect(x0, y0, ws, ws);
@@ -156,17 +182,17 @@ export abstract class MazeRenderer {
 
     protected drawPath(path: CellDirection, color = 'red') {
         if(this.context) {
-            const cs  = this.cellSize;
-            const ws  = this.wallSize;
+            const cs = this.cellSize;
+            const ws = this.wallSize;
 
             const margin = this.cellSize > 24 ? 3 : this.cellSize > 16 ? 2 : 1;
 
-            const x0  = path.x * cs + ws + margin;
-            const y0  = path.y * cs + ws + margin;
-            const x1  = path.x * cs + cs - (ws + margin);
-            const y1  = path.y * cs + cs - (ws + margin);
-            const xc  = path.x * cs + (cs - ws) / 2;
-            const yc  = path.y * cs + (cs - ws) / 2;
+            const x0 = path.x * cs + ws + margin;
+            const y0 = path.y * cs + ws + margin;
+            const x1 = path.x * cs + cs - (ws + margin);
+            const y1 = path.y * cs + cs - (ws + margin);
+            const xc = path.x * cs + (cs - ws) / 2;
+            const yc = path.y * cs + (cs - ws) / 2;
 
             const ctx = this.context;
             ctx.fillStyle = color;

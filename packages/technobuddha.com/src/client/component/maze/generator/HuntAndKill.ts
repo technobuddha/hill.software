@@ -1,6 +1,5 @@
 import create2DArray from '@technobuddha/library/create2DArray';
-import { Maze } from '../maze/Maze';
-import type { Cell } from '../maze/Maze';
+import type { Maze, Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
@@ -65,7 +64,7 @@ export class HuntAndKill extends MazeGenerator {
         }
 
         if(this.hunting) {
-            this.currentCell = Maze.move(this.currentCell, 'E');
+            this.currentCell = maze.move(this.currentCell, 'E');
             if(this.currentCell.x >= this.width) {
                 this.currentCell.x = 0;
                 this.currentCell.y++;

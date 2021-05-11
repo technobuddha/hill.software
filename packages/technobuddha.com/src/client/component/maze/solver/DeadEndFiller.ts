@@ -1,4 +1,3 @@
-import { Maze }                 from '../maze/Maze';
 import type { Cell }            from '../maze/Maze';
 import { directions, opposite } from '../maze/directions';
 
@@ -16,7 +15,7 @@ export class DeadEndFiller extends MazeSolver {
             (walls[cell.x][cell.y].S ? 1 : 0)
         );
 
-        this.translateContext();
+        this.prepare();
         return new Promise<void>(resolve => {
             const deadEnds: Cell[] = [];
             for(let x = 0; x < this.maze.width; ++x) {
@@ -41,23 +40,21 @@ export class DeadEndFiller extends MazeSolver {
                                     const moves = this.maze.neighbors(cell)
                                     .filter(c => !walls[cell!.x][cell!.y][c.direction]);
 
-                                    if(sides(cell) === 3) {
-                                        directions.forEach(
-                                            direction => {
-                                                if(!walls[cell!.x][cell!.y][direction]) {
-                                                    walls[cell!.x][cell!.y][direction] = true;
-                                                    this.drawWall({ ...cell, direction });
+                                    if(sides(cell) === 3 && (cell.x !== entrance.x || cell.y !== entrance.y) && (cell.x !== exit.x || cell.y !== exit.y)) {
+                                        for(const direction of directions) {
+                                            if(!walls[cell.x][cell.y][direction]) {
+                                                walls[cell.x][cell.y][direction] = true;
+                                                this.drawWall({ ...cell, direction });
 
-                                                    const cell2 = Maze.move(cell!, direction);
-                                                    if(this.maze.inMaze(cell2)) {
-                                                        walls[cell2.x][cell2.y][opposite[direction]] = true;
-                                                        this.drawWall({ ...cell2, direction: opposite[direction] });
-                                                    }
+                                                const cell2 = this.maze.move(cell!, direction);
+                                                if(this.maze.inMaze(cell2)) {
+                                                    walls[cell2.x][cell2.y][opposite[direction]] = true;
+                                                    this.drawWall({ ...cell2, direction: opposite[direction] });
                                                 }
                                             }
-                                        );
+                                        }
 
-                                        this.drawCell(cell, this.wallColor);
+                                        this.drawFloor(cell, this.wallColor);
                                         [ cell ] = moves;
                                         gogo();
                                     } else {
