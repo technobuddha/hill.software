@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/technobuddha/react-hooks#readme",
   "dependencies": {
-    "@technobuddha/library": "^1.6.2",
+    "@technobuddha/library": "^1.6.3",
     "lodash": "^4.17.20"
   },
   "devDependencies": {
