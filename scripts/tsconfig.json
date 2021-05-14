@@ -5,8 +5,6 @@
         "module": "commonjs",
         "lib": [ "esnext" ],
         "declaration": true,
-        "outDir": "./dist/",
-        "rootDir": "./src/",
         "alwaysStrict": true,
     }
 }
