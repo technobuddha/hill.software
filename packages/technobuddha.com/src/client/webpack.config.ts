@@ -10,11 +10,44 @@ import paths                 from '#config/paths';
 import { CMTDWebpackPlugin } from 'css-module-type-definitions';
 import postcss_config        from '#config/postcss.config';
 import type { Logger }       from 'css-module-type-definitions';
+import type { Plugin }       from 'webpack';
+
 //import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const extensions    = [ '.ts', '.tsx', '.js', '.json', '.css' ];
 
 export function genClientWebpackConfig(isDevelopment = true, logger?: Logger): webpack.Configuration {
+    const plugins: Plugin[] = [];
+
+    plugins.push(
+        new MiniCssExtractPlugin({
+            filename:           '[name].css',
+            chunkFilename:      '[id].css',
+        }) as any as Plugin
+    );
+
+    if(isDevelopment) {
+        plugins.push(
+            new CMTDWebpackPlugin({
+                inputDirectoryName: paths.src,
+                globPattern: '**/*.css',
+                camelCase: true,
+                logger,
+                config: postcss_config,
+            })
+        );
+    }
+
+    if(isDevelopment) {
+        plugins.push(
+            new webpack.HotModuleReplacementPlugin()
+        );
+    }
+
+    //if(isDevelopment) {
+    //  (isDevelopment ? new BundleAnalyzerPlugin()             : null),
+    //}
+
     return {
         name:   'client',
         // https://webpack.js.org/concepts/mode/
@@ -129,23 +162,6 @@ export function genClientWebpackConfig(isDevelopment = true, logger?: Logger): w
         // https://webpack.js.org/configuration/stats/
         stats:          false,
         // https://webpack.js.org/configuration/plugins/
-        plugins:         compact([
-            new MiniCssExtractPlugin({
-                filename:           '[name].css',
-                chunkFilename:      '[id].css',
-            }),
-            (isDevelopment
-                ?   (new CMTDWebpackPlugin({
-                        inputDirectoryName: paths.src,
-                        globPattern: '**/*.css',
-                        camelCase: true,
-                        logger,
-                        config: postcss_config,
-                    }))
-                :   null
-            ),
-            (isDevelopment ? new webpack.HotModuleReplacementPlugin()                                                                    : null),
-            //(isDevelopment ? new BundleAnalyzerPlugin()                                                                                  : null),
-        ]),
+        plugins,
     };
 }
