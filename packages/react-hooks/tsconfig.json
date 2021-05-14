@@ -3,12 +3,11 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
-        "lib": [ "dom", "esnext" ],     
+        "lib": [ "dom", "esnext" ],
         "declaration": true,
         "outDir": "./dist/",
-        "rootDir": "./src/",
         "alwaysStrict": true,
     },
-    "include": [ "./src/**/*.ts", "./src/**/*.tsx" ],
+    "include": [ "./src/**/*.ts", "./src/**/*.tsx", "./scripts/*.ts" ],
     "exclude": [ "node_modules", "dist" ]
 }

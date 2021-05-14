@@ -17,6 +17,7 @@ export type BuildForNPMOptions = {
 };
 
 export function buildForNPM({ packageName }: BuildForNPMOptions) {
+
     process.env.NODE_ENV = 'production';
 
     const pj      = JSON.parse(fs.readFileSync('package.json').toString()) as PackageJsonTypescript;
@@ -70,6 +71,17 @@ export function buildForNPM({ packageName }: BuildForNPMOptions) {
     }
     finish();
 
+    if(fs.existsSync('dist/index')) {
+        start('Moving', 'index');
+        for(const file of glob.sync('dist/index/*.*s')) {
+            const contents = fs.readFileSync(file, { encoding: 'utf8' });
+            fs.writeFileSync(file, contents.replace(/(?<=(from |require\()['"])\.\.\.\//ug, './'));
+        }
+        run(shell.mv('-f', 'dist/index/*', 'dist'));
+        run(shell.rm('-rf', 'dist/index'));
+        finish();
+    }
+
     start('Generating', 'doc');
     run(shell.exec('npx typedoc > /dev/null'));
     const readme = splitLines(fs.readFileSync('doc/README.md', { encoding: 'utf8' }));
@@ -94,9 +106,9 @@ export function buildForNPM({ packageName }: BuildForNPMOptions) {
             file,
             contents.replace(
                 `[${project}](../README.md)`,
-                `[${project}](../..) / [Modules](../Modules.md)`
+                `[${project}](../../README.md) / [Modules](../Modules.md)`
             )
-            .replace(`[packages/${packageName}/src/`, '[')
+            .replace(/\[packages\/[^\/]+\/src\//ug, '[')
             .replace(url, '../..')
         );
     }

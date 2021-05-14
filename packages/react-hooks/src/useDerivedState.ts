@@ -1,6 +1,6 @@
 import React        from 'react';
 import isFunction   from 'lodash/isFunction';
-import { changed }  from './util';
+import { changed }  from './_util';
 
 export function useDerivedState<T>(props: T | ((prev: T) => T), deps: readonly unknown[]): [T, React.Dispatch<React.SetStateAction<T>>] {
     const propsRef          = React.useRef<T>(undefined!);
