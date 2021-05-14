@@ -237,7 +237,7 @@ if(isDevelopment) {
 
     app.use(
         devMiddleware(
-            compiler,
+            compiler as any,
             {
                 publicPath: clientWebpackConfig.output?.publicPath ?? '/dist',
             }
@@ -272,6 +272,11 @@ app
 .use(
     '/assets',
     express.static(paths.assets),
+    status404
+)
+.use(
+    '/doc',
+    express.static(paths.doc),
     status404
 )
 .get(
