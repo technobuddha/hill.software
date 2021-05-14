@@ -2,6 +2,14 @@ import React             from 'react';
 import throttle          from 'lodash/throttle';
 import { measureWindow } from '@technobuddha/library/measure';
 
+/**
+ * Gets the current window size, including the dimensions of the scroll bars.
+ *
+ * If the actual size of the window is unimportant, it also returns a count of how many times the window
+ * has been resized since the first render.
+ *
+ * @returns [{ width, height, scrollbarWidth, scrollbarHeight, count }
+ */
 export function useWindowSize() {
     const [ count, setCount ]   = React.useState(0);
     const [ size, setSize ]     = React.useState(measureWindow());

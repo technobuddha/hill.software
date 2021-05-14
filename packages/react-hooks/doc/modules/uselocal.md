@@ -1,4 +1,4 @@
-[@technobuddha/react-hooks](../..) / [Modules](../Modules.md) / useLocal
+[@technobuddha/react-hooks](../../README.md) / [Modules](../Modules.md) / useLocal
 
 # Module: useLocal
 
@@ -24,7 +24,7 @@ Renames and exports: [useLocal](uselocal.md#uselocal)
 
 ▸ **useLocal**<T\>(`initialState`: T \| () => T): [T, (`set`: T \| (`prev`: T) => T) => *void*]
 
-Similar to **React.useState**, returns a stateful value and a function to update it.  Unlike **React.useState**
+Similar to `React.useState`, returns a stateful value and a function to update it.  Unlike `React.useState`
 updating the state will not cause a re-render.
 
 #### Type parameters
@@ -41,4 +41,4 @@ updating the state will not cause a re-render.
 
 **Returns:** [T, (`set`: T \| (`prev`: T) => T) => *void*]
 
-Defined in: [src/useLocal.ts:11](../../src/useLocal.ts#L11)
+Defined in: [useLocal.ts:11](../../src/useLocal.ts#L11)

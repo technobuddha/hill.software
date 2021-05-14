@@ -2,7 +2,7 @@ import React        from 'react';
 import isFunction   from 'lodash/isFunction';
 
 /**
- * Similar to **React.useState**, returns a stateful value and a function to update it.  Unlike **React.useState**
+ * Similar to `React.useState`, returns a stateful value and a function to update it.  Unlike `React.useState`
  * updating the state will not cause a re-render.
  *
  * @param initialState Initial state value, or a function that returns the initial state value.

@@ -1,4 +1,4 @@
-[@technobuddha/react-hooks](../..) / [Modules](../Modules.md) / useWhyDidIRender
+[@technobuddha/react-hooks](../../README.md) / [Modules](../Modules.md) / useWhyDidIRender
 
 # Module: useWhyDidIRender
 
@@ -33,4 +33,4 @@ Renames and exports: [useWhyDidIRender](usewhydidirender.md#usewhydidirender)
 
 **Returns:** *void*
 
-Defined in: [src/useWhyDidIRender.ts:4](../../src/useWhyDidIRender.ts#L4)
+Defined in: [useWhyDidIRender.ts:4](../../src/useWhyDidIRender.ts#L4)

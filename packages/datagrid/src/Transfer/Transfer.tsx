@@ -44,7 +44,7 @@ type TransferClassesBase = {
     gridBox: string;
     buttonsBox: string;
 };
-type TransferStylesBase = {[key in keyof TransferClassesBase]: React.CSSProperties};
+type TransferStylesBase = {[key in keyof TransferClassesBase]: React.CSSProperties };
 
 const useStyles = makeStyles({
     root: {

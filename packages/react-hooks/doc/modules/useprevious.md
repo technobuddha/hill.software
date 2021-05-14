@@ -1,4 +1,4 @@
-[@technobuddha/react-hooks](../..) / [Modules](../Modules.md) / usePrevious
+[@technobuddha/react-hooks](../../README.md) / [Modules](../Modules.md) / usePrevious
 
 # Module: usePrevious
 
@@ -22,7 +22,12 @@ Renames and exports: [usePrevious](useprevious.md#useprevious)
 
 ### usePrevious
 
-▸ **usePrevious**<T\>(`value`: T): T \| *undefined*
+▸ **usePrevious**<T\>(`value`: T \| (`prevValue`: T \| *undefined*) => T): T \| *undefined*
+
+Return the 'previous' value of an expression.
+
+On the first render, the value will be `undefined`.  On the second and subsequent renders,
+the value returned will be the previous value.
 
 #### Type parameters
 
@@ -32,10 +37,12 @@ Renames and exports: [usePrevious](useprevious.md#useprevious)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | T |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `value` | T \| (`prevValue`: T \| *undefined*) => T | The 'current' value, or a function to return the current value |
 
 **Returns:** T \| *undefined*
 
-Defined in: [src/usePrevious.ts:3](../../src/usePrevious.ts#L3)
+The previous value.
+
+Defined in: [usePrevious.ts:13](../../src/usePrevious.ts#L13)

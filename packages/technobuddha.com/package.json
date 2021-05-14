@@ -60,7 +60,7 @@
     "@react-icons/all-files": "^4.1.0",
     "@technobuddha/datagrid": "^1.1.1",
     "@technobuddha/mui-size": "^1.1.0",
-    "@technobuddha/react-hooks": "^1.4.3",
+    "@technobuddha/react-hooks": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@tsconfig/recommended": "^1.0.1",

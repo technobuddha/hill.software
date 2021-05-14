@@ -1,4 +1,4 @@
-[@technobuddha/react-hooks](../..) / [Modules](../Modules.md) / useDerivedState
+[@technobuddha/react-hooks](../../README.md) / [Modules](../Modules.md) / useDerivedState
 
 # Module: useDerivedState
 
@@ -22,7 +22,10 @@ Renames and exports: [useDerivedState](usederivedstate.md#usederivedstate)
 
 ### useDerivedState
 
-▸ **useDerivedState**<T\>(`props`: T \| (`prev`: T) => T, `deps`: readonly *unknown*[]): [T, *React.Dispatch*<React.SetStateAction<T\>\>]
+▸ **useDerivedState**<T\>(`initialValue`: T \| (`prevValue`: T) => T, `deps`: readonly *unknown*[]): [T, *React.Dispatch*<React.SetStateAction<T\>\>]
+
+Similar to `React.useState`, returns a stateful value and a function to update it.  Whenever the `deps` change, the
+value will be re-initialized from `initialValue`.
 
 #### Type parameters
 
@@ -32,11 +35,11 @@ Renames and exports: [useDerivedState](usederivedstate.md#usederivedstate)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `props` | T \| (`prev`: T) => T |
-| `deps` | readonly *unknown*[] |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `initialValue` | T \| (`prevValue`: T) => T | - |
+| `deps` | readonly *unknown*[] | Array of values that when changed will cause a re-initialization of the value |
 
 **Returns:** [T, *React.Dispatch*<React.SetStateAction<T\>\>]
 
-Defined in: [src/useDerivedState.ts:5](../../src/useDerivedState.ts#L5)
+Defined in: [useDerivedState.ts:13](../../src/useDerivedState.ts#L13)

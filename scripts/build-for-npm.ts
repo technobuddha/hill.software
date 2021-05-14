@@ -109,6 +109,7 @@ export function buildForNPM({ packageName }: BuildForNPMOptions) {
                 `[${project}](../../README.md) / [Modules](../Modules.md)`
             )
             .replace(/\[packages\/[^\/]+\/src\//ug, '[')
+            .replace(/\[src\//ug, '[')
             .replace(url, '../..')
         );
     }

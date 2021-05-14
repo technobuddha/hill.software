@@ -1,6 +1,6 @@
 {
   "name": "@technobuddha/react-hooks",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "description": "A small library of React hooks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,8 +9,8 @@
     "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/react-hooks",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
-    "preversion": "npm run build",
-    "postversion": "git push && git push --tags"
+    "x-preversion": "npm run build",
+    "x-postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
