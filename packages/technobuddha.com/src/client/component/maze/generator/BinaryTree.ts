@@ -10,7 +10,7 @@ export class TenPrint extends MazeGenerator {
     }
 
     public step(maze: Maze) {
-        const neighbors = maze.neighbors(this.currentCell, [ 'S', 'E' ]);
+        const neighbors = maze.neighbors(this.currentCell, { dirs: [ 'S', 'E' ]});
         if(neighbors.length > 0)
             maze.removeWall(this.currentCell, this.selectNeighbor(neighbors).direction);
 

@@ -2,7 +2,6 @@ import create2DArray from '@technobuddha/library/create2DArray';
 import type { Maze, Cell, CellDirection } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
-import { opposite } from '../maze/directions';
 
 export class Wilsons extends MazeGenerator {
     private visited:      boolean[][];
@@ -53,7 +52,7 @@ export class Wilsons extends MazeGenerator {
 
         for(const cell of path) {
             if('direction' in cell)
-                maze.removeWall(cell, opposite[cell.direction]);
+                maze.removeWall(cell, maze.opposite(cell.direction));
             this.markAsVisited(cell);
         }
 

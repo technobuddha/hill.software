@@ -1,4 +1,5 @@
 import type { Cell, CellDirection, CellCorner } from './Maze';
+import type { Direction } from './directions';
 
 export type MazeRendererProperties = {
     context?: CanvasRenderingContext2D;
@@ -36,6 +37,15 @@ export abstract class MazeRenderer {
         this.cellColor = cellColor;
         this.wallSize = wallSize;
         this.wallColor = wallColor;
+    }
+
+    public opposite(dir: Direction): Direction {
+        switch(dir) {
+            case 'N':   return 'S';
+            case 'E':   return 'W';
+            case 'W':   return 'E';
+            case 'S':   return 'N';
+        }
     }
 
     private offsets({ x, y }: Cell) {

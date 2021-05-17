@@ -3,7 +3,7 @@ import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
 import type { Direction } from '../maze/directions';
-import { directions, opposite } from '../maze/directions';
+import { directions } from '../maze/directions';
 
 export class TruePrims extends MazeGenerator {
     private visited:        boolean[][];
@@ -31,7 +31,7 @@ export class TruePrims extends MazeGenerator {
                     let   passageCost  = isBorderWall ? Infinity : this.random();
 
                     if((direction === 'N' || direction === 'W') && !isBorderWall)
-                        passageCost = this.costs[cell.x][cell.y][opposite[direction]];
+                        passageCost = this.costs[cell.x][cell.y][maze.opposite(direction)];
 
                     this.costs[x][y][direction] = passageCost;
                 }
@@ -60,7 +60,7 @@ export class TruePrims extends MazeGenerator {
             this.visited[cell.x][cell.y] = true;
 
             for(const direction of directions) {
-                if(direction !== opposite[passage.direction])
+                if(direction !== maze.opposite(passage.direction))
                     this.activePassages.push({ ...cell, direction });
             }
         } else {

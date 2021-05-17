@@ -1,6 +1,5 @@
 import create2DArray from '@technobuddha/library/create2DArray';
 import shuffle       from '@technobuddha/library/shuffle';
-import { opposite } from '../maze/directions';
 import type { Maze, Cell, CellDirection } from '../maze/Maze';
 
 import { MazeGenerator } from './MazeGenerator';
@@ -117,7 +116,7 @@ export class Blob extends MazeGenerator {
             boundary.splice(Math.floor(Math.random() * boundary.length), 1);
 
             for(const cd of boundary)
-                this.walls.push({ ...cd, direction: opposite[cd.direction] });
+                this.walls.push({ ...cd, direction: maze.opposite(cd.direction) });
 
             stack.push(...region.split(this.threshold));
         }

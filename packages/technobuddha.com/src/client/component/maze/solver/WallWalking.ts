@@ -1,6 +1,5 @@
 import create2DArray from '@technobuddha/library/create2DArray';
 import type { CellDirection } from '../maze/Maze';
-import { opposite } from '../maze/directions';
 import type { Direction } from '../maze/directions';
 
 import { MazeSolver } from './MazeSolver';
@@ -11,7 +10,7 @@ export class WallWalking extends MazeSolver {
         this.prepare();
 
         return new Promise<void>(resolve => {
-            let cell:  CellDirection = { x: entrance.x, y: entrance.y, direction: opposite[entrance.direction] };
+            let cell:  CellDirection = { x: entrance.x, y: entrance.y, direction: this.maze.opposite(entrance.direction) };
             let cells: { visits: number; direction?: Direction }[][] =
                 create2DArray(this.maze.width, this.maze.height, () => ({ visits: 0 }));
 

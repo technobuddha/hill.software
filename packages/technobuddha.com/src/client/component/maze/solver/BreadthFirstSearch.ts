@@ -1,7 +1,6 @@
 import create2DArray        from '@technobuddha/library/create2DArray';
 import shuffle              from '@technobuddha/library/shuffle';
 import type { Cell }        from '../maze/Maze';
-import { opposite }         from '../maze/directions';
 
 import { MazeSolver } from './MazeSolver';
 import type { SolveArguments } from './MazeSolver';
@@ -44,8 +43,8 @@ export class BreadthFirstSearch extends MazeSolver {
                             } else {
                                 const distance  = distances[cell.x][cell.y].dist + 1;
                                 const neighbors = shuffle(
-                                    this.maze.neighbors(cell)
-                                    .filter(n => !this.maze.walls[cell.x][cell.y][n.direction] && distances[n.x][n.y].dist > distance)
+                                    this.maze.validMoves(cell)
+                                    .filter(n => distances[n.x][n.y].dist > distance)
                                 );
 
                                 for(const neighbor of neighbors) {
@@ -66,12 +65,12 @@ export class BreadthFirstSearch extends MazeSolver {
                         } else {
                             this.clear();
 
-                            let cell = { ...exit, direction: opposite[exit.direction] };
+                            let cell = { ...exit, direction: this.maze.opposite(exit.direction) };
                             for(;;) {
-                                this.drawPath({ ...cell, direction: opposite[cell.direction] }, 'green');
+                                this.drawPath({ ...cell, direction: this.maze.opposite(cell.direction) }, 'green');
                                 if(cell.x === entrance.x && cell.y === entrance.y)
                                     break;
-                                cell = this.maze.move(cell, opposite[distances[cell.x][cell.y].dir!]);
+                                cell = this.maze.move(cell, this.maze.opposite(distances[cell.x][cell.y].dir!));
                             }
                             resolve();
                         }

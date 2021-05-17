@@ -1,7 +1,6 @@
 import type { Maze } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
-import { opposite } from '../maze/directions';
 
 export class TenPrint extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
@@ -10,10 +9,10 @@ export class TenPrint extends MazeGenerator {
     }
 
     public step(maze: Maze) {
-        const neighbors = maze.neighbors(this.currentCell, [ 'S', 'E' ]);
+        const neighbors = maze.neighbors(this.currentCell, { dirs: [ 'S', 'E' ]});
         if(neighbors.length) {
             const n1 = this.selectNeighbor(neighbors);
-            const n2 = maze.move(this.currentCell, opposite[n1.direction]);
+            const n2 = maze.move(this.currentCell, maze.opposite(n1.direction));
 
             if(maze.inMaze(n1)) maze.removeWall(this.currentCell, n1.direction);
             if(maze.inMaze(n2)) maze.removeWall(this.currentCell, n2.direction);

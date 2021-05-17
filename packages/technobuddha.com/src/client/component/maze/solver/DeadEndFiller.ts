@@ -1,5 +1,5 @@
 import type { Cell }            from '../maze/Maze';
-import { directions, opposite } from '../maze/directions';
+import { directions } from '../maze/directions';
 
 import { MazeSolver } from './MazeSolver';
 import type { SolveArguments } from './MazeSolver';
@@ -37,8 +37,7 @@ export class DeadEndFiller extends MazeSolver {
                         requestAnimationFrame(
                             () => {
                                 if(cell) {
-                                    const moves = this.maze.neighbors(cell)
-                                    .filter(c => !walls[cell!.x][cell!.y][c.direction]);
+                                    const moves = this.maze.validMoves(cell, { walls });
 
                                     if(sides(cell) === 3 && (cell.x !== entrance.x || cell.y !== entrance.y) && (cell.x !== exit.x || cell.y !== exit.y)) {
                                         for(const direction of directions) {
@@ -48,8 +47,8 @@ export class DeadEndFiller extends MazeSolver {
 
                                                 const cell2 = this.maze.move(cell!, direction);
                                                 if(this.maze.inMaze(cell2)) {
-                                                    walls[cell2.x][cell2.y][opposite[direction]] = true;
-                                                    this.drawWall({ ...cell2, direction: opposite[direction] });
+                                                    walls[cell2.x][cell2.y][this.maze.opposite(direction)] = true;
+                                                    this.drawWall({ ...cell2, direction: this.maze.opposite(direction) });
                                                 }
                                             }
                                         }
