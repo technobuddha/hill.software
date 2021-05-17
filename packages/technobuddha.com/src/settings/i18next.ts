@@ -16,11 +16,11 @@ export default {
     contextSeparator:           '_',
     saveMissing:                isDevelopment,
     interpolation: {
-        escapeValue:      false,
-        formatSeparator:  ',',
+        escapeValue:        false,
+        formatSeparator:    ',',
     },
     react: {
-        wait:             true,
+        useSuspense:        true,
     },
     backend: {
         loadPath:     '/locales/{{lng}}/{{ns}}.json',
