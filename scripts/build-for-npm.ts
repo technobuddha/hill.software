@@ -75,7 +75,7 @@ export function buildForNPM({ packageName }: BuildForNPMOptions) {
         start('Moving', 'index');
         for(const file of glob.sync('dist/index/*.*s')) {
             const contents = fs.readFileSync(file, { encoding: 'utf8' });
-            fs.writeFileSync(file, contents.replace(/(?<=(from |require\()['"])\.\.\.\//ug, './'));
+            fs.writeFileSync(file, contents.replace(/(?<=(from |require\()['"])\.\.\//ug, './'));
         }
         run(shell.mv('-f', 'dist/index/*', 'dist'));
         run(shell.rm('-rf', 'dist/index'));
