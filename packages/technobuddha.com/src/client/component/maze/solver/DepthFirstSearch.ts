@@ -1,7 +1,6 @@
 import create2DArray        from '@technobuddha/library/create2DArray';
 import shuffle              from '@technobuddha/library/shuffle';
 import type { Cell }        from '../maze/Maze';
-import { directions }       from '../maze/directions';
 import type { Direction }   from '../maze/directions';
 
 import { MazeSolver } from './MazeSolver';
@@ -38,7 +37,7 @@ export class DepthFirstSearch extends MazeSolver {
                             }
 
                             if(cell && (cell.x !== exit.x || cell.y !== exit.y)) {
-                                for(const direction of shuffle(directions)) {
+                                for(const direction of shuffle(this.maze.directions)) {
                                     if(!this.maze.walls[cell.x][cell.y][direction]) {
                                         const next = this.maze.move(cell, direction);
 

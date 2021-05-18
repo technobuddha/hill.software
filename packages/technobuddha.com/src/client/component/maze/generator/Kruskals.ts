@@ -1,5 +1,5 @@
 import shuffle from '@technobuddha/library/shuffle';
-import type { Maze, Cell, CellDirection } from '../maze/Maze';
+import type { Cell, CellDirection } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
@@ -10,11 +10,14 @@ export class Kruskals extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        this.disjointSubsets = new DisjointSet(this.width * this.height);
+        const { maze }          = this;
+        const { width, height } = maze;
+
+        this.disjointSubsets = new DisjointSet(width * height);
 
         this.edges = [];
-        for(let x = 0; x < this.width; ++x) {
-            for(let y = 0; y < this.height; ++y) {
+        for(let x = 0; x < width; ++x) {
+            for(let y = 0; y < height; ++y) {
                 if(y > 0) this.edges.push({ x, y, direction: 'N' });
                 if(x > 0) this.edges.push({ x, y, direction: 'W' });
             }
@@ -25,10 +28,14 @@ export class Kruskals extends MazeGenerator {
     }
 
     private getCellIndex(cell: Cell) {
-        return cell.y * this.width + cell.x;
+        const { maze: { width }} = this;
+
+        return cell.y * width + cell.x;
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze } = this;
+
         const edge  = this.edges.pop()!;
         const cell1 = { ...edge };
         const cell2 = maze.move(cell1, edge.direction);

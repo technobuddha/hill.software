@@ -15,22 +15,16 @@ export class RecursiveDivision extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        this.region      = { x: 0, y: 0, width: this.width, height: this.height };
+        const { maze }          = this;
+        const { width, height } = maze;
+
+        this.region      = { x: 0, y: 0, width: width, height: height };
         this.stack       = [ this.region ];
         this.state       = 'choose-region';
         this.horizontal  = true;
         this.wall        = { x: 0, y: 0 };
-    }
 
-    protected preProcessor(maze: Maze) {
-        for(let x = 0; x < this.width; ++x) {
-            for(let y = 0; y < this.height; ++y) {
-                if(y < this.height - 1) maze.removeWall({ x, y }, 'S');
-                if(x < this.width  - 1) maze.removeWall({ x, y }, 'E');
-            }
-        }
-
-        return super.preProcessor(maze);
+        maze.removeInteriorWalls();
     }
 
     private chooseRegion(_maze: Maze) {
@@ -111,7 +105,9 @@ export class RecursiveDivision extends MazeGenerator {
         return true;
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze } = this;
+
         switch(this.state) {
             case 'choose-region':   return this.chooseRegion(maze);
             case 'make-wall':       return this.makeWall(maze);

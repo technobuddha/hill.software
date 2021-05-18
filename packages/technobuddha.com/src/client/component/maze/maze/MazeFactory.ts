@@ -1,4 +1,5 @@
 import type { Direction } from './directions';
+import { Maze } from './Maze';
 import type { Cell, CellDirection } from './Maze';
 import type { MazeGenerator } from '../generator/MazeGenerator';
 
@@ -69,18 +70,20 @@ export class MazeFactory {
 
     public async create(Generator: typeof MazeGenerator, speed = 0) {
         const mg = new Generator({
-            context: this.context,
-            random: this.random,
+            maze: new Maze({
+                context: this.context,
+                width: this.width,
+                height: this.height,
+                cellSize: this.cellSize,
+                cellColor: this.cellColor,
+                wallSize: this.wallSize,
+                wallColor: this.wallColor,
+                entrance: this.entrance,
+                exit: this.exit,
+            }),
+            start:          this.start,
             selectNeighbor: this.selectNeighbor,
-            width: this.width,
-            height: this.height,
-            cellSize: this.cellSize,
-            cellColor: this.cellColor,
-            wallSize: this.wallSize,
-            wallColor: this.wallColor,
-            entrance: this.entrance,
-            exit: this.exit,
-            start: this.start,
+            random:         this.random,
         });
 
         return mg.generate(speed);

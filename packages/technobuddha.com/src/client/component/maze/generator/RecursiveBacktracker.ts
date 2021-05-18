@@ -1,4 +1,4 @@
-import type { Maze, Cell } from '../maze/Maze';
+import type { Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
@@ -10,13 +10,17 @@ export class RecursiveBacktracker extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        this.visited = create2DArray(this.width, this.height, false);
+        const { maze: { width, height }} = this;
+
+        this.visited = create2DArray(width, height, false);
         this.currentCell = this.start;
         this.stack  = [ this.currentCell ];
         this.visited[this.currentCell.x][this.currentCell.y] = true;
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze } = this;
+
         const unvisitedNeighbors = maze.neighbors(this.currentCell).filter(cell => !this.visited[cell.x][cell.y]);
         if(unvisitedNeighbors.length > 0) {
             const newCell = this.selectNeighbor(unvisitedNeighbors);

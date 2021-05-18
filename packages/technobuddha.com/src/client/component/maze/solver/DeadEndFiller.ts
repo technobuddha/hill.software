@@ -1,5 +1,4 @@
 import type { Cell }            from '../maze/Maze';
-import { directions } from '../maze/directions';
 
 import { MazeSolver } from './MazeSolver';
 import type { SolveArguments } from './MazeSolver';
@@ -40,7 +39,7 @@ export class DeadEndFiller extends MazeSolver {
                                     const moves = this.maze.validMoves(cell, { walls });
 
                                     if(sides(cell) === 3 && (cell.x !== entrance.x || cell.y !== entrance.y) && (cell.x !== exit.x || cell.y !== exit.y)) {
-                                        for(const direction of directions) {
+                                        for(const direction of this.maze.directions) {
                                             if(!walls[cell.x][cell.y][direction]) {
                                                 walls[cell.x][cell.y][direction] = true;
                                                 this.drawWall({ ...cell, direction });

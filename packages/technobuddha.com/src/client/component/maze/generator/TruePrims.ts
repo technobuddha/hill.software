@@ -1,9 +1,8 @@
-import type { Maze, CellDirection } from '../maze/Maze';
+import type { CellDirection } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
 import type { Direction } from '../maze/directions';
-import { directions } from '../maze/directions';
 
 export class TruePrims extends MazeGenerator {
     private visited:        boolean[][];
@@ -13,19 +12,24 @@ export class TruePrims extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
+        const { maze } = this;
+        const { width, height } = maze;
+
         this.currentCell = this.start;
-        this.visited = create2DArray(this.width, this.height, false);
+        this.visited = create2DArray(width, height, false);
         this.visited[this.currentCell.x][this.currentCell.y] = true;
 
-        this.costs = create2DArray(this.width, this.height, () => ({ N: 0, E: 0, W: 0, S: 0 }));
+        this.costs = create2DArray(
+            width,
+            height,
+            () => Object.fromEntries(maze.directions.map(direction => [ direction, 0 ])) as Record<Direction, number>
+        );
 
-        this.activePassages = directions.map(direction => ({ ...this.currentCell, direction }));
-    }
+        this.activePassages = maze.directions.map(direction => ({ ...this.currentCell, direction }));
 
-    protected preProcessor(maze: Maze) {
-        for(let x = 0; x < this.width; ++x) {
-            for(let y = 0; y < this.height; ++y) {
-                for(let direction of directions) {
+        for(let x = 0; x < width; ++x) {
+            for(let y = 0; y < height; ++y) {
+                for(let direction of maze.directions) {
                     const cell         = maze.move({ x, y }, direction);
                     const isBorderWall = !maze.inMaze(cell);
                     let   passageCost  = isBorderWall ? Infinity : this.random();
@@ -37,11 +41,11 @@ export class TruePrims extends MazeGenerator {
                 }
             }
         }
-
-        return maze;
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze } = this;
+
         let minCost      = Infinity;
         let passageIndex = 0;
 
@@ -59,7 +63,7 @@ export class TruePrims extends MazeGenerator {
             maze.removeWall(passage, passage.direction);
             this.visited[cell.x][cell.y] = true;
 
-            for(const direction of directions) {
+            for(const direction of maze.directions) {
                 if(direction !== maze.opposite(passage.direction))
                     this.activePassages.push({ ...cell, direction });
             }

@@ -31,9 +31,10 @@ type Wall = {
 };
 
 export class Maze extends MazeRenderer {
-    public entrance:        CellDirection;
-    public exit:            CellDirection;
-    public walls:           Wall[][];
+    public readonly directions:     Direction[]     = [ 'N', 'E', 'W', 'S' ];
+    public entrance:                CellDirection;
+    public exit:                    CellDirection;
+    public walls:                   Wall[][];
 
     constructor({
         entrance,
@@ -116,6 +117,15 @@ export class Maze extends MazeRenderer {
         }
     }
 
+    public removeInteriorWalls() {
+        for(let x = 0; x < this.width; ++x) {
+            for(let y = 0; y < this.height; ++y) {
+                if(y < this.height - 1) this.removeWall({ x, y }, 'S');
+                if(x < this.width  - 1) this.removeWall({ x, y }, 'E');
+            }
+        }
+    }
+
     public addWall(cell: Cell, direction: Direction) {
         if(this.inMaze(cell)) {
             this.walls[cell.x][cell.y][direction] = true;
@@ -143,10 +153,19 @@ export class Maze extends MazeRenderer {
             case 'S':   next = { x: cell.x,     y: cell.y + 1,  direction }; break;
         }
 
-        //if(next.x < 0)              next.x += this.width;
-        //if(next.x >= this.width)    next.x -= this.width;
-
         return next;
+    }
+
+    public scan(cell: Cell): Cell {
+        let { x, y } = cell;
+
+        x++;
+        if(x >= this.width) {
+            x = 0;
+            y++;
+        }
+
+        return { x, y };
     }
 
     public sides(cell: Cell) {

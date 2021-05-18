@@ -1,7 +1,6 @@
 import MazeGenerator from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
 
-import type { Maze } from '../maze/Maze';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
 export class AldousBroder extends MazeGenerator {
@@ -10,14 +9,16 @@ export class AldousBroder extends MazeGenerator {
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
-
         this.totalVisited   = 0;
-        this.visited        = create2DArray(this.width, this.height, false);
-        this.currentCell    = this.start;
+        this.visited        = create2DArray(this.maze.width, this.maze.height, false);
+
+        this.currentCell = this.start;
         this.visited[this.currentCell.x][this.currentCell.y] = true;
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze } = this;
+
         for(;;) {
             const cell = this.selectNeighbor(maze.neighbors(this.currentCell));
 
@@ -31,7 +32,7 @@ export class AldousBroder extends MazeGenerator {
             this.currentCell = cell;
         }
 
-        return this.totalVisited < this.width * this.height;
+        return this.totalVisited < maze.width * maze.height;
     }
 }
 

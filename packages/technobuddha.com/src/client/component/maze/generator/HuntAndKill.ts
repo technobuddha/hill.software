@@ -1,5 +1,5 @@
 import create2DArray from '@technobuddha/library/create2DArray';
-import type { Maze, Cell } from '../maze/Maze';
+import type { Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
@@ -11,14 +11,19 @@ export class HuntAndKill extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
+        const { maze }          = this;
+        const { width, height } = maze;
+
         this.currentCell      = this.start;
         this.startHuntingFrom = this.currentCell;
         this.hunting          = false;
 
-        this.visited = create2DArray(this.width, this.height, false);
+        this.visited = create2DArray(width, height, false);
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze }          = this;
+
         if(!this.hunting) {
             this.visited[this.currentCell.x][this.currentCell.y] = true;
 
@@ -64,14 +69,8 @@ export class HuntAndKill extends MazeGenerator {
         }
 
         if(this.hunting) {
-            this.currentCell = maze.move(this.currentCell, 'E');
-            if(this.currentCell.x >= this.width) {
-                this.currentCell.x = 0;
-                this.currentCell.y++;
-            }
-
-            if(this.currentCell.y >= this.height)
-                return false;
+            this.currentCell = maze.scan(this.currentCell);
+            return maze.inMaze(this.currentCell);
         }
 
         return true;

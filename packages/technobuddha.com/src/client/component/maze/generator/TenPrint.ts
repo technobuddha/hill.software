@@ -1,4 +1,3 @@
-import type { Maze } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
@@ -8,7 +7,10 @@ export class TenPrint extends MazeGenerator {
         this.currentCell = { x: 0, y: 0 };
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze }          = this;
+        const { width, height } = maze;
+
         const neighbors = maze.neighbors(this.currentCell, { dirs: [ 'S', 'E' ]});
         if(neighbors.length) {
             const n1 = this.selectNeighbor(neighbors);
@@ -22,12 +24,12 @@ export class TenPrint extends MazeGenerator {
         }
 
         this.currentCell.x += 2;
-        if(this.currentCell.x >= this.width) {
+        if(this.currentCell.x >= width) {
             this.currentCell.y++;
             this.currentCell.x = this.currentCell.y % 2;
         }
 
-        return this.currentCell.y < this.height;
+        return this.currentCell.y < height;
     }
 }
 

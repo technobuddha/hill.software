@@ -1,6 +1,6 @@
 import shuffle from '@technobuddha/library/shuffle';
 import create2DArray from '@technobuddha/library/create2DArray';
-import type { Maze, Cell } from '../maze/Maze';
+import type { Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
@@ -16,13 +16,16 @@ export class Ellers extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        this.visited = create2DArray(this.width, this.height, false);
-        this.currentCell = { x: 0, y: 0 };
+        const { maze }          = this;
+        const { width, height } = maze;
+
+        this.visited        = create2DArray(width, height, false);
+        this.currentCell    = { x: 0, y: 0 };
         this.visited[this.currentCell.x][this.currentCell.y] = true;
 
-        this.sets = {};
-        this.cellSets = create2DArray(this.width, this.height, (x, y) => {
-            const setId = x + y * this.width;
+        this.sets       = {};
+        this.cellSets   = create2DArray(width, height, (x, y) => {
+            const setId = x + y * width;
             this.sets[setId] = [{ x, y }];
             return setId;
         });
@@ -32,8 +35,8 @@ export class Ellers extends MazeGenerator {
         this.initializeRow();
     }
 
-    public step(maze: Maze) {
-        return this.mode === 'horizontal' ? this.horizontalStep(maze) : this.verticalStep(maze);
+    public step() {
+        return this.mode === 'horizontal' ? this.horizontalStep() : this.verticalStep();
     }
 
     private initializeRow() {
@@ -41,13 +44,16 @@ export class Ellers extends MazeGenerator {
         this.mode = 'horizontal';
     }
 
-    private horizontalStep(maze: Maze) {
+    private horizontalStep() {
+        const { maze } = this;
+        const { width, height } = maze;
+
         const c0 = this.currentCell;
         const c1 = maze.move(c0, 'E');
 
         if(
             (this.cellSets[c0.x][c0.y] !== this.cellSets[c1.x][c1.y]) &&
-            ((c0.y === this.height - 1) || (this.random() > 0.5))
+            ((c0.y === height - 1) || (this.random() > 0.5))
         ) {
             this.merge(c0, c1);
             maze.removeWall(c0, 'E');
@@ -55,8 +61,8 @@ export class Ellers extends MazeGenerator {
 
         this.currentCell.x++;
 
-        if(this.currentCell.x >= this.width - 1) {
-            if(this.currentCell.y === this.height - 1)
+        if(this.currentCell.x >= width - 1) {
+            if(this.currentCell.y === height - 1)
                 return false;
 
             this.mode = 'vertical';
@@ -94,7 +100,9 @@ export class Ellers extends MazeGenerator {
         return delete this.sets[targetSet];
     }
 
-    private verticalStep(maze: Maze) {
+    private verticalStep() {
+        const { maze } = this;
+
         //no cells left to connect vertically
         if(this.cellsToConnectVertically.length === 0) {
             this.currentCell.y++;

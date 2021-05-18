@@ -1,4 +1,4 @@
-import type { Maze, Cell } from '../maze/Maze';
+import type { Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 import type { Direction } from '../maze/directions';
@@ -13,11 +13,14 @@ export class Sidewinder extends MazeGenerator {
         this.runSet      = [];
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze }          = this;
+        const { width, height } = maze;
+
         this.runSet.push(this.currentCell);
 
         const dirs: Direction[] = [];
-        if(this.currentCell.x !== this.width - 1)
+        if(this.currentCell.x !== width - 1)
             dirs.push('E');
         if(this.currentCell.y !== 0)
             dirs.push('N');
@@ -35,13 +38,13 @@ export class Sidewinder extends MazeGenerator {
         }
 
         this.currentCell = { x: this.currentCell.x + 1, y: this.currentCell.y };
-        if(this.currentCell.x >= this.width) {
+        if(this.currentCell.x >= width) {
             this.currentCell.x = 0;
             this.currentCell.y++;
             this.runSet = [];
         }
 
-        return this.currentCell.y < this.height;
+        return this.currentCell.y < height;
     }
 }
 

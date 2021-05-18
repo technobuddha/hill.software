@@ -1,5 +1,5 @@
 import create2DArray from '@technobuddha/library/create2DArray';
-import type { Maze, Cell } from '../maze/Maze';
+import type { Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
@@ -10,12 +10,17 @@ export class SimplifiedPrims extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        this.visited = create2DArray(this.width, this.height, false);
+        const { maze }          = this;
+        const { width, height } = maze;
+
+        this.visited = create2DArray(width, height, false);
         this.activeCells  = [ this.start ];
         this.visited[this.start.x][this.start.y] = true;
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze } = this;
+
         const cellIndex     = Math.floor(this.random() * this.activeCells.length);
         this.currentCell    = this.activeCells[cellIndex];
 

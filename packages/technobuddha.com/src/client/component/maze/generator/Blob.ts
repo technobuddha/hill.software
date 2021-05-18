@@ -1,6 +1,6 @@
 import create2DArray from '@technobuddha/library/create2DArray';
 import shuffle       from '@technobuddha/library/shuffle';
-import type { Maze, Cell, CellDirection } from '../maze/Maze';
+import type { Cell, CellDirection } from '../maze/Maze';
 
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
@@ -68,20 +68,18 @@ export class Blob extends MazeGenerator {
     constructor({ threshold = 4, ...props }: BlobProperties) {
         super({ ...props });
 
-        this.threshold = threshold;
-    }
+        this.threshold  = threshold;
+        this.walls      = [];
 
-    protected preProcessor(maze: Maze) {
-        this.walls = [];
-        const allRegion = new Region({ width: this.width, height: this.height });
+        const { maze }          = this;
+        const { width, height } = maze;
 
-        for(let x = 0; x < this.width; ++x) {
-            for(let y = 0; y < this.height; ++y) {
+        maze.removeInteriorWalls();
+
+        const allRegion = new Region({ width, height });
+        for(let x = 0; x < width; ++x) {
+            for(let y = 0; y < height; ++y)
                 allRegion.addCell({ x, y });
-
-                if(y < this.height - 1) maze.removeWall({ x, y }, 'S');
-                if(x < this.width  - 1) maze.removeWall({ x, y }, 'E');
-            }
         }
 
         const stack = [ allRegion ];
@@ -120,11 +118,11 @@ export class Blob extends MazeGenerator {
 
             stack.push(...region.split(this.threshold));
         }
-
-        return maze;
     }
 
-    protected step(maze: Maze) {
+    protected step() {
+        const { maze } = this;
+
         if(this.walls.length) {
             const wall = this.walls.shift()!;
             maze.addWall(wall, wall.direction);

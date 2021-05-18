@@ -1,4 +1,4 @@
-import type { Maze, Cell } from '../maze/Maze';
+import type { Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
@@ -11,13 +11,17 @@ export class ModifiedPrims extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        this.visited = create2DArray(this.width, this.height, false);
+        const { maze: { width, height }} = this;
+
+        this.visited = create2DArray(width, height, false);
         this.activeCells  = [ this.start ];
         this.visited[this.start.x][this.start.y] = true;
-        this.costs = create2DArray(this.width, this.height, this.random);
+        this.costs = create2DArray(width, height, this.random);
     }
 
-    public step(maze: Maze) {
+    public step() {
+        const { maze } = this;
+
         let minCost     = Infinity;
         let cellIndex   = 0;
         this.activeCells.forEach((cell, index) => {
