@@ -1,9 +1,11 @@
 import create2DArray from '@technobuddha/library/create2DArray';
-import shuffle from '@technobuddha/library/shuffle';
+import randomPick    from '@technobuddha/library/randomPick';
+import { parsePointDirection } from '../util/specs';
 
-import { MazeRenderer } from './MazeRenderer';
-import type { MazeRendererProperties } from './MazeRenderer';
-import type { Direction, Corner } from './directions';
+const MARGIN = 2;
+
+export type Direction = string;
+export type Corner   = string;
 
 export type Cell = {
     x: number;
@@ -18,142 +20,201 @@ export type CellCorner = Cell & {
     corner: Corner;
 };
 
-export type MazeProperties = MazeRendererProperties & {
-    entrance:               CellDirection;
-    exit:                   CellDirection;
+type Location  = 'top left' | 'top middle' | 'top right' |
+'bottom left' | 'bottom middle' | 'bottom right' |
+'middle left' | 'middle' | 'middle right' |
+'random';
+
+export type CSpecification  = Cell | Location;
+export type CDSpecification = CellDirection | Cell | Location;
+
+export type MazeProperties = {
+    context?:               CanvasRenderingContext2D;
+    width?:                 number;
+    height?:                number;
+    cellSize?:              number;
+    cellColor?:             string;
+    wallSize?:              number;
+    wallColor?:             string;
+    entrance?:              CDSpecification;
+    exit?:                  CDSpecification;
 };
 
-type Wall = {
-    N:  boolean;
-    E:  boolean;
-    W:  boolean;
-    S:  boolean;
-};
-
-export class Maze extends MazeRenderer {
-    public readonly directions:     Direction[]     = [ 'N', 'E', 'W', 'S' ];
+export type Wall = Record<Direction, boolean | undefined>;
+export abstract class Maze {
+    public directions:              Direction[] = [];
+    public corners:                 Corner[]    = [];
+    public walls:                   Wall[][];
+    public context:                 MazeProperties['context'];
+    public width:                   Exclude<MazeProperties['width'],     undefined>;
+    public height:                  Exclude<MazeProperties['height'],    undefined>;
+    public readonly cellSize:       Exclude<MazeProperties['cellSize'],  undefined>;
+    public readonly cellColor:      Exclude<MazeProperties['cellColor'], undefined>;
+    public readonly wallSize:       Exclude<MazeProperties['wallSize'],  undefined>;
+    public readonly wallColor:      Exclude<MazeProperties['wallColor'], undefined>;
     public entrance:                CellDirection;
     public exit:                    CellDirection;
-    public walls:                   Wall[][];
 
-    constructor({
-        entrance,
-        exit,
-        ...props
-    }: MazeProperties) {
-        super(props);
-        this.entrance           = entrance;
-        this.exit               = exit;
-        this.walls              = create2DArray(this.width, this.height, () => ({ N: true, E: true, W: true, S: true }));
+    constructor(
+        {
+            context,
+            width,
+            height,
+            cellSize    = 21,
+            cellColor   = 'black',
+            wallSize    = 1,
+            wallColor   = 'white',
+            entrance    = 'top left',
+            exit        = 'bottom right',
+        }:  MazeProperties,
+        directions: Direction[],
+        corners:    Corner[]
+    ) {
+        this.directions         = directions;
+        this.corners            = corners;
+        this.context            = context;
+        this.cellSize           = cellSize;
+        this.cellColor          = cellColor;
+        this.wallSize           = wallSize;
+        this.wallColor          = wallColor;
+        this.width              = width   ?? this.computeWidth(context?.canvas?.width)   ?? 25;
+        this.height             = height  ?? this.computeHeight(context?.canvas?.height) ?? 25;
+        this.entrance           = this.resolveDirection(entrance);
+        this.exit               = this.resolveDirection(exit);
 
-        //this.walls[entrance.x][entrance.y][entrance.direction] = false;
-        //this.walls[exit.x][exit.y][exit.direction]             = false;
+        this.walls = create2DArray(this.width, this.height, (x, y) => this.initialWalls(x, y));
+        this.walls[this.entrance.x][this.entrance.y][this.entrance.direction] = false;
+        this.walls[this.exit.x][this.exit.y][this.exit.direction]             = false;
+    }
 
-        this.draw();
+    private resolveDirection(spec: CDSpecification): CellDirection {
+        const cell = parsePointDirection(spec, this.width, this.height);
+
+        if('direction' in cell)
+            return cell;
+
+        const adjacent = this.adjacent(cell);
+        const outside  = adjacent.filter(c => !this.inMaze(c));
+        if(outside.length)
+            return { ...cell, direction: randomPick(outside).direction };
+
+        return { ...cell, direction: randomPick(adjacent).direction };
+    }
+
+    protected computeWidth(width?: number): number | undefined {
+        if(width) {
+            const [ border, cell ] = this.drawingWidth();
+            return Math.floor((width - (MARGIN * 2 + border)) / cell);
+        }
+        return undefined;
+    }
+
+    protected computeHeight(height?: number): number | undefined {
+        if(height) {
+            const [ border, cell ] = this.drawingHeight();
+            return Math.floor((height - (MARGIN * 2 + border)) / cell);
+        }
+        return undefined;
     }
 
     public draw() {
         if(this.context) {
-            this.prepare();
+            this.prepareContext();
 
-            this.context.fillStyle = this.cellColor;
-            this.context.fillRect(-1, -1, this.width * this.cellSize + 2, this.height * this.cellSize + 2);
+            this.clear(this.cellColor);
 
             this.context.fillStyle = this.wallColor;
             for(let x = 0; x < this.width; ++x) {
                 for(let y = 0; y < this.height; ++y) {
-                    const wall = this.walls[x][y];
+                    this.drawFloor({ x, y });
 
-                    if(wall.N) this.drawWall({ x, y, direction: 'N' });
-                    if(wall.S) this.drawWall({ x, y, direction: 'S' });
-                    if(wall.E) this.drawWall({ x, y, direction: 'E' });
-                    if(wall.W) this.drawWall({ x, y, direction: 'W' });
-                    this.drawPillar({ x, y, corner: 'NE' });
-                    this.drawPillar({ x, y, corner: 'NW' });
-                    this.drawPillar({ x, y, corner: 'SE' });
-                    this.drawPillar({ x, y, corner: 'SW' });
+                    const wall = this.walls[x][y];
+                    for(const direction of this.directions)
+                        if(wall[direction]) this.drawWall({ x, y, direction });
+
+                    for(const corner of this.corners)
+                        if(corner[0] in wall && corner[1] in wall) this.drawPillar({ x, y, corner });
                 }
             }
 
-            const x0 = -1;
-            const y0 = -1;
-            const x1 = this.width;
-            const y1 = this.height;
-            for(let x = 0; x < this.width; ++x) {
-                this.drawPillar({ x, y: y0, corner: 'SE' });
-                this.drawPillar({ x, y: y0, corner: 'SW' });
-                this.drawPillar({ x, y: y1, corner: 'NE' });
-                this.drawPillar({ x, y: y1, corner: 'NW' });
-                if(this.walls[x][y0 + 1].N) this.drawWall({ x, y: y0, direction: 'S' }, 'purple');
-                if(this.walls[x][y1 - 1].S) this.drawWall({ x, y: y1, direction: 'N' }, 'purple');
+            const x0 = 0;
+            const y0 = 0;
+            const x1 = this.width  - 1;
+            const y1 = this.height - 1;
+            const edges: Cell[] = [];
+            for(let x = 0; x < this.width; ++x)
+                edges.push({ x, y: y0 }, { x, y: y1 });
+            for(let y = 0; y < this.height; ++y)
+                edges.push({ x: x0, y }, { x: x1, y });
+
+            for(const edge of edges) {
+                for(const outside of this.adjacent(edge).filter(cell => !this.inMaze(cell))) {
+                    const { direction } = outside;
+
+                    if(this.walls[edge.x][edge.y][direction])
+                        this.drawWall({ ...outside, direction: this.opposite(direction) });
+
+                    for(const corner of this.corners) {
+                        if(corner.includes(this.opposite(direction)))
+                            this.drawPillar({ ...outside, corner });
+                    }
+                }
             }
 
-            for(let y = 0; y < this.height; ++y) {
-                this.drawPillar({ x: x0, y, corner: 'NE' });
-                this.drawPillar({ x: x0, y, corner: 'SE' });
-                this.drawPillar({ x: x1, y, corner: 'NW' });
-                this.drawPillar({ x: x1, y, corner: 'SW' });
-                if(this.walls[x0 + 1][y].W) this.drawWall({ x: x0, y, direction: 'E' }, 'purple');
-                if(this.walls[x1 - 1][y].E) this.drawWall({ x: x1, y, direction: 'W' }, 'purple');
-            }
-
-            this.drawPillar({ x: x0, y: y0, corner: 'SE' });
-            this.drawPillar({ x: x1, y: y0, corner: 'SW' });
-            this.drawPillar({ x: x0, y: y1, corner: 'NE' });
-            this.drawPillar({ x: x1, y: y1, corner: 'NW' });
+            // this.drawPillar({ x: x0, y: y0, corner: 'SE' });
+            // this.drawPillar({ x: x1, y: y0, corner: 'SW' });
+            // this.drawPillar({ x: x0, y: y1, corner: 'NE' });
+            // this.drawPillar({ x: x1, y: y1, corner: 'NW' });
         }
     }
 
-    public removeWall(cell: Cell, direction: Direction) {
-        if(this.inMaze(cell)) {
-            this.walls[cell.x][cell.y][direction] = false;
-            this.drawWall({ ...cell, direction }, 'white');
-
-            const cell2 = this.move(cell, direction);
-            if(this.inMaze(cell2)) {
-                this.walls[cell2.x][cell2.y][this.opposite(direction)] = false;
-                this.drawWall({ ...cell2, direction: this.opposite(direction) }, this.cellColor);
-            }
-        }
+    public adjacent(
+        cell: Cell,
+        { dirs = this.directions }: { dirs?: Direction[] } = {}
+    ): CellDirection[] {
+        return dirs
+        .map(direction => this.move(cell, direction))
+        .filter(c => c !== null) as CellDirection[];
     }
 
-    public removeInteriorWalls() {
+    public neighbors(
+        cell: Cell,
+        { dirs = this.directions }: { dirs?: Direction[] } = {}
+    ): CellDirection[] {
+        return this.adjacent(cell, { dirs }).filter(c => this.inMaze(c));
+    }
+
+    public validMoves(
+        cell: Cell,
+        { dirs = this.directions, walls = this.walls }: { dirs?: Direction[]; walls?: Wall[][] } = {}
+    ): CellDirection[] {
+        return this.neighbors(cell, { dirs }).filter(cd => !walls[cell.x][cell.y][cd.direction]);
+    }
+
+    public sides(cell: Cell) {
+        let s = 0;
+        for(const direction of this.directions) {
+            if(this.walls[cell.x][cell.y][direction])
+                s++;
+        }
+        return s;
+    }
+
+    public deadEnds() {
+        const ends: Cell[] = [];
+
         for(let x = 0; x < this.width; ++x) {
             for(let y = 0; y < this.height; ++y) {
-                if(y < this.height - 1) this.removeWall({ x, y }, 'S');
-                if(x < this.width  - 1) this.removeWall({ x, y }, 'E');
+                if(this.isDeadEnd({ x, y }))
+                    ends.push({ x, y });
             }
         }
-    }
 
-    public addWall(cell: Cell, direction: Direction) {
-        if(this.inMaze(cell)) {
-            this.walls[cell.x][cell.y][direction] = true;
-            this.drawWall({ ...cell, direction }, 'black');
-
-            const cell2 = this.move(cell, direction);
-            if(this.inMaze(cell2)) {
-                this.walls[cell2.x][cell2.y][this.opposite(direction)] = true;
-                this.drawWall({ ...cell2, direction: this.opposite(direction) }, this.wallColor);
-            }
-        }
+        return ends;
     }
 
     public inMaze(cell: Cell) {
         return cell.x >= 0 && cell.x < this.width && cell.y >= 0 && cell.y < this.height;
-    }
-
-    public move(cell: Cell, direction: Direction): CellDirection {
-        let next: CellDirection;
-
-        switch(direction) {
-            case 'N':   next = { x: cell.x,     y: cell.y - 1,  direction }; break;
-            case 'E':   next = { x: cell.x + 1, y: cell.y,      direction }; break;
-            case 'W':   next = { x: cell.x - 1, y: cell.y,      direction }; break;
-            case 'S':   next = { x: cell.x,     y: cell.y + 1,  direction }; break;
-        }
-
-        return next;
     }
 
     public scan(cell: Cell): Cell {
@@ -168,162 +229,214 @@ export class Maze extends MazeRenderer {
         return { x, y };
     }
 
-    public sides(cell: Cell) {
-        return (this.walls[cell.x][cell.y].N ? 1 : 0) +
-            (this.walls[cell.x][cell.y].E ? 1 : 0) +
-            (this.walls[cell.x][cell.y].W ? 1 : 0) +
-            (this.walls[cell.x][cell.y].S ? 1 : 0);
-    }
+    public prepareContext(context?: CanvasRenderingContext2D) {
+        if(context)
+            this.context = context;
 
-    public neighbors(
-        cell: Cell,
-        { dirs = [ 'N', 'E', 'W', 'S' ]}: { dirs?: Direction[] } = {}
-    ): CellDirection[] {
-        return dirs
-        .map(direction => this.move(cell, direction))
-        .filter(c => this.inMaze(c));
-    }
-
-    public validMoves(
-        cell: Cell,
-        { dirs = [ 'N', 'E', 'W', 'S' ], walls = this.walls }: { dirs?: Direction[]; walls?: Wall[][] } = {}
-    ): CellDirection[] {
-        return dirs
-        .filter(d => !walls[cell.x][cell.y][d])
-        .map(direction => this.move(cell, direction))
-        .filter(c => this.inMaze(c));
-    }
-
-    public toString() {
-        let str = '';
-
-        for(let y = 0; y < this.height; ++y) {
-            for(let x = 0; x < this.width; ++x)
-                str += this.walls[x][y].N ? '+==' : '+  ';
-            str += '+\n';
-            for(let x = 0; x < this.width; ++x)
-                str += this.walls[x][y].W ? '|  ' : '   ';
-            str += this.walls[this.width - 1][y].E ? '|\n' : ' \n';
-        }
-        for(let x = 0; x < this.width; ++x)
-            str += this.walls[x][this.height - 1].S ? '+==' : '+  ';
-        str += '+\n';
-
-        return str;
-    }
-
-    protected distancesFrom(point = this.entrance) {
-        const queue: Cell[]    = [];
-        const distances         = create2DArray(this.width, this.height, Infinity);
-        distances[point.x][point.y]  = 0;
-        queue.unshift(point);
-
-        let maxDistance = 1;
-        while(queue.length) {
-            const cell      = queue.pop()!;
-            const neighbors = shuffle(
-                this.neighbors(cell)
-                .filter(n => !this.walls[cell.x][cell.y][n.direction] && distances[n.x][n.y] === Infinity)
-            );
-
-            for(const neighbor of neighbors) {
-                const distance = distances[cell.x][cell.y] + 1;
-                distances[neighbor.x][neighbor.y]  = distance;
-
-                if(distance > maxDistance)
-                    maxDistance = distance;
-
-                queue.unshift(neighbor);
-            }
-        }
-
-        return { distances, maxDistance };
-    }
-
-    public drawDistances(point = this.entrance) {
         if(this.context) {
-            const { distances, maxDistance } = this.distancesFrom(point);
+            const [ wBorder, wCell ] = this.drawingWidth();
+            const [ hBorder, hCell ] = this.drawingHeight();
 
-            for(let x = 0; x < this.width; ++x) {
-                for(let y = 0; y < this.height; ++y) {
-                    if(distances[x][y] === Infinity) {
-                        this.context.fillStyle = 'black';
-                    } else {
-                        this.context.fillStyle = //`hsla(${distances[x][y] * 360 / maxDistance}, 100%, 50%, 0.25)`;
-                        `rgba(0, 0, 0, ${distances[x][y] * 0.5 / maxDistance})`;
-                    }
+            this.context.setTransform(1, 0, 0, 1, 0, 0);
+            this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+            this.context.translate(
+                Math.floor((this.context.canvas.width  - (wBorder + this.width * wCell)) / 2),
+                Math.floor((this.context.canvas.height - (hBorder + this.height * hCell)) / 2),
+            );
+        }
+    }
 
-                    this.context.fillRect(
-                        x * this.cellSize + this.wallSize,
-                        y * this.cellSize + this.wallSize,
-                        this.cellSize - (this.wallSize * 2),
-                        this.cellSize - (this.wallSize * 2)
-                    );
-                    if(!this.walls[x][y].N) {
-                        this.context.fillRect(
-                            x * this.cellSize + this.wallSize,
-                            y * this.cellSize,
-                            this.cellSize - (this.wallSize * 2),
-                            this.wallSize,
-                        );
-                    }
-                    if(!this.walls[x][y].S) {
-                        this.context.fillRect(
-                            x * this.cellSize + this.wallSize,
-                            y * this.cellSize + (this.cellSize - this.wallSize),
-                            this.cellSize - (this.wallSize * 2),
-                            this.wallSize
-                        );
-                    }
-                    if(!this.walls[x][y].W) {
-                        this.context.fillRect(
-                            x * this.cellSize,
-                            y * this.cellSize + this.wallSize,
-                            this.wallSize,
-                            this.cellSize - (this.wallSize * 2)
-                        );
-                    }
-                    if(!this.walls[x][y].E) {
-                        this.context.fillRect(
-                            x * this.cellSize + (this.cellSize - this.wallSize),
-                            y * this.cellSize + this.wallSize,
-                            this.wallSize,
-                            this.cellSize - (this.wallSize * 2)
-                        );
-                    }
-                }
+    public clear(color?: string) {
+        if(this.context) {
+            const [ wBorder, wCell ] = this.drawingWidth();
+            const [ hBorder, hCell ] = this.drawingHeight();
+
+            if(color) {
+                this.context.fillStyle = color;
+                this.context.fillRect(
+                    -(this.wallSize + MARGIN),
+                    -(this.wallSize + MARGIN),
+                    MARGIN * 2 + wBorder + this.width  * wCell,
+                    MARGIN * 2 + hBorder + this.height * hCell,
+                );
+            } else {
+                this.context.clearRect(
+                    -(this.wallSize + MARGIN),
+                    -(this.wallSize + MARGIN),
+                    MARGIN * 2 + wBorder + this.width  * wCell,
+                    MARGIN * 2 + hBorder + this.height * hCell,
+                );
             }
         }
     }
 
-    public braid() {
-        return new Promise<void>(resolve => {
-            let x = 0;
-            let y = 0;
-            const go = () => {
-                if(this.sides({ x, y }) === 3) {
-                    requestAnimationFrame(
-                        () => {
-                            const neighbors = this.neighbors({ x, y }).filter(cell => this.walls[x][y][cell.direction]);
-                            if(this.neighbors.length) {
-                                const index = Math.floor(neighbors.length * Math.random());
-                                this.removeWall({ x, y }, neighbors[index].direction);
-                            }
+    public removeWall(cell: Cell, direction: Direction) {
+        if(this.inMaze(cell)) {
+            this.walls[cell.x][cell.y][direction] = false;
+            this.drawWall({ ...cell, direction }, this.cellColor);
 
-                            x++;
-                            if(x >= this.width) { x = 0; y++; }
-                            if(y < this.height) go(); else resolve();
-                        }
-                    );
-                } else {
-                    x++;
-                    if(x >= this.width) { x = 0; y++; }
-                    if(y < this.height) go(); else resolve();
-                }
-            };
-            go();
-        });
+            const cell2 = this.move(cell, direction);
+            if(cell2 && this.inMaze(cell2)) {
+                this.walls[cell2.x][cell2.y][this.opposite(direction)] = false;
+                this.drawWall({ ...cell2, direction: this.opposite(direction) }, this.cellColor);
+            }
+        }
     }
+
+    public removeInteriorWalls() {
+        for(let x = 0; x < this.width; ++x) {
+            for(let y = 0; y < this.height; ++y) {
+                for(const neighbor of this.neighbors({ x, y }))
+                    this.removeWall({ x, y }, neighbor.direction);
+            }
+        }
+    }
+
+    public addWall(cell: Cell, direction: Direction) {
+        if(this.inMaze(cell)) {
+            this.walls[cell.x][cell.y][direction] = true;
+            this.drawWall({ ...cell, direction }, 'black');
+
+            const cell2 = this.move(cell, direction);
+            if(cell2 && this.inMaze(cell2)) {
+                this.walls[cell2.x][cell2.y][this.opposite(direction)] = true;
+                this.drawWall({ ...cell2, direction: this.opposite(direction) }, this.wallColor);
+            }
+        }
+    }
+
+    //public abstract toString(): string;
+    // protected distancesFrom(point = this.entrance) {
+    //     const queue: Cell[]    = [];
+    //     const distances         = create2DArray(this.width, this.height, Infinity);
+    //     distances[point.x][point.y]  = 0;
+    //     queue.unshift(point);
+
+    //     let maxDistance = 1;
+    //     while(queue.length) {
+    //         const cell      = queue.pop()!;
+    //         const neighbors = shuffle(
+    //             this.neighbors(cell)
+    //             .filter(n => !this.walls[cell.x][cell.y][n.direction] && distances[n.x][n.y] === Infinity)
+    //         );
+
+    //         for(const neighbor of neighbors) {
+    //             const distance = distances[cell.x][cell.y] + 1;
+    //             distances[neighbor.x][neighbor.y]  = distance;
+
+    //             if(distance > maxDistance)
+    //                 maxDistance = distance;
+
+    //             queue.unshift(neighbor);
+    //         }
+    //     }
+
+    //     return { distances, maxDistance };
+    // }
+
+    // public drawDistances(point = this.entrance) {
+    //     if(this.context) {
+    //         const { distances, maxDistance } = this.distancesFrom(point);
+
+    //         for(let x = 0; x < this.width; ++x) {
+    //             for(let y = 0; y < this.height; ++y) {
+    //                 if(distances[x][y] === Infinity) {
+    //                     this.context.fillStyle = 'black';
+    //                 } else {
+    //                     this.context.fillStyle = //`hsla(${distances[x][y] * 360 / maxDistance}, 100%, 50%, 0.25)`;
+    //                     `rgba(0, 0, 0, ${distances[x][y] * 0.5 / maxDistance})`;
+    //                 }
+
+    //                 this.context.fillRect(
+    //                     x * this.cellSize + this.wallSize,
+    //                     y * this.cellSize + this.wallSize,
+    //                     this.cellSize - (this.wallSize * 2),
+    //                     this.cellSize - (this.wallSize * 2)
+    //                 );
+    //                 if(!this.walls[x][y].N) {
+    //                     this.context.fillRect(
+    //                         x * this.cellSize + this.wallSize,
+    //                         y * this.cellSize,
+    //                         this.cellSize - (this.wallSize * 2),
+    //                         this.wallSize,
+    //                     );
+    //                 }
+    //                 if(!this.walls[x][y].S) {
+    //                     this.context.fillRect(
+    //                         x * this.cellSize + this.wallSize,
+    //                         y * this.cellSize + (this.cellSize - this.wallSize),
+    //                         this.cellSize - (this.wallSize * 2),
+    //                         this.wallSize
+    //                     );
+    //                 }
+    //                 if(!this.walls[x][y].W) {
+    //                     this.context.fillRect(
+    //                         x * this.cellSize,
+    //                         y * this.cellSize + this.wallSize,
+    //                         this.wallSize,
+    //                         this.cellSize - (this.wallSize * 2)
+    //                     );
+    //                 }
+    //                 if(!this.walls[x][y].E) {
+    //                     this.context.fillRect(
+    //                         x * this.cellSize + (this.cellSize - this.wallSize),
+    //                         y * this.cellSize + this.wallSize,
+    //                         this.wallSize,
+    //                         this.cellSize - (this.wallSize * 2)
+    //                     );
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    // public braid() {
+    //     return new Promise<void>(resolve => {
+    //         let x = 0;
+    //         let y = 0;
+    //         const go = () => {
+    //             if(this.sides({ x, y }) === 3) {
+    //                 requestAnimationFrame(
+    //                     () => {
+    //                         const neighbors = this.neighbors({ x, y }).filter(cell => this.walls[x][y][cell.direction]);
+    //                         if(this.neighbors.length) {
+    //                             const index = Math.floor(neighbors.length * Math.random());
+    //                             this.removeWall({ x, y }, neighbors[index].direction);
+    //                         }
+
+    //                         x++;
+    //                         if(x >= this.width) { x = 0; y++; }
+    //                         if(y < this.height) go(); else resolve();
+    //                     }
+    //                 );
+    //             } else {
+    //                 x++;
+    //                 if(x >= this.width) { x = 0; y++; }
+    //                 if(y < this.height) go(); else resolve();
+    //             }
+    //         };
+    //         go();
+    //     });
+    // }
+
+    protected abstract drawingWidth():  [border: number, cell: number];
+    protected abstract drawingHeight(): [border: number, cell: number];
+    protected abstract initialWalls(x: number, y: number): Wall;
+
+    public abstract opposite(direction: Direction): Direction;
+    public abstract move(cell: Cell, direction: Direction): CellDirection | null;
+    public abstract isDeadEnd(cell: Cell): boolean;
+    public abstract edges(cell: Cell): Direction[];
+
+    public abstract drawCell(cell: Cell, color?: string): void;
+    public abstract drawFloor(cell: Cell, color?: string): void;
+    public abstract drawWall(cd: CellDirection, color?: string): void;
+    public abstract drawPillar(cell: CellCorner, color?: string): void;
+    public abstract drawPath(cell: CellDirection, color?: string): void;
+    public abstract drawX(cell: Cell, color?: string, cellColor?: string): void;
+
+    public abstract rightTurn(direction: Direction): Direction[];
+    public abstract leftTurn(direction: Direction): Direction[];
 }
 
 export default Maze;

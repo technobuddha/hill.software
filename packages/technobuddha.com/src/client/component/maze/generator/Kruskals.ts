@@ -17,10 +17,8 @@ export class Kruskals extends MazeGenerator {
 
         this.edges = [];
         for(let x = 0; x < width; ++x) {
-            for(let y = 0; y < height; ++y) {
-                if(y > 0) this.edges.push({ x, y, direction: 'N' });
-                if(x > 0) this.edges.push({ x, y, direction: 'W' });
-            }
+            for(let y = 0; y < height; ++y)
+                maze.edges({ x, y }).forEach(direction => { this.edges.push({ x, y, direction }); });
         }
         this.edges = shuffle(this.edges);
 
@@ -38,7 +36,7 @@ export class Kruskals extends MazeGenerator {
 
         const edge  = this.edges.pop()!;
         const cell1 = { ...edge };
-        const cell2 = maze.move(cell1, edge.direction);
+        const cell2 = maze.move(cell1, edge.direction)!;
 
         let idx1 = this.getCellIndex(cell1);
         let idx2 = this.getCellIndex(cell2);

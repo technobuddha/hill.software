@@ -1,1 +1,1 @@
-export { default, Maze } from './Maze';
+export { default, MazeMaker } from './MazeMaker';

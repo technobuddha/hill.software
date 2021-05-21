@@ -12,7 +12,7 @@ import Music                from '#component/music';
 import Knight               from '#component/knight';
 import Life                 from '#component/life';
 import Chaos                from '#component/chaos';
-import Maze                 from '#component/maze';
+import MazeMaker            from '#component/maze';
 import Theme                from '#component/theme';
 
 import type React         from 'react';
@@ -104,7 +104,7 @@ export const components: (t: TFunction) => Component[] = t => [
         primary: t('Maze'),
         secondary: t('Maze generator & solver'),
         location: '/maze',
-        component: Maze,
+        component: MazeMaker,
         todo: [
             t('Add a description to this component'),
         ],

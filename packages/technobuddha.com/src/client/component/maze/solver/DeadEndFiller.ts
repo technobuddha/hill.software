@@ -1,30 +1,15 @@
-import type { Cell }            from '../maze/Maze';
-
 import { MazeSolver } from './MazeSolver';
-import type { SolveArguments } from './MazeSolver';
 
 export class DeadEndFiller extends MazeSolver {
-    public async solve({ entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
-        const walls = this.maze.walls.map(row => [ ...row ]);
+    public async solve() {
+        const { maze } = this;
+        const walls = maze.walls.map(row => [ ...row ]);
 
-        const sides = (cell: Cell) => (
-            (walls[cell.x][cell.y].N ? 1 : 0) +
-            (walls[cell.x][cell.y].E ? 1 : 0) +
-            (walls[cell.x][cell.y].W ? 1 : 0) +
-            (walls[cell.x][cell.y].S ? 1 : 0)
-        );
-
-        this.prepare();
+        maze.prepareContext(this.context);
         return new Promise<void>(resolve => {
-            const deadEnds: Cell[] = [];
-            for(let x = 0; x < this.maze.width; ++x) {
-                for(let y = 0; y < this.maze.height; ++y) {
-                    if(sides({ x, y }) === 3 && (x !== entrance.x || y !== entrance.y) && (x !== exit.x || y !== exit.y)) {
-                        this.drawX({ x, y }, 'red');
-                        deadEnds.push({ x, y });
-                    }
-                }
-            }
+            const deadEnds = maze.deadEnds();
+            for(const end of deadEnds)
+                maze.drawX(end, 'red');
 
             const go = () => {
                 if(deadEnds.length) {
@@ -36,23 +21,23 @@ export class DeadEndFiller extends MazeSolver {
                         requestAnimationFrame(
                             () => {
                                 if(cell) {
-                                    const moves = this.maze.validMoves(cell, { walls });
+                                    const moves = maze.validMoves(cell, { walls });
 
-                                    if(sides(cell) === 3 && (cell.x !== entrance.x || cell.y !== entrance.y) && (cell.x !== exit.x || cell.y !== exit.y)) {
-                                        for(const direction of this.maze.directions) {
+                                    if(maze.isDeadEnd(cell)) {
+                                        for(const direction of maze.directions) {
                                             if(!walls[cell.x][cell.y][direction]) {
                                                 walls[cell.x][cell.y][direction] = true;
-                                                this.drawWall({ ...cell, direction });
+                                                maze.drawWall({ ...cell, direction });
 
-                                                const cell2 = this.maze.move(cell!, direction);
-                                                if(this.maze.inMaze(cell2)) {
-                                                    walls[cell2.x][cell2.y][this.maze.opposite(direction)] = true;
-                                                    this.drawWall({ ...cell2, direction: this.maze.opposite(direction) });
+                                                const cell2 = maze.move(cell!, direction);
+                                                if(cell2 && maze.inMaze(cell2)) {
+                                                    walls[cell2.x][cell2.y][maze.opposite(direction)] = true;
+                                                    maze.drawWall({ ...cell2, direction: maze.opposite(direction) });
                                                 }
                                             }
                                         }
 
-                                        this.drawFloor(cell, this.wallColor);
+                                        maze.drawFloor(cell, maze.wallColor);
                                         [ cell ] = moves;
                                         gogo();
                                     } else {

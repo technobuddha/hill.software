@@ -1,31 +1,43 @@
+import { parsePoint } from '../util/specs';
 import type { Maze, Cell, CellDirection } from '../maze/Maze';
+import type { CSpecification } from '../util/specs';
 
 export type MazeGeneratorProperties = {
-    maze:           Maze;
-    start:          Cell;
-    random:         () => number;
-    selectNeighbor: (neighbors: CellDirection[]) => CellDirection;
+    maze:               Maze;
+    start?:             CSpecification;
+    random?:            (() => number);
+    selectNeighbor?:    (neighbors: CellDirection[], random: () => number) => CellDirection;
 };
 
 export class MazeGenerator {
     public maze:            MazeGeneratorProperties['maze'];
-    public start:           MazeGeneratorProperties['start'];
-    public currentCell:     MazeGeneratorProperties['start'];
-    public random:          MazeGeneratorProperties['random'];
-    public selectNeighbor:  MazeGeneratorProperties['selectNeighbor'];
+    public random:          Exclude<MazeGeneratorProperties['random'], undefined>;
+    public selectNeighbor:  (neighbors: CellDirection[]) => CellDirection;
+    public start:           Cell;
+    public currentCell:     Cell;
 
-    constructor({ maze, start, random, selectNeighbor }: MazeGeneratorProperties) {
+    constructor(
+        {
+            maze,
+            start,
+            random,
+            selectNeighbor,
+        }: MazeGeneratorProperties
+    ) {
         this.maze               = maze;
-        this.currentCell        = start;
-        this.start              = start;
-        this.random             = random;
-        this.selectNeighbor     = selectNeighbor;
+        this.start              = parsePoint(start ?? 'random', this.maze.width, this.maze.height);
+        this.currentCell        = this.start;
+        this.random             = random ?? Math.random;
+        this.selectNeighbor     = selectNeighbor
+            ? (neighbors: CellDirection[]) => selectNeighbor(neighbors, this.random)
+            : (neighbors: CellDirection[]) => neighbors[Math.floor(neighbors.length * this.random())];
     }
 
     public async generate(speed: number): Promise<Maze> {
         return new Promise(resolve => {
             const { maze } = this;
 
+            maze.draw();
             if(speed) {
                 const go = () => {
                     let building = true;

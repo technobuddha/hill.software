@@ -1,8 +1,6 @@
 import type { Maze, CellDirection } from '../maze/Maze';
 
-import { MazeRenderer } from '../maze/MazeRenderer';
-
-export type MazeProperties =  {
+export type MazeSolverProperties =  {
     maze: Maze;
     context: CanvasRenderingContext2D;
 };
@@ -13,20 +11,11 @@ export type SolveArguments = {
     exit?: CellDirection;
 };
 
-export abstract class MazeSolver extends MazeRenderer {
-    protected maze:       Maze;
+export abstract class MazeSolver  {
+    protected maze:     MazeSolverProperties['maze'];
+    protected context:  MazeSolverProperties['context'];
 
-    constructor({ maze, context }: { maze: Maze; context: CanvasRenderingContext2D }) {
-        super({
-            context,
-            width: maze.width,
-            height: maze.height,
-            cellSize: maze.cellSize,
-            cellColor: maze.cellColor,
-            wallSize: maze.wallSize,
-            wallColor: maze.wallColor,
-        });
-
+    constructor({ maze, context }: MazeSolverProperties) {
         this.maze       = maze;
         this.context    = context;
     }

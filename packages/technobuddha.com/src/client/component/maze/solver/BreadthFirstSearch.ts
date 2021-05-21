@@ -1,11 +1,9 @@
 import create2DArray        from '@technobuddha/library/create2DArray';
 import shuffle              from '@technobuddha/library/shuffle';
-import type { Cell }        from '../maze/Maze';
+import type { Cell, Direction }        from '../maze/Maze';
 
 import { MazeSolver } from './MazeSolver';
 import type { SolveArguments } from './MazeSolver';
-
-import type { Direction } from '../maze/directions';
 
 type DD = {
     dir?: Direction;
@@ -13,23 +11,22 @@ type DD = {
 };
 
 export class BreadthFirstSearch extends MazeSolver {
-    public async solve({ color = 'green', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
-        this.prepare();
+    public async solve({ color = 'lime', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
+        const { maze } = this;
+
+        maze.prepareContext(this.context);
 
         return new Promise<void>(resolve => {
             const queue: Cell[] = [];
-            const distances     = create2DArray(this.maze.width, this.maze.height, () => ({ dist: Infinity } as DD));
+            const distances     = create2DArray(maze.width, maze.height, () => ({ dist: Infinity } as DD));
             distances[entrance.x][entrance.y]  = { dist: 0 };
             queue.unshift(entrance);
-            this.drawFloor(entrance, color);
-            if(!this.maze.walls[entrance.x][entrance.y].N)
-                this.drawWall({ ...entrance, direction: 'N' }, color);
-            if(!this.maze.walls[entrance.x][entrance.y].S)
-                this.drawWall({ ...entrance, direction: 'S' }, color);
-            if(!this.maze.walls[entrance.x][entrance.y].E)
-                this.drawWall({ ...entrance, direction: 'E' }, color);
-            if(!this.maze.walls[entrance.x][entrance.y].W)
-                this.drawWall({ ...entrance, direction: 'W' }, color);
+            maze.drawFloor(entrance, color);
+
+            for(const direction of maze.directions) {
+                if(!maze.walls[entrance.x][entrance.y][direction])
+                    maze.drawWall({ ...entrance, direction }, color);
+            }
 
             const go = () => {
                 requestAnimationFrame(
@@ -43,34 +40,30 @@ export class BreadthFirstSearch extends MazeSolver {
                             } else {
                                 const distance  = distances[cell.x][cell.y].dist + 1;
                                 const neighbors = shuffle(
-                                    this.maze.validMoves(cell)
+                                    maze.validMoves(cell)
                                     .filter(n => distances[n.x][n.y].dist > distance)
                                 );
 
                                 for(const neighbor of neighbors) {
                                     distances[neighbor.x][neighbor.y]  = { dir: neighbor.direction, dist: distance };
-                                    this.drawFloor(neighbor, color);
-                                    if(!this.maze.walls[neighbor.x][neighbor.y].N)
-                                        this.drawWall({ ...neighbor, direction: 'N' }, color);
-                                    if(!this.maze.walls[neighbor.x][neighbor.y].S)
-                                        this.drawWall({ ...neighbor, direction: 'S' }, color);
-                                    if(!this.maze.walls[neighbor.x][neighbor.y].E)
-                                        this.drawWall({ ...neighbor, direction: 'E' }, color);
-                                    if(!this.maze.walls[neighbor.x][neighbor.y].W)
-                                        this.drawWall({ ...neighbor, direction: 'W' }, color);
+                                    maze.drawFloor(neighbor, color);
+                                    for(const direction of maze.directions) {
+                                        if(maze.walls[neighbor.x][neighbor.y][direction] === false)
+                                            maze.drawWall({ ...neighbor, direction }, color);
+                                    }
                                     queue.unshift(neighbor);
                                 }
                                 go();
                             }
                         } else {
-                            this.clear();
+                            maze.clear();
 
-                            let cell = { ...exit, direction: this.maze.opposite(exit.direction) };
+                            let cell = { ...exit, direction: maze.opposite(exit.direction) };
                             for(;;) {
-                                this.drawPath({ ...cell, direction: this.maze.opposite(cell.direction) }, 'green');
+                                maze.drawPath({ ...cell, direction: maze.opposite(cell.direction) }, color);
                                 if(cell.x === entrance.x && cell.y === entrance.y)
                                     break;
-                                cell = this.maze.move(cell, this.maze.opposite(distances[cell.x][cell.y].dir!));
+                                cell = maze.move(cell, maze.opposite(distances[cell.x][cell.y].dir!))!;
                             }
                             resolve();
                         }

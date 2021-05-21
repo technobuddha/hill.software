@@ -1,24 +1,31 @@
-import React from 'react';
-import { Size } from '@technobuddha/mui-size';
-import { MazeFactory } from './maze/MazeFactory';
+import React                            from 'react';
+import randomPick                       from '@technobuddha/library/randomPick';
+import { Size }                         from '@technobuddha/mui-size';
+import { MazeFactory }                  from './maze/MazeFactory';
+import type { Maze, MazeProperties }    from './maze/Maze';
+
+import SquareMaze           from './maze/SquareMaze';
+import TriangleMaze         from './maze/TriangleMaze';
+import HexagonMaze          from './maze/HexagonMaze';
 
 import Kruskals             from './generator/Kruskals';
 import RecursiveBacktracker from './generator/RecursiveBacktracker';
-import RecursiveDivision    from './generator/RecursiveDivision';
+//import RecursiveDivision    from './generator/RecursiveDivision';
 import TruePrims            from './generator/TruePrims';
 import Blob                 from './generator/Blob';
 import GrowingTree          from './generator/GrowingTree';
+import Wilsons              from './generator/Wilsons';
 
 import DeadEndFiller        from './solver/DeadEndFiller';
 import WallWalking          from './solver/WallWalking';
 import DepthFirstSearch     from './solver/DepthFirstSearch';
 import BreadthFirstSearch   from './solver/BreadthFirstSearch';
 
-type MazeProps = {
+type MazeMakerProps = {
     children?: never;
 };
 
-export const Maze: React.FC<MazeProps> = () => {
+export const MazeMaker: React.FC<MazeMakerProps> = () => {
     return (
         <Size width="100%" height="100%">
             {
@@ -35,13 +42,20 @@ type MazeBoardProps = {
     children?: never;
 };
 
+const mazes: ((props: MazeProperties) => Maze)[] = [
+    (props: MazeProperties) => new SquareMaze(props),
+    (props: MazeProperties) => new TriangleMaze(props),
+    (props: MazeProperties) => new HexagonMaze(props),
+];
+
 const algorithms = [
     Kruskals,
     RecursiveBacktracker,
-    RecursiveDivision,
+    ////RecursiveDivision,
     TruePrims,
     Blob,
     GrowingTree,
+    Wilsons,
 ];
 
 const solvers = [
@@ -64,27 +78,20 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                 const contextSolve1 = canvasSolve1.current.getContext('2d')!;
                 const contextSolve2 = canvasSolve2.current.getContext('2d')!;
 
-                const cz = 13;
-                const wz = 1;
-
-                const w = Math.floor((boxWidth  - wz * 4) / cz);
-                const h = Math.floor((boxHeight - wz * 4) / cz);
-
-                const factory = new MazeFactory({
-                    context: contextMaze,
-                    width: w,
-                    height: h,
-                    cellSize: cz,
-                    wallSize: wz,
-                });
+                const factory = new MazeFactory({ context: contextMaze });
 
                 contextSolve1.clearRect(0, 0, boxWidth, boxHeight);
                 contextSolve2.clearRect(0, 0, boxWidth, boxHeight);
 
-                factory.create(algorithms[Math.floor(Math.random() * algorithms.length)], 10)
+                factory.create(
+                    randomPick(mazes),
+                    randomPick(algorithms),
+                    10
+                )
                 .then(maze => {
+                    maze.draw();
                     //maze.drawDistances();
-                    const Solver = solvers[Math.floor(Math.random() * solvers.length)];
+                    const Solver = randomPick(solvers);
                     new Solver({ maze, context: contextSolve1 }).solve()
                     .then(() => {
                         setTimeout(
@@ -107,4 +114,4 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
     );
 };
 
-export default Maze;
+export default MazeMaker;

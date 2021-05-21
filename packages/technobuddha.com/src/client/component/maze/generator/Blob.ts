@@ -65,7 +65,7 @@ export class Blob extends MazeGenerator {
     private threshold:  number;
     private walls:      CellDirection[] = [];
 
-    constructor({ threshold = 4, ...props }: BlobProperties) {
+    constructor({ threshold = 3, ...props }: BlobProperties) {
         super({ ...props });
 
         this.threshold  = threshold;
