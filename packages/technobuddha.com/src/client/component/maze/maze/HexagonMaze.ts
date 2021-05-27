@@ -1,3 +1,4 @@
+import range from 'lodash/range';
 import { Maze } from './Maze';
 import type { Cell, CellDirection, CellCorner, Direction, MazeProperties } from './Maze';
 
@@ -6,7 +7,7 @@ const TAN30 = Math.tan(Math.PI / 6);
 const SIN60 = Math.sin(Math.PI / 3);
 
 export class HexagonMaze extends Maze {
-    constructor({ cellSize = 27, wallSize = 1, ...props }: MazeProperties) {
+    constructor({ cellSize = 17, wallSize = 1, ...props }: MazeProperties) {
         super({ cellSize, wallSize, ...props }, [ 'A', 'B', 'C', 'D', 'E', 'F' ], [ 'AB', 'BC', 'CD', 'DE', 'EF', 'FA' ]);
     }
 
@@ -92,6 +93,44 @@ export class HexagonMaze extends Maze {
         return this.neighbors(cell, { dirs: [ 'B', 'C', 'D' ]}).map(cd => cd.direction);
     }
 
+    public divider(cell1: Cell, cell2: Cell) {
+        if(cell1.x === cell2.x) {
+            const walls: CellDirection[] = range(cell1.y, cell2.y)
+            .flatMap(y => [
+                { x: cell1.x, y, direction: 'B' },
+                { x: cell1.x, y, direction: 'C' },
+            ]);
+
+            if(cell1.x % 2 === 0)
+                walls.shift();
+            else
+                walls.pop();
+
+            return walls;
+        } else if(cell1.y === cell2.y) {
+            const walls: CellDirection[] = range(cell1.x, cell2.x)
+            .flatMap(x => (
+                x % 2 === 0
+                    ?   { x, y: cell1.y, direction: 'D' }
+                    :   [
+                            { x, y: cell1.y, direction: 'E' },
+                            { x, y: cell1.y, direction: 'D' },
+                            { x, y: cell1.y, direction: 'C' },
+                        ]
+            ));
+
+            if(cell1.x % 2 === 1)
+                walls.shift();
+
+            if(cell2.x % 2 === 0)
+                walls.pop();
+
+            return walls;
+        }
+
+        throw new Error('Cells must be aligned vertically or horizontally');
+    }
+
     private offsets({ x, y }: Cell) {
         //const margin = Math.floor(this.cellSize / 8);
         const even = (x % 2) === 0;
@@ -125,7 +164,7 @@ export class HexagonMaze extends Maze {
         return { x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, xA, xB, y0, y1, y2, y3, y4, y5, y6, y7, y8 };
     }
 
-    public drawCell(cell: Cell, color = this.cellColor) {
+    public drawFloor(cell: Cell, color = this.cellColor) {
         if(this.context) {
             const { x0, x3, x8, xB, y0, y4, y8 } = this.offsets(cell);
 
@@ -137,22 +176,6 @@ export class HexagonMaze extends Maze {
             this.context.lineTo(xB, y4);
             this.context.lineTo(x8, y8);
             this.context.lineTo(x3, y8);
-            this.context.fill();
-        }
-    }
-
-    public drawFloor(cell: Cell, color = this.cellColor) {
-        if(this.context) {
-            const { x2, x5, x6, x9, y2, y4, y6 } = this.offsets(cell);
-
-            this.context.fillStyle = color;
-            this.context.beginPath();
-            this.context.moveTo(x2, y4);
-            this.context.lineTo(x5, y2);
-            this.context.lineTo(x6, y2);
-            this.context.lineTo(x9, y4);
-            this.context.lineTo(x6, y6);
-            this.context.lineTo(x5, y6);
             this.context.fill();
         }
     }
@@ -272,7 +295,7 @@ export class HexagonMaze extends Maze {
 
             const { x2, x5, x6, x9, y2, y4, y5, y6 } = this.offsets(cd);
 
-            this.drawFloor(cd);
+            this.drawCell(cd);
 
             this.context.fillStyle = color;
             ctx.beginPath();
@@ -316,7 +339,7 @@ export class HexagonMaze extends Maze {
         if(this.context) {
             const { x2, x5, x6, x9, y2, y4, y6 } = this.offsets(cell);
 
-            this.drawFloor(cell, cellColor);
+            this.drawCell(cell, cellColor);
 
             this.context.strokeStyle = color;
             this.context.beginPath();

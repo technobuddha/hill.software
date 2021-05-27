@@ -21,7 +21,7 @@ export class BreadthFirstSearch extends MazeSolver {
             const distances     = create2DArray(maze.width, maze.height, () => ({ dist: Infinity } as DD));
             distances[entrance.x][entrance.y]  = { dist: 0 };
             queue.unshift(entrance);
-            maze.drawFloor(entrance, color);
+            maze.drawCell(entrance, color);
 
             for(const direction of maze.directions) {
                 if(!maze.walls[entrance.x][entrance.y][direction])
@@ -46,7 +46,7 @@ export class BreadthFirstSearch extends MazeSolver {
 
                                 for(const neighbor of neighbors) {
                                     distances[neighbor.x][neighbor.y]  = { dir: neighbor.direction, dist: distance };
-                                    maze.drawFloor(neighbor, color);
+                                    maze.drawCell(neighbor, color);
                                     for(const direction of maze.directions) {
                                         if(maze.walls[neighbor.x][neighbor.y][direction] === false)
                                             maze.drawWall({ ...neighbor, direction }, color);

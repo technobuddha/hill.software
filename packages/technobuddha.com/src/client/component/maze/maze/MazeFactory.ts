@@ -2,11 +2,6 @@ import type { Maze, MazeProperties } from './Maze';
 import type { MazeGenerator, MazeGeneratorProperties } from '../generator/MazeGenerator';
 
 export type MazeSettings = Partial<MazeProperties> & Partial<MazeGeneratorProperties>;
-//     start?:                 CSpecification;
-//     seed?:                  number;
-//     random?:                () => number;
-//     selectNeighbor?:        (neighbors: CellDirection[], random: () => number) => CellDirection;
-// };
 
 export class MazeFactory {
     public context:         CanvasRenderingContext2D | undefined;

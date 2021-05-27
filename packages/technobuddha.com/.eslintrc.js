@@ -305,7 +305,7 @@ module.exports = {
         'object-shorthand':                                             'off',
         'prefer-arrow-callback':                                        'warn',
         'prefer-const':                                                 COMPILER,
-        'prefer-destructuring':                                         [ 'warn', { array: true, object: true }],
+        'prefer-destructuring':                                         [ 'off', { array: true, object: true }],
         'prefer-numeric-literals':                                      'warn',
         'prefer-rest-params':                                           RECOMMENDED('error'),
         'prefer-spread':                                                RECOMMENDED('error'),

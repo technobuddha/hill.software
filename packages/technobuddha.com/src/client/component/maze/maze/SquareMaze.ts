@@ -1,8 +1,9 @@
+import range from 'lodash/range';
 import { Maze } from './Maze';
 import type { Cell, CellDirection, CellCorner, Direction, MazeProperties } from './Maze';
 
 export class SquareMaze extends Maze {
-    constructor({ cellSize = 11, wallSize = 1, ...props }: MazeProperties) {
+    constructor({ cellSize = 67, wallSize = 1, ...props }: MazeProperties) {
         super({ cellSize, wallSize, ...props }, [ 'N', 'E', 'W', 'S' ], [ 'NE', 'NW', 'SE', 'SW' ]);
     }
 
@@ -68,6 +69,15 @@ export class SquareMaze extends Maze {
         return this.neighbors(cell, { dirs: [ 'S', 'W' ]}).map(cd => cd.direction);
     }
 
+    public divider(cell1: Cell, cell2: Cell) {
+        if(cell1.x === cell2.x)
+            return range(cell1.y, cell2.y).map(y => ({ x: cell1.x, y, direction: 'E' }));
+        else if(cell1.y === cell2.y)
+            return range(cell1.x, cell2.x).map(x => ({ x, y: cell1.y, direction: 'S' }));
+
+        throw new Error('Cells must be aligned vertically or horizontally');
+    }
+
     private offsets({ x, y }: Cell) {
         const margin = Math.floor(this.cellSize / 8);
 
@@ -90,7 +100,7 @@ export class SquareMaze extends Maze {
         return { x0, x1, x2, xc, x3, x4, x5, y0, y1, y2, yc, y3, y4, y5 };
     }
 
-    public drawCell(cell: Cell, color = this.cellColor) {
+    public drawFloor(cell: Cell, color = this.cellColor) {
         if(this.context) {
             const { x0, x5, y0, y5 } = this.offsets(cell);
 
@@ -101,15 +111,6 @@ export class SquareMaze extends Maze {
             this.context.lineTo(x5, y5);
             this.context.lineTo(x0, y5);
             this.context.fill();
-        }
-    }
-
-    public drawFloor({ x, y }: Cell, color = this.cellColor) {
-        if(this.context) {
-            const { x1, x4, y1, y4 } = this.offsets({ x, y });
-
-            this.context.fillStyle = color;
-            this.context.fillRect(x1, y1, x4 - x1, y4 - y1);
         }
     }
 
@@ -187,7 +188,7 @@ export class SquareMaze extends Maze {
         if(this.context) {
             const { x1, x4, y1, y4 } = this.offsets(cell);
 
-            this.drawFloor(cell, cellColor);
+            this.drawCell(cell, cellColor);
 
             this.context.strokeStyle = color;
             this.context.beginPath();

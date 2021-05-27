@@ -26,15 +26,7 @@ export class WallWalking extends MazeSolver {
                 requestAnimationFrame(
                     () => {
                         const v = ++cells[cell.x][cell.y].visits;
-                        if(cell.x !== exit.x || cell.y !== exit.y) {
-                            const turns = this.turn(cell.direction);
-                            const dir   = turns.find(d => maze.walls[cell.x][cell.y][d] === false)!;
-                            const next  = maze.move(cell, dir)!;
-                            maze.drawPath({ ...cell, direction: dir }, `rgba(255, 255, 0, ${v * 0.25})`);
-                            cells[cell.x][cell.y].direction = dir;
-                            cell = next;
-                            go();
-                        } else {
+                        if(cell.x === exit.x && cell.y === exit.y) {
                             maze.clear();
                             cell = { x: entrance.x, y: entrance.y, direction: cells[entrance.x][entrance.y].direction! };
 
@@ -49,6 +41,14 @@ export class WallWalking extends MazeSolver {
                                     break;
                                 }
                             }
+                        } else {
+                            const turns = this.turn(cell.direction);
+                            const dir   = turns.find(d => maze.walls[cell.x][cell.y][d] === false)!;
+                            const next  = maze.move(cell, dir)!;
+                            maze.drawPath({ ...cell, direction: dir }, `rgba(255, 255, 0, ${(v + 1) * 0.25})`);
+                            cells[cell.x][cell.y].direction = dir;
+                            cell = next;
+                            go();
                         }
                     }
                 );

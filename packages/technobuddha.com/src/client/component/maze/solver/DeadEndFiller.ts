@@ -37,7 +37,7 @@ export class DeadEndFiller extends MazeSolver {
                                             }
                                         }
 
-                                        maze.drawFloor(cell, maze.wallColor);
+                                        maze.drawCell(cell, maze.wallColor);
                                         [ cell ] = moves;
                                         gogo();
                                     } else {

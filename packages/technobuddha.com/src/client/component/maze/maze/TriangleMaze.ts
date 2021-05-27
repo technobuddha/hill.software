@@ -83,6 +83,10 @@ export class TriangleMaze extends Maze {
         return this.neighbors(cell, { dirs: (cell.x + cell.y) % 2 === 1 ? [ 'C' ] : [ 'B', 'D' ]}).map(cd => cd.direction);
     }
 
+    public divider(_cell1: Cell, _cell2: Cell): CellDirection[] {
+        throw new Error('divider is not implemented for Triangle Mazes');
+    }
+
     private offsets({ x, y }: Cell) {
         //const margin = Math.floor(this.cellSize / 8);
 
@@ -117,7 +121,7 @@ export class TriangleMaze extends Maze {
         return { x0, x1, x2, x3, x4, x5, x6, x7, x8, y0: y5, y1: y4, y2: y3, y3: y2, y4: y1, y5: y0, sx0, sx1, sy0, sy1 };
     }
 
-    public drawCell(cell: Cell, color = this.cellColor) {
+    public drawFloor(cell: Cell, color = this.cellColor) {
         if(this.context) {
             const { x0, x4, x8, y0, y5 } = this.offsets(cell);
 
@@ -126,19 +130,6 @@ export class TriangleMaze extends Maze {
             this.context.moveTo(x0, y5);
             this.context.lineTo(x4, y0);
             this.context.lineTo(x8, y5);
-            this.context.fill();
-        }
-    }
-
-    public drawFloor({ x, y }: Cell, color = this.cellColor) {
-        if(this.context) {
-            const { x2, x4, x6, y2, y4 } = this.offsets({ x, y });
-
-            this.context.fillStyle = color;
-            this.context.beginPath();
-            this.context.moveTo(x2, y4);
-            this.context.lineTo(x4, y2);
-            this.context.lineTo(x6, y4);
             this.context.fill();
         }
     }
@@ -220,7 +211,7 @@ export class TriangleMaze extends Maze {
 
             const { x2, x4, x6, y2, y4 } = this.offsets(cell);
 
-            this.drawFloor(cell);
+            this.drawCell(cell);
 
             this.context.strokeStyle = color;
             ctx.beginPath();
@@ -256,7 +247,7 @@ export class TriangleMaze extends Maze {
             const { x2, x4, x6, y2, y4 } = this.offsets(cell);
             const yc = (y2 + y4) / 2;
 
-            this.drawFloor(cell, cellColor);
+            this.drawCell(cell, cellColor);
 
             this.context.strokeStyle = color;
             this.context.beginPath();

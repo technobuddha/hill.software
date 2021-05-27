@@ -126,7 +126,7 @@ export abstract class Maze {
             this.context.fillStyle = this.wallColor;
             for(let x = 0; x < this.width; ++x) {
                 for(let y = 0; y < this.height; ++y) {
-                    this.drawFloor({ x, y });
+                    this.drawCell({ x, y });
 
                     const wall = this.walls[x][y];
                     for(const direction of this.directions)
@@ -166,6 +166,17 @@ export abstract class Maze {
             // this.drawPillar({ x: x0, y: y1, corner: 'NE' });
             // this.drawPillar({ x: x1, y: y1, corner: 'NW' });
         }
+    }
+
+    public drawCell(cell: Cell, cellColor = this.cellColor, wallColor = this.wallColor) {
+        this.drawFloor(cell, cellColor);
+
+        const wall = this.walls[cell.x][cell.y];
+        for(const direction of this.directions)
+            if(wall[direction]) this.drawWall({ ...cell, direction }, wallColor);
+
+        for(const corner of this.corners)
+            if(corner[0] in wall && corner[1] in wall) this.drawPillar({ ...cell, corner }, this.wallColor);
     }
 
     public adjacent(
@@ -273,12 +284,14 @@ export abstract class Maze {
     public removeWall(cell: Cell, direction: Direction) {
         if(this.inMaze(cell)) {
             this.walls[cell.x][cell.y][direction] = false;
-            this.drawWall({ ...cell, direction }, this.cellColor);
+            this.drawCell(cell);
+            //this.drawWall({ ...cell, direction }, this.cellColor);
 
             const cell2 = this.move(cell, direction);
             if(cell2 && this.inMaze(cell2)) {
                 this.walls[cell2.x][cell2.y][this.opposite(direction)] = false;
-                this.drawWall({ ...cell2, direction: this.opposite(direction) }, this.cellColor);
+                this.drawCell(cell2);
+                //this.drawWall({ ...cell2, direction: this.opposite(direction) }, this.cellColor);
             }
         }
     }
@@ -294,13 +307,16 @@ export abstract class Maze {
 
     public addWall(cell: Cell, direction: Direction) {
         if(this.inMaze(cell)) {
+            if(this.walls[cell.x][cell.y][direction]) console.log('dup', cell, direction);
             this.walls[cell.x][cell.y][direction] = true;
-            this.drawWall({ ...cell, direction }, 'black');
+            //this.drawWall({ ...cell, direction }, , this.wallColor));
+            this.drawCell(cell);
 
             const cell2 = this.move(cell, direction);
             if(cell2 && this.inMaze(cell2)) {
                 this.walls[cell2.x][cell2.y][this.opposite(direction)] = true;
-                this.drawWall({ ...cell2, direction: this.opposite(direction) }, this.wallColor);
+                //this.drawWall({ ...cell2, direction: this.opposite(direction) }, this.wallColor);
+                this.drawCell(cell2);
             }
         }
     }
@@ -427,8 +443,8 @@ export abstract class Maze {
     public abstract move(cell: Cell, direction: Direction): CellDirection | null;
     public abstract isDeadEnd(cell: Cell): boolean;
     public abstract edges(cell: Cell): Direction[];
+    public abstract divider(cell1: Cell, cell2: Cell): CellDirection[];
 
-    public abstract drawCell(cell: Cell, color?: string): void;
     public abstract drawFloor(cell: Cell, color?: string): void;
     public abstract drawWall(cd: CellDirection, color?: string): void;
     public abstract drawPillar(cell: CellCorner, color?: string): void;

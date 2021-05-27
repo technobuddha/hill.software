@@ -2,7 +2,9 @@ import React                            from 'react';
 import randomPick                       from '@technobuddha/library/randomPick';
 import { Size }                         from '@technobuddha/mui-size';
 import { MazeFactory }                  from './maze/MazeFactory';
+
 import type { Maze, MazeProperties }    from './maze/Maze';
+import type { MazeSolver, MazeSolverProperties }    from './solver/MazeSolver';
 
 import SquareMaze           from './maze/SquareMaze';
 import TriangleMaze         from './maze/TriangleMaze';
@@ -51,18 +53,18 @@ const mazes: ((props: MazeProperties) => Maze)[] = [
 const algorithms = [
     Kruskals,
     RecursiveBacktracker,
-    ////RecursiveDivision,
     TruePrims,
     Blob,
     GrowingTree,
     Wilsons,
+    // RecursiveDivision,
 ];
 
-const solvers = [
-    DepthFirstSearch,
-    DeadEndFiller,
-    WallWalking,
-    BreadthFirstSearch,
+const solvers: ((props: MazeSolverProperties) => MazeSolver)[] = [
+    (props: MazeSolverProperties) => new DepthFirstSearch(props),
+    (props: MazeSolverProperties) => new DeadEndFiller(props),
+    (props: MazeSolverProperties) => new WallWalking(props),
+    (props: MazeSolverProperties) => new BreadthFirstSearch(props),
 ];
 
 export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => {
@@ -90,15 +92,16 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                 )
                 .then(maze => {
                     maze.draw();
-                    //maze.drawDistances();
-                    const Solver = randomPick(solvers);
-                    new Solver({ maze, context: contextSolve1 }).solve()
-                    .then(() => {
-                        setTimeout(
-                            () => setRedraw(x => x + 1),
-                            5000
-                        );
-                    });
+                    setTimeout(() => {
+                        //maze.drawDistances();
+                        randomPick(solvers)({ maze, context: contextSolve1 }).solve({})
+                        .then(() => {
+                            setTimeout(
+                                () => setRedraw(x => x + 1),
+                                5000
+                            );
+                        });
+                    }, 0);
                 });
             }
         },
