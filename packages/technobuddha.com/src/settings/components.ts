@@ -2,7 +2,6 @@ import { GiHouse }            from '%icons/gi/GiHouse';
 import { GiMusicalNotes }     from '%icons/gi/GiMusicalNotes';
 import { GiConwayLifeGlider } from '%icons/gi/GiConwayLifeGlider';
 import { GiOrbital }          from '%icons/gi/GiOrbital';
-import { GiThornyTentacle }   from '%icons/gi/GiThornyTentacle';
 import { GiChessKnight }      from '%icons/gi/GiChessKnight';
 import { GiPalette }          from '%icons/gi/GiPalette';
 import { GiMaze }             from '%icons/gi/GiMaze';
@@ -11,7 +10,6 @@ import NBody                from '#component/nBody';
 import Music                from '#component/music';
 import Knight               from '#component/knight';
 import Life                 from '#component/life';
-import Chaos                from '#component/chaos';
 import MazeMaker            from '#component/maze';
 import Theme                from '#component/theme';
 
@@ -74,18 +72,6 @@ export const components: (t: TFunction) => Component[] = t => [
             t('Add a description to this component'),
             t('Add zoom and pan ability'),
             t('Add ability to add a new body'),
-        ],
-    },
-    {
-        icon: GiThornyTentacle,
-        primary: t('Chaos'),
-        secondary: t('The Mandelbrot Set'),
-        location: '/chaos',
-        component: Chaos,
-        todo: [
-            t('Add a description to this component'),
-            t('Fix scaling so that image is not stretched'),
-            t('Add ability to zoom into a section'),
         ],
     },
     {
