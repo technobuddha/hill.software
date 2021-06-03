@@ -1,6 +1,6 @@
 import React                from 'react';
 import { makeStyles }       from '@material-ui/core/styles';
-import toDateLocaleString   from '@technobuddha/library/toDateLocaleString';
+import toDate               from '@technobuddha/library/toDate';
 import clsx                 from 'clsx';
 import isArray              from 'lodash/isArray';
 import isEmpty              from 'lodash/isEmpty';
@@ -121,7 +121,7 @@ export function Anything({ children, type, className, top = true }: AnythingPara
             return <div className={clsx(className, css.primitive, css.right)}>{toString(children)}</div>;
 
         case 'date':
-            return <div className={clsx(className, css.primitive, css.left)}>{toDateLocaleString(children)}</div>;
+            return <div className={clsx(className, css.primitive, css.left)}>{toDate(children).toLocaleDateString()}</div>;
 
         default:
             return <div className={clsx(className, css.primitive, css.left)}>{toString(children)}</div>;

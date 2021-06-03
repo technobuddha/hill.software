@@ -1,5 +1,5 @@
 import React                from 'react';
-import toDateUTCString      from '@technobuddha/library/toDateLocaleString';
+import toDate               from '@technobuddha/library/toDate';
 import Box                  from '@material-ui/core/Box';
 import { makeStyles }       from '@material-ui/core/styles';
 import clsx                 from 'clsx';
@@ -54,7 +54,7 @@ export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, typ
                     return ({ datum }: ColumnRenderProps<T>) => {
                         const css = useCellStyles();
                         const field = (datum as unknown as unknown[])[key];
-                        return <Box className={clsx(css.cell, css.left)}>{toDateUTCString(field)}</Box>;
+                        return <Box className={clsx(css.cell, css.left)}>{toDate(field).toUTCString()}</Box>;
                     };
 
                 case 'object':
@@ -95,7 +95,7 @@ export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, typ
                 case 'date':
                     return ({ datum }: ColumnRenderProps<T>) => {
                         const css = useCellStyles();
-                        return <Box className={clsx(css.cell, css.left)}>{toDateUTCString(datum)}</Box>;
+                        return <Box className={clsx(css.cell, css.left)}>{toDate(datum).toUTCString()}</Box>;
                     };
 
                 case 'object':

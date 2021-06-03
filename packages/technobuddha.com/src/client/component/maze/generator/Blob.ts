@@ -1,5 +1,5 @@
 import create2DArray from '@technobuddha/library/create2DArray';
-import shuffle       from '@technobuddha/library/shuffle';
+import randomShuffle       from '@technobuddha/library/randomShuffle';
 import type { Cell, CellDirection } from '../maze/Maze';
 
 import { MazeGenerator } from './MazeGenerator';
@@ -86,7 +86,7 @@ export class Blob extends MazeGenerator {
         while(stack.length) {
             const region = stack.pop()!;
 
-            const [ seedA, seedB ] = shuffle(region.cells());
+            const [ seedA, seedB ] = randomShuffle(region.cells());
             region.subregions[seedA.x][seedA.y] = 'a';
             region.subregions[seedB.x][seedB.y] = 'b';
 

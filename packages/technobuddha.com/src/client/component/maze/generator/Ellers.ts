@@ -1,4 +1,4 @@
-import shuffle from '@technobuddha/library/shuffle';
+import randomShuffle from '@technobuddha/library/randomShuffle';
 import create2DArray from '@technobuddha/library/create2DArray';
 import type { Cell } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
@@ -49,7 +49,7 @@ export class Ellers extends MazeGenerator {
         const { width, height } = maze;
 
         const c0 = this.currentCell;
-        const c1 = maze.move(c0, 'E');
+        const c1 = maze.move(c0, 'E')!;
 
         if(
             (this.cellSets[c0.x][c0.y] !== this.cellSets[c1.x][c1.y]) &&
@@ -75,7 +75,7 @@ export class Ellers extends MazeGenerator {
         const verticalConnections: Cell[] = [];
 
         for(let set of Object.values(this.sets)) {
-            const candidates = shuffle(set).filter(({ y }) => y === this.currentCell.y);
+            const candidates = randomShuffle(set).filter(({ y }) => y === this.currentCell.y);
 
             if(candidates.length > 0) {
                 const numberOfCellsToConnect = Math.floor(this.random() * (candidates.length - 1)) + 1;

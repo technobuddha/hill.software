@@ -301,7 +301,7 @@ module.exports = (tsconfigPath) => ({
         'object-shorthand':                                             'off',
         'prefer-arrow-callback':                                        'warn',
         'prefer-const':                                                 COMPILER,
-        'prefer-destructuring':                                         [ 'warn', { array: true, object: true }],
+        'prefer-destructuring':                                         [ 'off', { array: true, object: true }],
         'prefer-numeric-literals':                                      'warn',
         'prefer-rest-params':                                           RECOMMENDED('error'),
         'prefer-spread':                                                RECOMMENDED('error'),
@@ -347,7 +347,7 @@ module.exports = (tsconfigPath) => ({
         '@typescript-eslint/no-invalid-void-type':                      'off', // TODO Investigate
         '@typescript-eslint/no-misused-new':                            RECOMMENDED('error'),
         '@typescript-eslint/no-misused-promises':                       TC(RECOMMENDED('error')),
-        '@typescript-eslint/no-namespace':                              RECOMMENDED('error'),
+        '@typescript-eslint/no-namespace':                              OVERIDE('off', RECOMENDED('error')),
         '@typescript-eslint/no-non-null-asserted-optional-chain':       RECOMMENDED('error'),
         '@typescript-eslint/no-non-null-assertion':                     OVERRIDE('off', RECOMMENDED('warn')),
         '@typescript-eslint/no-parameter-properties':                   'off',

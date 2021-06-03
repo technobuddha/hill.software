@@ -86,15 +86,15 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                 contextSolve2.clearRect(0, 0, boxWidth, boxHeight);
 
                 factory.create(
-                    randomPick(mazes),
-                    randomPick(algorithms),
+                    randomPick(mazes)!,
+                    randomPick(algorithms)!,
                     10
                 )
                 .then(maze => {
                     maze.draw();
                     setTimeout(() => {
                         //maze.drawDistances();
-                        randomPick(solvers)({ maze, context: contextSolve1 }).solve({})
+                        randomPick(solvers)!({ maze, context: contextSolve1 }).solve({})
                         .then(() => {
                             setTimeout(
                                 () => setRedraw(x => x + 1),

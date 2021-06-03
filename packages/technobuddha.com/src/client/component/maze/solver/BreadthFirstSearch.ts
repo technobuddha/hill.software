@@ -1,5 +1,5 @@
 import create2DArray        from '@technobuddha/library/create2DArray';
-import shuffle              from '@technobuddha/library/shuffle';
+import randomShuffle              from '@technobuddha/library/randomShuffle';
 import type { Cell, Direction }        from '../maze/Maze';
 
 import { MazeSolver } from './MazeSolver';
@@ -39,7 +39,7 @@ export class BreadthFirstSearch extends MazeSolver {
                                 go();
                             } else {
                                 const distance  = distances[cell.x][cell.y].dist + 1;
-                                const neighbors = shuffle(
+                                const neighbors = randomShuffle(
                                     maze.validMoves(cell)
                                     .filter(n => distances[n.x][n.y].dist > distance)
                                 );

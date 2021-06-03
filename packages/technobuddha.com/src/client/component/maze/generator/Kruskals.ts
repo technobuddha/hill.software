@@ -1,4 +1,4 @@
-import shuffle from '@technobuddha/library/shuffle';
+import randomShuffle from '@technobuddha/library/randomShuffle';
 import type { Cell, CellDirection } from '../maze/Maze';
 import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
@@ -20,7 +20,7 @@ export class Kruskals extends MazeGenerator {
             for(let y = 0; y < height; ++y)
                 maze.edges({ x, y }).forEach(direction => { this.edges.push({ x, y, direction }); });
         }
-        this.edges = shuffle(this.edges);
+        this.edges = randomShuffle(this.edges);
 
         this.currentCell = { x: 0, y: 0 };
     }

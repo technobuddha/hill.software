@@ -1,5 +1,5 @@
 import toNumber     from '@technobuddha/library/toNumber';
-import toTimestamp  from '@technobuddha/library/toTimestamp';
+import toDate       from '@technobuddha/library/toDate';
 import isNil        from 'lodash/isNil';
 import isNumber     from 'lodash/isNumber';
 import toString     from 'lodash/toString';
@@ -59,12 +59,12 @@ export function collatorFactory<T = unknown>(column: ColumnSpecification<T>, typ
                             ?   (x: T, y: T) => {
                                     const xx = (x as Record<string, unknown>)[key];
                                     const yy = (y as Record<string, unknown>)[key];
-                                    return isNil(xx) ? (isNil(yy) ? 0 : +1) : (isNil(yy) ? -1 : toTimestamp(xx) - toTimestamp(yy));
+                                    return isNil(xx) ? (isNil(yy) ? 0 : +1) : (isNil(yy) ? -1 : toDate(xx).getTime() - toDate(yy).getTime());
                                 }
                             :   (x: T, y: T) => {
                                     const xx = (x as Record<string, unknown>)[key];
                                     const yy = (y as Record<string, unknown>)[key];
-                                    return isNil(yy) ? (isNil(xx) ? 0 : -1) : (isNil(xx) ? +1 : toTimestamp(yy) - toTimestamp(xx));
+                                    return isNil(yy) ? (isNil(xx) ? 0 : -1) : (isNil(xx) ? +1 : toDate(yy).getTime() - toDate(xx).getTime());
                                 };
                     };
                 }
@@ -116,12 +116,12 @@ export function collatorFactory<T = unknown>(column: ColumnSpecification<T>, typ
                             ?   (x: T, y: T) => {
                                     const xx = (x as unknown as unknown[])[key];
                                     const yy = (y as unknown as unknown[])[key];
-                                    return isNil(xx) ? (isNil(yy) ? 0 : +1) : (isNil(yy) ? -1 : toTimestamp(xx) - toTimestamp(yy));
+                                    return isNil(xx) ? (isNil(yy) ? 0 : +1) : (isNil(yy) ? -1 : toDate(xx).getTime() - toDate(yy).getTime());
                                 }
                             :   (x: T, y: T) => {
                                     const xx = (x as unknown as unknown[])[key];
                                     const yy = (y as unknown as unknown[])[key];
-                                    return isNil(yy) ? (isNil(xx) ? 0 : -1) : (isNil(xx) ? +1 : toTimestamp(yy) - toTimestamp(xx));
+                                    return isNil(yy) ? (isNil(xx) ? 0 : -1) : (isNil(xx) ? +1 : toDate(yy).getTime() - toDate(xx).getTime());
                                 };
                     };
                 }
@@ -154,8 +154,8 @@ export function collatorFactory<T = unknown>(column: ColumnSpecification<T>, typ
                 case 'date': {
                     return (ascending: boolean) => {
                         return ascending
-                            ?   (x: T, y: T) => (isNil(x) ? (isNil(y) ? 0 : +1) : (isNil(y) ? -1 : toTimestamp(x) - toTimestamp(y)))
-                            :   (x: T, y: T) => (isNil(y) ? (isNil(x) ? 0 : -1) : (isNil(x) ? +1 : toTimestamp(y) - toTimestamp(x)));
+                            ?   (x: T, y: T) => (isNil(x) ? (isNil(y) ? 0 : +1) : (isNil(y) ? -1 : toDate(x).getTime() - toDate(y).getTime()))
+                            :   (x: T, y: T) => (isNil(y) ? (isNil(x) ? 0 : -1) : (isNil(x) ? +1 : toDate(y).getTime() - toDate(x).getTime()));
                     };
                 }
 

@@ -96,9 +96,9 @@ export abstract class Maze {
         const adjacent = this.adjacent(cell);
         const outside  = adjacent.filter(c => !this.inMaze(c));
         if(outside.length)
-            return { ...cell, direction: randomPick(outside).direction };
+            return { ...cell, direction: randomPick(outside)!.direction };
 
-        return { ...cell, direction: randomPick(adjacent).direction };
+        return { ...cell, direction: randomPick(adjacent)!.direction };
     }
 
     protected computeWidth(width?: number): number | undefined {
@@ -307,7 +307,6 @@ export abstract class Maze {
 
     public addWall(cell: Cell, direction: Direction) {
         if(this.inMaze(cell)) {
-            if(this.walls[cell.x][cell.y][direction]) console.log('dup', cell, direction);
             this.walls[cell.x][cell.y][direction] = true;
             //this.drawWall({ ...cell, direction }, , this.wallColor));
             this.drawCell(cell);
@@ -331,7 +330,7 @@ export abstract class Maze {
     //     let maxDistance = 1;
     //     while(queue.length) {
     //         const cell      = queue.pop()!;
-    //         const neighbors = shuffle(
+    //         const neighbors = randomShuffle(
     //             this.neighbors(cell)
     //             .filter(n => !this.walls[cell.x][cell.y][n.direction] && distances[n.x][n.y] === Infinity)
     //         );
