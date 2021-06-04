@@ -347,7 +347,7 @@ module.exports = (tsconfigPath) => ({
         '@typescript-eslint/no-invalid-void-type':                      'off', // TODO Investigate
         '@typescript-eslint/no-misused-new':                            RECOMMENDED('error'),
         '@typescript-eslint/no-misused-promises':                       TC(RECOMMENDED('error')),
-        '@typescript-eslint/no-namespace':                              OVERIDE('off', RECOMENDED('error')),
+        '@typescript-eslint/no-namespace':                              OVERRIDE('off', RECOMMENDED('error')),
         '@typescript-eslint/no-non-null-asserted-optional-chain':       RECOMMENDED('error'),
         '@typescript-eslint/no-non-null-assertion':                     OVERRIDE('off', RECOMMENDED('warn')),
         '@typescript-eslint/no-parameter-properties':                   'off',
