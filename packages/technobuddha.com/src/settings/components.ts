@@ -5,6 +5,8 @@ import { GiOrbital }          from '%icons/gi/GiOrbital';
 import { GiChessKnight }      from '%icons/gi/GiChessKnight';
 import { GiPalette }          from '%icons/gi/GiPalette';
 import { GiMaze }             from '%icons/gi/GiMaze';
+import { HiColorSwatch }      from '%icons/hi/HiColorSwatch';
+
 import Home                 from '#component/home';
 import NBody                from '#component/nBody';
 import Music                from '#component/music';
@@ -12,6 +14,7 @@ import Knight               from '#component/knight';
 import Life                 from '#component/life';
 import MazeMaker            from '#component/maze';
 import Theme                from '#component/theme';
+import Color                from '#component/color';
 
 import type React         from 'react';
 import type { IconType }  from '%icons';
@@ -101,6 +104,16 @@ export const components: (t: TFunction) => Component[] = t => [
         secondary: t('Visualization of the MUI theme'),
         location: '/theme',
         component: Theme,
+        todo: [
+            t('Add a description to this component'),
+        ],
+    },
+    {
+        icon: HiColorSwatch,
+        primary: t('Color'),
+        secondary: t('Colors'),
+        location: '/colors',
+        component: Color,
         todo: [
             t('Add a description to this component'),
         ],

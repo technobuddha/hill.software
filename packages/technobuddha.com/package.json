@@ -26,6 +26,7 @@
   "dependencies": {
     "@google-cloud/translate": "^6.1.0",
     "@technobuddha/library": "^1.6.4",
+    "@technobuddha/color": "^1.0.01",
     "browserslist": "^4.16.1",
     "browserslist-useragent": "^3.0.3",
     "caniuse-lite": "^1.0.30001230",

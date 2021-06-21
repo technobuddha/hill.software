@@ -1,0 +1,5 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": { "lib": [ "esnext" ]},
+    "exclude": [ "node_modules", "dist", "coverage" ]
+}

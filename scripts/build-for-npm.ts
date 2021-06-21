@@ -71,6 +71,16 @@ export function buildForNPM({ packageName }: BuildForNPMOptions) {
     }
     finish();
 
+    start('Copy', 'json');
+    for(const file of glob.sync('src/*.json')) {
+        const { base, name } = path.parse(file);
+        if(name !== 'tsconfig') {
+            const contents = fs.readFileSync(file, { encoding: 'utf8' });
+            fs.writeFileSync(path.join('dist', name, base), contents);
+        }
+    }
+    finish();
+
     if(fs.existsSync('dist/index')) {
         start('Moving', 'index');
         for(const file of glob.sync('dist/index/*.*s')) {

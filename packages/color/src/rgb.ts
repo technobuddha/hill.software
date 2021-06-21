@@ -1,0 +1,260 @@
+/* eslint-disable no-cond-assign */
+import { round, approxEq, re, percent, sep, alpha, op, cp, getPercent } from './util';
+import colorNames from './color-names';
+import hsl  from './hsl';
+import hsv  from './hsv';
+import hsi  from './hsi';
+import hwb  from './hwb';
+import hcg  from './hcg';
+import cmy  from './cmy';
+import cmyk from './cmyk';
+import xyz  from './xyz';
+import lab  from './lab';
+
+const names = Object.fromEntries(colorNames.map(cn => [ cn.name.toLowerCase().replace(/\s/gu, ''), cn.color ]));
+
+import type { Color, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
+
+export namespace rgb {
+    export function isRGB(color: Color): color is RGB {
+        return ('r' in color || 'red'   in color) &&
+               ('g' in color || 'green' in color) &&
+               ('b' in color || 'blue'  in color);
+    }
+
+    type iRGB = { red: number; green: number; blue: number; alpha?: number };
+
+    export function internal(color: RGB): iRGB {
+        return {
+            red:    color.red   ?? color.r / 255,
+            green:  color.green ?? color.g / 255,
+            blue:   color.blue  ?? color.b / 255,
+            alpha:  color.alpha,
+        };
+    }
+
+    export function external({ red, green, blue, alpha }: iRGB): RGB {
+        return {
+            r: round(red   * 255, 0),
+            g: round(green * 255, 0),
+            b: round(blue  * 255, 0),
+            red,
+            green,
+            blue,
+            alpha,
+        };
+    }
+
+    export function attributes(color: RGB) {
+        const { red, green, blue, alpha } = internal(color);
+        const min           = Math.min(red, green, blue);
+        const max           = Math.max(red, green, blue);
+        const chroma        = max - min;
+        let   hue           = 0;
+        let   hslSaturation = 0;
+        let   hsvSaturation = 0;
+        let   hsiSaturation = 0;
+        let   lightness     = (max + min) / 2;
+        let   value         = max;
+        let   whiteness     = min;
+        let   blackness     = 1 - max;
+        let   greyness      = approxEq(chroma, 1) ? 0 : min / (1 - chroma);
+        let   intensity     = (red + green + blue) / 3;
+
+        if(!approxEq(chroma, 0)) {
+            const deltaR = (max - red)   / 6 / chroma;
+            const deltaG = (max - green) / 6 / chroma;
+            const deltaB = (max - blue)  / 6 / chroma;
+
+            if(approxEq(red, max))
+                hue = (0 / 3) + deltaB - deltaG;
+            else if(approxEq(green, max))
+                hue = (1 / 3) + deltaR - deltaB;
+            else
+                hue = (2 / 3) + deltaG - deltaR;
+
+            if(hue < 0) hue += 1;
+            if(approxEq(hue, 1)) hue = 0;
+
+            if(lightness <= 0.5)
+                hslSaturation = chroma / (max + min);
+            else
+                hslSaturation = chroma / (2 - max - min);
+        }
+
+        if(!approxEq(max, 0))
+            hsvSaturation = chroma / max;
+
+        if(!approxEq(intensity, 0))
+            hsiSaturation = 1 - min / intensity;
+
+        return {
+            chroma,
+            hue,
+            hslSaturation,
+            hsvSaturation,
+            hsiSaturation,
+            lightness,
+            value,
+            whiteness,
+            blackness,
+            greyness,
+            intensity,
+            alpha,
+        };
+    }
+
+    export function toRGB(color: RGB): RGB {
+        return external(internal(color));
+    }
+
+    export function toHSL(color: RGB): HSL {
+        const { hue, hslSaturation: saturation, lightness, alpha } = attributes(color);
+        return hsl.external({ hue, saturation, lightness, alpha });
+    }
+
+    export function toHSV(color: RGB): HSV {
+        const { hue, hsvSaturation: saturation, value, alpha } = attributes(color);
+        return hsv.external({ hue, saturation, value, alpha });
+    }
+
+    export function toHSI(color: RGB): HSI {
+        const { hue, hsiSaturation: saturation, intensity, alpha } = attributes(color);
+        return hsi.external({ hue, saturation, intensity, alpha });
+    }
+
+    export function toHWB(color: RGB): HWB {
+        const { hue, whiteness, blackness, alpha } = attributes(color);
+        return hwb.external({ hue, whiteness, blackness, alpha });
+    }
+
+    export function toHCG(color: RGB): HCG {
+        const { hue, chroma, greyness, alpha } = attributes(color);
+        return hcg.external({ hue, chroma, greyness, alpha });
+    }
+
+    export function toCMY(color: RGB): CMY {
+        const { red, green, blue, alpha } = internal(color);
+        return cmy.external({ cyan: 1 - red, magenta: 1 - green, yellow: 1 - blue, alpha });
+    }
+
+    export function toCMYK(color: RGB): CMYK {
+        const { red, green, blue, alpha } = internal(color);
+        const black     = Math.min(1 - red, 1 - green, 1 - blue);
+        const cyan      = (1 - red - black)   / (1 - black) || 0;
+        const magenta   = (1 - green - black) / (1 - black) || 0;
+        const yellow    = (1 - blue - black)  / (1 - black) || 0;
+
+        return cmyk.external({ cyan, magenta, yellow, black, alpha });
+    }
+
+    //X, Y and Z output refer to a D65/2° standard illuminant.
+    export function toXYZ(color: RGB): XYZ {
+        let { red, green, blue, alpha } = internal(color);
+
+        // Assume sRGB
+        red     = red   > 0.04045 ? (((red   + 0.055) / 1.055) ** 2.4) : (red   / 12.92);
+        green   = green > 0.04045 ? (((green + 0.055) / 1.055) ** 2.4) : (green / 12.92);
+        blue    = blue  > 0.04045 ? (((blue  + 0.055) / 1.055) ** 2.4) : (blue  / 12.92);
+
+        const X = (red * 0.4124564) + (green * 0.3575761) + (blue * 0.1804375);
+        const Y = (red * 0.2126729) + (green * 0.7151522) + (blue * 0.0721750);
+        const Z = (red * 0.0193339) + (green * 0.1191920) + (blue * 0.9503041);
+
+        return xyz.external({ X, Y, Z, alpha });
+    }
+
+    export function toLAB(color: RGB): LAB {
+        return xyz.toLAB(toXYZ(color));
+    }
+
+    export function toLCH(color: RGB): LCH {
+        return lab.toLCH(toLAB(color));
+    }
+
+    export function colorDistance(color: RGB, other: RGB): number {
+        const rMean  = (color.r + other.r) / 2;
+        const r      = color.r - other.r;
+        const g      = color.g - other.g;
+        const b      = color.b - other.b;
+        return Math.sqrt(((2 + (rMean / 256)) * r * r) + (4 * g * g) + ((2 + ((255 - rMean) / 256)) * b * b));
+    }
+
+    export function parse(input: string): RGB | undefined {
+        const hex   = /^#?([0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{4}|[0-9a-f]{3})$/iu;
+        const rgb   = re`^rgba?${op}${percent}${sep}${percent}${sep}${percent}${alpha}${cp}$`;
+
+        let match: RegExpMatchArray | null;
+        if(match = hex.exec(input)) {
+            //#region HEX
+            const n = parseInt(match[1], 16);
+
+            switch(match[1].length) {
+                case 3:   // abc => aabbcc
+                    return {
+                        r:      (((n >> 8) & 0x0f) | ((n >> 4) & 0xf0)),
+                        g:      (((n >> 4) & 0x0f) | ((n)      & 0xf0)),
+                        b:      (((n)      & 0x0f) | ((n << 4) & 0xf0)),
+                    };
+
+                case 4:     // abcd => aabbccdd
+                    return {
+                        r:      (((n >> 12) & 0x0f) | ((n >> 8) & 0xf0)),
+                        g:      (((n >>  8) & 0x0f) | ((n >> 4) & 0xf0)),
+                        b:      (((n >>  4) & 0x0f) | ((n)      & 0xf0)),
+                        alpha:  (((n)       & 0x0f) | ((n << 4) & 0xf0)) / 255,
+                    };
+
+                case 6:  // abcdef
+                    return {
+                        r:      ((n >> 16) & 0xff),
+                        g:      ((n >>  8) & 0xff),
+                        b:      ((n)       & 0xff),
+                    };
+
+                case 8: // abcdef00
+                    return {
+                        r:      ((n >> 24) & 0xff),
+                        g:      ((n >> 16) & 0xff),
+                        b:      ((n >>  8) & 0xff),
+                        alpha:  ((n)       & 0xff) / 255,
+                    };
+            }
+            //#endregion
+        } else if(match = rgb.exec(input)) {
+            //#region RGB
+            if(match[4]) {
+                return {
+                    r:      getPercent(match[1], 255),
+                    g:      getPercent(match[2], 255),
+                    b:      getPercent(match[3], 255),
+                    alpha:  getPercent(match[4], 1),
+                };
+            }
+
+            return {
+                r:      getPercent(match[1], 255),
+                g:      getPercent(match[2], 255),
+                b:      getPercent(match[3], 255),
+            };
+            //#endregion
+        } else if(input === 'transparent') {
+            //#region transparent
+            return {
+                r:      0,
+                g:      0,
+                b:      0,
+                alpha:  0,
+            };
+            //#endregion
+        } else {
+            const name = input.toLowerCase().replace(/\s/gu, '');
+            if(name in names)
+                return names[name];
+        }
+
+        return undefined;
+    }
+}
+
+export default rgb;

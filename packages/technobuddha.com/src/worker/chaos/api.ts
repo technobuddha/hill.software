@@ -1,4 +1,4 @@
-import color from '@technobuddha/library/color';
+import color from '@technobuddha/color';
 import lerp  from '@technobuddha/library/lerp';
 
 export type MandelbrotReturn = { colors: RGBV[][]; x_min: number; x_max: number; y_min: number; y_max: number };
@@ -74,7 +74,7 @@ function mandelbrot(width: number, height: number, x_min: number, x_max: number,
             const s = 1;
             const v = m < iterations ? 1 : 0;
 
-            colors[i][j] = color.hsv.toRGB({ h, s, v });
+            colors[i][j] = color.toRGB({ h, s, v });
         }
     }
 

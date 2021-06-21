@@ -323,7 +323,7 @@ module.exports = {
         '@typescript-eslint/await-thenable':                            TC(RECOMMENDED('error')),
         '@typescript-eslint/ban-ts-comment':                            RECOMMENDED('error'),
         '@typescript-eslint/ban-tslint-comment':                        'off',
-        '@typescript-eslint/ban-types':                                 RECOMMENDED('error'),
+        '@typescript-eslint/ban-types':                                 OVERRIDE('off', RECOMMENDED('error')),
         '@typescript-eslint/class-literal-property-style':              [ 'warn', 'fields' ],
         '@typescript-eslint/consistent-indexed-object-style':           'off',
         '@typescript-eslint/consistent-type-assertions':                [ 'error', { 'assertionStyle': 'as' }],
