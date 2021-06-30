@@ -1,6 +1,6 @@
 import type { RGB } from './color';
 
-export const colorNames: {   name: string;   color: RGB }[] = [
+export const colorNames: readonly { name: string;   color: RGB }[] = [
     {
         name: 'Alice Blue',
         color: { r: 240, g: 248, b: 255 },
@@ -565,6 +565,33 @@ export const colorNames: {   name: string;   color: RGB }[] = [
         name: 'Yellow Green',
         color: { r: 154, g: 205, b: 50 },
     },
+    {
+        name: 'Transparent',
+        color: { r: 0, g: 0, b: 0, alpha: 0 },
+    },
 ];
+
+function normalize(name: string): string {
+    return name.toLowerCase().replace(/\s/gu, '');
+}
+
+const lookupByName = Object.freeze(Object.fromEntries(colorNames.map(cn => [ normalize(cn.name), cn.color ])));
+
+export function findColor(name: string): RGB | undefined {
+    return lookupByName[normalize(name)];
+}
+
+export function findName(color: RGB): string | undefined {
+    if(color.alpha === undefined) {
+        const r = Math.round(color.r);
+        const g = Math.round(color.g);
+        const b = Math.round(color.b);
+
+        const name = colorNames.find(cn => cn.color.r === r && cn.color.g === g && cn.color.b === b)?.name;
+        return name ? normalize(name) : undefined;
+    }
+
+    return undefined;
+}
 
 export default colorNames;

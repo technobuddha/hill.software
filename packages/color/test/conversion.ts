@@ -35,8 +35,8 @@ describe(
                             colorTest => {
                                 const srcColor = colorTest[srcColorSpace.toLowerCase() as keyof Test] as Color;
                                 const dstColor = colorTest[dstColorSpace.toLowerCase() as keyof Test] as Color;
-                                const newColor = color.to(srcColor, dstColorSpace);
-                                expect(newColor).toMatchCloseTo(dstColor, 3);
+                                const newColor = color.to(srcColor, dstColorSpace as keyof typeof colorSpaces);
+                                expect(newColor).toMatchCloseTo(dstColor, 1);
                             }
                         );
                     }

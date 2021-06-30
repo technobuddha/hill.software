@@ -39,13 +39,14 @@ export function re(template: TemplateStringsArray, ...args: RegExp[]): RegExp {
 }
 
 export const sep        = /(?:\s*,\s*|\s+)/;
+export const space      = /\s+/;
 export const op         = /(?:\s*\(\s*)/;
 export const cp         = /(?:\s*\)\s*)/;
 export const num        = /[+-]?\d*\.?\d+(?:[eE][+-]?\d+)?/;
 export const number     = re`(${num})`;
 export const percent    = re`(${num}%?)`;
 export const angle      = re`(${num}(?:deg|rad|grad|turn)?)`;
-export const alpha      = re`(?:\s*[,/]\s*${percent})?`;
+export const alpha      = re`(?:\\s*[,/]\\s*${percent})?`;
 
 export function getPercent(input: string, scale = 100): number {
     if(input.endsWith('%'))

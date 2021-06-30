@@ -375,14 +375,5 @@ describe(
                 expect(color.deltaE2000(color1, color2)).toBeCloseTo(0.9082);
             }
         );
-
-        // test(
-        //     'RGB => ',
-        //     () => {
-        //         //expect(Color('#1B6CA8').hcg()).toBe({});
-        //         //expect(Color('hsv(205, 83%, 65%)').rgb()).toEqual({ 'color': [205, 83.72093023255813, 48.160000000000004], 'model': 'hsv', 'valpha': 1});
-        //         expect(Color.hwb(205, 0.11, 0.34).hcg()).toEqual({ 'color': [ 205, 83.72093023255813, 48.160000000000004 ], 'model': 'hsv', 'valpha': 1 });
-        //     }
-        // );
     }
 );
