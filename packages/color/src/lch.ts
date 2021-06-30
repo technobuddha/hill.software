@@ -15,7 +15,7 @@ export function is(color: Color): color is LCH {
 export function internal(color: LCH): Internal<LCH> {
     return {
         lightness:  color.lightness ?? color.l / 100,
-        chroma:     color.chroma    ?? color.c,
+        chroma:     color.chroma    ?? color.c / 100,
         hue:        color.hue       ?? color.h / 360,
         alpha:      color.alpha,
     };
@@ -24,7 +24,7 @@ export function internal(color: LCH): Internal<LCH> {
 export function external({ lightness, chroma, hue, alpha }: Internal<LCH>): LCH {
     const obj = {
         l: round(lightness * 100, 2),
-        c: round(chroma,          4),
+        c: round(chroma    * 100, 4),
         h: round(hue       * 360, 0),
         lightness,
         chroma,
@@ -74,8 +74,8 @@ export function toLAB(color: LCH): LAB {
     const { lightness, chroma, hue, alpha } = internal(color);
 
     const hr         = hue * (2 * Math.PI);
-    const redGreen   = chroma * Math.cos(hr) / 100;
-    const blueYellow = chroma * Math.sin(hr) / 100;
+    const redGreen   = chroma * Math.cos(hr);
+    const blueYellow = chroma * Math.sin(hr);
 
     return lab.external({ lightness, redGreen, blueYellow, alpha });
 }
