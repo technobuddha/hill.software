@@ -4,7 +4,6 @@
         "target": "esnext",
         "lib": [ "dom", "esnext" ],
         "noEmit": true,
-//        "rootDir": ".",
         "types": [ "jest", "node" ],
     },
     "include": [ "*.ts", "../scripts/color-build.ts" ],

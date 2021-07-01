@@ -18,7 +18,7 @@ type Test = {
     toString:   () => string;
 };
 
-const colorTests: Test[] = JSON.parse(fs.readFileSync('./test/conversion.json', 'utf-8'))
+const colorTests: Test[] = JSON.parse(fs.readFileSync('./test/data/conversion.json', 'utf-8'))
 .map((test: Test) => { test.toString = () => `${test.name} r:${test.rgb.r} g: ${test.rgb.g} b: ${test.rgb.b}`; return test; });
 
 describe(

@@ -19,7 +19,7 @@ const conversion: ({ name: string } & {[key in Lowercase<ColorSpace>]: Color; })
     lab:    color.toLAB(cn.color),
     lch:    color.toLCH(cn.color),
 }));
-fs.writeFileSync('./test/conversion.json', JSON.stringify(conversion, null, 2));
+fs.writeFileSync('./test/data/conversion.json', JSON.stringify(conversion, null, 2));
 
 type Levels = '+25%' | '+50%' | '+75%' | '-25%' | '-50%' | '-75%';
 
@@ -39,7 +39,7 @@ function attribute(attr: string, fn: ((rgb: RGB, amount: number) => RGB)) {
             '-75%': fn(rgb, -0.75),
         });
     });
-    fs.writeFileSync(`./test/${attr}.json`, JSON.stringify(value, null, 2));
+    fs.writeFileSync(`./test/data/${attr}.json`, JSON.stringify(value, null, 2));
 }
 
 Object.entries(color.attributes)

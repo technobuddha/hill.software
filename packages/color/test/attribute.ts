@@ -13,7 +13,7 @@ describe(
         describe.each(Object.keys(attributes))(
             '%s',
             attribute => {
-                const colorTests: Test[] = JSON.parse(fs.readFileSync(`./test/${attribute}.json`, 'utf-8'))
+                const colorTests: Test[] = JSON.parse(fs.readFileSync(`./test/data/${attribute}.json`, 'utf-8'))
                 .map((test: Test) => { test.toString = () => `${test.name} r:${test.rgb.r} g: ${test.rgb.g} b: ${test.rgb.b}`; return test; });
 
                 describe.each(colorTests)(

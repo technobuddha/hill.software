@@ -1,7 +1,5 @@
 import expect from '../util/expect';
 import color from '../src/color';
-//import Color from 'color';
-//import DeltaE from 'delta-e';
 
 describe(
     'color',
