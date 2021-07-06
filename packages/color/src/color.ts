@@ -11,19 +11,19 @@ import lab  from './lab';
 import lch  from './lch';
 import colorCompare from './color-compare';
 
-export type ColorBase = { alpha?: number };
+export type Alpha = { alpha?: number };
 
-export type RGB  = ColorBase & { r: number; g: number; b: number; red?: number; green?: number; blue?: number };
-export type HSL  = ColorBase & { h: number; s: number; l: number; hue?: number; saturation?: number; lightness?: number };
-export type HSV  = ColorBase & { h: number; s: number; v: number; hue?: number; saturation?: number; value?: number };
-export type HSI  = ColorBase & { h: number; s: number; i: number; hue?: number; saturation?: number; intensity?: number };
-export type HWB  = ColorBase & { h: number; w: number; b: number; hue?: number; whiteness?: number; blackness?: number };
-export type HCG  = ColorBase & { h: number; c: number; g: number; hue?: number; chroma?: number; greyness?: number };
-export type CMY  = ColorBase & { c: number; m: number; y: number; cyan?: number; magenta?: number; yellow?: number };
-export type CMYK = ColorBase & { c: number; m: number; y: number; k: number; cyan?: number; magenta?: number; yellow?: number; black?: number };
-export type XYZ  = ColorBase & { x: number; y: number; z: number; X?: number; Y?: number; Z?: number };
-export type LAB  = ColorBase & { l: number; a: number; b: number; lightness?: number; redGreen?: number; blueYellow?: number };             // L: 0 to 100,    A: -128 to 128, B: -128 to 128
-export type LCH  = ColorBase & { l: number; c: number; h: number; lightness?: number; chroma?: number; hue?: number };
+export type RGB  = Alpha & { r: number; g: number; b: number; red?: number; green?: number; blue?: number };
+export type HSL  = Alpha & { h: number; s: number; l: number; hue?: number; saturation?: number; lightness?: number };
+export type HSV  = Alpha & { h: number; s: number; v: number; hue?: number; saturation?: number; value?: number };
+export type HSI  = Alpha & { h: number; s: number; i: number; hue?: number; saturation?: number; intensity?: number };
+export type HWB  = Alpha & { h: number; w: number; b: number; hue?: number; whiteness?: number; blackness?: number };
+export type HCG  = Alpha & { h: number; c: number; g: number; hue?: number; chroma?: number; greyness?: number };
+export type CMY  = Alpha & { c: number; m: number; y: number; cyan?: number; magenta?: number; yellow?: number };
+export type CMYK = Alpha & { c: number; m: number; y: number; k: number; cyan?: number; magenta?: number; yellow?: number; black?: number };
+export type XYZ  = Alpha & { x: number; y: number; z: number; X?: number; Y?: number; Z?: number };
+export type LAB  = Alpha & { l: number; a: number; b: number; lightness?: number; redGreen?: number; blueYellow?: number };             // L: 0 to 100,    A: -128 to 128, B: -128 to 128
+export type LCH  = Alpha & { l: number; c: number; h: number; lightness?: number; chroma?: number; hue?: number };
 
 export type Color       = RGB | HSL | HSV | HSI | HWB | HCG | CMY | CMYK | XYZ | LAB | LCH;
 type DispatchCall<S, T> = (color: S, ...args: any[]) => T;
@@ -647,6 +647,7 @@ export default {
     blend,
     gradient,
     scheme,
+    parse,
     string,
     deltaE1976,
     deltaE1994,

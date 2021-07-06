@@ -48,24 +48,24 @@ export const percent    = re`(${num}%?)`;
 export const angle      = re`(${num}(?:deg|rad|grad|turn)?)`;
 export const alpha      = re`(?:\\s*[,/]\\s*${percent})?`;
 
-export function getPercent(input: string, scale = 100): number {
+export function getPercent(input: string, scale: number, precision = 2): number {
     if(input.endsWith('%'))
-        return Number.parseFloat(input.slice(0, -1)) * scale / 100;
-    return Number.parseFloat(input);
+        return round(Number.parseFloat(input.slice(0, -1)) * scale / 100, precision);
+    return round(Number.parseFloat(input), precision);
 }
 
-export function getAngle(input: string): number {
+export function getAngle(input: string, precision = 2): number {
     if(input.endsWith('deg'))
-        return Number.parseFloat(input.slice(0, -3));
+        return round(Number.parseFloat(input.slice(0, -3)), precision);
     else if(input.endsWith('grad')) //Test for grad first (both rad and grad end the same)
-        return Number.parseFloat(input.slice(0, -4)) * 360 / 400;
+        return round(Number.parseFloat(input.slice(0, -4)) * 360 / 400, precision);
     else if(input.endsWith('rad'))
-        return Number.parseFloat(input.slice(0, -3)) * 360 / (Math.PI * 2);
+        return round(Number.parseFloat(input.slice(0, -3)) * 360 / (Math.PI * 2), precision);
     else if(input.endsWith('turn'))
-        return Number.parseFloat(input.slice(0, -4)) * 360;
-    return Number.parseFloat(input);
+        return round(Number.parseFloat(input.slice(0, -4)) * 360, precision);
+    return round(Number.parseFloat(input), precision);
 }
 
-export function getNumber(input: string): number {
-    return Number.parseFloat(input);
+export function getNumber(input: string, precision = 2): number {
+    return round(Number.parseFloat(input), precision);
 }

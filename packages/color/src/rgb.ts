@@ -72,7 +72,6 @@ function attributes(color: RGB) {
             hue = (2 / 3) + deltaG - deltaR;
 
         if(hue < 0) hue += 1;
-        if(approxEq(hue, 1)) hue = 0;
 
         if(lightness <= 0.5)
             hslSaturation = chroma / (max + min);
@@ -258,7 +257,7 @@ export function string(input: RGB, options: StringOptions): string {
                 return `#${rHex[0]}${gHex[0]}${bHex[0]}`;
             return `#${rHex}${gHex}${bHex}`;
         } else if(options.cssVersion === 4) {
-            const aHex = input.alpha === undefined ? 'FF' : Math.round(input.alpha * 255).toString(16).padStart(2, '0');
+            const aHex = Math.round(input.alpha * 255).toString(16).padStart(2, '0');
 
             // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
             if(options.hexShorthand && rHex[0] === rHex[1] && gHex[0] === gHex[1] && bHex[0] === bHex[1] && aHex[0] === aHex[1])

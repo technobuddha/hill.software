@@ -101,7 +101,7 @@ export function parse(input: string): CMYK | undefined {
     // eslint-disable-next-line no-cond-assign
     if(match = rgb.exec(input)) {
         //#region RGB
-        if(match[4]) {
+        if(match[5]) {
             return {
                 c:      getPercent(match[1], 100),
                 m:      getPercent(match[2], 100),

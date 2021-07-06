@@ -115,11 +115,11 @@ export function toLCH(color: XYZ): LCH {
 }
 
 const testXYZ   = re`^xyz${op}${number}${sep}${number}${sep}${number}${alpha}${cp}$`;
-const testColor = re`^color${op}xyz${space}${number}${sep}${number}${sep}${number}${cp}$`;
+const testColor = re`^color${op}xyz${space}${number}${sep}${number}${sep}${number}${alpha}${cp}$`;
 
 export function parse(input: string): XYZ | undefined {
     let match: RegExpMatchArray | null;
-    if(match = testXYZ.exec(input)) {
+    if(match = testXYZ.exec(input) || (match = testColor.exec(input))) {
         //#region XYZ
         if(match[4]) {
             return {
@@ -130,14 +130,6 @@ export function parse(input: string): XYZ | undefined {
             };
         }
 
-        return {
-            x:      getNumber(match[1]),
-            y:      getNumber(match[2]),
-            z:      getNumber(match[3]),
-        };
-        //#endregion
-    } else if(match = testColor.exec(input)) {
-        //#region Color
         return {
             x:      getNumber(match[1]),
             y:      getNumber(match[2]),
