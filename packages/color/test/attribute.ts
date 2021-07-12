@@ -4,7 +4,7 @@ import fs                     from 'fs';
 
 import type { RGB } from '../src/color';
 
-type Levels = '+25%' | '+50%' | '+75%' | '-25%' | '-50%' | '-75%';
+type Levels = '+25%' | '+50%' | '+75%' | '-25%' | '-50%' | '-75%' | '+25' | '+50' | '+75' | '-25' | '-50' | '-75';
 type Test   = ({ name: string; rgb: RGB; toString: () => string } & {[key in Levels]: RGB });
 
 describe(
@@ -21,6 +21,20 @@ describe(
                     colorTest => {
                         const rgb = colorTest.rgb;
                         const fn  = attributes[attribute as keyof typeof attributes];
+
+                        test(
+                            'default',
+                            () => {
+                                expect(fn(rgb)).toMatchCloseTo(colorTest['+25%']);
+                            }
+                        );
+
+                        test(
+                            'specify ratio',
+                            () => {
+                                expect(fn(rgb, { ratio: +0.25 })).toMatchCloseTo(colorTest['+25%']);
+                            }
+                        );
 
                         test(
                             '+25%',
@@ -51,6 +65,13 @@ describe(
                         );
 
                         test(
+                            'specify ratio',
+                            () => {
+                                expect(fn(rgb, { ratio: -0.25 })).toMatchCloseTo(colorTest['-25%']);
+                            }
+                        );
+
+                        test(
                             '-50%',
                             () => {
                                 expect(fn(rgb, -0.50)).toMatchCloseTo(colorTest['-50%']);
@@ -61,6 +82,48 @@ describe(
                             '-75%',
                             () => {
                                 expect(fn(rgb, -0.75)).toMatchCloseTo(colorTest['-75%']);
+                            }
+                        );
+
+                        test(
+                            '+25',
+                            () => {
+                                expect(fn(rgb, { amount: +0.25 })).toMatchCloseTo(colorTest['+25']);
+                            }
+                        );
+
+                        test(
+                            '+50',
+                            () => {
+                                expect(fn(rgb, { amount: +0.50 })).toMatchCloseTo(colorTest['+50']);
+                            }
+                        );
+
+                        test(
+                            '+75',
+                            () => {
+                                expect(fn(rgb, { amount: +0.75 })).toMatchCloseTo(colorTest['+75']);
+                            }
+                        );
+
+                        test(
+                            '-25',
+                            () => {
+                                expect(fn(rgb, { amount: -0.25 })).toMatchCloseTo(colorTest['-25']);
+                            }
+                        );
+
+                        test(
+                            '-50',
+                            () => {
+                                expect(fn(rgb, { amount: -0.50 })).toMatchCloseTo(colorTest['-50']);
+                            }
+                        );
+
+                        test(
+                            '-75',
+                            () => {
+                                expect(fn(rgb, { amount: -0.75 })).toMatchCloseTo(colorTest['-75']);
                             }
                         );
                     }

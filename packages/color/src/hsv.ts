@@ -5,28 +5,29 @@ import hsl from './hsl';
 import hcg from './hcg';
 import lab  from './lab';
 
-import { getStringOptions } from './color';
-import type { Color, StringOptions, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
-import type { ColorSpace, Internal } from './color-space';
+import type { PartialColor, Alpha, StringOptions, RGB, HSL, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
+import type { ColorSpace } from './color-space';
 
-export function is(color: Color): color is HSV {
-    return ('h' in color || 'hue'        in color) &&
-            ('s' in color || 'saturation' in color) &&
-            ('v' in color || 'value'      in color);
+type oHSV = { h: number; s: number; v: number };
+type iHSV = { hue: number; saturation: number; value: number };
+type internalHSV = Alpha & iHSV;
+export type partialHSV = Alpha & (iHSV | oHSV | (iHSV & oHSV));
+export type HSV        = Alpha & iHSV & oHSV;
+
+export function is(color: PartialColor): color is partialHSV {
+    return ('h' in color && 's' in color && 'v' in color) ||
+           ('hue' in color && 'saturation' in color && 'value' in color);
 }
 
-export function internal(color: HSV): Internal<HSV> {
-    return {
-        hue:        color.hue        ?? color.h / 360,
-        saturation: color.saturation ?? color.s / 100,
-        value:      color.value      ?? color.v / 100,
-        alpha:      color.alpha,
-    };
+export function internal(color: partialHSV): internalHSV {
+    if('hue' in color && 'saturation' in color && 'value' in color)
+        return { hue: color.hue, saturation: color.saturation, value: color.value, alpha: color.alpha };
+    return { hue: color.h / 360, saturation: color.s / 100, value: color.v / 100, alpha: color.alpha };
 }
 
-export function external({ hue, saturation, value, alpha }: Internal<HSV>): HSV {
+export function external({ hue, saturation, value, alpha }: internalHSV): HSV {
     const obj = {
-        h: round(hue        * 360, 0),
+        h: round(hue        * 360, 2),
         s: round(saturation * 100, 2),
         v: round(value      * 100, 2),
         hue,
@@ -37,7 +38,7 @@ export function external({ hue, saturation, value, alpha }: Internal<HSV>): HSV 
     return alpha === undefined ? obj : { ...obj, alpha };
 }
 
-export function toRGB(color: HSV): RGB {
+export function toRGB(color: partialHSV): RGB {
     let { hue, saturation, value, alpha } = internal(color);
     hue *= 6;
     let hi          = Math.floor(hue) % 6;
@@ -64,7 +65,7 @@ export function toRGB(color: HSV): RGB {
     }
 }
 
-export function toHSL(color: HSV): HSL {
+export function toHSL(color: partialHSV): HSL {
     let { hue, saturation, value, alpha } = internal(color);
     let vMin        = Math.max(value, 0.01);
 
@@ -79,19 +80,19 @@ export function toHSL(color: HSV): HSL {
     return hsl.external({ hue, saturation, lightness, alpha });
 }
 
-export function toHSV(color: HSV): HSV {
+export function toHSV(color: partialHSV): HSV {
     return external(internal(color));
 }
 
-export function toHSI(color: HSV): HSI {
+export function toHSI(color: partialHSV): HSI {
     return rgb.toHSI(toRGB(color));
 }
 
-export function toHWB(color: HSV): HWB {
+export function toHWB(color: partialHSV): HWB {
     return hcg.toHWB(toHCG(color));
 }
 
-export function toHCG(color: HSV): HCG {
+export function toHCG(color: partialHSV): HCG {
     let { hue, saturation, value, alpha } = internal(color);
 
     let chroma      = saturation * value;
@@ -103,23 +104,23 @@ export function toHCG(color: HSV): HCG {
     return hcg.external({ hue, chroma, greyness, alpha });
 }
 
-export function toCMY(color: HSV): CMY {
+export function toCMY(color: partialHSV): CMY {
     return rgb.toCMY(toRGB(color));
 }
 
-export function toCMYK(color: HSV): CMYK {
+export function toCMYK(color: partialHSV): CMYK {
     return rgb.toCMYK(toRGB(color));
 }
 
-export function toXYZ(color: HSV): XYZ {
+export function toXYZ(color: partialHSV): XYZ {
     return rgb.toXYZ(toRGB(color));
 }
 
-export function toLAB(color: HSV): LAB {
+export function toLAB(color: partialHSV): LAB {
     return rgb.toLAB(toRGB(color));
 }
 
-export function toLCH(color: HSV): LCH {
+export function toLCH(color: partialHSV): LCH {
     return lab.toLCH(toLAB(color));
 }
 
@@ -130,39 +131,37 @@ export function parse(input: string): HSV | undefined {
     if(match = rgb.exec(input)) {
         //#region RGB
         if(match[4]) {
-            return {
+            return toHSV({
                 h:      getAngle(match[1]),
                 s:      getPercent(match[2], 100),
                 v:      getPercent(match[3], 100),
                 alpha:  getPercent(match[4], 1),
-            };
+            });
         }
 
-        return {
+        return toHSV({
             h:      getAngle(match[1]),
             s:      getPercent(match[2], 100),
             v:      getPercent(match[3], 100),
-        };
+        });
         //#endregion
     }
 
     return undefined;
 }
 
-export function string(input: HSV, options: StringOptions): string {
+export function string(input: partialHSV, options: StringOptions): string {
+    const color = external(internal(input));
+
     if(options.format === 'name' || options.format === 'hex' || options.format === 'css')
-        return rgb.string(toRGB(input), options);
+        return rgb.string(toRGB(color), options);
 
-    if(input.alpha)
-        return `hsv(${input.h} ${input.s}% ${input.v}% / ${round(input.alpha * 100, 2)}%)`;
-    return `hsv(${input.h} ${input.s}% ${input.v}%)`;
+    if(color.alpha)
+        return `hsv(${color.h} ${color.s}% ${color.v}% / ${round(color.alpha * 100, 2)}%)`;
+    return `hsv(${color.h} ${color.s}% ${color.v}%)`;
 }
 
-export function inputFormat(_: string): StringOptions {
-    return getStringOptions('default');
-}
-
-const hsv: ColorSpace<HSV> = {
+const hsv: ColorSpace<HSV, partialHSV, internalHSV> = {
     is,
 
     internal,
@@ -182,7 +181,6 @@ const hsv: ColorSpace<HSV> = {
 
     parse,
     string,
-    inputFormat,
 };
 
 export default hsv;

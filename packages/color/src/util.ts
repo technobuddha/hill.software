@@ -4,10 +4,6 @@ export function modulo(dividend: number, divisor: number): number {
     return (dividend * divisor < 0 && remainder !== 0) ? divisor + remainder : remainder;
 }
 
-export function hypot(...sides: number[]): number {
-    return Math.sqrt(sides.reduce((sum, side) => sum + side ** 2, 0));
-}
-
 export function approxEq(a: number, b: number): boolean {
     return Math.abs(a - b) <= (0.0001 + Number.EPSILON);
 }
@@ -20,7 +16,7 @@ export function toRadians(angle: number): number {
     return Math.PI * angle / 180;
 }
 
-export function round(n: number, precision = 0): number {
+export function round(n: number, precision: number): number {
     const factor = 10 ** precision;
     return Math.round(n * factor) / factor;
 }

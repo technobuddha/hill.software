@@ -1,6 +1,8 @@
-import type { RGB } from './color';
+import rgb from './rgb';
+import type { Alpha } from './color';
+import type { oRGB, RGB } from './rgb';
 
-export const colorNames: readonly { name: string;   color: RGB }[] = [
+export const colorNames: readonly { name: string; color: Alpha & oRGB }[] = [
     {
         name: 'Alice Blue',
         color: { r: 240, g: 248, b: 255 },
@@ -578,7 +580,10 @@ function normalize(name: string): string {
 const lookupByName = Object.freeze(Object.fromEntries(colorNames.map(cn => [ normalize(cn.name), cn.color ])));
 
 export function findColor(name: string): RGB | undefined {
-    return lookupByName[normalize(name)];
+    const color = lookupByName[normalize(name)];
+    if(color)
+        return rgb.toRGB(color);
+    return undefined;
 }
 
 export function findName(color: RGB): string | undefined {

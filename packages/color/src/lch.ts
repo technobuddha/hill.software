@@ -2,30 +2,31 @@ import { round, re, angle, percent, number, sep, alpha, op, cp, getAngle, getNum
 import rgb  from './rgb';
 import lab  from './lab';
 
-import { getStringOptions } from './color';
-import type { Color, StringOptions, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
-import type { ColorSpace, Internal } from './color-space';
+import type { PartialColor, StringOptions, Alpha, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB } from './color';
+import type { ColorSpace } from './color-space';
 
-export function is(color: Color): color is LCH {
-    return ('l' in color || 'lightness' in color) &&
-            ('c' in color || 'chroma'    in color) &&
-            ('h' in color || 'hue'       in color);
+type oLCH = { l: number; c: number; h: number };
+type iLCH = { lightness: number; chroma: number; hue: number };
+type internalLCH = Alpha & iLCH;
+export type partialLCH = Alpha & (iLCH | oLCH | (iLCH & oLCH));
+export type LCH        = Alpha & iLCH & oLCH;
+
+export function is(color: PartialColor): color is partialLCH {
+    return ('l' in color && 'c' in color && 'h' in color) ||
+           ('lightness' in color && 'chroma' in color && 'hue' in color);
 }
 
-export function internal(color: LCH): Internal<LCH> {
-    return {
-        lightness:  color.lightness ?? color.l / 100,
-        chroma:     color.chroma    ?? color.c / 100,
-        hue:        color.hue       ?? color.h / 360,
-        alpha:      color.alpha,
-    };
+export function internal(color: partialLCH): internalLCH {
+    if('lightness' in color && 'chroma' in color && 'hue' in color)
+        return { lightness: color.lightness, chroma: color.chroma, hue: color.hue, alpha: color.alpha };
+    return { lightness: color.l / 100, chroma: color.c / 100, hue: color.h / 360, alpha: color.alpha };
 }
 
-export function external({ lightness, chroma, hue, alpha }: Internal<LCH>): LCH {
+export function external({ lightness, chroma, hue, alpha }: internalLCH): LCH {
     const obj = {
         l: round(lightness * 100, 2),
-        c: round(chroma    * 100, 4),
-        h: round(hue       * 360, 0),
+        c: round(chroma    * 100, 2),
+        h: round(hue       * 360, 2),
         lightness,
         chroma,
         hue,
@@ -34,43 +35,43 @@ export function external({ lightness, chroma, hue, alpha }: Internal<LCH>): LCH 
     return alpha === undefined ? obj : { ...obj, alpha };
 }
 
-export function toRGB(color: LCH): RGB {
+export function toRGB(color: partialLCH): RGB {
     return lab.toRGB(toLAB(color));
 }
 
-export function toHSL(color: LCH): HSL {
+export function toHSL(color: partialLCH): HSL {
     return rgb.toHSL(lab.toRGB(toLAB(color)));
 }
 
-export function toHSV(color: LCH): HSV {
+export function toHSV(color: partialLCH): HSV {
     return rgb.toHSV(lab.toRGB(toLAB(color)));
 }
 
-export function toHWB(color: LCH): HWB {
+export function toHWB(color: partialLCH): HWB {
     return rgb.toHWB(lab.toRGB(toLAB(color)));
 }
 
-export function toHSI(color: LCH): HSI {
+export function toHSI(color: partialLCH): HSI {
     return rgb.toHSI(toRGB(color));
 }
 
-export function toHCG(color: LCH): HCG {
+export function toHCG(color: partialLCH): HCG {
     return rgb.toHCG(lab.toRGB(toLAB(color)));
 }
 
-export function toCMY(color: LCH): CMY {
+export function toCMY(color: partialLCH): CMY {
     return rgb.toCMY(toRGB(color));
 }
 
-export function toCMYK(color: LCH): CMYK {
+export function toCMYK(color: partialLCH): CMYK {
     return rgb.toCMYK(lab.toRGB(toLAB(color)));
 }
 
-export function toXYZ(color: LCH): XYZ {
+export function toXYZ(color: partialLCH): XYZ {
     return lab.toXYZ(toLAB(color));
 }
 
-export function toLAB(color: LCH): LAB {
+export function toLAB(color: partialLCH): LAB {
     const { lightness, chroma, hue, alpha } = internal(color);
 
     const hr         = hue * (2 * Math.PI);
@@ -80,7 +81,7 @@ export function toLAB(color: LCH): LAB {
     return lab.external({ lightness, redGreen, blueYellow, alpha });
 }
 
-export function toLCH(color: LCH): LCH {
+export function toLCH(color: partialLCH): LCH {
     return external(internal(color));
 }
 
@@ -92,56 +93,37 @@ export function parse(input: string): LCH | undefined {
     if(match = rgb.exec(input)) {
         //#region RGB
         if(match[4]) {
-            return {
+            return toLCH({
                 l:      getPercent(match[1], 100),
                 c:      getNumber(match[2]),
                 h:      getAngle(match[3]),
                 alpha:  getPercent(match[4], 1),
-            };
+            });
         }
 
-        return {
+        return toLCH({
             l:      getPercent(match[1], 100),
             c:      getNumber(match[2]),
             h:      getAngle(match[3]),
-        };
+        });
         //#endregion
     }
 
     return undefined;
 }
 
-// export function deltaCMC(color1: LCH, color2: LCH, l = 2, c = 1): number {
-//     const F  = Math.sqrt(color1.c ** 4 / (color1.c ** 4 + 1900));
-//     const T  = color1.h >= 164 && color1.h <= 345
-//         ?   0.56 + Math.abs(0.2 * Math.cos(toRadians(color1.h + 168)))
-//         :   0.36 + Math.abs(0.4 * Math.cos(toRadians(color1.h + 35)));
-//     const Sl = color1.l < 16 ? 0.511 : (0.040975 * color1.l) / (1 + 0.01765 * color1.l);
-//     const Sc = ((0.0638 * color1.c) / (1 + 0.0131 * color1.c)) + 0.638;
-//     const Sh = Sc * (F * T + 1 - F);
+export function string(input: partialLCH, options: StringOptions): string {
+    const color = external(internal(input));
 
-//     return Math.sqrt(
-//         ((color2.l - color1.l) / (l * Sl)) ** 2 +
-//         ((color2.c - color2.c) / (c * Sc)) ** 2 +
-//         ((deltaH / Sh)) ** 2
-//     );
-
-// }
-
-export function string(input: LCH, options: StringOptions): string {
     if(options.format === 'name' || options.format === 'hex' || (options.format === 'css' && options.cssVersion === 3))
-        return rgb.string(toRGB(input), options);
+        return rgb.string(toRGB(color), options);
 
-    if(input.alpha)
-        return `lch(${input.l}% ${input.c} ${input.h} / ${round(input.alpha * 100, 2)}%)`;
-    return `lch(${input.l}% ${input.c} ${input.h})`;
+    if(color.alpha)
+        return `lch(${color.l}% ${color.c} ${color.h} / ${round(color.alpha * 100, 2)}%)`;
+    return `lch(${color.l}% ${color.c} ${color.h})`;
 }
 
-export function inputFormat(_: string): StringOptions {
-    return getStringOptions('default');
-}
-
-const lch: ColorSpace<LCH> = {
+const lch: ColorSpace<LCH, partialLCH, internalLCH> = {
     is,
 
     internal,
@@ -161,7 +143,6 @@ const lch: ColorSpace<LCH> = {
 
     parse,
     string,
-    inputFormat,
 };
 
 export default lch;

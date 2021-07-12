@@ -3,30 +3,31 @@ import { round, re, number, space, sep, alpha, op, cp, getNumber, getPercent } f
 import rgb  from './rgb';
 import lab  from './lab';
 
-import { getStringOptions } from './color';
-import type { Color, StringOptions, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
-import type { ColorSpace, Internal } from './color-space';
+import type { PartialColor, StringOptions, Alpha, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, LAB, LCH } from './color';
+import type { ColorSpace } from './color-space';
 
-export function is(color: Color): color is XYZ {
-    return ('x' in color || 'X' in color) &&
-            ('y' in color || 'Y' in color) &&
-            ('z' in color || 'Z' in color);
+type oXYZ = { x: number; y: number; z: number };
+type iXYZ = { X: number; Y: number; Z: number };
+type internalXYZ = Alpha & iXYZ;
+export type partialXYZ = Alpha & (iXYZ | oXYZ | (iXYZ & oXYZ));
+export type XYZ        = Alpha & iXYZ & oXYZ;
+
+export function is(color: PartialColor): color is partialXYZ {
+    return ('x' in color && 'y' in color && 'z' in color) ||
+           ('X' in color && 'Y' in color && 'Z' in color);
 }
 
-export function internal(color: XYZ): Internal<XYZ> {
-    return {
-        X: color.X ?? color.x / 100,
-        Y: color.Y ?? color.y / 100,
-        Z: color.Z ?? color.z / 100,
-        alpha: color.alpha,
-    };
+export function internal(color: partialXYZ): internalXYZ {
+    if('X' in color && 'Y' in color && 'Z' in color)
+        return { X: color.X, Y: color.Y, Z: color.Z, alpha: color.alpha };
+    return { X: color.x / 100, Y: color.y / 100, Z: color.z / 100, alpha: color.alpha };
 }
 
-export function external({ X, Y, Z, alpha }: Internal<XYZ>): XYZ {
+export function external({ X, Y, Z, alpha }: internalXYZ): XYZ {
     const obj = {
-        x:  round(X * 100, 3),
-        y:  round(Y * 100, 3),
-        z:  round(Z * 100, 3),
+        x: round(X * 100, 3),
+        y: round(Y * 100, 3),
+        z: round(Z * 100, 3),
         X,
         Y,
         Z,
@@ -35,7 +36,7 @@ export function external({ X, Y, Z, alpha }: Internal<XYZ>): XYZ {
     return alpha === undefined ? obj : { ...obj, alpha };
 }
 
-export function toRGB(color: XYZ): RGB {
+export function toRGB(color: partialXYZ): RGB {
     let { X, Y, Z, alpha } = internal(color);
     let red   = (X *  3.2404542) + (Y * -1.5371385)  + (Z * -0.4985314);
     let green = (X * -0.9692660) + (Y *  1.8760108)  + (Z *  0.041556);
@@ -61,39 +62,39 @@ export function toRGB(color: XYZ): RGB {
     return rgb.external({ red, green, blue, alpha });
 }
 
-export function toHSL(color: XYZ): HSL {
+export function toHSL(color: partialXYZ): HSL {
     return rgb.toHSL(toRGB(color));
 }
 
-export function toHSV(color: XYZ): HSV {
+export function toHSV(color: partialXYZ): HSV {
     return rgb.toHSV(toRGB(color));
 }
 
-export function toHSI(color: XYZ): HSI {
+export function toHSI(color: partialXYZ): HSI {
     return rgb.toHSI(toRGB(color));
 }
 
-export function toHWB(color: XYZ): HWB {
+export function toHWB(color: partialXYZ): HWB {
     return rgb.toHWB(toRGB(color));
 }
 
-export function toHCG(color: XYZ): HCG {
+export function toHCG(color: partialXYZ): HCG {
     return rgb.toHCG(toRGB(color));
 }
 
-export function toCMY(color: XYZ): CMY {
+export function toCMY(color: partialXYZ): CMY {
     return rgb.toCMY(toRGB(color));
 }
 
-export function toCMYK(color: XYZ): CMYK {
+export function toCMYK(color: partialXYZ): CMYK {
     return rgb.toCMYK(toRGB(color));
 }
 
-export function toXYZ(color: XYZ): XYZ {
+export function toXYZ(color: partialXYZ): XYZ {
     return external(internal(color));
 }
 
-export function toLAB(color: XYZ): LAB {
+export function toLAB(color: partialXYZ): LAB {
     let { X, Y, Z, alpha } = internal(color);
     X /= 0.95047;
     Y /= 1.00000;
@@ -110,7 +111,7 @@ export function toLAB(color: XYZ): LAB {
     return lab.external({ lightness, redGreen, blueYellow, alpha });
 }
 
-export function toLCH(color: XYZ): LCH {
+export function toLCH(color: partialXYZ): LCH {
     return lab.toLCH(toLAB(color));
 }
 
@@ -122,45 +123,43 @@ export function parse(input: string): XYZ | undefined {
     if(match = testXYZ.exec(input) || (match = testColor.exec(input))) {
         //#region XYZ
         if(match[4]) {
-            return {
+            return toXYZ({
                 x:      getNumber(match[1]),
                 y:      getNumber(match[2]),
                 z:      getNumber(match[3]),
                 alpha:  getPercent(match[4], 1),
-            };
+            });
         }
 
-        return {
+        return toXYZ({
             x:      getNumber(match[1]),
             y:      getNumber(match[2]),
             z:      getNumber(match[3]),
-        };
+        });
         //#endregion
     }
 
     return undefined;
 }
 
-export function string(input: XYZ, options: StringOptions): string {
+export function string(input: partialXYZ, options: StringOptions): string {
+    const color = external(internal(input));
+
     if(options.format === 'name' || options.format === 'hex' || (options.format === 'css' && options.cssVersion === 3))
-        return rgb.string(toRGB(input), options);
+        return rgb.string(toRGB(color), options);
 
     if(options.format === 'css') {
-        if(input.alpha)
-            return `color(xyz ${input.x / 100} ${input.y / 100} ${input.z / 100} / ${round(input.alpha, 2)})`;
-        return `color(xyz ${input.x / 100} ${input.y / 100} ${input.z / 100})`;
+        if(color.alpha)
+            return `color(xyz ${color.x / 100} ${color.y / 100} ${color.z / 100} / ${round(color.alpha, 2)})`;
+        return `color(xyz ${color.x / 100} ${color.y / 100} ${color.z / 100})`;
     }
 
-    if(input.alpha)
-        return `xyz(${input.x} ${input.y} ${input.z} / ${round(input.alpha * 100, 2)}%)`;
-    return `xyz(${input.x} ${input.y} ${input.z})`;
+    if(color.alpha)
+        return `xyz(${color.x} ${color.y} ${color.z} / ${round(color.alpha * 100, 2)}%)`;
+    return `xyz(${color.x} ${color.y} ${color.z})`;
 }
 
-export function inputFormat(_: string): StringOptions {
-    return getStringOptions('default');
-}
-
-const xyz: ColorSpace<XYZ> = {
+const xyz: ColorSpace<XYZ, partialXYZ, internalXYZ> = {
     is,
 
     internal,
@@ -180,7 +179,6 @@ const xyz: ColorSpace<XYZ> = {
 
     parse,
     string,
-    inputFormat,
 };
 
 export default xyz;

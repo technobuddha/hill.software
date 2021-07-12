@@ -1,32 +1,32 @@
 import { approxEq, round, re, percent, sep, alpha, op, cp, getPercent } from './util';
 import rgb  from './rgb';
 import cmyk from './cmyk';
-import lab  from './lab';
 
-import { getStringOptions } from './color';
-import type { Color, StringOptions, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
-import type { ColorSpace, Internal } from './color-space';
+import type { PartialColor, StringOptions, Alpha, RGB, HSL, HSV, HSI, HWB, HCG, CMYK, XYZ, LAB, LCH } from './color';
+import type { ColorSpace } from './color-space';
 
-export function is(color: Color): color is CMY {
-    return ('c' in color || 'cyan'    in color) &&
-            ('m' in color || 'magenta' in color) &&
-            ('y' in color || 'yellow'  in color);
+type oCMY              = { c: number; m: number; y: number };
+type iCMY              = { cyan: number; magenta: number; yellow: number };
+type internalCMY       = Alpha & iCMY;
+export type partialCMY = Alpha & (iCMY | oCMY | (iCMY & oCMY));
+export type CMY        = Alpha & iCMY & oCMY;
+
+export function is(color: PartialColor): color is partialCMY {
+    return ('c' in color && 'm' in color && 'y' in color) ||
+           ('cyan' in color && 'magenta' in color && 'yellow' in color);
 }
 
-export function internal(color: CMY): Internal<CMY> {
-    return {
-        cyan:    color.cyan    ?? color.c / 100,
-        magenta: color.magenta ?? color.m / 100,
-        yellow:  color.yellow  ?? color.y / 100,
-        alpha:  color.alpha,
-    };
+export function internal(color: partialCMY): internalCMY {
+    if('cyan' in color && 'magenta' in color && 'yellow' in color)
+        return { cyan: color.cyan, magenta: color.magenta, yellow: color.yellow, alpha: color.alpha };
+    return { cyan: color.c / 100, magenta: color.m / 100, yellow: color.y / 100, alpha: color.alpha };
 }
 
-export function external({ cyan, magenta, yellow, alpha }: Internal<CMY>): CMY {
+export function external({ cyan, magenta, yellow, alpha }: internalCMY): CMY {
     const obj = {
-        c: round(cyan    * 100, 0),
-        m: round(magenta * 100, 0),
-        y: round(yellow  * 100, 0),
+        c: round(cyan    * 100, 2),
+        m: round(magenta * 100, 2),
+        y: round(yellow  * 100, 2),
         cyan,
         magenta,
         yellow,
@@ -35,36 +35,36 @@ export function external({ cyan, magenta, yellow, alpha }: Internal<CMY>): CMY {
     return alpha === undefined ? obj : { ...obj, alpha };
 }
 
-export function toRGB(color: CMY): RGB {
+export function toRGB(color: partialCMY): RGB {
     const { cyan, magenta, yellow, alpha } = internal(color);
     return rgb.external({ red: 1 - cyan, green: 1 - magenta, blue: 1 - yellow, alpha });
 }
 
-export function toHSL(color: CMY): HSL {
+export function toHSL(color: partialCMY): HSL {
     return rgb.toHSL(toRGB(color));
 }
 
-export function toHSV(color: CMY): HSV {
+export function toHSV(color: partialCMY): HSV {
     return rgb.toHSV(toRGB(color));
 }
 
-export function toHSI(color: CMY): HSI {
+export function toHSI(color: partialCMY): HSI {
     return rgb.toHSI(toRGB(color));
 }
 
-export function toHWB(color: CMY): HWB {
+export function toHWB(color: partialCMY): HWB {
     return rgb.toHWB(toRGB(color));
 }
 
-export function toHCG(color: CMY): HCG {
+export function toHCG(color: partialCMY): HCG {
     return rgb.toHCG(toRGB(color));
 }
 
-export function toCMY(color: CMY): CMY {
+export function toCMY(color: partialCMY): CMY {
     return external(internal(color));
 }
 
-export function toCMYK(color: CMY): CMYK {
+export function toCMYK(color: partialCMY): CMYK {
     let { cyan, magenta, yellow, alpha } = internal(color);
     let black = 1.0;
 
@@ -74,7 +74,7 @@ export function toCMYK(color: CMY): CMYK {
     if(approxEq(black, 1)) {
         cyan = magenta = yellow = 0;
     } else {
-        cyan    = (cyan - black)    / (1 - black);
+        cyan    = (cyan    - black) / (1 - black);
         magenta = (magenta - black) / (1 - black);
         yellow  = (yellow  - black) / (1 - black);
     }
@@ -82,64 +82,58 @@ export function toCMYK(color: CMY): CMYK {
     return cmyk.external({ cyan, magenta, yellow, black, alpha });
 }
 
-export function toXYZ(color: CMY): XYZ {
+export function toXYZ(color: partialCMY): XYZ {
     return rgb.toXYZ(toRGB(color));
 }
 
-export function toLAB(color: CMY): LAB {
+export function toLAB(color: partialCMY): LAB {
     return rgb.toLAB(toRGB(color));
 }
 
-export function toLCH(color: CMY): LCH {
-    return lab.toLCH(toLAB(color));
+export function toLCH(color: partialCMY): LCH {
+    return rgb.toLCH(toRGB(color));
 }
 
-const testCMY = re`^cmy${op}${percent}${sep}${percent}${sep}${percent}${alpha}${cp}$`;
-
 export function parse(input: string): CMY | undefined {
+    const testCMY = re`^cmy${op}${percent}${sep}${percent}${sep}${percent}${alpha}${cp}$`;
+
     let match: RegExpMatchArray | null;
     // eslint-disable-next-line no-cond-assign
     if(match = testCMY.exec(input)) {
-        //#region CMY
         if(match[4]) {
-            return {
+            return toCMY({
                 c:      getPercent(match[1], 100),
                 m:      getPercent(match[2], 100),
                 y:      getPercent(match[3], 100),
                 alpha:  getPercent(match[4], 1),
-            };
+            });
         }
 
-        return {
+        return toCMY({
             c:      getPercent(match[1], 100),
             m:      getPercent(match[2], 100),
             y:      getPercent(match[3], 100),
-        };
-        //#endregion
+        });
     }
 
     return undefined;
 }
 
-export function inputFormat(_: string): StringOptions {
-    return getStringOptions('default');
-}
+export function string(input: partialCMY, options: StringOptions): string {
+    const color = external(internal(input));
 
-export function string(input: CMY, options: StringOptions): string {
     if(options.format === 'name' || options.format === 'hex' || options.format === 'css')
-        return rgb.string(toRGB(input), options);
+        return rgb.string(toRGB(color), options);
 
-    if(input.alpha)
-        return `cmy(${input.c}% ${input.m}% ${input.y}% / ${round(input.alpha * 100, 2)}%)`;
-    return `cmy(${input.c}% ${input.m}% ${input.y}%)`;
+    if(color.alpha)
+        return `cmy(${color.c}% ${color.m}% ${color.y}% / ${round(color.alpha * 100, 2)}%)`;
+    return `cmy(${color.c}% ${color.m}% ${color.y}%)`;
 }
 
-const cmy: ColorSpace<CMY> = {
+const cmy: ColorSpace<CMY, partialCMY, internalCMY> = {
     is,
-
     internal,
     external,
-
     toRGB,
     toHSL,
     toHSV,
@@ -151,10 +145,8 @@ const cmy: ColorSpace<CMY> = {
     toXYZ,
     toLAB,
     toLCH,
-
     parse,
     string,
-    inputFormat,
 };
 
 export default cmy;

@@ -5,28 +5,29 @@ import hsv from './hsv';
 import hwb from './hwb';
 import lab  from './lab';
 
-import { getStringOptions } from './color';
-import type { Color, StringOptions, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
-import type { ColorSpace, Internal } from './color-space';
+import type { PartialColor, StringOptions, Alpha, RGB, HSL, HSV, HSI, HWB, CMY, CMYK, XYZ, LAB, LCH } from './color';
+import type { ColorSpace } from './color-space';
 
-export function is(color: Color): color is HCG {
-    return ('h' in color || 'hue'      in color) &&
-            ('c' in color || 'chroma'   in color) &&
-            ('g' in color || 'greyness' in color);
+type oHCG = { h: number; c: number; g: number };
+type iHCG = { hue: number; chroma: number; greyness: number };
+type internalHCG = Alpha & iHCG;
+export type partialHCG = Alpha & (iHCG | oHCG | (iHCG & oHCG));
+export type HCG        = Alpha & iHCG & oHCG;
+
+export function is(color: PartialColor): color is partialHCG {
+    return ('h' in color && 'c' in color && 'g' in color) ||
+           ('hue' in color && 'chroma' in color && 'greyness' in color);
 }
 
-export function internal(color: HCG): Internal<HCG> {
-    return {
-        hue:        color.hue      ?? color.h / 360,
-        chroma:     color.chroma   ?? color.c / 100,
-        greyness:   color.greyness ?? color.g / 100,
-        alpha:      color.alpha,
-    };
+export function internal(color: partialHCG): internalHCG {
+    if('hue' in color && 'chroma' in color && 'greyness' in color)
+        return { hue: color.hue, chroma: color.chroma, greyness: color.greyness, alpha: color.alpha };
+    return { hue: color.h / 360, chroma: color.c / 100, greyness: color.g / 100, alpha: color.alpha };
 }
 
-export function external({ hue, chroma, greyness, alpha }: Internal<HCG>): HCG {
+export function external({ hue, chroma, greyness, alpha }: internalHCG): HCG {
     const obj = {
-        h: round(hue      * 360, 0),
+        h: round(hue      * 360, 2),
         c: round(chroma   * 100, 2),
         g: round(greyness * 100, 2),
         hue,
@@ -37,7 +38,7 @@ export function external({ hue, chroma, greyness, alpha }: Internal<HCG>): HCG {
     return alpha === undefined ? obj : { ...obj, alpha };
 }
 
-export function toRGB(color: HCG): RGB {
+export function toRGB(color: partialHCG): RGB {
     const { hue, chroma, greyness, alpha } = internal(color);
 
     let h   = hue * 6;
@@ -52,7 +53,7 @@ export function toRGB(color: HCG): RGB {
     return rgb.external({ red, green, blue, alpha });
 }
 
-export function toHSL(color: HCG): HSL {
+export function toHSL(color: partialHCG): HSL {
     const { hue, chroma, greyness, alpha } = internal(color);
 
     let lightness  = greyness * (1.0 - chroma) + 0.5 * chroma;
@@ -66,7 +67,7 @@ export function toHSL(color: HCG): HSL {
     return hsl.external({ hue, saturation, lightness, alpha });
 }
 
-export function toHSV(color: HCG): HSV {
+export function toHSV(color: partialHCG): HSV {
     const { hue, chroma, greyness, alpha } = internal(color);
 
     let value      = chroma + greyness * (1.0 - chroma);
@@ -78,11 +79,11 @@ export function toHSV(color: HCG): HSV {
     return hsv.external({ hue, saturation, value, alpha });
 }
 
-export function toHSI(color: HCG): HSI {
+export function toHSI(color: partialHCG): HSI {
     return rgb.toHSI(toRGB(color));
 }
 
-export function toHWB(color: HCG): HWB {
+export function toHWB(color: partialHCG): HWB {
     const { hue, chroma, greyness, alpha } = internal(color);
     const v = chroma + greyness * (1.0 - chroma);
     const whiteness = v - chroma;
@@ -90,27 +91,27 @@ export function toHWB(color: HCG): HWB {
     return hwb.external({ hue, whiteness, blackness, alpha });
 }
 
-export function toHCG(color: HCG): HCG {
+export function toHCG(color: partialHCG): HCG {
     return external(internal(color));
 }
 
-export function toCMY(color: HCG): CMY {
+export function toCMY(color: partialHCG): CMY {
     return rgb.toCMY(toRGB(color));
 }
 
-export function toCMYK(color: HCG): CMYK {
+export function toCMYK(color: partialHCG): CMYK {
     return rgb.toCMYK(toRGB(color));
 }
 
-export function toXYZ(color: HCG): XYZ {
+export function toXYZ(color: partialHCG): XYZ {
     return rgb.toXYZ(toRGB(color));
 }
 
-export function toLAB(color: HCG): LAB {
+export function toLAB(color: partialHCG): LAB {
     return rgb.toLAB(toRGB(color));
 }
 
-export function toLCH(color: HCG): LCH {
+export function toLCH(color: partialHCG): LCH {
     return lab.toLCH(toLAB(color));
 }
 
@@ -122,39 +123,37 @@ export function parse(input: string): HCG | undefined {
     if(match = rgb.exec(input)) {
         //#region RGB
         if(match[4]) {
-            return {
+            return toHCG({
                 h:      getAngle(match[1]),
                 c:      getPercent(match[2], 100),
                 g:      getPercent(match[3], 100),
                 alpha:  getPercent(match[4], 1),
-            };
+            });
         }
 
-        return {
+        return toHCG({
             h:      getAngle(match[1]),
             c:      getPercent(match[2], 100),
             g:      getPercent(match[3], 100),
-        };
+        });
         //#endregion
     }
 
     return undefined;
 }
 
-export function string(input: HCG, options: StringOptions): string {
+export function string(input: partialHCG, options: StringOptions): string {
+    const color = external(internal(input));
+
     if(options.format === 'name' || options.format === 'hex' || options.format === 'css')
-        return rgb.string(toRGB(input), options);
+        return rgb.string(toRGB(color), options);
 
-    if(input.alpha)
-        return `hcg(${input.h} ${input.c}% ${input.g}% / ${round(input.alpha * 100, 2)}%)`;
-    return `hcg(${input.h} ${input.c}% ${input.g}%)`;
+    if(color.alpha)
+        return `hcg(${color.h} ${color.c}% ${color.g}% / ${round(color.alpha * 100, 2)}%)`;
+    return `hcg(${color.h} ${color.c}% ${color.g}%)`;
 }
 
-export function inputFormat(_: string): StringOptions {
-    return getStringOptions('default');
-}
-
-const hcg: ColorSpace<HCG> = {
+const hcg: ColorSpace<HCG, partialHCG, internalHCG> = {
     is,
 
     internal,
@@ -174,7 +173,6 @@ const hcg: ColorSpace<HCG> = {
 
     parse,
     string,
-    inputFormat,
 };
 
 export default hcg;

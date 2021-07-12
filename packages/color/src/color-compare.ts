@@ -1,13 +1,14 @@
-import { toDegrees, toRadians, hypot } from './util';
+import { toDegrees, toRadians } from './util';
 import lab from './lab';
+import lch from './lch';
 
 import type { RGB, LAB } from './color';
 
 export function colorDistance(color: RGB, other: RGB): number {
-    const rMean  = (color.r + other.r) / 2;
-    const r      = color.r - other.r;
-    const g      = color.g - other.g;
-    const b      = color.b - other.b;
+    const rMean  = 255 * (color.red   + other.red) / 2;
+    const r      = 255 * (color.red   - other.red);
+    const g      = 255 * (color.green - other.green);
+    const b      = 255 * (color.blue  - other.blue);
     return Math.sqrt(((2 + (rMean / 256)) * r * r) + (4 * g * g) + ((2 + ((255 - rMean) / 256)) * b * b));
 }
 
@@ -25,22 +26,20 @@ export function deltaC(color1: LAB, color2: LAB): number {
     const { redGreen: redGreen1, blueYellow: blueYellow1 } = lab.internal(color1);
     const { redGreen: redGreen2, blueYellow: blueYellow2 } = lab.internal(color2);
 
-    return (hypot(redGreen2, blueYellow2) - hypot(redGreen1, blueYellow1)) *
-           Math.sqrt(100);
+    return (Math.hypot(redGreen2 * 100, blueYellow2 * 100) - Math.hypot(redGreen1 * 100, blueYellow1 * 100));
 }
 
 export function deltaH(color1: LAB, color2: LAB): number {
     const { redGreen: redGreen1, blueYellow: blueYellow1 } = lab.internal(color1);
     const { redGreen: redGreen2, blueYellow: blueYellow2 } = lab.internal(color2);
 
-    return Math.sqrt((redGreen2 - redGreen1) ** 2 + (blueYellow2 - blueYellow1) ** 2 - deltaC(color1, color2)) *
-           Math.sqrt(100);
+    return Math.sqrt((redGreen2 * 100 - redGreen1 * 100) ** 2 + (blueYellow2 * 100 - blueYellow1 * 100) ** 2 - deltaC(color1, color2) ** 2);
 }
 
 export function deltaE1976(color1: LAB, color2: LAB): number {
     const { lightness: lightness1, redGreen: redGreen1, blueYellow: blueYellow1 } = lab.internal(color1);
     const { lightness: lightness2, redGreen: redGreen2, blueYellow: blueYellow2 } = lab.internal(color2);
-    return hypot(lightness1 * 100 - lightness2 * 100, redGreen1 * 100 - redGreen2 * 100, blueYellow1 * 100 - blueYellow2 * 100);
+    return Math.hypot(lightness1 * 100 - lightness2 * 100, redGreen1 * 100 - redGreen2 * 100, blueYellow1 * 100 - blueYellow2 * 100);
 }
 
 export function deltaE1994(color1: LAB, color2: LAB): number {
@@ -63,8 +62,8 @@ export function deltaE1994(color1: LAB, color2: LAB): number {
     const K2 = 0.015; //0.014
 
     let ΔL = l1 - l2;
-    let C1 = hypot(a1, b1);
-    let C2 = hypot(a2, b2);
+    let C1 = Math.hypot(a1, b1);
+    let C2 = Math.hypot(a2, b2);
     let ΔC = C1 - C2;
     let ΔE = deltaE1976(color1, color2);
     let ΔH = ΔE ** 2 - ΔL ** 2 - ΔC ** 2;
@@ -98,14 +97,14 @@ export function deltaE2000(color1: LAB, color2: LAB): number {
     const ΔĹ = l2 - l1;
 
     const Ĺ̅  = (l1 + l2) / 2;
-    const C1 = hypot(a1, b1);
-    const C2 = hypot(a2, b2);
+    const C1 = Math.hypot(a1, b1);
+    const C2 = Math.hypot(a2, b2);
     const C̅  = (C1 + C2) / 2;
 
     const á1 = a1 + (a1 / 2) * (1 - Math.sqrt((C̅ ** 7) / ((C̅ ** 7) + (25 ** 7))));
     const á2 = a2 + (a2 / 2) * (1 - Math.sqrt((C̅ ** 7) / ((C̅ ** 7) + (25 ** 7))));
-    const Ć1 = hypot(á1, b1);
-    const Ć2 = hypot(á2, b2);
+    const Ć1 = Math.hypot(á1, b1);
+    const Ć2 = Math.hypot(á2, b2);
     const Ć̅  = (Ć1 + Ć2) / 2;
     const ΔĆ = Ć2 - Ć1;
 
@@ -149,4 +148,31 @@ export function deltaE2000(color1: LAB, color2: LAB): number {
     return Math.sqrt(lightness ** 2 + chroma ** 2 + hue ** 2 + Rt * chroma * hue);
 }
 
-export default { colorDistance, deltaC, deltaH, deltaE1976, deltaE1994, deltaE2000 };
+export function deltaCMC(color1: LAB, color2: LAB): number {
+    let { lightness: l1, chroma: c1, hue: h1 } = lch.internal(lab.toLCH(color1));
+    let { lightness: l2, chroma: c2          } = lch.internal(lab.toLCH(color2));
+
+    // We use the internal values because they are more precise, but the formula is based on external
+    l1 *= 100;
+    c1 *= 100;
+    h1 *= 360;
+    l2 *= 100;
+    c2 *= 100;
+
+    const Kl    = 1.0;
+    const Kc    = 1.0;
+
+    const ΔH = deltaH(color1, color2);
+    const F  = Math.sqrt(c1 ** 4 / (c1 ** 4 + 1900));
+    const T  = h1 >= 164 && h1 <= 345
+        ? 0.56 + Math.abs(0.2 * Math.cos(toRadians(h1 + 168)))
+        : 0.36 + Math.abs(0.4 * Math.cos(toRadians(h1 + 35)));
+
+    const Sl = l1 < 16 ? 0.511 : (0.040975 * l1) / (1 + 0.01765 * l1);
+    const Sc = (0.0638 * c1) / (1 + 0.0131 * c1) + 0.638;
+    const Sh = Sc * (F * T + 1 - F);
+
+    return Math.hypot((l2 - l1) / (Kl * Sl), (c2 - c1) / (Kc * Sc), (ΔH / Sh));
+}
+
+export default { colorDistance, deltaC, deltaH, deltaE1976, deltaE1994, deltaE2000, deltaCMC };

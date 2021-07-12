@@ -1,0 +1,1281 @@
+[
+  {
+    "name": "Alice Blue",
+    "color": {
+      "r": 240,
+      "g": 248,
+      "b": 255
+    },
+    "luminosity": 0.9288006825347458
+  },
+  {
+    "name": "Antique White",
+    "color": {
+      "r": 250,
+      "g": 235,
+      "b": 215
+    },
+    "luminosity": 0.8464695170775406
+  },
+  {
+    "name": "Aqua",
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 255
+    },
+    "luminosity": 0.7874
+  },
+  {
+    "name": "Aquamarine",
+    "color": {
+      "r": 127,
+      "g": 255,
+      "b": 212
+    },
+    "luminosity": 0.8078549208338043
+  },
+  {
+    "name": "Azure",
+    "color": {
+      "r": 240,
+      "g": 255,
+      "b": 255
+    },
+    "luminosity": 0.9726526495416643
+  },
+  {
+    "name": "Beige",
+    "color": {
+      "r": 245,
+      "g": 245,
+      "b": 220
+    },
+    "luminosity": 0.8988459998705022
+  },
+  {
+    "name": "Bisque",
+    "color": {
+      "r": 255,
+      "g": 228,
+      "b": 196
+    },
+    "luminosity": 0.8073232737297877
+  },
+  {
+    "name": "Black",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 0
+    },
+    "luminosity": 0
+  },
+  {
+    "name": "Blanched Almond",
+    "color": {
+      "r": 255,
+      "g": 235,
+      "b": 205
+    },
+    "luminosity": 0.8508443960815608
+  },
+  {
+    "name": "Blue",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 255
+    },
+    "luminosity": 0.0722
+  },
+  {
+    "name": "Blue Violet",
+    "color": {
+      "r": 138,
+      "g": 43,
+      "b": 226
+    },
+    "luminosity": 0.11827715193355741
+  },
+  {
+    "name": "Brown",
+    "color": {
+      "r": 165,
+      "g": 42,
+      "b": 42
+    },
+    "luminosity": 0.09003120751541362
+  },
+  {
+    "name": "Burly Wood",
+    "color": {
+      "r": 222,
+      "g": 184,
+      "b": 135
+    },
+    "luminosity": 0.5155984453389335
+  },
+  {
+    "name": "Cadet Blue",
+    "color": {
+      "r": 95,
+      "g": 158,
+      "b": 160
+    },
+    "luminosity": 0.2760481848653419
+  },
+  {
+    "name": "Chartreuse",
+    "color": {
+      "r": 127,
+      "g": 255,
+      "b": 0
+    },
+    "luminosity": 0.7603202590262281
+  },
+  {
+    "name": "Chocolate",
+    "color": {
+      "r": 210,
+      "g": 105,
+      "b": 30
+    },
+    "luminosity": 0.23870532565683483
+  },
+  {
+    "name": "Coral",
+    "color": {
+      "r": 255,
+      "g": 127,
+      "b": 80
+    },
+    "luminosity": 0.3661406095595104
+  },
+  {
+    "name": "Cornflower Blue",
+    "color": {
+      "r": 100,
+      "g": 149,
+      "b": 237
+    },
+    "luminosity": 0.28254615275142336
+  },
+  {
+    "name": "Cornsilk",
+    "color": {
+      "r": 255,
+      "g": 248,
+      "b": 220
+    },
+    "luminosity": 0.9356211037296494
+  },
+  {
+    "name": "Crimson",
+    "color": {
+      "r": 220,
+      "g": 20,
+      "b": 60
+    },
+    "luminosity": 0.15781296707309397
+  },
+  {
+    "name": "Cyan",
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 255
+    },
+    "luminosity": 0.7874
+  },
+  {
+    "name": "Dark Blue",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 139
+    },
+    "luminosity": 0.018640801980939217
+  },
+  {
+    "name": "Dark Cyan",
+    "color": {
+      "r": 0,
+      "g": 139,
+      "b": 139
+    },
+    "luminosity": 0.2032931783904645
+  },
+  {
+    "name": "Dark Goldenrod",
+    "color": {
+      "r": 184,
+      "g": 134,
+      "b": 11
+    },
+    "luminosity": 0.2726464768481065
+  },
+  {
+    "name": "Dark Gray",
+    "color": {
+      "r": 169,
+      "g": 169,
+      "b": 169
+    },
+    "luminosity": 0.3967552307256268
+  },
+  {
+    "name": "Dark Green",
+    "color": {
+      "r": 0,
+      "g": 100,
+      "b": 0
+    },
+    "luminosity": 0.021708249863412854
+  },
+  {
+    "name": "Dark Khaki",
+    "color": {
+      "r": 189,
+      "g": 183,
+      "b": 107
+    },
+    "luminosity": 0.45747326349994166
+  },
+  {
+    "name": "Dark Magenta",
+    "color": {
+      "r": 139,
+      "g": 0,
+      "b": 139
+    },
+    "luminosity": 0.07353047651207048
+  },
+  {
+    "name": "Dark Olive Green",
+    "color": {
+      "r": 85,
+      "g": 107,
+      "b": 47
+    },
+    "luminosity": 0.1116689255847656
+  },
+  {
+    "name": "Dark Orange",
+    "color": {
+      "r": 255,
+      "g": 140,
+      "b": 0
+    },
+    "luminosity": 0.40016167026523874
+  },
+  {
+    "name": "Dark Orchid",
+    "color": {
+      "r": 153,
+      "g": 50,
+      "b": 204
+    },
+    "luminosity": 0.12217350382645635
+  },
+  {
+    "name": "Dark Red",
+    "color": {
+      "r": 139,
+      "g": 0,
+      "b": 0
+    },
+    "luminosity": 0.05488967453113127
+  },
+  {
+    "name": "Dark Salmon",
+    "color": {
+      "r": 233,
+      "g": 150,
+      "b": 122
+    },
+    "luminosity": 0.4054147156338076
+  },
+  {
+    "name": "Dark Sea Green",
+    "color": {
+      "r": 143,
+      "g": 188,
+      "b": 139
+    },
+    "luminosity": 0.4367015933098701
+  },
+  {
+    "name": "Dark Slate Blue",
+    "color": {
+      "r": 72,
+      "g": 61,
+      "b": 139
+    },
+    "luminosity": 0.036528982640199825
+  },
+  {
+    "name": "Dark Slate Gray",
+    "color": {
+      "r": 47,
+      "g": 79,
+      "b": 79
+    },
+    "luminosity": 0.02191367692587871
+  },
+  {
+    "name": "Dark Turquoise",
+    "color": {
+      "r": 0,
+      "g": 206,
+      "b": 209
+    },
+    "luminosity": 0.4874606277449036
+  },
+  {
+    "name": "Dark Violet",
+    "color": {
+      "r": 148,
+      "g": 0,
+      "b": 211
+    },
+    "luminosity": 0.10999048339343437
+  },
+  {
+    "name": "Deep Pink",
+    "color": {
+      "r": 255,
+      "g": 20,
+      "b": 147
+    },
+    "luminosity": 0.23800749088950868
+  },
+  {
+    "name": "Deep Sky Blue",
+    "color": {
+      "r": 0,
+      "g": 191,
+      "b": 255
+    },
+    "luminosity": 0.44481603395575414
+  },
+  {
+    "name": "Dim Gray",
+    "color": {
+      "r": 105,
+      "g": 105,
+      "b": 105
+    },
+    "luminosity": 0.14126329114027164
+  },
+  {
+    "name": "Dodger Blue",
+    "color": {
+      "r": 30,
+      "g": 144,
+      "b": 255
+    },
+    "luminosity": 0.2736010723396893
+  },
+  {
+    "name": "Firebrick",
+    "color": {
+      "r": 178,
+      "g": 34,
+      "b": 34
+    },
+    "luminosity": 0.1027756769469261
+  },
+  {
+    "name": "Floral White",
+    "color": {
+      "r": 255,
+      "g": 250,
+      "b": 240
+    },
+    "luminosity": 0.9592248482500426
+  },
+  {
+    "name": "Forest Green",
+    "color": {
+      "r": 34,
+      "g": 139,
+      "b": 34
+    },
+    "luminosity": 0.1875914888966254
+  },
+  {
+    "name": "Fuchsia",
+    "color": {
+      "r": 255,
+      "g": 0,
+      "b": 255
+    },
+    "luminosity": 0.2848
+  },
+  {
+    "name": "Gainsboro",
+    "color": {
+      "r": 220,
+      "g": 220,
+      "b": 220
+    },
+    "luminosity": 0.7156935005064807
+  },
+  {
+    "name": "Ghost White",
+    "color": {
+      "r": 248,
+      "g": 248,
+      "b": 255
+    },
+    "luminosity": 0.9431126188632285
+  },
+  {
+    "name": "Gold",
+    "color": {
+      "r": 255,
+      "g": 215,
+      "b": 0
+    },
+    "luminosity": 0.6986087742815887
+  },
+  {
+    "name": "Goldenrod",
+    "color": {
+      "r": 218,
+      "g": 165,
+      "b": 32
+    },
+    "luminosity": 0.4188582013308376
+  },
+  {
+    "name": "Gray",
+    "color": {
+      "r": 128,
+      "g": 128,
+      "b": 128
+    },
+    "luminosity": 0.2158605001138992
+  },
+  {
+    "name": "Green",
+    "color": {
+      "r": 0,
+      "g": 128,
+      "b": 0
+    },
+    "luminosity": 0.1543834296814607
+  },
+  {
+    "name": "Green Yellow",
+    "color": {
+      "r": 173,
+      "g": 255,
+      "b": 47
+    },
+    "luminosity": 0.8050723545282885
+  },
+  {
+    "name": "Honeydew",
+    "color": {
+      "r": 240,
+      "g": 255,
+      "b": 240
+    },
+    "luminosity": 0.9633653555478174
+  },
+  {
+    "name": "Hot Pink",
+    "color": {
+      "r": 255,
+      "g": 105,
+      "b": 180
+    },
+    "luminosity": 0.3465843816971475
+  },
+  {
+    "name": "Indian Red",
+    "color": {
+      "r": 205,
+      "g": 92,
+      "b": 92
+    },
+    "luminosity": 0.15177909586361668
+  },
+  {
+    "name": "Indigo",
+    "color": {
+      "r": 75,
+      "g": 0,
+      "b": 130
+    },
+    "luminosity": 0.02095679627095979
+  },
+  {
+    "name": "Ivory",
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 240
+    },
+    "luminosity": 0.9907127060061531
+  },
+  {
+    "name": "Khaki",
+    "color": {
+      "r": 240,
+      "g": 230,
+      "b": 140
+    },
+    "luminosity": 0.7701234339412055
+  },
+  {
+    "name": "Lavender",
+    "color": {
+      "r": 230,
+      "g": 230,
+      "b": 250
+    },
+    "luminosity": 0.8031875051452129
+  },
+  {
+    "name": "Lavender Blush",
+    "color": {
+      "r": 255,
+      "g": 240,
+      "b": 245
+    },
+    "luminosity": 0.9017274863104646
+  },
+  {
+    "name": "Lawn Green",
+    "color": {
+      "r": 124,
+      "g": 252,
+      "b": 0
+    },
+    "luminosity": 0.7390589312496334
+  },
+  {
+    "name": "Lemon Chiffon",
+    "color": {
+      "r": 255,
+      "g": 250,
+      "b": 205
+    },
+    "luminosity": 0.9403899224562173
+  },
+  {
+    "name": "Light Blue",
+    "color": {
+      "r": 173,
+      "g": 216,
+      "b": 230
+    },
+    "luminosity": 0.637091412808066
+  },
+  {
+    "name": "Light Coral",
+    "color": {
+      "r": 240,
+      "g": 128,
+      "b": 128
+    },
+    "luminosity": 0.35522120733134854
+  },
+  {
+    "name": "Light Cyan",
+    "color": {
+      "r": 224,
+      "g": 255,
+      "b": 255
+    },
+    "luminosity": 0.9458729349482864
+  },
+  {
+    "name": "Light Goldenrod Yellow",
+    "color": {
+      "r": 250,
+      "g": 250,
+      "b": 210
+    },
+    "luminosity": 0.9334835101829637
+  },
+  {
+    "name": "Light Gray",
+    "color": {
+      "r": 211,
+      "g": 211,
+      "b": 211
+    },
+    "luminosity": 0.6514056374198242
+  },
+  {
+    "name": "Light Green",
+    "color": {
+      "r": 144,
+      "g": 238,
+      "b": 144
+    },
+    "luminosity": 0.6909197995686476
+  },
+  {
+    "name": "Light Pink",
+    "color": {
+      "r": 255,
+      "g": 182,
+      "b": 193
+    },
+    "luminosity": 0.5856615273489745
+  },
+  {
+    "name": "Light Salmon",
+    "color": {
+      "r": 255,
+      "g": 160,
+      "b": 122
+    },
+    "luminosity": 0.47806752252059603
+  },
+  {
+    "name": "Light Sea Green",
+    "color": {
+      "r": 32,
+      "g": 178,
+      "b": 170
+    },
+    "luminosity": 0.34949564479637013
+  },
+  {
+    "name": "Light Sky Blue",
+    "color": {
+      "r": 135,
+      "g": 206,
+      "b": 250
+    },
+    "luminosity": 0.56195637618331
+  },
+  {
+    "name": "Light Slate Gray",
+    "color": {
+      "r": 119,
+      "g": 136,
+      "b": 153
+    },
+    "luminosity": 0.23830165007286933
+  },
+  {
+    "name": "Light Steel Blue",
+    "color": {
+      "r": 176,
+      "g": 196,
+      "b": 222
+    },
+    "luminosity": 0.5398388828466576
+  },
+  {
+    "name": "Light Yellow",
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 224
+    },
+    "luminosity": 0.981618183928816
+  },
+  {
+    "name": "Lime",
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 0
+    },
+    "luminosity": 0.7152
+  },
+  {
+    "name": "Lime Green",
+    "color": {
+      "r": 50,
+      "g": 205,
+      "b": 50
+    },
+    "luminosity": 0.44094865648752024
+  },
+  {
+    "name": "Linen",
+    "color": {
+      "r": 250,
+      "g": 240,
+      "b": 230
+    },
+    "luminosity": 0.883573409843794
+  },
+  {
+    "name": "Magenta",
+    "color": {
+      "r": 255,
+      "g": 0,
+      "b": 255
+    },
+    "luminosity": 0.2848
+  },
+  {
+    "name": "Maroon",
+    "color": {
+      "r": 128,
+      "g": 0,
+      "b": 0
+    },
+    "luminosity": 0.04589194232421498
+  },
+  {
+    "name": "Medium Aquamarine",
+    "color": {
+      "r": 102,
+      "g": 205,
+      "b": 170
+    },
+    "luminosity": 0.4938970331080111
+  },
+  {
+    "name": "Medium Blue",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 205
+    },
+    "luminosity": 0.04407778021232783
+  },
+  {
+    "name": "Medium Orchid",
+    "color": {
+      "r": 186,
+      "g": 85,
+      "b": 211
+    },
+    "luminosity": 0.1698745320832621
+  },
+  {
+    "name": "Medium Purple",
+    "color": {
+      "r": 147,
+      "g": 112,
+      "b": 219
+    },
+    "luminosity": 0.22905858091648007
+  },
+  {
+    "name": "Medium Sea Green",
+    "color": {
+      "r": 60,
+      "g": 179,
+      "b": 113
+    },
+    "luminosity": 0.33819632653106674
+  },
+  {
+    "name": "Medium Slate Blue",
+    "color": {
+      "r": 123,
+      "g": 104,
+      "b": 238
+    },
+    "luminosity": 0.20284629471622434
+  },
+  {
+    "name": "Medium Spring Green",
+    "color": {
+      "r": 0,
+      "g": 250,
+      "b": 154
+    },
+    "luminosity": 0.7070430819418445
+  },
+  {
+    "name": "Medium Turquoise",
+    "color": {
+      "r": 72,
+      "g": 209,
+      "b": 204
+    },
+    "luminosity": 0.5042517663884662
+  },
+  {
+    "name": "Medium Violet Red",
+    "color": {
+      "r": 199,
+      "g": 21,
+      "b": 133
+    },
+    "luminosity": 0.14291442324757328
+  },
+  {
+    "name": "Midnight Blue",
+    "color": {
+      "r": 25,
+      "g": 25,
+      "b": 112
+    },
+    "luminosity": 0.018738829304559095
+  },
+  {
+    "name": "Mint Cream",
+    "color": {
+      "r": 245,
+      "g": 255,
+      "b": 250
+    },
+    "luminosity": 0.9783460494758793
+  },
+  {
+    "name": "Misty Rose",
+    "color": {
+      "r": 255,
+      "g": 228,
+      "b": 225
+    },
+    "luminosity": 0.8218304785918541
+  },
+  {
+    "name": "Moccasin",
+    "color": {
+      "r": 255,
+      "g": 228,
+      "b": 181
+    },
+    "luminosity": 0.8008300099156694
+  },
+  {
+    "name": "Navajo White",
+    "color": {
+      "r": 255,
+      "g": 222,
+      "b": 173
+    },
+    "luminosity": 0.7651968234278564
+  },
+  {
+    "name": "Navy",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 128
+    },
+    "luminosity": 0.015585128108223524
+  },
+  {
+    "name": "Old Lace",
+    "color": {
+      "r": 253,
+      "g": 245,
+      "b": 230
+    },
+    "luminosity": 0.91900633405549
+  },
+  {
+    "name": "Olive",
+    "color": {
+      "r": 128,
+      "g": 128,
+      "b": 0
+    },
+    "luminosity": 0.2002753720056757
+  },
+  {
+    "name": "Olive Drab",
+    "color": {
+      "r": 107,
+      "g": 142,
+      "b": 35
+    },
+    "luminosity": 0.22548502967736125
+  },
+  {
+    "name": "Orange",
+    "color": {
+      "r": 255,
+      "g": 165,
+      "b": 0
+    },
+    "luminosity": 0.4817026703630963
+  },
+  {
+    "name": "Orange Red",
+    "color": {
+      "r": 255,
+      "g": 69,
+      "b": 0
+    },
+    "luminosity": 0.22757869240575487
+  },
+  {
+    "name": "Orchid",
+    "color": {
+      "r": 218,
+      "g": 112,
+      "b": 214
+    },
+    "luminosity": 0.3134880676143873
+  },
+  {
+    "name": "Pale Goldenrod",
+    "color": {
+      "r": 238,
+      "g": 232,
+      "b": 170
+    },
+    "luminosity": 0.7879264788761454
+  },
+  {
+    "name": "Pale Green",
+    "color": {
+      "r": 152,
+      "g": 251,
+      "b": 152
+    },
+    "luminosity": 0.7793675900635257
+  },
+  {
+    "name": "Pale Turquoise",
+    "color": {
+      "r": 175,
+      "g": 238,
+      "b": 238
+    },
+    "luminosity": 0.7643607792171382
+  },
+  {
+    "name": "Pale Violet Red",
+    "color": {
+      "r": 219,
+      "g": 112,
+      "b": 147
+    },
+    "luminosity": 0.2875499411788909
+  },
+  {
+    "name": "Papaya Whip",
+    "color": {
+      "r": 255,
+      "g": 239,
+      "b": 213
+    },
+    "luminosity": 0.877971001998354
+  },
+  {
+    "name": "Peach Puff",
+    "color": {
+      "r": 255,
+      "g": 218,
+      "b": 185
+    },
+    "luminosity": 0.7490558987825107
+  },
+  {
+    "name": "Peru",
+    "color": {
+      "r": 205,
+      "g": 133,
+      "b": 63
+    },
+    "luminosity": 0.2989225575526732
+  },
+  {
+    "name": "Pink",
+    "color": {
+      "r": 255,
+      "g": 192,
+      "b": 203
+    },
+    "luminosity": 0.6327107070246613
+  },
+  {
+    "name": "Plum",
+    "color": {
+      "r": 221,
+      "g": 160,
+      "b": 221
+    },
+    "luminosity": 0.45734221587969115
+  },
+  {
+    "name": "Powder Blue",
+    "color": {
+      "r": 176,
+      "g": 224,
+      "b": 230
+    },
+    "luminosity": 0.6825458650060525
+  },
+  {
+    "name": "Purple",
+    "color": {
+      "r": 128,
+      "g": 0,
+      "b": 128
+    },
+    "luminosity": 0.0614770704324385
+  },
+  {
+    "name": "Rebecca Purple",
+    "color": {
+      "r": 102,
+      "g": 51,
+      "b": 231
+    },
+    "luminosity": 0.09701423027732259
+  },
+  {
+    "name": "Red",
+    "color": {
+      "r": 255,
+      "g": 0,
+      "b": 0
+    },
+    "luminosity": 0.2126
+  },
+  {
+    "name": "Rosy Brown",
+    "color": {
+      "r": 188,
+      "g": 143,
+      "b": 143
+    },
+    "luminosity": 0.323194576494071
+  },
+  {
+    "name": "Royal Blue",
+    "color": {
+      "r": 65,
+      "g": 105,
+      "b": 225
+    },
+    "luminosity": 0.15958837326041647
+  },
+  {
+    "name": "Saddle Brown",
+    "color": {
+      "r": 139,
+      "g": 69,
+      "b": 19
+    },
+    "luminosity": 0.07028474525291843
+  },
+  {
+    "name": "Salmon",
+    "color": {
+      "r": 250,
+      "g": 128,
+      "b": 114
+    },
+    "luminosity": 0.3697724152759546
+  },
+  {
+    "name": "Sandy Brown",
+    "color": {
+      "r": 244,
+      "g": 164,
+      "b": 96
+    },
+    "luminosity": 0.45994396097904355
+  },
+  {
+    "name": "Sea Green",
+    "color": {
+      "r": 46,
+      "g": 139,
+      "b": 87
+    },
+    "luminosity": 0.1895273232923032
+  },
+  {
+    "name": "Sea Shell",
+    "color": {
+      "r": 255,
+      "g": 245,
+      "b": 238
+    },
+    "luminosity": 0.9273786220692231
+  },
+  {
+    "name": "Sienna",
+    "color": {
+      "r": 160,
+      "g": 82,
+      "b": 45
+    },
+    "luminosity": 0.09352275471134214
+  },
+  {
+    "name": "Silver",
+    "color": {
+      "r": 192,
+      "g": 192,
+      "b": 192
+    },
+    "luminosity": 0.5271151257058131
+  },
+  {
+    "name": "Sky Blue",
+    "color": {
+      "r": 135,
+      "g": 206,
+      "b": 235
+    },
+    "luminosity": 0.5529166851818414
+  },
+  {
+    "name": "Slate Blue",
+    "color": {
+      "r": 106,
+      "g": 90,
+      "b": 205
+    },
+    "luminosity": 0.09425691799382249
+  },
+  {
+    "name": "Slate Gray",
+    "color": {
+      "r": 112,
+      "g": 128,
+      "b": 144
+    },
+    "luminosity": 0.2089670407653614
+  },
+  {
+    "name": "Snow",
+    "color": {
+      "r": 255,
+      "g": 250,
+      "b": 250
+    },
+    "luminosity": 0.9653334183484878
+  },
+  {
+    "name": "Spring Green",
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 127
+    },
+    "luminosity": 0.7305230606852947
+  },
+  {
+    "name": "Steel Blue",
+    "color": {
+      "r": 70,
+      "g": 130,
+      "b": 180
+    },
+    "luminosity": 0.19712259951578046
+  },
+  {
+    "name": "Tan",
+    "color": {
+      "r": 210,
+      "g": 180,
+      "b": 140
+    },
+    "luminosity": 0.4823760416392152
+  },
+  {
+    "name": "Teal",
+    "color": {
+      "r": 0,
+      "g": 128,
+      "b": 128
+    },
+    "luminosity": 0.16996855778968423
+  },
+  {
+    "name": "Thistle",
+    "color": {
+      "r": 216,
+      "g": 191,
+      "b": 216
+    },
+    "luminosity": 0.5681840109373315
+  },
+  {
+    "name": "Tomato",
+    "color": {
+      "r": 255,
+      "g": 99,
+      "b": 71
+    },
+    "luminosity": 0.2356471073878468
+  },
+  {
+    "name": "Turquoise",
+    "color": {
+      "r": 64,
+      "g": 224,
+      "b": 208
+    },
+    "luminosity": 0.5827836654564357
+  },
+  {
+    "name": "Violet",
+    "color": {
+      "r": 238,
+      "g": 130,
+      "b": 238
+    },
+    "luminosity": 0.40315452986676326
+  },
+  {
+    "name": "Wheat",
+    "color": {
+      "r": 245,
+      "g": 222,
+      "b": 179
+    },
+    "luminosity": 0.7490970282048215
+  },
+  {
+    "name": "White",
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 255
+    },
+    "luminosity": 1
+  },
+  {
+    "name": "White Smoke",
+    "color": {
+      "r": 245,
+      "g": 245,
+      "b": 245
+    },
+    "luminosity": 0.9130986517934191
+  },
+  {
+    "name": "Yellow",
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 0
+    },
+    "luminosity": 0.9278
+  },
+  {
+    "name": "Yellow Green",
+    "color": {
+      "r": 154,
+      "g": 205,
+      "b": 50
+    },
+    "luminosity": 0.5064224109098094
+  },
+  {
+    "name": "Transparent",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "alpha": 0
+    },
+    "luminosity": 0
+  }
+]

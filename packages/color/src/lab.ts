@@ -4,30 +4,31 @@ import rgb  from './rgb';
 import xyz  from './xyz';
 import lch  from './lch';
 
-import { getStringOptions } from './color';
-import type { Color, StringOptions, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
-import type { ColorSpace, Internal } from './color-space';
+import type { PartialColor, StringOptions, Alpha, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LCH } from './color';
+import type { ColorSpace } from './color-space';
 
-export function is(color: Color): color is LAB {
-    return ('l' in color || 'lightness'  in color) &&
-            ('a' in color || 'redGreen'   in color) &&
-            ('b' in color || 'blueYellow' in color);
+type oLAB = { l: number; a: number; b: number };
+type iLAB = { lightness: number; redGreen: number; blueYellow: number };
+type internalLAB = Alpha & iLAB;
+export type partialLAB = Alpha & (iLAB | oLAB | (iLAB & oLAB));
+export type LAB        = Alpha & iLAB & oLAB;
+
+export function is(color: PartialColor): color is partialLAB {
+    return ('l' in color && 'a' in color && 'b' in color) ||
+           ('lightness' in color && 'redGreen' in color && 'blueYellow' in color);
 }
 
-export function internal(color: LAB): Internal<LAB> {
-    return {
-        lightness:  color.lightness  ?? color.l / 100,
-        redGreen:   color.redGreen   ?? color.a / 100,
-        blueYellow: color.blueYellow ?? color.b / 100,
-        alpha:      color.alpha,
-    };
+export function internal(color: partialLAB): internalLAB {
+    if('lightness' in color && 'redGreen' in color && 'blueYellow' in color)
+        return { lightness: color.lightness, redGreen: color.redGreen, blueYellow: color.blueYellow, alpha: color.alpha };
+    return { lightness: color.l / 100, redGreen: color.a / 100, blueYellow: color.b / 100, alpha: color.alpha };
 }
 
-export function external({ lightness, redGreen, blueYellow, alpha }: Internal<LAB>): LAB {
+export function external({ lightness, redGreen, blueYellow, alpha }: internalLAB): LAB {
     const obj = {
-        l: round(lightness   * 100, 2),
-        a: round(redGreen    * 100, 2),
-        b: round(blueYellow  * 100, 2),
+        l: round(lightness  * 100, 2),
+        a: round(redGreen   * 100, 2),
+        b: round(blueYellow * 100, 2),
         lightness,
         redGreen,
         blueYellow,
@@ -36,39 +37,39 @@ export function external({ lightness, redGreen, blueYellow, alpha }: Internal<LA
     return alpha === undefined ? obj : { ...obj, alpha };
 }
 
-export function toRGB(color: LAB): RGB {
+export function toRGB(color: partialLAB): RGB {
     return xyz.toRGB(toXYZ(color));
 }
 
-export function toHSL(color: LAB): HSL {
+export function toHSL(color: partialLAB): HSL {
     return rgb.toHSL(xyz.toRGB(toXYZ(color)));
 }
 
-export function toHSV(color: LAB): HSV {
+export function toHSV(color: partialLAB): HSV {
     return rgb.toHSV(xyz.toRGB(toXYZ(color)));
 }
 
-export function toHSI(color: LAB): HSI {
+export function toHSI(color: partialLAB): HSI {
     return rgb.toHSI(toRGB(color));
 }
 
-export function toHWB(color: LAB): HWB {
+export function toHWB(color: partialLAB): HWB {
     return rgb.toHWB(xyz.toRGB(toXYZ(color)));
 }
 
-export function toHCG(color: LAB): HCG {
+export function toHCG(color: partialLAB): HCG {
     return rgb.toHCG(toRGB(color));
 }
 
-export function toCMY(color: LAB): CMY {
+export function toCMY(color: partialLAB): CMY {
     return rgb.toCMY(toRGB(color));
 }
 
-export function toCMYK(color: LAB): CMYK {
+export function toCMYK(color: partialLAB): CMYK {
     return rgb.toCMYK(xyz.toRGB(toXYZ(color)));
 }
 
-export function toXYZ(color: LAB): XYZ {
+export function toXYZ(color: partialLAB): XYZ {
     const { lightness, redGreen, blueYellow, alpha } = internal(color);
 
     let Y = (lightness * 100 + 16) / 116;
@@ -90,11 +91,11 @@ export function toXYZ(color: LAB): XYZ {
     return xyz.external({ X, Y, Z, alpha });
 }
 
-export function toLAB(color: LAB): LAB {
+export function toLAB(color: partialLAB): LAB {
     return external(internal(color));
 }
 
-export function toLCH(color: LAB): LCH {
+export function toLCH(color: partialLAB): LCH {
     let { lightness, redGreen, blueYellow, alpha } = internal(color);
 
     let hue = approxEq(redGreen, 0) && approxEq(blueYellow, 0)
@@ -119,39 +120,37 @@ export function parse(input: string): LAB | undefined {
     if(match = rgb.exec(input)) {
         //#region RGB
         if(match[4]) {
-            return {
+            return toLAB({
                 l:      getPercent(match[1], 100),
                 a:      getNumber(match[2]),
                 b:      getNumber(match[3]),
                 alpha:  getPercent(match[4], 1),
-            };
+            });
         }
 
-        return {
+        return toLAB({
             l:      getPercent(match[1], 100),
             a:      getNumber(match[2]),
             b:      getNumber(match[3]),
-        };
+        });
         //#endregion
     }
 
     return undefined;
 }
 
-export function string(input: LAB, options: StringOptions): string {
+export function string(input: partialLAB, options: StringOptions): string {
+    const color = external(internal(input));
+
     if(options.format === 'name' || options.format === 'hex' || (options.format === 'css' && options.cssVersion === 3))
-        return rgb.string(toRGB(input), options);
+        return rgb.string(toRGB(color), options);
 
-    if(input.alpha)
-        return `lab(${input.l}% ${input.a} ${input.b} / ${round(input.alpha * 100, 2)}%)`;
-    return `lab(${input.l}% ${input.a} ${input.b})`;
+    if(color.alpha)
+        return `lab(${color.l}% ${color.a} ${color.b} / ${round(color.alpha * 100, 2)}%)`;
+    return `lab(${color.l}% ${color.a} ${color.b})`;
 }
 
-export function inputFormat(_: string): StringOptions {
-    return getStringOptions('default');
-}
-
-const lab: ColorSpace<LAB> = {
+const lab: ColorSpace<LAB, partialLAB, internalLAB> = {
     is,
 
     internal,
@@ -171,7 +170,6 @@ const lab: ColorSpace<LAB> = {
 
     parse,
     string,
-    inputFormat,
 };
 
 export default lab;

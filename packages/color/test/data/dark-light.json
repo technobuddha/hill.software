@@ -1,0 +1,1423 @@
+[
+  {
+    "name": "Alice Blue",
+    "color": {
+      "r": 240,
+      "g": 248,
+      "b": 255
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Antique White",
+    "color": {
+      "r": 250,
+      "g": 235,
+      "b": 215
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Aqua",
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 255
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Aquamarine",
+    "color": {
+      "r": 127,
+      "g": 255,
+      "b": 212
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Azure",
+    "color": {
+      "r": 240,
+      "g": 255,
+      "b": 255
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Beige",
+    "color": {
+      "r": 245,
+      "g": 245,
+      "b": 220
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Bisque",
+    "color": {
+      "r": 255,
+      "g": 228,
+      "b": 196
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Black",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 0
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Blanched Almond",
+    "color": {
+      "r": 255,
+      "g": 235,
+      "b": 205
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Blue",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 255
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Blue Violet",
+    "color": {
+      "r": 138,
+      "g": 43,
+      "b": 226
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Brown",
+    "color": {
+      "r": 165,
+      "g": 42,
+      "b": 42
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Burly Wood",
+    "color": {
+      "r": 222,
+      "g": 184,
+      "b": 135
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Cadet Blue",
+    "color": {
+      "r": 95,
+      "g": 158,
+      "b": 160
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Chartreuse",
+    "color": {
+      "r": 127,
+      "g": 255,
+      "b": 0
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Chocolate",
+    "color": {
+      "r": 210,
+      "g": 105,
+      "b": 30
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Coral",
+    "color": {
+      "r": 255,
+      "g": 127,
+      "b": 80
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Cornflower Blue",
+    "color": {
+      "r": 100,
+      "g": 149,
+      "b": 237
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Cornsilk",
+    "color": {
+      "r": 255,
+      "g": 248,
+      "b": 220
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Crimson",
+    "color": {
+      "r": 220,
+      "g": 20,
+      "b": 60
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Cyan",
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 255
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dark Blue",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 139
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Cyan",
+    "color": {
+      "r": 0,
+      "g": 139,
+      "b": 139
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Goldenrod",
+    "color": {
+      "r": 184,
+      "g": 134,
+      "b": 11
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dark Gray",
+    "color": {
+      "r": 169,
+      "g": 169,
+      "b": 169
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dark Green",
+    "color": {
+      "r": 0,
+      "g": 100,
+      "b": 0
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Khaki",
+    "color": {
+      "r": 189,
+      "g": 183,
+      "b": 107
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dark Magenta",
+    "color": {
+      "r": 139,
+      "g": 0,
+      "b": 139
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Olive Green",
+    "color": {
+      "r": 85,
+      "g": 107,
+      "b": 47
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Orange",
+    "color": {
+      "r": 255,
+      "g": 140,
+      "b": 0
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dark Orchid",
+    "color": {
+      "r": 153,
+      "g": 50,
+      "b": 204
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Red",
+    "color": {
+      "r": 139,
+      "g": 0,
+      "b": 0
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Salmon",
+    "color": {
+      "r": 233,
+      "g": 150,
+      "b": 122
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dark Sea Green",
+    "color": {
+      "r": 143,
+      "g": 188,
+      "b": 139
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dark Slate Blue",
+    "color": {
+      "r": 72,
+      "g": 61,
+      "b": 139
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Slate Gray",
+    "color": {
+      "r": 47,
+      "g": 79,
+      "b": 79
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dark Turquoise",
+    "color": {
+      "r": 0,
+      "g": 206,
+      "b": 209
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dark Violet",
+    "color": {
+      "r": 148,
+      "g": 0,
+      "b": 211
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Deep Pink",
+    "color": {
+      "r": 255,
+      "g": 20,
+      "b": 147
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Deep Sky Blue",
+    "color": {
+      "r": 0,
+      "g": 191,
+      "b": 255
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Dim Gray",
+    "color": {
+      "r": 105,
+      "g": 105,
+      "b": 105
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Dodger Blue",
+    "color": {
+      "r": 30,
+      "g": 144,
+      "b": 255
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Firebrick",
+    "color": {
+      "r": 178,
+      "g": 34,
+      "b": 34
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Floral White",
+    "color": {
+      "r": 255,
+      "g": 250,
+      "b": 240
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Forest Green",
+    "color": {
+      "r": 34,
+      "g": 139,
+      "b": 34
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Fuchsia",
+    "color": {
+      "r": 255,
+      "g": 0,
+      "b": 255
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Gainsboro",
+    "color": {
+      "r": 220,
+      "g": 220,
+      "b": 220
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Ghost White",
+    "color": {
+      "r": 248,
+      "g": 248,
+      "b": 255
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Gold",
+    "color": {
+      "r": 255,
+      "g": 215,
+      "b": 0
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Goldenrod",
+    "color": {
+      "r": 218,
+      "g": 165,
+      "b": 32
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Gray",
+    "color": {
+      "r": 128,
+      "g": 128,
+      "b": 128
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Green",
+    "color": {
+      "r": 0,
+      "g": 128,
+      "b": 0
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Green Yellow",
+    "color": {
+      "r": 173,
+      "g": 255,
+      "b": 47
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Honeydew",
+    "color": {
+      "r": 240,
+      "g": 255,
+      "b": 240
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Hot Pink",
+    "color": {
+      "r": 255,
+      "g": 105,
+      "b": 180
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Indian Red",
+    "color": {
+      "r": 205,
+      "g": 92,
+      "b": 92
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Indigo",
+    "color": {
+      "r": 75,
+      "g": 0,
+      "b": 130
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Ivory",
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 240
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Khaki",
+    "color": {
+      "r": 240,
+      "g": 230,
+      "b": 140
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Lavender",
+    "color": {
+      "r": 230,
+      "g": 230,
+      "b": 250
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Lavender Blush",
+    "color": {
+      "r": 255,
+      "g": 240,
+      "b": 245
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Lawn Green",
+    "color": {
+      "r": 124,
+      "g": 252,
+      "b": 0
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Lemon Chiffon",
+    "color": {
+      "r": 255,
+      "g": 250,
+      "b": 205
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Blue",
+    "color": {
+      "r": 173,
+      "g": 216,
+      "b": 230
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Coral",
+    "color": {
+      "r": 240,
+      "g": 128,
+      "b": 128
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Cyan",
+    "color": {
+      "r": 224,
+      "g": 255,
+      "b": 255
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Goldenrod Yellow",
+    "color": {
+      "r": 250,
+      "g": 250,
+      "b": 210
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Gray",
+    "color": {
+      "r": 211,
+      "g": 211,
+      "b": 211
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Green",
+    "color": {
+      "r": 144,
+      "g": 238,
+      "b": 144
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Pink",
+    "color": {
+      "r": 255,
+      "g": 182,
+      "b": 193
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Salmon",
+    "color": {
+      "r": 255,
+      "g": 160,
+      "b": 122
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Sea Green",
+    "color": {
+      "r": 32,
+      "g": 178,
+      "b": 170
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Sky Blue",
+    "color": {
+      "r": 135,
+      "g": 206,
+      "b": 250
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Slate Gray",
+    "color": {
+      "r": 119,
+      "g": 136,
+      "b": 153
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Steel Blue",
+    "color": {
+      "r": 176,
+      "g": 196,
+      "b": 222
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Light Yellow",
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 224
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Lime",
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 0
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Lime Green",
+    "color": {
+      "r": 50,
+      "g": 205,
+      "b": 50
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Linen",
+    "color": {
+      "r": 250,
+      "g": 240,
+      "b": 230
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Magenta",
+    "color": {
+      "r": 255,
+      "g": 0,
+      "b": 255
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Maroon",
+    "color": {
+      "r": 128,
+      "g": 0,
+      "b": 0
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Medium Aquamarine",
+    "color": {
+      "r": 102,
+      "g": 205,
+      "b": 170
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Medium Blue",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 205
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Medium Orchid",
+    "color": {
+      "r": 186,
+      "g": 85,
+      "b": 211
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Medium Purple",
+    "color": {
+      "r": 147,
+      "g": 112,
+      "b": 219
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Medium Sea Green",
+    "color": {
+      "r": 60,
+      "g": 179,
+      "b": 113
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Medium Slate Blue",
+    "color": {
+      "r": 123,
+      "g": 104,
+      "b": 238
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Medium Spring Green",
+    "color": {
+      "r": 0,
+      "g": 250,
+      "b": 154
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Medium Turquoise",
+    "color": {
+      "r": 72,
+      "g": 209,
+      "b": 204
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Medium Violet Red",
+    "color": {
+      "r": 199,
+      "g": 21,
+      "b": 133
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Midnight Blue",
+    "color": {
+      "r": 25,
+      "g": 25,
+      "b": 112
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Mint Cream",
+    "color": {
+      "r": 245,
+      "g": 255,
+      "b": 250
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Misty Rose",
+    "color": {
+      "r": 255,
+      "g": 228,
+      "b": 225
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Moccasin",
+    "color": {
+      "r": 255,
+      "g": 228,
+      "b": 181
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Navajo White",
+    "color": {
+      "r": 255,
+      "g": 222,
+      "b": 173
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Navy",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 128
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Old Lace",
+    "color": {
+      "r": 253,
+      "g": 245,
+      "b": 230
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Olive",
+    "color": {
+      "r": 128,
+      "g": 128,
+      "b": 0
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Olive Drab",
+    "color": {
+      "r": 107,
+      "g": 142,
+      "b": 35
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Orange",
+    "color": {
+      "r": 255,
+      "g": 165,
+      "b": 0
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Orange Red",
+    "color": {
+      "r": 255,
+      "g": 69,
+      "b": 0
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Orchid",
+    "color": {
+      "r": 218,
+      "g": 112,
+      "b": 214
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Pale Goldenrod",
+    "color": {
+      "r": 238,
+      "g": 232,
+      "b": 170
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Pale Green",
+    "color": {
+      "r": 152,
+      "g": 251,
+      "b": 152
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Pale Turquoise",
+    "color": {
+      "r": 175,
+      "g": 238,
+      "b": 238
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Pale Violet Red",
+    "color": {
+      "r": 219,
+      "g": 112,
+      "b": 147
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Papaya Whip",
+    "color": {
+      "r": 255,
+      "g": 239,
+      "b": 213
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Peach Puff",
+    "color": {
+      "r": 255,
+      "g": 218,
+      "b": 185
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Peru",
+    "color": {
+      "r": 205,
+      "g": 133,
+      "b": 63
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Pink",
+    "color": {
+      "r": 255,
+      "g": 192,
+      "b": 203
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Plum",
+    "color": {
+      "r": 221,
+      "g": 160,
+      "b": 221
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Powder Blue",
+    "color": {
+      "r": 176,
+      "g": 224,
+      "b": 230
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Purple",
+    "color": {
+      "r": 128,
+      "g": 0,
+      "b": 128
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Rebecca Purple",
+    "color": {
+      "r": 102,
+      "g": 51,
+      "b": 231
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Red",
+    "color": {
+      "r": 255,
+      "g": 0,
+      "b": 0
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Rosy Brown",
+    "color": {
+      "r": 188,
+      "g": 143,
+      "b": 143
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Royal Blue",
+    "color": {
+      "r": 65,
+      "g": 105,
+      "b": 225
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Saddle Brown",
+    "color": {
+      "r": 139,
+      "g": 69,
+      "b": 19
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Salmon",
+    "color": {
+      "r": 250,
+      "g": 128,
+      "b": 114
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Sandy Brown",
+    "color": {
+      "r": 244,
+      "g": 164,
+      "b": 96
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Sea Green",
+    "color": {
+      "r": 46,
+      "g": 139,
+      "b": 87
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Sea Shell",
+    "color": {
+      "r": 255,
+      "g": 245,
+      "b": 238
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Sienna",
+    "color": {
+      "r": 160,
+      "g": 82,
+      "b": 45
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Silver",
+    "color": {
+      "r": 192,
+      "g": 192,
+      "b": 192
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Sky Blue",
+    "color": {
+      "r": 135,
+      "g": 206,
+      "b": 235
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Slate Blue",
+    "color": {
+      "r": 106,
+      "g": 90,
+      "b": 205
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Slate Gray",
+    "color": {
+      "r": 112,
+      "g": 128,
+      "b": 144
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Snow",
+    "color": {
+      "r": 255,
+      "g": 250,
+      "b": 250
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Spring Green",
+    "color": {
+      "r": 0,
+      "g": 255,
+      "b": 127
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Steel Blue",
+    "color": {
+      "r": 70,
+      "g": 130,
+      "b": 180
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Tan",
+    "color": {
+      "r": 210,
+      "g": 180,
+      "b": 140
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Teal",
+    "color": {
+      "r": 0,
+      "g": 128,
+      "b": 128
+    },
+    "isLight": false,
+    "isDark": true
+  },
+  {
+    "name": "Thistle",
+    "color": {
+      "r": 216,
+      "g": 191,
+      "b": 216
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Tomato",
+    "color": {
+      "r": 255,
+      "g": 99,
+      "b": 71
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Turquoise",
+    "color": {
+      "r": 64,
+      "g": 224,
+      "b": 208
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Violet",
+    "color": {
+      "r": 238,
+      "g": 130,
+      "b": 238
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Wheat",
+    "color": {
+      "r": 245,
+      "g": 222,
+      "b": 179
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "White",
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 255
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "White Smoke",
+    "color": {
+      "r": 245,
+      "g": 245,
+      "b": 245
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Yellow",
+    "color": {
+      "r": 255,
+      "g": 255,
+      "b": 0
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Yellow Green",
+    "color": {
+      "r": 154,
+      "g": 205,
+      "b": 50
+    },
+    "isLight": true,
+    "isDark": false
+  },
+  {
+    "name": "Transparent",
+    "color": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "alpha": 0
+    },
+    "isLight": false,
+    "isDark": true
+  }
+]

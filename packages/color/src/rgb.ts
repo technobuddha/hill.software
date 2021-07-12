@@ -11,30 +11,31 @@ import cmyk from './cmyk';
 import xyz  from './xyz';
 import lab  from './lab';
 
-import { getStringOptions } from './color';
-import type { Color, StringOptions, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
-import type { ColorSpace, Internal } from './color-space';
+import type { PartialColor, StringOptions, Alpha, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
+import type { ColorSpace } from './color-space';
 
-export function is(color: Color): color is RGB {
-    return ('r' in color || 'red'   in color) &&
-           ('g' in color || 'green' in color) &&
-           ('b' in color || 'blue'  in color);
+export type oRGB        = { r: number; g: number; b: number };
+type iRGB               = { red: number; green: number; blue: number };
+type internalRGB        = Alpha & iRGB;
+export type partialRGB  = Alpha & (iRGB | oRGB | (iRGB & oRGB));
+export type RGB         = Alpha & iRGB & oRGB;
+
+export function is(color: PartialColor): color is partialRGB {
+    return ('r' in color && 'r' in color && 'b' in color) ||
+           ('red' in color && 'green' in color && 'blue' in color);
 }
 
-export function internal(color: RGB): Internal<RGB> {
-    return {
-        red:    color.red   ?? color.r / 255,
-        green:  color.green ?? color.g / 255,
-        blue:   color.blue  ?? color.b / 255,
-        alpha:  color.alpha,
-    };
+export function internal(color: partialRGB): internalRGB {
+    if('red' in color && 'green' in color && 'blue' in color)
+        return { red: color.red, green: color.green, blue: color.blue, alpha: color.alpha };
+    return { red: color.r / 255, green: color.g / 255, blue: color.b / 255, alpha: color.alpha };
 }
 
-export function external({ red, green, blue, alpha }: Internal<RGB>): RGB {
+export function external({ red, green, blue, alpha }: internalRGB): RGB {
     const obj = {
-        r: round(red   * 255, 0),
-        g: round(green * 255, 0),
-        b: round(blue  * 255, 0),
+        r: round(red   * 255, 2),
+        g: round(green * 255, 2),
+        b: round(blue  * 255, 2),
         red,
         green,
         blue,
@@ -43,7 +44,7 @@ export function external({ red, green, blue, alpha }: Internal<RGB>): RGB {
     return alpha === undefined ? obj : { ...obj, alpha };
 }
 
-function attributes(color: RGB) {
+function attributes(color: partialRGB) {
     const { red, green, blue, alpha } = internal(color);
     const min           = Math.min(red, green, blue);
     const max           = Math.max(red, green, blue);
@@ -101,41 +102,41 @@ function attributes(color: RGB) {
     };
 }
 
-export function toRGB(color: RGB): RGB {
+export function toRGB(color: partialRGB): RGB {
     return external(internal(color));
 }
 
-export function toHSL(color: RGB): HSL {
+export function toHSL(color: partialRGB): HSL {
     const { hue, hslSaturation: saturation, lightness, alpha } = attributes(color);
     return hsl.external({ hue, saturation, lightness, alpha });
 }
 
-export function toHSV(color: RGB): HSV {
+export function toHSV(color: partialRGB): HSV {
     const { hue, hsvSaturation: saturation, value, alpha } = attributes(color);
     return hsv.external({ hue, saturation, value, alpha });
 }
 
-export function toHSI(color: RGB): HSI {
+export function toHSI(color: partialRGB): HSI {
     const { hue, hsiSaturation: saturation, intensity, alpha } = attributes(color);
     return hsi.external({ hue, saturation, intensity, alpha });
 }
 
-export function toHWB(color: RGB): HWB {
+export function toHWB(color: partialRGB): HWB {
     const { hue, whiteness, blackness, alpha } = attributes(color);
     return hwb.external({ hue, whiteness, blackness, alpha });
 }
 
-export function toHCG(color: RGB): HCG {
+export function toHCG(color: partialRGB): HCG {
     const { hue, chroma, greyness, alpha } = attributes(color);
     return hcg.external({ hue, chroma, greyness, alpha });
 }
 
-export function toCMY(color: RGB): CMY {
+export function toCMY(color: partialRGB): CMY {
     const { red, green, blue, alpha } = internal(color);
     return cmy.external({ cyan: 1 - red, magenta: 1 - green, yellow: 1 - blue, alpha });
 }
 
-export function toCMYK(color: RGB): CMYK {
+export function toCMYK(color: partialRGB): CMYK {
     const { red, green, blue, alpha } = internal(color);
     const black     = Math.min(1 - red, 1 - green, 1 - blue);
     const cyan      = (1 - red - black)   / (1 - black) || 0;
@@ -146,7 +147,7 @@ export function toCMYK(color: RGB): CMYK {
 }
 
 //X, Y and Z output refer to a D65/2° standard illuminant.
-export function toXYZ(color: RGB): XYZ {
+export function toXYZ(color: partialRGB): XYZ {
     let { red, green, blue, alpha } = internal(color);
 
     // Assume sRGB
@@ -161,11 +162,11 @@ export function toXYZ(color: RGB): XYZ {
     return xyz.external({ X, Y, Z, alpha });
 }
 
-export function toLAB(color: RGB): LAB {
+export function toLAB(color: partialRGB): LAB {
     return xyz.toLAB(toXYZ(color));
 }
 
-export function toLCH(color: RGB): LCH {
+export function toLCH(color: partialRGB): LCH {
     return lab.toLCH(toLAB(color));
 }
 
@@ -180,76 +181,71 @@ export function parse(input: string): RGB | undefined {
 
         switch(input.length - 1) {
             case 3:   // abc => aabbcc
-                return {
+                return toRGB({
                     r:      (((n >> 8) & 0x0f) | ((n >> 4) & 0xf0)),
                     g:      (((n >> 4) & 0x0f) | ((n)      & 0xf0)),
                     b:      (((n)      & 0x0f) | ((n << 4) & 0xf0)),
-                };
+                });
 
             case 4:     // abcd => aabbccdd
-                return {
+                return toRGB({
                     r:      (((n >> 12) & 0x0f) | ((n >> 8) & 0xf0)),
                     g:      (((n >>  8) & 0x0f) | ((n >> 4) & 0xf0)),
                     b:      (((n >>  4) & 0x0f) | ((n)      & 0xf0)),
                     alpha:  (((n)       & 0x0f) | ((n << 4) & 0xf0)) / 255,
-                };
+                });
 
             case 6:  // abcdef
-                return {
+                return toRGB({
                     r:      ((n >> 16) & 0xff),
                     g:      ((n >>  8) & 0xff),
                     b:      ((n)       & 0xff),
-                };
+                });
 
             case 8: // abcdef00
-                return {
+                return toRGB({
                     r:      ((n >> 24) & 0xff),
                     g:      ((n >> 16) & 0xff),
                     b:      ((n >>  8) & 0xff),
                     alpha:  ((n)       & 0xff) / 255,
-                };
+                });
         }
         //#endregion
     } else if(match = testRGB.exec(input)) {
         //#region RGB
         if(match[4]) {
-            return {
+            return toRGB({
                 r:      getPercent(match[1], 255),
                 g:      getPercent(match[2], 255),
                 b:      getPercent(match[3], 255),
                 alpha:  getPercent(match[4], 1),
-            };
+            });
         }
 
-        return {
+        return toRGB({
             r:      getPercent(match[1], 255),
             g:      getPercent(match[2], 255),
             b:      getPercent(match[3], 255),
-        };
+        });
         //#endregion
     }
 
     return findColor(input);
 }
 
-export function inputFormat(input: string): StringOptions {
-    if(testHEX.test(input))   getStringOptions('hex');
-    else if(findColor(input)) getStringOptions('name');
+export function string(input: partialRGB, options: StringOptions): string {
+    const color = external(internal(input));
 
-    return getStringOptions();
-}
-
-export function string(input: RGB, options: StringOptions): string {
     if(options.format === 'name') {
-        const name = findName(input);
+        const name = findName(color);
         if(name)
             return name;
     }
 
     if(options.format === 'hex') {
-        const rHex = Math.round(input.r).toString(16).padStart(2, '0');
-        const gHex = Math.round(input.g).toString(16).padStart(2, '0');
-        const bHex = Math.round(input.b).toString(16).padStart(2, '0');
+        const rHex = round(color.r, 0).toString(16).padStart(2, '0');
+        const gHex = round(color.g, 0).toString(16).padStart(2, '0');
+        const bHex = round(color.b, 0).toString(16).padStart(2, '0');
 
         if(input.alpha === undefined) {
             // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
@@ -267,17 +263,17 @@ export function string(input: RGB, options: StringOptions): string {
     }
 
     if(options.format !== 'default' && options.cssVersion === 3) {
-        if(input.alpha === undefined)
-            return `rgb(${input.r}, ${input.g}, ${input.b})`;
-        return `rgba(${input.r}, ${input.g}, ${input.b}, ${round(input.alpha, 4)})`;
+        if(color.alpha === undefined)
+            return `rgb(${round(color.r, 0)}, ${round(color.g, 0)}, ${round(color.b, 0)})`;
+        return `rgba(${round(color.r, 0)}, ${round(color.g, 0)}, ${round(color.b, 0)}, ${round(color.alpha, 4)})`;
     }
 
-    if(input.alpha)
-        return `rgb(${input.r} ${input.g} ${input.b} / ${round(input.alpha * 100, 2)}%)`;
-    return `rgb(${input.r} ${input.g} ${input.b})`;
+    if(color.alpha)
+        return `rgb(${color.r} ${color.g} ${color.b} / ${round(color.alpha * 100, 2)}%)`;
+    return `rgb(${color.r} ${color.g} ${color.b})`;
 }
 
-export const rgb: ColorSpace<RGB> = {
+export const rgb: ColorSpace<RGB, partialRGB, internalRGB> = {
     is,
 
     internal,
@@ -297,7 +293,6 @@ export const rgb: ColorSpace<RGB> = {
 
     parse,
     string,
-    inputFormat,
 };
 
 export default rgb;

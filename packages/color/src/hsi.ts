@@ -2,28 +2,29 @@
 import { approxEq, round, re, angle, percent, sep, alpha, op, cp, getPercent, getAngle } from './util';
 import rgb from './rgb';
 
-import { getStringOptions } from './color';
-import type { Color, StringOptions, RGB, HSL, HSV, HSI, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
-import type { ColorSpace, Internal } from './color-space';
+import type { PartialColor, Alpha, StringOptions, RGB, HSL, HSV, HWB, HCG, CMY, CMYK, XYZ, LAB, LCH } from './color';
+import type { ColorSpace } from './color-space';
 
-export function is(color: Color): color is HSI {
-    return ('h' in color || 'hue'        in color) &&
-            ('s' in color || 'saturation' in color) &&
-            ('i' in color || 'intensity'  in color);
+type oHSI = { h: number; s: number; i: number };
+type iHSI = { hue: number; saturation: number; intensity: number };
+type internalHSI = Alpha & iHSI;
+export type partialHSI = Alpha & (iHSI | oHSI | (iHSI & oHSI));
+export type HSI        = Alpha & iHSI & oHSI;
+
+export function is(color: PartialColor): color is partialHSI {
+    return ('h' in color && 's' in color && 'i' in color) ||
+           ('hue' in color && 'saturation' in color && 'intensity' in color);
 }
 
-export function internal(color: HSI): Internal<HSI> {
-    return {
-        hue:        color.hue        ?? color.h / 360,
-        saturation: color.saturation ?? color.s / 100,
-        intensity:  color.intensity  ?? color.i / 100,
-        alpha:      color.alpha,
-    };
+export function internal(color: partialHSI): internalHSI {
+    if('hue' in color && 'saturation' in color && 'intensity' in color)
+        return { hue: color.hue, saturation: color.saturation, intensity: color.intensity, alpha: color.alpha };
+    return { hue: color.h / 360, saturation: color.s / 100, intensity: color.i / 100, alpha: color.alpha };
 }
 
-export function external({ hue, saturation, intensity, alpha }: Internal<HSI>): HSI {
+export function external({ hue, saturation, intensity, alpha }: internalHSI): HSI {
     const obj = {
-        h: round(hue        * 360, 0),
+        h: round(hue        * 360, 2),
         s: round(saturation * 100, 2),
         i: round(intensity  * 100, 2),
         hue,
@@ -34,7 +35,7 @@ export function external({ hue, saturation, intensity, alpha }: Internal<HSI>): 
     return alpha === undefined ? obj : { ...obj, alpha };
 }
 
-export function toRGB(color: HSI): RGB {
+export function toRGB(color: partialHSI): RGB {
     const { hue, saturation, intensity, alpha } = internal(color);
     let   red        = intensity;
     let   green      = intensity;
@@ -64,43 +65,43 @@ export function toRGB(color: HSI): RGB {
     return rgb.external({ red, green, blue, alpha });
 }
 
-export function toHSL(color: HSI): HSL {
+export function toHSL(color: partialHSI): HSL {
     return rgb.toHSL(toRGB(color));
 }
 
-export function toHSV(color: HSI): HSV {
+export function toHSV(color: partialHSI): HSV {
     return rgb.toHSV(toRGB(color));
 }
 
-export function toHSI(color: HSI): HSI {
+export function toHSI(color: partialHSI): HSI {
     return external(internal(color));
 }
 
-export function toHWB(color: HSI): HWB {
+export function toHWB(color: partialHSI): HWB {
     return rgb.toHWB(toRGB(color));
 }
 
-export function toHCG(color: HSI): HCG {
+export function toHCG(color: partialHSI): HCG {
     return rgb.toHCG(toRGB(color));
 }
 
-export function toCMY(color: HSI): CMY {
+export function toCMY(color: partialHSI): CMY {
     return rgb.toCMY(toRGB(color));
 }
 
-export function toCMYK(color: HSI): CMYK {
+export function toCMYK(color: partialHSI): CMYK {
     return rgb.toCMYK(toRGB(color));
 }
 
-export function toXYZ(color: HSI): XYZ {
+export function toXYZ(color: partialHSI): XYZ {
     return rgb.toXYZ(toRGB(color));
 }
 
-export function toLAB(color: HSI): LAB {
+export function toLAB(color: partialHSI): LAB {
     return rgb.toLAB(toRGB(color));
 }
 
-export function toLCH(color: HSI): LCH {
+export function toLCH(color: partialHSI): LCH {
     return rgb.toLCH(toRGB(color));
 }
 
@@ -111,39 +112,37 @@ export function parse(input: string): HSI | undefined {
     if(match = rgb.exec(input)) {
         //#region RGB
         if(match[4]) {
-            return {
+            return toHSI({
                 h:      getAngle(match[1]),
                 s:      getPercent(match[2], 100),
                 i:      getPercent(match[3], 100),
                 alpha:  getPercent(match[4], 1),
-            };
+            });
         }
 
-        return {
+        return toHSI({
             h:      getAngle(match[1]),
             s:      getPercent(match[2], 100),
             i:      getPercent(match[3], 100),
-        };
+        });
         //#endregion
     }
 
     return undefined;
 }
 
-export function string(input: HSI, options: StringOptions): string {
+export function string(input: partialHSI, options: StringOptions): string {
+    const color = external(internal(input));
+
     if(options.format === 'name' || options.format === 'hex' || options.format === 'css')
-        return rgb.string(toRGB(input), options);
+        return rgb.string(toRGB(color), options);
 
-    if(input.alpha)
-        return `hsi(${input.h} ${input.s}% ${input.i}% / ${round(input.alpha * 100, 2)}%)`;
-    return `hsi(${input.h} ${input.s}% ${input.i}%)`;
+    if(color.alpha)
+        return `hsi(${color.h} ${color.s}% ${color.i}% / ${round(color.alpha * 100, 2)}%)`;
+    return `hsi(${color.h} ${color.s}% ${color.i}%)`;
 }
 
-export function inputFormat(_: string): StringOptions {
-    return getStringOptions('default');
-}
-
-const hsi: ColorSpace<HSI> = {
+const hsi: ColorSpace<HSI, partialHSI, internalHSI> = {
     is,
 
     internal,
@@ -163,7 +162,6 @@ const hsi: ColorSpace<HSI> = {
 
     parse,
     string,
-    inputFormat,
 };
 
 export default hsi;

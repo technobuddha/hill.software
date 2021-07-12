@@ -13,21 +13,35 @@ import colorCompare from './color-compare';
 
 export type Alpha = { alpha?: number };
 
-export type RGB  = Alpha & { r: number; g: number; b: number; red?: number; green?: number; blue?: number };
-export type HSL  = Alpha & { h: number; s: number; l: number; hue?: number; saturation?: number; lightness?: number };
-export type HSV  = Alpha & { h: number; s: number; v: number; hue?: number; saturation?: number; value?: number };
-export type HSI  = Alpha & { h: number; s: number; i: number; hue?: number; saturation?: number; intensity?: number };
-export type HWB  = Alpha & { h: number; w: number; b: number; hue?: number; whiteness?: number; blackness?: number };
-export type HCG  = Alpha & { h: number; c: number; g: number; hue?: number; chroma?: number; greyness?: number };
-export type CMY  = Alpha & { c: number; m: number; y: number; cyan?: number; magenta?: number; yellow?: number };
-export type CMYK = Alpha & { c: number; m: number; y: number; k: number; cyan?: number; magenta?: number; yellow?: number; black?: number };
-export type XYZ  = Alpha & { x: number; y: number; z: number; X?: number; Y?: number; Z?: number };
-export type LAB  = Alpha & { l: number; a: number; b: number; lightness?: number; redGreen?: number; blueYellow?: number };             // L: 0 to 100,    A: -128 to 128, B: -128 to 128
-export type LCH  = Alpha & { l: number; c: number; h: number; lightness?: number; chroma?: number; hue?: number };
+import type { RGB, partialRGB } from './rgb';
+export type { RGB, partialRGB } from './rgb';
+import type { HSL, partialHSL } from './hsl';
+export type { HSL, partialHSL } from './hsl';
+import type { HSV, partialHSV } from './hsv';
+export type { HSV, partialHSV } from './hsv';
+import type { HSI, partialHSI } from './hsi';
+export type { HSI, partialHSI } from './hsi';
+import type { HWB, partialHWB } from './hwb';
+export type { HWB, partialHWB } from './hwb';
+import type { HCG, partialHCG } from './hcg';
+export type { HCG, partialHCG } from './hcg';
+import type { CMY, partialCMY } from './cmy';
+export type { CMY, partialCMY } from './cmy';
+import type { CMYK, partialCMYK } from './cmyk';
+export type { CMYK, partialCMYK } from './cmyk';
+import type { XYZ, partialXYZ } from './xyz';
+export type { XYZ, partialXYZ } from './xyz';
+import type { LAB, partialLAB } from './lab';
+export type { LAB, partialLAB } from './lab';
+import type { LCH, partialLCH } from './lch';
+export type { LCH, partialLCH } from './lch';
 
-export type Color       = RGB | HSL | HSV | HSI | HWB | HCG | CMY | CMYK | XYZ | LAB | LCH;
+export type Color               = RGB | HSL | HSV | HSI | HWB | HCG | CMY | CMYK | XYZ | LAB | LCH;
+export type PartialColor        = partialRGB | partialHSL | partialHSV | partialHSI | partialHWB | partialHCG | partialCMY | partialCMYK | partialXYZ | partialLAB | partialLCH;
+export type ColorSpecification  = PartialColor | string;
+export type AmountRatio         = { ratio: number } | { amount: number } | number;
+
 type DispatchCall<S, T> = (color: S, ...args: any[]) => T;
-type AmountRatio        = { ratio: number } | { amount: number } | number;
 const ColorSpaceError   = new TypeError('Unidentifiable color space.');
 
 export const colorSpaces = {
@@ -44,11 +58,13 @@ export const colorSpaces = {
     'LCH':  lch,
 };
 
-function adjust(parameter: number, ar: AmountRatio): number {
+function adjust(parameter: number, ar: AmountRatio, use: 'ratio' | 'amount' = 'ratio'): number {
     return Math.min(
         Math.max(
             (typeof ar === 'number')
-                ?   ar > 0 ? parameter + (1 - parameter) * ar : parameter + parameter * ar
+                ?   use === 'ratio'
+                    ?   ar > 0 ? parameter + (1 - parameter) * ar : parameter + parameter * ar
+                    :   parameter + ar
                 :   ('amount' in ar)
                         ? parameter + ar.amount
                         : ar.ratio > 0 ? parameter + (1 - parameter) * ar.ratio : parameter + parameter * ar.ratio,
@@ -72,19 +88,19 @@ function dispatch<T>(
         lab:  labFn,
         lch:  lchFn,
     }: {
-        rgb:    DispatchCall<RGB,  T>;
-        hsl:    DispatchCall<HSL,  T>;
-        hsv:    DispatchCall<HSV,  T>;
-        hsi:    DispatchCall<HSI,  T>;
-        hwb:    DispatchCall<HWB,  T>;
-        hcg:    DispatchCall<HCG,  T>;
-        cmy:    DispatchCall<CMY,  T>;
-        cmyk:   DispatchCall<CMYK, T>;
-        xyz:    DispatchCall<XYZ,  T>;
-        lab:    DispatchCall<LAB,  T>;
-        lch:    DispatchCall<LCH,  T>;
+        rgb:    DispatchCall<partialRGB,  T>;
+        hsl:    DispatchCall<partialHSL,  T>;
+        hsv:    DispatchCall<partialHSV,  T>;
+        hsi:    DispatchCall<partialHSI,  T>;
+        hwb:    DispatchCall<partialHWB,  T>;
+        hcg:    DispatchCall<partialHCG,  T>;
+        cmy:    DispatchCall<partialCMY,  T>;
+        cmyk:   DispatchCall<partialCMYK, T>;
+        xyz:    DispatchCall<partialXYZ,  T>;
+        lab:    DispatchCall<partialLAB,  T>;
+        lch:    DispatchCall<partialLCH,  T>;
     },
-    input: Color | string,
+    input: ColorSpecification,
     ...args: any[]
 ): T {
     const color = (typeof input === 'string') ? parse(input) : input;
@@ -120,7 +136,7 @@ export function parse(input: string): Color {
     if(color)
         return color;
 
-    throw new TypeError('Color string can not be parsed');
+    throw new TypeError('Color can not be parsed.');
 }
 
 export type ColorFormat = 'name' | 'hex' | 'css' | 'default';
@@ -151,7 +167,7 @@ export function getStringOptions(so?: StringFormat): StringOptions {
     };
 }
 
-export function string(color: Color | string, format?: StringFormat): string {
+export function string(color: ColorSpecification, format?: StringFormat): ColorSpecification {
     const so = getStringOptions(format);
     return dispatch(
         {
@@ -172,7 +188,7 @@ export function string(color: Color | string, format?: StringFormat): string {
     );
 }
 
-export function to(color: Color, space: keyof typeof colorSpaces): Color {
+export function to(color: ColorSpecification, space: keyof typeof colorSpaces): Color {
     switch(space) {
         case 'RGB':  return toRGB(color);
         case 'HSL':  return toHSL(color);
@@ -190,7 +206,24 @@ export function to(color: Color, space: keyof typeof colorSpaces): Color {
     }
 }
 
-export function toRGB(color: Color | string): RGB {
+export function toColor(input: ColorSpecification): Color {
+    const color = typeof input === 'string' ? parse(input) : input;
+
+    if(hsl.is(color))       return hsl.toHSL(color);
+    else if(hsv.is(color))  return hsv.toHSV(color);
+    else if(hsi.is(color))  return hsi.toHSI(color);
+    else if(hwb.is(color))  return hwb.toHWB(color);
+    else if(hcg.is(color))  return hcg.toHCG(color);
+    else if(cmyk.is(color)) return cmyk.toCMYK(color);
+    else if(cmy.is(color))  return cmy.toCMY(color);
+    else if(xyz.is(color))  return xyz.toXYZ(color);
+    else if(lab.is(color))  return lab.toLAB(color);
+    else if(lch.is(color))  return lch.toLCH(color);
+
+    return rgb.toRGB(color);
+}
+
+export function toRGB(color: ColorSpecification): RGB {
     return dispatch(
         {
             rgb:    rgb.toRGB,
@@ -209,7 +242,7 @@ export function toRGB(color: Color | string): RGB {
     );
 }
 
-export function toHSL(color: Color | string): HSL {
+export function toHSL(color: ColorSpecification): HSL {
     return dispatch(
         {
             rgb:    rgb.toHSL,
@@ -228,7 +261,7 @@ export function toHSL(color: Color | string): HSL {
     );
 }
 
-export function toHSV(color: Color | string): HSV {
+export function toHSV(color: ColorSpecification): HSV {
     return dispatch(
         {
             rgb:    rgb.toHSV,
@@ -247,7 +280,7 @@ export function toHSV(color: Color | string): HSV {
     );
 }
 
-export function toHSI(color: Color | string): HSI {
+export function toHSI(color: ColorSpecification): HSI {
     return dispatch(
         {
             rgb:    rgb.toHSI,
@@ -266,7 +299,7 @@ export function toHSI(color: Color | string): HSI {
     );
 }
 
-export function toHWB(color: Color | string): HWB {
+export function toHWB(color: ColorSpecification): HWB {
     return dispatch(
         {
             rgb:    rgb.toHWB,
@@ -285,7 +318,7 @@ export function toHWB(color: Color | string): HWB {
     );
 }
 
-export function toHCG(color: Color | string): HCG {
+export function toHCG(color: ColorSpecification): HCG {
     return dispatch(
         {
             rgb:    rgb.toHCG,
@@ -304,7 +337,7 @@ export function toHCG(color: Color | string): HCG {
     );
 }
 
-export function toCMY(color: Color | string): CMY {
+export function toCMY(color: ColorSpecification): CMY {
     return dispatch(
         {
             rgb:    rgb.toCMY,
@@ -323,7 +356,7 @@ export function toCMY(color: Color | string): CMY {
     );
 }
 
-export function toCMYK(color: Color | string): CMYK {
+export function toCMYK(color: ColorSpecification): CMYK {
     return dispatch(
         {
             rgb:    rgb.toCMYK,
@@ -342,7 +375,7 @@ export function toCMYK(color: Color | string): CMYK {
     );
 }
 
-export function toXYZ(color: Color | string): XYZ {
+export function toXYZ(color: ColorSpecification): XYZ {
     return dispatch(
         {
             rgb:    rgb.toXYZ,
@@ -361,7 +394,7 @@ export function toXYZ(color: Color | string): XYZ {
     );
 }
 
-export function toLAB(color: Color | string): LAB {
+export function toLAB(color: ColorSpecification): LAB {
     return dispatch(
         {
             rgb:    rgb.toLAB,
@@ -380,7 +413,7 @@ export function toLAB(color: Color | string): LAB {
     );
 }
 
-export function toLCH(color: Color | string): LCH {
+export function toLCH(color: ColorSpecification): LCH {
     return dispatch(
         {
             rgb:    rgb.toLCH,
@@ -399,39 +432,24 @@ export function toLCH(color: Color | string): LCH {
     );
 }
 
-function conform<T extends Color | string>(reference: T): (c: Color) => T {
-    if(typeof reference === 'string') {
-        const color = parse(reference);
+function conform(reference: ColorSpecification): (c: Color) => Color {
+    const color = typeof reference === 'string' ? parse(reference) : reference;
 
-        if(rgb.is(color))       return ((c: Color) => rgb.string(toRGB(c),   rgb.inputFormat(reference)))   as (c: Color) => T;
-        else if(hsl.is(color))  return ((c: Color) => hsl.string(toHSL(c),   hsl.inputFormat(reference)))  as (c: Color) => T;
-        else if(hsv.is(color))  return ((c: Color) => hsv.string(toHSV(c),   hsv.inputFormat(reference)))  as (c: Color) => T;
-        else if(hsi.is(color))  return ((c: Color) => hsi.string(toHSI(c),   hsi.inputFormat(reference)))  as (c: Color) => T;
-        else if(hwb.is(color))  return ((c: Color) => hwb.string(toHWB(c),   hwb.inputFormat(reference)))  as (c: Color) => T;
-        else if(hcg.is(color))  return ((c: Color) => hcg.string(toHCG(c),   hcg.inputFormat(reference)))  as (c: Color) => T;
-        else if(cmyk.is(color)) return ((c: Color) => cmyk.string(toCMYK(c), cmyk.inputFormat(reference))) as (c: Color) => T;
-        else if(cmy.is(color))  return ((c: Color) => cmy.string(toCMY(c),   cmy.inputFormat(reference)))  as (c: Color) => T;
-        else if(xyz.is(color))  return ((c: Color) => xyz.string(toXYZ(c),   xyz.inputFormat(reference)))  as (c: Color) => T;
-        else if(lab.is(color))  return ((c: Color) => lab.string(toLAB(c),   lab.inputFormat(reference)))  as (c: Color) => T;
-        else if(lch.is(color))  return ((c: Color) => lch.string(toLCH(c),   lch.inputFormat(reference)))  as (c: Color) => T;
-        throw ColorSpaceError;
-    }
+    if(hsl.is(color))       return toHSL  as (c: Color) => Color;
+    else if(hsv.is(color))  return toHSV  as (c: Color) => Color;
+    else if(hsi.is(color))  return toHSI  as (c: Color) => Color;
+    else if(hwb.is(color))  return toHWB  as (c: Color) => Color;
+    else if(hcg.is(color))  return toHCG  as (c: Color) => Color;
+    else if(cmyk.is(color)) return toCMYK as (c: Color) => Color;
+    else if(cmy.is(color))  return toCMY  as (c: Color) => Color;
+    else if(xyz.is(color))  return toXYZ  as (c: Color) => Color;
+    else if(lab.is(color))  return toLAB  as (c: Color) => Color;
+    else if(lch.is(color))  return toLCH  as (c: Color) => Color;
 
-    if(rgb.is(reference))       return toRGB  as (c: Color) => T;
-    else if(hsl.is(reference))  return toHSL  as (c: Color) => T;
-    else if(hsv.is(reference))  return toHSV  as (c: Color) => T;
-    else if(hsi.is(reference))  return toHSI  as (c: Color) => T;
-    else if(hwb.is(reference))  return toHWB  as (c: Color) => T;
-    else if(hcg.is(reference))  return toHCG  as (c: Color) => T;
-    else if(cmyk.is(reference)) return toCMYK as (c: Color) => T;
-    else if(cmy.is(reference))  return toCMY  as (c: Color) => T;
-    else if(xyz.is(reference))  return toXYZ  as (c: Color) => T;
-    else if(lab.is(reference))  return toLAB  as (c: Color) => T;
-    else if(lch.is(reference))  return toLCH  as (c: Color) => T;
-    throw ColorSpaceError;
+    return toRGB  as (c: Color) => Color;
 }
 
-export function luminosity(color: Color): number {
+export function luminosity(color: ColorSpecification): number {
     let { red, green, blue } = rgb.internal(toRGB(color));
 
     red   = (red   <= 0.3928) ? red   / 12.92 : ((red   + 0.055) / 1.055) ** 2.4;
@@ -440,32 +458,30 @@ export function luminosity(color: Color): number {
     return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
 }
 
-export function contrast(color1: Color, color2: Color): number {
+export function contrast(color1: ColorSpecification, color2: ColorSpecification): number {
     const lum1 = luminosity(color1);
     const lum2 = luminosity(color2);
 
-    if(lum1 > lum2)
-        return (lum1 + 0.05) / (lum2 + 0.05);
-    return (lum2 + 0.05) / (lum1 + 0.05);
+    return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
 }
 
-export function isDark(color: Color | string): boolean {
+export function isDark(color: ColorSpecification): boolean {
     // YIQ equation from http://24ways.org/2010/calculating-color-contrast
     const { r, g, b } = toRGB(color);
     var yiq = (r * 299 + g * 587 + b * 114) / 1000;
     return yiq < 128;
 }
 
-export function isLight(color: Color | string): boolean {
+export function isLight(color: ColorSpecification): boolean {
     return !isDark(color);
 }
 
-export function negate<T extends Color>(color: T): T {
+export function negate(color: ColorSpecification): Color {
     const { r, g, b } = toRGB(color);
-    return conform(color)({ r: 255 - r, g: 255 - g, b: 255 - b });
+    return conform(color)(toRGB({ r: 255 - r, g: 255 - g, b: 255 - b }));
 }
 
-export function hue<T extends Color>(color: T, degrees = 10): T {
+export function hue(color: ColorSpecification, degrees = 45): Color {
     let { hue, saturation, lightness, alpha } = hsl.internal(toHSL(color));
     hue += degrees / 360;
     while(hue >= 1) hue -= 1;
@@ -473,87 +489,89 @@ export function hue<T extends Color>(color: T, degrees = 10): T {
     return conform(color)(hsl.external({ hue, saturation, lightness, alpha }));
 }
 
-export function saturation<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
+export function saturation(color: ColorSpecification, amount: AmountRatio = 0.25): Color {
     let { hue, saturation, lightness, alpha } = hsl.internal(toHSL(color));
     saturation = adjust(saturation, amount);
     return conform(color)(hsl.external({ hue, saturation, lightness, alpha }));
 }
 
-export function lightness<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
+export function lightness(color: ColorSpecification, amount: AmountRatio = 0.25): Color {
     let { hue, saturation, lightness, alpha } = hsl.internal(toHSL(color));
     lightness = adjust(lightness, amount);
     return conform(color)(hsl.external({ hue, saturation, lightness, alpha }));
 }
 
-export function value<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
+export function value(color: ColorSpecification, amount: AmountRatio = 0.25): Color {
     let { hue, saturation, value, alpha } = hsv.internal(toHSV(color));
     value = adjust(value, amount);
     return conform(color)(hsv.external({ hue, saturation, value, alpha }));
 }
 
-export function whiteness<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
+export function whiteness(color: ColorSpecification, amount: AmountRatio = 0.25): Color {
     let { hue, whiteness, blackness, alpha } = hwb.internal(toHWB(color));
     whiteness = adjust(whiteness, amount);
     return conform(color)(hwb.external({ hue, whiteness, blackness, alpha }));
 }
 
-export function blackness<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
+export function blackness(color: ColorSpecification, amount: AmountRatio = 0.25): Color {
     let { hue, whiteness, blackness, alpha } = hwb.internal(toHWB(color));
     blackness = adjust(blackness, amount);
     return conform(color)(hwb.external({ hue, whiteness, blackness, alpha }));
 }
 
-export function chroma<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
+export function chroma(color: ColorSpecification, amount: AmountRatio = 0.25): Color {
     let { hue, chroma, greyness, alpha } = hcg.internal(toHCG(color));
     chroma = adjust(chroma, amount);
     return conform(color)(hcg.external({ hue, chroma, greyness, alpha }));
 }
 
-export function greyness<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
+export function greyness(color: ColorSpecification, amount: AmountRatio = 0.25): Color {
     let { hue, chroma, greyness, alpha } = hcg.internal(toHCG(color));
     greyness = adjust(greyness, amount);
     return conform(color)(hcg.external({ hue, chroma, greyness, alpha }));
 }
 
-export function intensity<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
+export function intensity(color: ColorSpecification, amount: AmountRatio = 0.25): Color {
     let { hue, saturation, intensity, alpha } = hsi.internal(toHSI(color));
     intensity = adjust(intensity, amount);
     return conform(color)(hsi.external({ hue, saturation, intensity, alpha }));
 }
 
-export function alpha<T extends Color>(color: T, amount: AmountRatio = 0.25): T {
-    const alpha  = adjust(color.alpha ?? 1.0, amount);
-    return { ...color, alpha };
+export function alpha(input: ColorSpecification, amount: AmountRatio = 0.25): Color {
+    const color = toColor(input);
+
+    const alpha  = adjust(color.alpha ?? 1.0, amount, 'amount');
+    return conform(input)({ ...color, alpha });
 }
 
-export function blend<T extends Color | string>(color1: T, color2: Color | string, weight = 0.5): T {
-    let { red: red1, green: green1, blue: blue1, alpha: alpha1 } = rgb.internal(toRGB(color1));
-    let { red: red2, green: green2, blue: blue2, alpha: alpha2 } = rgb.internal(toRGB(color2));
+// export function blend(color1: ColorSpecification, color2: ColorSpecification, weight = 0.5): Color {
+//     let { red: red1, green: green1, blue: blue1, alpha: alpha1 } = rgb.internal(toRGB(color1));
+//     let { red: red2, green: green2, blue: blue2, alpha: alpha2 } = rgb.internal(toRGB(color2));
 
-    var w = 2 * weight - 1;
-    var a = (alpha1 ?? 1.0) - (alpha2 ?? 1.0);
+//     var w = 2 * weight - 1;
+//     var a = (alpha1 ?? 1.0) - (alpha2 ?? 1.0);
 
-    var w1 = (((w * a === -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
-    var w0 = 1 - w1;
+//     var w1 = (((w * a === -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
+//     var w0 = 1 - w1;
 
-    return conform(color1)(rgb.external({
-        red:    w0 * red1   + w1 * red2,
-        green:  w0 * green1 + w1 * green2,
-        blue:   w0 * blue1  + w1 * blue2,
-        alpha:  alpha1 === undefined && alpha2 === undefined
-            ? undefined
-            : (alpha1 ?? 1.0) * weight + (alpha2 ?? 1.0) * (1 - weight),
-    }));
-}
+//     return conform(color1)(rgb.external({
+//         red:    w0 * red1   + w1 * red2,
+//         green:  w0 * green1 + w1 * green2,
+//         blue:   w0 * blue1  + w1 * blue2,
+//         alpha:  alpha1 === undefined && alpha2 === undefined
+//             ? undefined
+//             : (alpha1 ?? 1.0) * weight + (alpha2 ?? 1.0) * (1 - weight),
+//     }));
+// }
 
-export function gradient<T extends Color | string>(color1: T, color2: Color | string, steps = 100): T[] {
-    const colors: T[] = [];
-    const increment = (steps + 1) / (steps * 100);
+// export function gradient(color1: ColorSpecification, color2: ColorSpecification, steps = 100): Color[] {
+//     const colors: Color[] = [];
+//     const increment = (steps + 1) / (steps * 100);
 
-    for(let i = 0; i < steps; ++i)
-        colors.push(blend(color1, color2, i * increment));
-    return colors;
-}
+//     for(let i = 0; i < steps; ++i)
+//         colors.push(blend(color1, color2, i * increment));
+//     return colors;
+// }
 
 const schemes = {
     complementary:          [ 0, 180 ],
@@ -576,7 +594,7 @@ const schemes = {
     analogous:              [ 0,  30,  60,  90, 120, 150 ],
 };
 
-export function scheme<T extends Color>(color: T): Record<string, T[]> {
+export function scheme(color: ColorSpecification): Record<string, Color[]> {
     return Object.fromEntries(
         Object.entries(schemes).map(
             ([ name, angles ]) => [ name, angles.map(angle => hue(color, angle)) ]
@@ -584,25 +602,38 @@ export function scheme<T extends Color>(color: T): Record<string, T[]> {
     );
 }
 
-export function grayscale<T extends Color>(color: T): T {
+export function grayscale(color: ColorSpecification): Color {
     const { red, green, blue, alpha } = rgb.internal(toRGB(color));
-    return conform(color)(rgb.external({ red: red * 0.3, green: green * 0.59, blue: blue * 0.11, alpha }));
+    const grey = red * 0.299 + green * 0.587 + blue * 0.114;
+    return conform(color)(rgb.external({ red: grey, green: grey, blue: grey, alpha }));
 }
 
-export function colorDistance(color1: Color, color2: Color): number {
+export function colorDistance(color1: ColorSpecification, color2: ColorSpecification): number {
     return colorCompare.colorDistance(toRGB(color1), toRGB(color2));
 }
 
-export function deltaE1976(color1: Color, color2: Color): number {
+export function deltaC(color1: ColorSpecification, color2: ColorSpecification): number {
+    return colorCompare.deltaC(toLAB(color1), toLAB(color2));
+}
+
+export function deltaH(color1: ColorSpecification, color2: ColorSpecification): number {
+    return colorCompare.deltaH(toLAB(color1), toLAB(color2));
+}
+
+export function deltaE1976(color1: ColorSpecification, color2: ColorSpecification): number {
     return colorCompare.deltaE1976(toLAB(color1), toLAB(color2));
 }
 
-export function deltaE1994(color1: Color | string, color2: Color | string): number {
+export function deltaE1994(color1: ColorSpecification, color2: ColorSpecification): number {
     return colorCompare.deltaE1994(toLAB(color1), toLAB(color2));
 }
 
-export function deltaE2000(color1: Color | string, color2: Color | string): number {
+export function deltaE2000(color1: ColorSpecification, color2: ColorSpecification): number {
     return colorCompare.deltaE2000(toLAB(color1), toLAB(color2));
+}
+
+export function deltaCMC(color1: ColorSpecification, color2: ColorSpecification): number {
+    return colorCompare.deltaCMC(toLAB(color1), toLAB(color2));
 }
 
 export const attributes = {
@@ -630,10 +661,11 @@ export default {
     toLAB,
     toLCH,
     luminosity,
+    contrast,
     isDark,
     isLight,
     negate,
-    rotate: hue,
+    hue,
     attributes,
     saturation,
     lightness,
@@ -643,13 +675,18 @@ export default {
     chroma,
     greyness,
     intensity,
-    fade: alpha,
-    blend,
-    gradient,
+    alpha,
+    grayscale,
+    // blend,
+    // gradient,
     scheme,
     parse,
     string,
+    colorDistance,
+    deltaC,
+    deltaH,
     deltaE1976,
     deltaE1994,
     deltaE2000,
+    deltaCMC,
 };

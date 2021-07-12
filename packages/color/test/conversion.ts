@@ -22,7 +22,7 @@ const colorTests: Test[] = JSON.parse(fs.readFileSync('./test/data/conversion.js
 .map((test: Test) => { test.toString = () => `${test.name} r:${test.rgb.r} g: ${test.rgb.g} b: ${test.rgb.b}`; return test; });
 
 describe(
-    'color',
+    'color conversion',
     () => {
         describe.each(Object.keys(colorSpaces))(
             '%s',
@@ -41,6 +41,20 @@ describe(
                         );
                     }
                 );
+            }
+        );
+
+        test(
+            'invalid color space',
+            () => {
+                expect(() => color.to('white', 'xyzzy' as any)).toThrow('Unidentifiable color space.');
+            }
+        );
+
+        test(
+            'invalid color',
+            () => {
+                expect(() => color.toRGB({ q: 1, w: 1, e: 1 } as any)).toThrow('Unidentifiable color space.');
             }
         );
     }
