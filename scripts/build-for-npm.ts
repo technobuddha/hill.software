@@ -81,7 +81,9 @@ export function buildForNPM({ packageName }: BuildForNPMOptions) {
     }
     finish();
 
+    let hasIndex = false;
     if(fs.existsSync('dist/index')) {
+        hasIndex = true;
         start('Moving', 'index');
         for(const file of glob.sync('dist/index/*.*s')) {
             const contents = fs.readFileSync(file, { encoding: 'utf8' });
@@ -128,12 +130,21 @@ export function buildForNPM({ packageName }: BuildForNPMOptions) {
     start('Building', 'dist');
     pj.name = project;
 
-    delete pj.main;
-    delete pj.module;
-    delete pj.browser;
-    delete pj.esnext;
-    delete pj.typescript;
-    delete pj.types;
+    if(hasIndex) {
+        pj.main         = `./index.cjs`;
+        pj.module       = `./index.mjs`;
+        pj.browser      = `./index.cjs`;
+        pj.esnext       = `./index.mjs`;
+        pj.typescript   = `./index.ts`;
+        pj.types        = `./index.d.ts`;
+    } else {
+        delete pj.main;
+        delete pj.module;
+        delete pj.browser;
+        delete pj.esnext;
+        delete pj.typescript;
+        delete pj.types;
+    }
 
     fs.writeFileSync('dist/package.json', JSON.stringify(pj, null, 2), 'utf8');
 

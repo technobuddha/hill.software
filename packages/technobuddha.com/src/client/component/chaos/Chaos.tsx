@@ -6,7 +6,7 @@ import { useTranslation }   from '#context/i18n';
 import { chaos }            from '#worker/chaos';
 import css                  from './Chaos.css';
 
-import type { RGBV }        from '#worker/chaos';
+import type { RGB }        from '@technobuddha/color';
 
 const SIZE          = 1;
 const MAX_ITERATION = 1024;
@@ -30,7 +30,7 @@ const ChaosBoard: React.FC<ChaosBoardProps> = ({ boxWidth, boxHeight }: ChaosBoa
     const height                        = React.useMemo(() => Math.floor(boxHeight / SIZE), [ boxHeight ]);
     const [ mode, setMode ]             = useDerivedState<Mode>('compute', [ width, height ]);
     const [ showLegend, setShowLegend ] = React.useState(true);
-    const grid                          = React.useRef<RGBV[][]>([]);
+    const grid                          = React.useRef<RGB[][]>([]);
 
     const x_min                         = React.useRef(-2.00);
     const x_max                         = React.useRef(+0.75);
@@ -148,9 +148,9 @@ const ChaosBoard: React.FC<ChaosBoardProps> = ({ boxWidth, boxHeight }: ChaosBoa
 
                         const setPixel = (x: number, y: number, r: number, g: number, b: number) => {
                             const offset = (x * 4) + (y * imageData.width * 4);
-                            imageData.data[offset + 0] = r;
-                            imageData.data[offset + 1] = g;
-                            imageData.data[offset + 2] = b;
+                            imageData.data[offset + 0] = Math.round(r);
+                            imageData.data[offset + 1] = Math.round(g);
+                            imageData.data[offset + 2] = Math.round(b);
                             imageData.data[offset + 3] = 255;
                         };
 

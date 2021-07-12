@@ -4,7 +4,9 @@
 
 - [cmy](modules/cmy.md)
 - [cmyk](modules/cmyk.md)
+- [color-compare](modules/color_compare.md)
 - [color-names](modules/color_names.md)
+- [color-space](modules/color_space.md)
 - [color](modules/color.md)
 - [hcg](modules/hcg.md)
 - [hsi](modules/hsi.md)

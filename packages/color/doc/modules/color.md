@@ -4,11 +4,10 @@
 
 ## Table of contents
 
-### Type aliases
+### References
 
 - [CMY](color.md#cmy)
 - [CMYK](color.md#cmyk)
-- [Color](color.md#color)
 - [HCG](color.md#hcg)
 - [HSI](color.md#hsi)
 - [HSL](color.md#hsl)
@@ -18,6 +17,28 @@
 - [LCH](color.md#lch)
 - [RGB](color.md#rgb)
 - [XYZ](color.md#xyz)
+- [partialCMY](color.md#partialcmy)
+- [partialCMYK](color.md#partialcmyk)
+- [partialHCG](color.md#partialhcg)
+- [partialHSI](color.md#partialhsi)
+- [partialHSL](color.md#partialhsl)
+- [partialHSV](color.md#partialhsv)
+- [partialHWB](color.md#partialhwb)
+- [partialLAB](color.md#partiallab)
+- [partialLCH](color.md#partiallch)
+- [partialRGB](color.md#partialrgb)
+- [partialXYZ](color.md#partialxyz)
+
+### Type aliases
+
+- [Alpha](color.md#alpha)
+- [AmountRatio](color.md#amountratio)
+- [Color](color.md#color)
+- [ColorFormat](color.md#colorformat)
+- [ColorSpecification](color.md#colorspecification)
+- [PartialColor](color.md#partialcolor)
+- [StringFormat](color.md#stringformat)
+- [StringOptions](color.md#stringoptions)
 
 ### Properties
 
@@ -27,32 +48,39 @@
 
 - [attributes](color.md#attributes)
 - [colorSpaces](color.md#colorspaces)
+- [defaultStringOptions](color.md#defaultstringoptions)
 
 ### Functions
 
+- [alpha](color.md#alpha)
 - [blackness](color.md#blackness)
-- [blend](color.md#blend)
 - [chroma](color.md#chroma)
 - [colorDistance](color.md#colordistance)
 - [contrast](color.md#contrast)
+- [deltaC](color.md#deltac)
+- [deltaCMC](color.md#deltacmc)
 - [deltaE1976](color.md#deltae1976)
 - [deltaE1994](color.md#deltae1994)
 - [deltaE2000](color.md#deltae2000)
-- [fade](color.md#fade)
+- [deltaH](color.md#deltah)
+- [getStringOptions](color.md#getstringoptions)
 - [grayscale](color.md#grayscale)
 - [greyness](color.md#greyness)
+- [hue](color.md#hue)
 - [intensity](color.md#intensity)
 - [isDark](color.md#isdark)
 - [isLight](color.md#islight)
 - [lightness](color.md#lightness)
 - [luminosity](color.md#luminosity)
 - [negate](color.md#negate)
-- [rotate](color.md#rotate)
+- [parse](color.md#parse)
 - [saturation](color.md#saturation)
 - [scheme](color.md#scheme)
+- [string](color.md#string)
 - [to](color.md#to)
 - [toCMY](color.md#tocmy)
 - [toCMYK](color.md#tocmyk)
+- [toColor](color.md#tocolor)
 - [toHCG](color.md#tohcg)
 - [toHSI](color.md#tohsi)
 - [toHSL](color.md#tohsl)
@@ -65,235 +93,215 @@
 - [value](color.md#value)
 - [whiteness](color.md#whiteness)
 
-## Type aliases
+## References
 
 ### CMY
 
-Ƭ **CMY**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `c` | *number* |
-| `cyan?` | *number* |
-| `m` | *number* |
-| `magenta?` | *number* |
-| `y` | *number* |
-| `yellow?` | *number* |
-
-Defined in: [color.ts:19](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L19)
+Re-exports: [CMY](cmy.md#cmy)
 
 ___
 
 ### CMYK
 
-Ƭ **CMYK**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `black?` | *number* |
-| `c` | *number* |
-| `cyan?` | *number* |
-| `k` | *number* |
-| `m` | *number* |
-| `magenta?` | *number* |
-| `y` | *number* |
-| `yellow?` | *number* |
-
-Defined in: [color.ts:20](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L20)
-
-___
-
-### Color
-
-Ƭ **Color**: [*RGB*](color.md#rgb) \| [*HSL*](color.md#hsl) \| [*HSV*](color.md#hsv) \| [*HSI*](color.md#hsi) \| [*HWB*](color.md#hwb) \| [*HCG*](color.md#hcg) \| [*CMY*](color.md#cmy) \| [*CMYK*](color.md#cmyk) \| [*XYZ*](color.md#xyz) \| [*LAB*](color.md#lab) \| [*LCH*](color.md#lch)
-
-Defined in: [color.ts:25](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L25)
+Re-exports: [CMYK](cmyk.md#cmyk)
 
 ___
 
 ### HCG
 
-Ƭ **HCG**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `c` | *number* |
-| `chroma?` | *number* |
-| `g` | *number* |
-| `greyness?` | *number* |
-| `h` | *number* |
-| `hue?` | *number* |
-
-Defined in: [color.ts:18](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L18)
+Re-exports: [HCG](hcg.md#hcg)
 
 ___
 
 ### HSI
 
-Ƭ **HSI**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `h` | *number* |
-| `hue?` | *number* |
-| `i` | *number* |
-| `intensity?` | *number* |
-| `s` | *number* |
-| `saturation?` | *number* |
-
-Defined in: [color.ts:16](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L16)
+Re-exports: [HSI](hsi.md#hsi)
 
 ___
 
 ### HSL
 
-Ƭ **HSL**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `h` | *number* |
-| `hue?` | *number* |
-| `l` | *number* |
-| `lightness?` | *number* |
-| `s` | *number* |
-| `saturation?` | *number* |
-
-Defined in: [color.ts:14](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L14)
+Re-exports: [HSL](hsl.md#hsl)
 
 ___
 
 ### HSV
 
-Ƭ **HSV**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `h` | *number* |
-| `hue?` | *number* |
-| `s` | *number* |
-| `saturation?` | *number* |
-| `v` | *number* |
-| `value?` | *number* |
-
-Defined in: [color.ts:15](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L15)
+Re-exports: [HSV](hsv.md#hsv)
 
 ___
 
 ### HWB
 
-Ƭ **HWB**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `b` | *number* |
-| `blackness?` | *number* |
-| `h` | *number* |
-| `hue?` | *number* |
-| `w` | *number* |
-| `whiteness?` | *number* |
-
-Defined in: [color.ts:17](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L17)
+Re-exports: [HWB](hwb.md#hwb)
 
 ___
 
 ### LAB
 
-Ƭ **LAB**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `a` | *number* |
-| `alpha?` | *number* |
-| `b` | *number* |
-| `blueYellow?` | *number* |
-| `l` | *number* |
-| `lightness?` | *number* |
-| `redGreen?` | *number* |
-
-Defined in: [color.ts:22](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L22)
+Re-exports: [LAB](lab.md#lab)
 
 ___
 
 ### LCH
 
-Ƭ **LCH**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `c` | *number* |
-| `chroma?` | *number* |
-| `h` | *number* |
-| `hue?` | *number* |
-| `l` | *number* |
-| `lightness?` | *number* |
-
-Defined in: [color.ts:23](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L23)
+Re-exports: [LCH](lch.md#lch)
 
 ___
 
 ### RGB
 
-Ƭ **RGB**: *object*
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `alpha?` | *number* |
-| `b` | *number* |
-| `blue?` | *number* |
-| `g` | *number* |
-| `green?` | *number* |
-| `r` | *number* |
-| `red?` | *number* |
-
-Defined in: [color.ts:13](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L13)
+Re-exports: [RGB](rgb.md#rgb)
 
 ___
 
 ### XYZ
 
-Ƭ **XYZ**: *object*
+Re-exports: [XYZ](xyz.md#xyz)
+
+___
+
+### partialCMY
+
+Re-exports: [partialCMY](cmy.md#partialcmy)
+
+___
+
+### partialCMYK
+
+Re-exports: [partialCMYK](cmyk.md#partialcmyk)
+
+___
+
+### partialHCG
+
+Re-exports: [partialHCG](hcg.md#partialhcg)
+
+___
+
+### partialHSI
+
+Re-exports: [partialHSI](hsi.md#partialhsi)
+
+___
+
+### partialHSL
+
+Re-exports: [partialHSL](hsl.md#partialhsl)
+
+___
+
+### partialHSV
+
+Re-exports: [partialHSV](hsv.md#partialhsv)
+
+___
+
+### partialHWB
+
+Re-exports: [partialHWB](hwb.md#partialhwb)
+
+___
+
+### partialLAB
+
+Re-exports: [partialLAB](lab.md#partiallab)
+
+___
+
+### partialLCH
+
+Re-exports: [partialLCH](lch.md#partiallch)
+
+___
+
+### partialRGB
+
+Re-exports: [partialRGB](rgb.md#partialrgb)
+
+___
+
+### partialXYZ
+
+Re-exports: [partialXYZ](xyz.md#partialxyz)
+
+## Type aliases
+
+### Alpha
+
+Ƭ **Alpha**: *object*
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `X?` | *number* |
-| `Y?` | *number* |
-| `Z?` | *number* |
 | `alpha?` | *number* |
-| `x` | *number* |
-| `y` | *number* |
-| `z` | *number* |
 
-Defined in: [color.ts:21](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L21)
+Defined in: [color.ts:14](../../src/color.ts#L14)
+
+___
+
+### AmountRatio
+
+Ƭ **AmountRatio**: { `ratio`: *number*  } \| { `amount`: *number*  } \| *number*
+
+Defined in: [color.ts:42](../../src/color.ts#L42)
+
+___
+
+### Color
+
+Ƭ **Color**: [*RGB*](rgb.md#rgb) \| [*HSL*](hsl.md#hsl) \| [*HSV*](hsv.md#hsv) \| [*HSI*](hsi.md#hsi) \| [*HWB*](hwb.md#hwb) \| [*HCG*](hcg.md#hcg) \| [*CMY*](cmy.md#cmy) \| [*CMYK*](cmyk.md#cmyk) \| [*XYZ*](xyz.md#xyz) \| [*LAB*](lab.md#lab) \| [*LCH*](lch.md#lch)
+
+Defined in: [color.ts:39](../../src/color.ts#L39)
+
+___
+
+### ColorFormat
+
+Ƭ **ColorFormat**: ``"name"`` \| ``"hex"`` \| ``"css"`` \| ``"default"``
+
+Defined in: [color.ts:142](../../src/color.ts#L142)
+
+___
+
+### ColorSpecification
+
+Ƭ **ColorSpecification**: [*PartialColor*](color.md#partialcolor) \| *string*
+
+Defined in: [color.ts:41](../../src/color.ts#L41)
+
+___
+
+### PartialColor
+
+Ƭ **PartialColor**: [*partialRGB*](rgb.md#partialrgb) \| [*partialHSL*](hsl.md#partialhsl) \| [*partialHSV*](hsv.md#partialhsv) \| [*partialHSI*](hsi.md#partialhsi) \| [*partialHWB*](hwb.md#partialhwb) \| [*partialHCG*](hcg.md#partialhcg) \| [*partialCMY*](cmy.md#partialcmy) \| [*partialCMYK*](cmyk.md#partialcmyk) \| [*partialXYZ*](xyz.md#partialxyz) \| [*partialLAB*](lab.md#partiallab) \| [*partialLCH*](lch.md#partiallch)
+
+Defined in: [color.ts:40](../../src/color.ts#L40)
+
+___
+
+### StringFormat
+
+Ƭ **StringFormat**: [*ColorFormat*](color.md#colorformat) \| *Partial*<[*StringOptions*](color.md#stringoptions)\>
+
+Defined in: [color.ts:148](../../src/color.ts#L148)
+
+___
+
+### StringOptions
+
+Ƭ **StringOptions**: *object*
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `cssVersion` | ``3`` \| ``4`` |
+| `format` | [*ColorFormat*](color.md#colorformat) |
+| `hexShorthand` | *boolean* |
+
+Defined in: [color.ts:143](../../src/color.ts#L143)
 
 ## Properties
 
@@ -305,46 +313,53 @@ Defined in: [color.ts:21](https://github.com/technobuddha/hill.software/blob/d33
 
 | Name | Type |
 | :------ | :------ |
+| `alpha` | (`input`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
 | `attributes` | *object* |
-| `attributes.blackness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `attributes.chroma` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `attributes.greyness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `attributes.intensity` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `attributes.lightness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `attributes.saturation` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `attributes.value` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `attributes.whiteness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `blackness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `blend` | <T\>(`color1`: T, `color2`: [*Color*](color.md#color), `weight`: *number*) => T |
-| `chroma` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `deltaE1976` | (`color1`: [*Color*](color.md#color), `color2`: [*Color*](color.md#color)) => *number* |
-| `deltaE1994` | (`color1`: [*Color*](color.md#color), `color2`: [*Color*](color.md#color)) => *number* |
-| `deltaE2000` | (`color1`: [*Color*](color.md#color), `color2`: [*Color*](color.md#color)) => *number* |
-| `fade` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `greyness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `intensity` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `isDark` | (`color`: [*Color*](color.md#color) \| *string*) => *boolean* |
-| `isLight` | (`color`: [*Color*](color.md#color) \| *string*) => *boolean* |
-| `lightness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `luminosity` | (`color`: [*Color*](color.md#color)) => *number* |
-| `negate` | <T\>(`color`: T) => T |
-| `rotate` | <T\>(`color`: T, `degrees`: *number*) => T |
-| `saturation` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `scheme` | <T\>(`color`: T, `scheme`: keyof *typeof* schemes) => T[] |
-| `to` | (`color`: [*Color*](color.md#color), `space`: *string*) => [*Color*](color.md#color) |
-| `toCMY` | (`color`: [*Color*](color.md#color) \| *string*) => [*CMY*](color.md#cmy) |
-| `toCMYK` | (`color`: [*Color*](color.md#color) \| *string*) => [*CMYK*](color.md#cmyk) |
-| `toHCG` | (`color`: [*Color*](color.md#color) \| *string*) => [*HCG*](color.md#hcg) |
-| `toHSI` | (`color`: [*Color*](color.md#color) \| *string*) => [*HSI*](color.md#hsi) |
-| `toHSL` | (`color`: [*Color*](color.md#color) \| *string*) => [*HSL*](color.md#hsl) |
-| `toHSV` | (`color`: [*Color*](color.md#color) \| *string*) => [*HSV*](color.md#hsv) |
-| `toHWB` | (`color`: [*Color*](color.md#color) \| *string*) => [*HWB*](color.md#hwb) |
-| `toLAB` | (`color`: [*Color*](color.md#color) \| *string*) => [*LAB*](color.md#lab) |
-| `toLCH` | (`color`: [*Color*](color.md#color) \| *string*) => [*LCH*](color.md#lch) |
-| `toRGB` | (`color`: [*Color*](color.md#color) \| *string*) => [*RGB*](color.md#rgb) |
-| `toXYZ` | (`color`: [*Color*](color.md#color) \| *string*) => [*XYZ*](color.md#xyz) |
-| `value` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `whiteness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
+| `attributes.blackness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `attributes.chroma` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `attributes.greyness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `attributes.intensity` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `attributes.lightness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `attributes.saturation` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `attributes.value` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `attributes.whiteness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `blackness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `chroma` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `colorDistance` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `contrast` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `deltaC` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `deltaCMC` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `deltaE1976` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `deltaE1994` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `deltaE2000` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `deltaH` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `grayscale` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*Color*](color.md#color) |
+| `greyness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `hue` | (`color`: [*ColorSpecification*](color.md#colorspecification), `degrees`: *number*) => [*Color*](color.md#color) |
+| `intensity` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `isDark` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => *boolean* |
+| `isLight` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => *boolean* |
+| `lightness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `luminosity` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
+| `negate` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*Color*](color.md#color) |
+| `parse` | (`input`: *string*) => [*Color*](color.md#color) |
+| `saturation` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `scheme` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => *Record*<string, [*Color*](color.md#color)[]\> |
+| `string` | (`color`: [*ColorSpecification*](color.md#colorspecification), `format?`: [*StringFormat*](color.md#stringformat)) => [*ColorSpecification*](color.md#colorspecification) |
+| `to` | (`color`: [*ColorSpecification*](color.md#colorspecification), `space`: keyof *typeof* [*colorSpaces*](color.md#colorspaces)) => [*Color*](color.md#color) |
+| `toCMY` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*CMY*](cmy.md#cmy) |
+| `toCMYK` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*CMYK*](cmyk.md#cmyk) |
+| `toHCG` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HCG*](hcg.md#hcg) |
+| `toHSI` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HSI*](hsi.md#hsi) |
+| `toHSL` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HSL*](hsl.md#hsl) |
+| `toHSV` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HSV*](hsv.md#hsv) |
+| `toHWB` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HWB*](hwb.md#hwb) |
+| `toLAB` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*LAB*](lab.md#lab) |
+| `toLCH` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*LCH*](lch.md#lch) |
+| `toRGB` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*RGB*](rgb.md#rgb) |
+| `toXYZ` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*XYZ*](xyz.md#xyz) |
+| `value` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `whiteness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
 
 ## Variables
 
@@ -356,16 +371,16 @@ Defined in: [color.ts:21](https://github.com/technobuddha/hill.software/blob/d33
 
 | Name | Type |
 | :------ | :------ |
-| `blackness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `chroma` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `greyness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `intensity` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `lightness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `saturation` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `value` | <T\>(`color`: T, `amount`: AmountRatio) => T |
-| `whiteness` | <T\>(`color`: T, `amount`: AmountRatio) => T |
+| `blackness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `chroma` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `greyness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `intensity` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `lightness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `saturation` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `value` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `whiteness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
 
-Defined in: [color.ts:497](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L497)
+Defined in: [color.ts:639](../../src/color.ts#L639)
 
 ___
 
@@ -377,663 +392,684 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `CMY` | *typeof* [*cmy*](cmy.cmy-1.md) |
-| `CMYK` | *typeof* [*cmyk*](cmyk.cmyk-1.md) |
-| `HCG` | *typeof* [*hcg*](hcg.hcg-1.md) |
-| `HSI` | *typeof* [*hsi*](hsi.hsi-1.md) |
-| `HSL` | *typeof* [*hsl*](hsl.hsl-1.md) |
-| `HSV` | *typeof* [*hsv*](hsv.hsv-1.md) |
-| `HWB` | *typeof* [*hwb*](hwb.hwb-1.md) |
-| `LAB` | *typeof* [*lab*](lab.lab-1.md) |
-| `LCH` | *typeof* [*lch*](lch.lch-1.md) |
-| `RGB` | *typeof* [*rgb*](rgb.rgb-1.md) |
-| `XYZ` | *typeof* [*xyz*](xyz.xyz-1.md) |
+| `CMY` | [*ColorSpace*](color_space.md#colorspace)<[*CMY*](cmy.md#cmy), [*partialCMY*](cmy.md#partialcmy), internalCMY\> |
+| `CMYK` | [*ColorSpace*](color_space.md#colorspace)<[*CMYK*](cmyk.md#cmyk), [*partialCMYK*](cmyk.md#partialcmyk), internalCMYK\> |
+| `HCG` | [*ColorSpace*](color_space.md#colorspace)<[*HCG*](hcg.md#hcg), [*partialHCG*](hcg.md#partialhcg), internalHCG\> |
+| `HSI` | [*ColorSpace*](color_space.md#colorspace)<[*HSI*](hsi.md#hsi), [*partialHSI*](hsi.md#partialhsi), internalHSI\> |
+| `HSL` | [*ColorSpace*](color_space.md#colorspace)<[*HSL*](hsl.md#hsl), [*partialHSL*](hsl.md#partialhsl), internalHSL\> |
+| `HSV` | [*ColorSpace*](color_space.md#colorspace)<[*HSV*](hsv.md#hsv), [*partialHSV*](hsv.md#partialhsv), internalHSV\> |
+| `HWB` | [*ColorSpace*](color_space.md#colorspace)<[*HWB*](hwb.md#hwb), [*partialHWB*](hwb.md#partialhwb), internalHWB\> |
+| `LAB` | [*ColorSpace*](color_space.md#colorspace)<[*LAB*](lab.md#lab), [*partialLAB*](lab.md#partiallab), internalLAB\> |
+| `LCH` | [*ColorSpace*](color_space.md#colorspace)<[*LCH*](lch.md#lch), [*partialLCH*](lch.md#partiallch), internalLCH\> |
+| `RGB` | [*ColorSpace*](color_space.md#colorspace)<[*RGB*](rgb.md#rgb), [*partialRGB*](rgb.md#partialrgb), internalRGB\> |
+| `XYZ` | [*ColorSpace*](color_space.md#colorspace)<[*XYZ*](xyz.md#xyz), [*partialXYZ*](xyz.md#partialxyz), internalXYZ\> |
 
-Defined in: [color.ts:30](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L30)
-
-## Functions
-
-### blackness
-
-▸ **blackness**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
-
-**Returns:** T
-
-Defined in: [color.ts:417](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L417)
+Defined in: [color.ts:47](../../src/color.ts#L47)
 
 ___
 
-### blend
+### defaultStringOptions
 
-▸ **blend**<T\>(`color1`: T, `color2`: [*Color*](color.md#color), `weight?`: *number*): T
+• `Let` **defaultStringOptions**: [*StringOptions*](color.md#stringoptions)
 
-#### Type parameters
+Defined in: [color.ts:150](../../src/color.ts#L150)
 
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+## Functions
+
+### alpha
+
+▸ **alpha**(`input`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color1` | T | - |
-| `color2` | [*Color*](color.md#color) | - |
-| `weight` | *number* | 0.5 |
+| `input` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:446](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L446)
+Defined in: [color.ts:540](../../src/color.ts#L540)
+
+___
+
+### blackness
+
+▸ **blackness**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+
+**Returns:** [*Color*](color.md#color)
+
+Defined in: [color.ts:516](../../src/color.ts#L516)
 
 ___
 
 ### chroma
 
-▸ **chroma**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **chroma**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:423](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L423)
+Defined in: [color.ts:522](../../src/color.ts#L522)
 
 ___
 
 ### colorDistance
 
-▸ **colorDistance**(`color1`: [*Color*](color.md#color), `color2`: [*Color*](color.md#color)): *number*
+▸ **colorDistance**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*Color*](color.md#color) |
-| `color2` | [*Color*](color.md#color) |
+| `color1` | [*ColorSpecification*](color.md#colorspecification) |
+| `color2` | [*ColorSpecification*](color.md#colorspecification) |
 
 **Returns:** *number*
 
-Defined in: [color.ts:481](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L481)
+Defined in: [color.ts:611](../../src/color.ts#L611)
 
 ___
 
 ### contrast
 
-▸ **contrast**(`color1`: [*Color*](color.md#color), `color2`: [*Color*](color.md#color)): *number*
+▸ **contrast**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*Color*](color.md#color) |
-| `color2` | [*Color*](color.md#color) |
+| `color1` | [*ColorSpecification*](color.md#colorspecification) |
+| `color2` | [*ColorSpecification*](color.md#colorspecification) |
 
 **Returns:** *number*
 
-Defined in: [color.ts:360](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L360)
+Defined in: [color.ts:461](../../src/color.ts#L461)
+
+___
+
+### deltaC
+
+▸ **deltaC**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `color1` | [*ColorSpecification*](color.md#colorspecification) |
+| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+
+**Returns:** *number*
+
+Defined in: [color.ts:615](../../src/color.ts#L615)
+
+___
+
+### deltaCMC
+
+▸ **deltaCMC**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `color1` | [*ColorSpecification*](color.md#colorspecification) |
+| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+
+**Returns:** *number*
+
+Defined in: [color.ts:635](../../src/color.ts#L635)
 
 ___
 
 ### deltaE1976
 
-▸ **deltaE1976**(`color1`: [*Color*](color.md#color), `color2`: [*Color*](color.md#color)): *number*
+▸ **deltaE1976**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*Color*](color.md#color) |
-| `color2` | [*Color*](color.md#color) |
+| `color1` | [*ColorSpecification*](color.md#colorspecification) |
+| `color2` | [*ColorSpecification*](color.md#colorspecification) |
 
 **Returns:** *number*
 
-Defined in: [color.ts:485](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L485)
+Defined in: [color.ts:623](../../src/color.ts#L623)
 
 ___
 
 ### deltaE1994
 
-▸ **deltaE1994**(`color1`: [*Color*](color.md#color), `color2`: [*Color*](color.md#color)): *number*
+▸ **deltaE1994**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*Color*](color.md#color) |
-| `color2` | [*Color*](color.md#color) |
+| `color1` | [*ColorSpecification*](color.md#colorspecification) |
+| `color2` | [*ColorSpecification*](color.md#colorspecification) |
 
 **Returns:** *number*
 
-Defined in: [color.ts:489](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L489)
+Defined in: [color.ts:627](../../src/color.ts#L627)
 
 ___
 
 ### deltaE2000
 
-▸ **deltaE2000**(`color1`: [*Color*](color.md#color), `color2`: [*Color*](color.md#color)): *number*
+▸ **deltaE2000**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*Color*](color.md#color) |
-| `color2` | [*Color*](color.md#color) |
+| `color1` | [*ColorSpecification*](color.md#colorspecification) |
+| `color2` | [*ColorSpecification*](color.md#colorspecification) |
 
 **Returns:** *number*
 
-Defined in: [color.ts:493](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L493)
+Defined in: [color.ts:631](../../src/color.ts#L631)
 
 ___
 
-### fade
+### deltaH
 
-▸ **fade**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **deltaH**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
+| Name | Type |
+| :------ | :------ |
+| `color1` | [*ColorSpecification*](color.md#colorspecification) |
+| `color2` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** T
+**Returns:** *number*
 
-Defined in: [color.ts:441](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L441)
+Defined in: [color.ts:619](../../src/color.ts#L619)
+
+___
+
+### getStringOptions
+
+▸ **getStringOptions**(`so?`: [*StringFormat*](color.md#stringformat)): [*StringOptions*](color.md#stringoptions)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `so?` | [*StringFormat*](color.md#stringformat) |
+
+**Returns:** [*StringOptions*](color.md#stringoptions)
+
+Defined in: [color.ts:156](../../src/color.ts#L156)
 
 ___
 
 ### grayscale
 
-▸ **grayscale**<T\>(`color`: T): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **grayscale**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | T |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:476](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L476)
+Defined in: [color.ts:605](../../src/color.ts#L605)
 
 ___
 
 ### greyness
 
-▸ **greyness**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **greyness**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:429](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L429)
+Defined in: [color.ts:528](../../src/color.ts#L528)
+
+___
+
+### hue
+
+▸ **hue**(`color`: [*ColorSpecification*](color.md#colorspecification), `degrees?`: *number*): [*Color*](color.md#color)
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `degrees` | *number* | 45 |
+
+**Returns:** [*Color*](color.md#color)
+
+Defined in: [color.ts:484](../../src/color.ts#L484)
 
 ___
 
 ### intensity
 
-▸ **intensity**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **intensity**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:435](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L435)
+Defined in: [color.ts:534](../../src/color.ts#L534)
 
 ___
 
 ### isDark
 
-▸ **isDark**(`color`: [*Color*](color.md#color) \| *string*): *boolean*
+▸ **isDark**(`color`: [*ColorSpecification*](color.md#colorspecification)): *boolean*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
 **Returns:** *boolean*
 
-Defined in: [color.ts:369](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L369)
+Defined in: [color.ts:468](../../src/color.ts#L468)
 
 ___
 
 ### isLight
 
-▸ **isLight**(`color`: [*Color*](color.md#color) \| *string*): *boolean*
+▸ **isLight**(`color`: [*ColorSpecification*](color.md#colorspecification)): *boolean*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
 **Returns:** *boolean*
 
-Defined in: [color.ts:376](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L376)
+Defined in: [color.ts:475](../../src/color.ts#L475)
 
 ___
 
 ### lightness
 
-▸ **lightness**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **lightness**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:399](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L399)
+Defined in: [color.ts:498](../../src/color.ts#L498)
 
 ___
 
 ### luminosity
 
-▸ **luminosity**(`color`: [*Color*](color.md#color)): *number*
+▸ **luminosity**(`color`: [*ColorSpecification*](color.md#colorspecification)): *number*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
 **Returns:** *number*
 
-Defined in: [color.ts:351](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L351)
+Defined in: [color.ts:452](../../src/color.ts#L452)
 
 ___
 
 ### negate
 
-▸ **negate**<T\>(`color`: T): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **negate**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | T |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:380](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L380)
+Defined in: [color.ts:479](../../src/color.ts#L479)
 
 ___
 
-### rotate
+### parse
 
-▸ **rotate**<T\>(`color`: T, `degrees?`: *number*): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **parse**(`input`: *string*): [*Color*](color.md#color)
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `color` | T | - |
-| `degrees` | *number* | 10 |
+| Name | Type |
+| :------ | :------ |
+| `input` | *string* |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:385](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L385)
+Defined in: [color.ts:123](../../src/color.ts#L123)
 
 ___
 
 ### saturation
 
-▸ **saturation**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **saturation**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:393](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L393)
+Defined in: [color.ts:492](../../src/color.ts#L492)
 
 ___
 
 ### scheme
 
-▸ **scheme**<T\>(`color`: T, `scheme`: keyof *typeof* schemes): T[]
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **scheme**(`color`: [*ColorSpecification*](color.md#colorspecification)): *Record*<string, [*Color*](color.md#color)[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | T |
-| `scheme` | keyof *typeof* schemes |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** T[]
+**Returns:** *Record*<string, [*Color*](color.md#color)[]\>
 
-Defined in: [color.ts:466](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L466)
+Defined in: [color.ts:597](../../src/color.ts#L597)
+
+___
+
+### string
+
+▸ **string**(`color`: [*ColorSpecification*](color.md#colorspecification), `format?`: [*StringFormat*](color.md#stringformat)): [*ColorSpecification*](color.md#colorspecification)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `format?` | [*StringFormat*](color.md#stringformat) |
+
+**Returns:** [*ColorSpecification*](color.md#colorspecification)
+
+Defined in: [color.ts:170](../../src/color.ts#L170)
 
 ___
 
 ### to
 
-▸ **to**(`color`: [*Color*](color.md#color), `space`: *string*): [*Color*](color.md#color)
+▸ **to**(`color`: [*ColorSpecification*](color.md#colorspecification), `space`: keyof *typeof* [*colorSpaces*](color.md#colorspaces)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) |
-| `space` | *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `space` | keyof *typeof* [*colorSpaces*](color.md#colorspaces) |
 
 **Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:141](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L141)
+Defined in: [color.ts:191](../../src/color.ts#L191)
 
 ___
 
 ### toCMY
 
-▸ **toCMY**(`color`: [*Color*](color.md#color) \| *string*): [*CMY*](color.md#cmy)
+▸ **toCMY**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*CMY*](cmy.md#cmy)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*CMY*](color.md#cmy)
+**Returns:** [*CMY*](cmy.md#cmy)
 
-Defined in: [color.ts:255](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L255)
+Defined in: [color.ts:340](../../src/color.ts#L340)
 
 ___
 
 ### toCMYK
 
-▸ **toCMYK**(`color`: [*Color*](color.md#color) \| *string*): [*CMYK*](color.md#cmyk)
+▸ **toCMYK**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*CMYK*](cmyk.md#cmyk)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*CMYK*](color.md#cmyk)
+**Returns:** [*CMYK*](cmyk.md#cmyk)
 
-Defined in: [color.ts:271](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L271)
+Defined in: [color.ts:359](../../src/color.ts#L359)
+
+___
+
+### toColor
+
+▸ **toColor**(`input`: [*ColorSpecification*](color.md#colorspecification)): [*Color*](color.md#color)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `input` | [*ColorSpecification*](color.md#colorspecification) |
+
+**Returns:** [*Color*](color.md#color)
+
+Defined in: [color.ts:209](../../src/color.ts#L209)
 
 ___
 
 ### toHCG
 
-▸ **toHCG**(`color`: [*Color*](color.md#color) \| *string*): [*HCG*](color.md#hcg)
+▸ **toHCG**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HCG*](hcg.md#hcg)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*HCG*](color.md#hcg)
+**Returns:** [*HCG*](hcg.md#hcg)
 
-Defined in: [color.ts:239](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L239)
+Defined in: [color.ts:321](../../src/color.ts#L321)
 
 ___
 
 ### toHSI
 
-▸ **toHSI**(`color`: [*Color*](color.md#color) \| *string*): [*HSI*](color.md#hsi)
+▸ **toHSI**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HSI*](hsi.md#hsi)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*HSI*](color.md#hsi)
+**Returns:** [*HSI*](hsi.md#hsi)
 
-Defined in: [color.ts:207](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L207)
+Defined in: [color.ts:283](../../src/color.ts#L283)
 
 ___
 
 ### toHSL
 
-▸ **toHSL**(`color`: [*Color*](color.md#color) \| *string*): [*HSL*](color.md#hsl)
+▸ **toHSL**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HSL*](hsl.md#hsl)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*HSL*](color.md#hsl)
+**Returns:** [*HSL*](hsl.md#hsl)
 
-Defined in: [color.ts:175](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L175)
+Defined in: [color.ts:245](../../src/color.ts#L245)
 
 ___
 
 ### toHSV
 
-▸ **toHSV**(`color`: [*Color*](color.md#color) \| *string*): [*HSV*](color.md#hsv)
+▸ **toHSV**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HSV*](hsv.md#hsv)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*HSV*](color.md#hsv)
+**Returns:** [*HSV*](hsv.md#hsv)
 
-Defined in: [color.ts:191](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L191)
+Defined in: [color.ts:264](../../src/color.ts#L264)
 
 ___
 
 ### toHWB
 
-▸ **toHWB**(`color`: [*Color*](color.md#color) \| *string*): [*HWB*](color.md#hwb)
+▸ **toHWB**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HWB*](hwb.md#hwb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*HWB*](color.md#hwb)
+**Returns:** [*HWB*](hwb.md#hwb)
 
-Defined in: [color.ts:223](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L223)
+Defined in: [color.ts:302](../../src/color.ts#L302)
 
 ___
 
 ### toLAB
 
-▸ **toLAB**(`color`: [*Color*](color.md#color) \| *string*): [*LAB*](color.md#lab)
+▸ **toLAB**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*LAB*](lab.md#lab)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*LAB*](color.md#lab)
+**Returns:** [*LAB*](lab.md#lab)
 
-Defined in: [color.ts:303](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L303)
+Defined in: [color.ts:397](../../src/color.ts#L397)
 
 ___
 
 ### toLCH
 
-▸ **toLCH**(`color`: [*Color*](color.md#color) \| *string*): [*LCH*](color.md#lch)
+▸ **toLCH**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*LCH*](lch.md#lch)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*LCH*](color.md#lch)
+**Returns:** [*LCH*](lch.md#lch)
 
-Defined in: [color.ts:319](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L319)
+Defined in: [color.ts:416](../../src/color.ts#L416)
 
 ___
 
 ### toRGB
 
-▸ **toRGB**(`color`: [*Color*](color.md#color) \| *string*): [*RGB*](color.md#rgb)
+▸ **toRGB**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*RGB*](rgb.md#rgb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*RGB*](color.md#rgb)
+**Returns:** [*RGB*](rgb.md#rgb)
 
-Defined in: [color.ts:159](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L159)
+Defined in: [color.ts:226](../../src/color.ts#L226)
 
 ___
 
 ### toXYZ
 
-▸ **toXYZ**(`color`: [*Color*](color.md#color) \| *string*): [*XYZ*](color.md#xyz)
+▸ **toXYZ**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*XYZ*](xyz.md#xyz)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*Color*](color.md#color) \| *string* |
+| `color` | [*ColorSpecification*](color.md#colorspecification) |
 
-**Returns:** [*XYZ*](color.md#xyz)
+**Returns:** [*XYZ*](xyz.md#xyz)
 
-Defined in: [color.ts:287](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L287)
+Defined in: [color.ts:378](../../src/color.ts#L378)
 
 ___
 
 ### value
 
-▸ **value**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **value**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:405](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L405)
+Defined in: [color.ts:504](../../src/color.ts#L504)
 
 ___
 
 ### whiteness
 
-▸ **whiteness**<T\>(`color`: T, `amount?`: AmountRatio): T
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T` | [*Color*](color.md#color) |
+▸ **whiteness**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | T | - |
-| `amount` | AmountRatio | 0.25 |
+| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
+| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
 
-**Returns:** T
+**Returns:** [*Color*](color.md#color)
 
-Defined in: [color.ts:411](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/color.ts#L411)
+Defined in: [color.ts:510](../../src/color.ts#L510)

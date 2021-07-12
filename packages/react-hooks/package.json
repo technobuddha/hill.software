@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "./scripts/build.ts",
+    "build": "npm run compile",
+    "compile": "./scripts/build.ts",
     "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/react-hooks",
     "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",

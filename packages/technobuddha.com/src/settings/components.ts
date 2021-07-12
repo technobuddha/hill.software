@@ -3,6 +3,7 @@ import { GiMusicalNotes }     from '%icons/gi/GiMusicalNotes';
 import { GiConwayLifeGlider } from '%icons/gi/GiConwayLifeGlider';
 import { GiOrbital }          from '%icons/gi/GiOrbital';
 import { GiChessKnight }      from '%icons/gi/GiChessKnight';
+import { GiThornyVine }       from '%icons/gi/GiThornyVine';
 import { GiPalette }          from '%icons/gi/GiPalette';
 import { GiMaze }             from '%icons/gi/GiMaze';
 import { HiColorSwatch }      from '%icons/hi/HiColorSwatch';
@@ -10,6 +11,7 @@ import { HiColorSwatch }      from '%icons/hi/HiColorSwatch';
 import Home                 from '#component/home';
 import NBody                from '#component/nBody';
 import Music                from '#component/music';
+import Chaos                from '#component/chaos';
 import Knight               from '#component/knight';
 import Life                 from '#component/life';
 import MazeMaker            from '#component/maze';
@@ -83,6 +85,17 @@ export const components: (t: TFunction) => Component[] = t => [
         secondary: t('The Knight Move Problem'),
         location: '/knight',
         component: Knight,
+        todo: [
+            t('Add a description to this component'),
+            t('Clean up the UI'),
+        ],
+    },
+    {
+        icon: GiThornyVine,
+        primary: t('Chaos'),
+        secondary: t('The Mandelbrot Set'),
+        location: '/chaos',
+        component: Chaos,
         todo: [
             t('Add a description to this component'),
             t('Clean up the UI'),

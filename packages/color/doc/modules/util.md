@@ -14,6 +14,7 @@
 - [op](util.md#op)
 - [percent](util.md#percent)
 - [sep](util.md#sep)
+- [space](util.md#space)
 
 ### Functions
 
@@ -21,7 +22,6 @@
 - [getAngle](util.md#getangle)
 - [getNumber](util.md#getnumber)
 - [getPercent](util.md#getpercent)
-- [hypot](util.md#hypot)
 - [modulo](util.md#modulo)
 - [re](util.md#re)
 - [round](util.md#round)
@@ -34,7 +34,7 @@
 
 • `Const` **alpha**: *RegExp*
 
-Defined in: [util.ts:48](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L48)
+Defined in: [util.ts:45](../../src/util.ts#L45)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 • `Const` **angle**: *RegExp*
 
-Defined in: [util.ts:47](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L47)
+Defined in: [util.ts:44](../../src/util.ts#L44)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 • `Const` **cp**: *RegExp*
 
-Defined in: [util.ts:43](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L43)
+Defined in: [util.ts:40](../../src/util.ts#L40)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 • `Const` **num**: *RegExp*
 
-Defined in: [util.ts:44](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L44)
+Defined in: [util.ts:41](../../src/util.ts#L41)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 • `Const` **number**: *RegExp*
 
-Defined in: [util.ts:45](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L45)
+Defined in: [util.ts:42](../../src/util.ts#L42)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • `Const` **op**: *RegExp*
 
-Defined in: [util.ts:42](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L42)
+Defined in: [util.ts:39](../../src/util.ts#L39)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 • `Const` **percent**: *RegExp*
 
-Defined in: [util.ts:46](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L46)
+Defined in: [util.ts:43](../../src/util.ts#L43)
 
 ___
 
@@ -90,7 +90,15 @@ ___
 
 • `Const` **sep**: *RegExp*
 
-Defined in: [util.ts:41](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L41)
+Defined in: [util.ts:37](../../src/util.ts#L37)
+
+___
+
+### space
+
+• `Const` **space**: *RegExp*
+
+Defined in: [util.ts:38](../../src/util.ts#L38)
 
 ## Functions
 
@@ -107,72 +115,59 @@ Defined in: [util.ts:41](https://github.com/technobuddha/hill.software/blob/d33f
 
 **Returns:** *boolean*
 
-Defined in: [util.ts:11](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L11)
+Defined in: [util.ts:7](../../src/util.ts#L7)
 
 ___
 
 ### getAngle
 
-▸ **getAngle**(`input`: *string*): *number*
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `input` | *string* |
-
-**Returns:** *number*
-
-Defined in: [util.ts:56](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L56)
-
-___
-
-### getNumber
-
-▸ **getNumber**(`input`: *string*): *number*
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `input` | *string* |
-
-**Returns:** *number*
-
-Defined in: [util.ts:68](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L68)
-
-___
-
-### getPercent
-
-▸ **getPercent**(`input`: *string*, `scale?`: *number*): *number*
+▸ **getAngle**(`input`: *string*, `precision?`: *number*): *number*
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `input` | *string* | - |
-| `scale` | *number* | 100 |
+| `precision` | *number* | 2 |
 
 **Returns:** *number*
 
-Defined in: [util.ts:50](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L50)
+Defined in: [util.ts:53](../../src/util.ts#L53)
 
 ___
 
-### hypot
+### getNumber
 
-▸ **hypot**(...`sides`: *number*[]): *number*
+▸ **getNumber**(`input`: *string*, `precision?`: *number*): *number*
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `...sides` | *number*[] |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `input` | *string* | - |
+| `precision` | *number* | 2 |
 
 **Returns:** *number*
 
-Defined in: [util.ts:7](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L7)
+Defined in: [util.ts:65](../../src/util.ts#L65)
+
+___
+
+### getPercent
+
+▸ **getPercent**(`input`: *string*, `scale`: *number*, `precision?`: *number*): *number*
+
+#### Parameters
+
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `input` | *string* | - |
+| `scale` | *number* | - |
+| `precision` | *number* | 2 |
+
+**Returns:** *number*
+
+Defined in: [util.ts:47](../../src/util.ts#L47)
 
 ___
 
@@ -189,7 +184,7 @@ ___
 
 **Returns:** *number*
 
-Defined in: [util.ts:2](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L2)
+Defined in: [util.ts:2](../../src/util.ts#L2)
 
 ___
 
@@ -206,24 +201,24 @@ ___
 
 **Returns:** RegExp
 
-Defined in: [util.ts:30](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L30)
+Defined in: [util.ts:26](../../src/util.ts#L26)
 
 ___
 
 ### round
 
-▸ **round**(`n`: *number*, `precision?`: *number*): *number*
+▸ **round**(`n`: *number*, `precision`: *number*): *number*
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `n` | *number* | - |
-| `precision` | *number* | 0 |
+| Name | Type |
+| :------ | :------ |
+| `n` | *number* |
+| `precision` | *number* |
 
 **Returns:** *number*
 
-Defined in: [util.ts:23](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L23)
+Defined in: [util.ts:19](../../src/util.ts#L19)
 
 ___
 
@@ -239,7 +234,7 @@ ___
 
 **Returns:** *number*
 
-Defined in: [util.ts:15](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L15)
+Defined in: [util.ts:11](../../src/util.ts#L11)
 
 ___
 
@@ -255,4 +250,4 @@ ___
 
 **Returns:** *number*
 
-Defined in: [util.ts:19](https://github.com/technobuddha/hill.software/blob/d33fddd/packages/color/src/util.ts#L19)
+Defined in: [util.ts:15](../../src/util.ts#L15)
