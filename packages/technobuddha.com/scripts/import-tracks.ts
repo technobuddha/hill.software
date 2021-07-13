@@ -45,7 +45,7 @@ function err(text: string | undefined) {
     await db.task(async t => {
         await t.none('TRUNCATE track_new;');
 
-        for(const file of [ './data/tracks1.mldata', '/mnt/music/tracks.mldata' ]) {
+        for(const file of [ '/mnt/music/tracks.mldata' ]) {
             // eslint-disable-next-line new-cap
             const lineReader = new nReadLines(file);
 

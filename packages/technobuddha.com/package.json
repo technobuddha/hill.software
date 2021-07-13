@@ -116,6 +116,8 @@
     "eslint-plugin-tsdoc": "^0.2.11",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
+    "glob": "^7.1.7",
+    "glob-promise": "^4.2.0",
     "history": "^5.0.0",
     "http-proxy-middleware": "^2.0.0",
     "i18next": "^20.3.0",
