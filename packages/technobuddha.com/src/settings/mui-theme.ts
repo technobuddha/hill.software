@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 
 import type { Theme as MuiTheme } from '@material-ui/core/styles';
 
@@ -57,7 +57,7 @@ export const themeSettings = {
 };
 
 export const theme: Theme = {
-    ...createMuiTheme(themeSettings),
+    ...createTheme(themeSettings),
     iconSize: 24,
     userInterface: {
         headerHeight: '40px',
