@@ -32,6 +32,7 @@ export const genServerWebpackConfig: ((isDevelopment?: boolean) => Webpack.Confi
         resolve: {
             extensions,
             plugins:        [ new TsConfigPathsPlugin({ extensions }) ],
+            mainFields:     [ 'typescript', 'esnext', 'es2015', 'module', 'main' ],
         },
         optimization:   { minimize: !isDevelopment },
         devtool:        isDevelopment ? 'source-map' : false,
@@ -39,6 +40,5 @@ export const genServerWebpackConfig: ((isDevelopment?: boolean) => Webpack.Confi
         externals:      [ nodeExternals() ],
         performance:    { hints: false },
         stats:          'normal',
-        node:           { __dirname: false, __filename: true },
     };
 };
