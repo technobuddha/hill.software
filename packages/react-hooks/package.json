@@ -30,9 +30,7 @@
   "dependencies": {
     "@technobuddha/library": "^1.6.4"
   },
-  "devDependencies": {
-    "@types/react": "^16.14.3",
-    "@types/react-dom": "^16.9.10",
+  "peerDependencies": {
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   },

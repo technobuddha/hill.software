@@ -37,9 +37,9 @@
     "react-window": "^1.8.6"
   },
   "devDependencies": {
-    "@types/react": "^16.14.3",
-    "@types/react-dom": "^16.9.10",
-    "@types/react-window": "^1.8.2",
+    "@types/react-window": "^1.8.2"
+  },
+  "peerDependencies": {
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   }

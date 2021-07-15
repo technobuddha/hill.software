@@ -35,7 +35,8 @@ type LernaPackage = {
     location: string;
 };
 
-//const rebuild   = new Set<string>();
+const topPackage  = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json')).toString()) as PackageJson;
+
 const packages    = Object.fromEntries((JSON.parse(shell.exec('lerna list --json', { silent: true })) as LernaPackage[])
                     .filter(p => p.name !== '@technobuddha/vt100')
                     .map(p => [ p.name, p ]));
@@ -97,10 +98,17 @@ for(const dstPackage of Object.values(packages)) {
         for(const [ name, version ] of Object.entries(versions)) {
             if(dstPackageJson.dependencies && name in dstPackageJson.dependencies)
                 dstPackageJson.dependencies[name] = `^${version}`;
-
-            if(dstPackageJson.devDependencies && name in dstPackageJson.devDependencies)
+            else if(dstPackageJson.devDependencies && name in dstPackageJson.devDependencies)
                 dstPackageJson.devDependencies[name] = `^${version}`;
+        }
 
+        if(dstPackageJson.peerDependencies) {
+            for(const name of Object.keys(dstPackageJson.peerDependencies)) {
+                if(topPackage.dependencies && name in topPackage.dependencies)
+                    dstPackageJson.peerDependencies[name] = topPackage.dependencies[name];
+                else if(topPackage.devDependencies && name in topPackage.devDependencies)
+                    dstPackageJson.peerDependencies[name] = topPackage.devDependencies[name];
+            }
         }
 
         fs.writeFileSync(dstPackageFile, `${JSON.stringify(dstPackageJson, undefined, 2)}\n`);
