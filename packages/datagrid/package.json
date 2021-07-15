@@ -33,17 +33,14 @@
     "@technobuddha/mui-size": "^1.1.0",
     "@technobuddha/react-hooks": "^1.5.0",
     "clsx": "^1.1.1",
-    "lodash": "^4.17.20",
     "query-string": "^7.0.0",
     "react-window": "^1.8.6"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.168",
     "@types/react": "^16.14.3",
     "@types/react-dom": "^16.9.10",
     "@types/react-window": "^1.8.2",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "typescript": "^4.1.3"
+    "react-dom": "^16.14.0"
   }
 }
