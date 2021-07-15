@@ -1,7 +1,6 @@
-import color from '@technobuddha/color';
 import lerp  from '@technobuddha/library/lerp';
 
-import type { RGB } from '@technobuddha/color';
+type RGB = { r: number; g: number; b: number };
 
 export type MandelbrotReturn = { colors: RGB[][]; x_min: number; x_max: number; y_min: number; y_max: number };
 
@@ -60,10 +59,10 @@ function mandelbrot(width: number, height: number, x_min: number, x_max: number,
     for(let i = 0; i < iterations; ++i)
         total += histo[i];
 
-    let t = 0;
+    let h = 0;
     for(let i = 0; i < iterations; ++i) {
-        t += histo[i] / total;
-        hues[i] = t;
+        h += histo[i] / total;
+        hues[i] = h;
     }
 
     const colors: RGB[][] = [];
@@ -71,11 +70,33 @@ function mandelbrot(width: number, height: number, x_min: number, x_max: number,
         colors[i] = [];
         for(let j = 0; j < height; ++j) {
             const m = counts[i][j];
-            const h = 1 - lerp(hues[Math.floor(m)], hues[Math.ceil(m)], m % 1);
-            const s = 1;
-            const v = m < iterations ? 1 : 0;
 
-            colors[i][j] = color.toRGB({ h, s, v });
+            let hue        = 1 - lerp(hues[Math.floor(m)], hues[Math.ceil(m)], m % 1);
+            let saturation = 1;
+            let value      = m < iterations ? 1 : 0;
+
+            hue *= 6;
+            let hi          = Math.floor(hue) % 6;
+
+            const f = hue - Math.floor(hue);
+            const p = value * (1 - saturation);
+            const q = value * (1 - (saturation * f));
+            const t = value * (1 - (saturation * (1 - f)));
+            const v = value;
+
+            let red:   number;
+            let green: number;
+            let blue:  number;
+            switch(hi) {
+                case 0:   red = v; green = t; blue = p; break;
+                case 1:   red = q; green = v; blue = t; break;
+                case 2:   red = p; green = v; blue = t; break;
+                case 3:   red = p; green = q; blue = v; break;
+                case 4:   red = t; green = p; blue = v; break;
+                default:  red = v; green = p; blue = q; break;
+            }
+
+            colors[i][j] = { r: Math.round(red * 255), g: Math.round(green * 255), b: Math.round(blue * 255) };
         }
     }
 
