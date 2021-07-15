@@ -1,6 +1,6 @@
 {
   "name": "@technobuddha/datagrid",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Material-UI general purpose data grid",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -29,7 +29,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
-    "@technobuddha/library": "^1.6.4",
+    "@technobuddha/library": "^1.7.0",
     "@technobuddha/mui-size": "^1.1.0",
     "@technobuddha/react-hooks": "^1.5.0",
     "clsx": "^1.1.1",

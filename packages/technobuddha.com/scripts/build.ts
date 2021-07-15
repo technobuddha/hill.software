@@ -24,7 +24,6 @@ function report(error: Error | null, stats: webpack.Stats): void {
         process.exit(1);
     }
 
-    // out(` ${(stats.endTime ?? 0) - (stats.startTime ?? 0)}ms\n`);
     if(stats.compilation.errors.length) {
         out(`${chalk.red('Errors:')}\n`);
         for(const e of stats.compilation.errors)
