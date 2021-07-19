@@ -36,279 +36,349 @@
 
 ### HSI
 
-Ƭ **HSI**: [*Alpha*](color.md#alpha) & iHSI & oHSI
+Ƭ **HSI**: [`Alpha`](color.md#alpha) & `iHSI` & `oHSI`
 
-Defined in: [hsi.ts:12](../../src/hsi.ts#L12)
+#### Defined in
+
+[hsi.ts:12](../../src/hsi.ts#L12)
 
 ___
 
 ### partialHSI
 
-Ƭ **partialHSI**: [*Alpha*](color.md#alpha) & iHSI \| oHSI \| iHSI & oHSI
+Ƭ **partialHSI**: [`Alpha`](color.md#alpha) & `iHSI` \| `oHSI` \| `iHSI` & `oHSI`
 
-Defined in: [hsi.ts:11](../../src/hsi.ts#L11)
+#### Defined in
+
+[hsi.ts:11](../../src/hsi.ts#L11)
 
 ## Variables
 
 ### default
 
-• `Const` **default**: [*ColorSpace*](color_space.md#colorspace)<[*HSI*](hsi.md#hsi), [*partialHSI*](hsi.md#partialhsi), internalHSI\>
+• `Const` **default**: [`ColorSpace`](color_space.md#colorspace)<[`HSI`](hsi.md#hsi), [`partialHSI`](hsi.md#partialhsi), `internalHSI`\>
 
-Defined in: [hsi.ts:145](../../src/hsi.ts#L145)
+#### Defined in
+
+[hsi.ts:145](../../src/hsi.ts#L145)
 
 ## Functions
 
 ### external
 
-▸ **external**(`__namedParameters`: internalHSI): [*HSI*](hsi.md#hsi)
+▸ **external**(`__namedParameters`): [`HSI`](hsi.md#hsi)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `__namedParameters` | internalHSI |
+| `__namedParameters` | `internalHSI` |
 
-**Returns:** [*HSI*](hsi.md#hsi)
+#### Returns
 
-Defined in: [hsi.ts:25](../../src/hsi.ts#L25)
+[`HSI`](hsi.md#hsi)
+
+#### Defined in
+
+[hsi.ts:25](../../src/hsi.ts#L25)
 
 ___
 
 ### internal
 
-▸ **internal**(`color`: [*partialHSI*](hsi.md#partialhsi)): internalHSI
+▸ **internal**(`color`): `internalHSI`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** internalHSI
+#### Returns
 
-Defined in: [hsi.ts:19](../../src/hsi.ts#L19)
+`internalHSI`
+
+#### Defined in
+
+[hsi.ts:19](../../src/hsi.ts#L19)
 
 ___
 
 ### is
 
-▸ **is**(`color`: [*PartialColor*](color.md#partialcolor)): color is partialHSI
+▸ **is**(`color`): color is partialHSI
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*PartialColor*](color.md#partialcolor) |
+| `color` | [`PartialColor`](color.md#partialcolor) |
 
-**Returns:** color is partialHSI
+#### Returns
 
-Defined in: [hsi.ts:14](../../src/hsi.ts#L14)
+color is partialHSI
+
+#### Defined in
+
+[hsi.ts:14](../../src/hsi.ts#L14)
 
 ___
 
 ### parse
 
-▸ **parse**(`input`: *string*): [*HSI*](hsi.md#hsi) \| *undefined*
+▸ **parse**(`input`): [`HSI`](hsi.md#hsi) \| `undefined`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | *string* |
+| `input` | `string` |
 
-**Returns:** [*HSI*](hsi.md#hsi) \| *undefined*
+#### Returns
 
-Defined in: [hsi.ts:108](../../src/hsi.ts#L108)
+[`HSI`](hsi.md#hsi) \| `undefined`
+
+#### Defined in
+
+[hsi.ts:108](../../src/hsi.ts#L108)
 
 ___
 
 ### string
 
-▸ **string**(`input`: [*partialHSI*](hsi.md#partialhsi), `options`: [*StringOptions*](color.md#stringoptions)): *string*
+▸ **string**(`input`, `options`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | [*partialHSI*](hsi.md#partialhsi) |
-| `options` | [*StringOptions*](color.md#stringoptions) |
+| `input` | [`partialHSI`](hsi.md#partialhsi) |
+| `options` | [`StringOptions`](color.md#stringoptions) |
 
-**Returns:** *string*
+#### Returns
 
-Defined in: [hsi.ts:134](../../src/hsi.ts#L134)
+`string`
+
+#### Defined in
+
+[hsi.ts:134](../../src/hsi.ts#L134)
 
 ___
 
 ### toCMY
 
-▸ **toCMY**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*CMY*](cmy.md#cmy)
+▸ **toCMY**(`color`): [`CMY`](cmy.md#cmy)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*CMY*](cmy.md#cmy)
+#### Returns
 
-Defined in: [hsi.ts:88](../../src/hsi.ts#L88)
+[`CMY`](cmy.md#cmy)
+
+#### Defined in
+
+[hsi.ts:88](../../src/hsi.ts#L88)
 
 ___
 
 ### toCMYK
 
-▸ **toCMYK**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*CMYK*](cmyk.md#cmyk)
+▸ **toCMYK**(`color`): [`CMYK`](cmyk.md#cmyk)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*CMYK*](cmyk.md#cmyk)
+#### Returns
 
-Defined in: [hsi.ts:92](../../src/hsi.ts#L92)
+[`CMYK`](cmyk.md#cmyk)
+
+#### Defined in
+
+[hsi.ts:92](../../src/hsi.ts#L92)
 
 ___
 
 ### toHCG
 
-▸ **toHCG**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*HCG*](hcg.md#hcg)
+▸ **toHCG**(`color`): [`HCG`](hcg.md#hcg)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*HCG*](hcg.md#hcg)
+#### Returns
 
-Defined in: [hsi.ts:84](../../src/hsi.ts#L84)
+[`HCG`](hcg.md#hcg)
+
+#### Defined in
+
+[hsi.ts:84](../../src/hsi.ts#L84)
 
 ___
 
 ### toHSI
 
-▸ **toHSI**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*HSI*](hsi.md#hsi)
+▸ **toHSI**(`color`): [`HSI`](hsi.md#hsi)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*HSI*](hsi.md#hsi)
+#### Returns
 
-Defined in: [hsi.ts:76](../../src/hsi.ts#L76)
+[`HSI`](hsi.md#hsi)
+
+#### Defined in
+
+[hsi.ts:76](../../src/hsi.ts#L76)
 
 ___
 
 ### toHSL
 
-▸ **toHSL**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*HSL*](hsl.md#hsl)
+▸ **toHSL**(`color`): [`HSL`](hsl.md#hsl)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*HSL*](hsl.md#hsl)
+#### Returns
 
-Defined in: [hsi.ts:68](../../src/hsi.ts#L68)
+[`HSL`](hsl.md#hsl)
+
+#### Defined in
+
+[hsi.ts:68](../../src/hsi.ts#L68)
 
 ___
 
 ### toHSV
 
-▸ **toHSV**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*HSV*](hsv.md#hsv)
+▸ **toHSV**(`color`): [`HSV`](hsv.md#hsv)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*HSV*](hsv.md#hsv)
+#### Returns
 
-Defined in: [hsi.ts:72](../../src/hsi.ts#L72)
+[`HSV`](hsv.md#hsv)
+
+#### Defined in
+
+[hsi.ts:72](../../src/hsi.ts#L72)
 
 ___
 
 ### toHWB
 
-▸ **toHWB**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*HWB*](hwb.md#hwb)
+▸ **toHWB**(`color`): [`HWB`](hwb.md#hwb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*HWB*](hwb.md#hwb)
+#### Returns
 
-Defined in: [hsi.ts:80](../../src/hsi.ts#L80)
+[`HWB`](hwb.md#hwb)
+
+#### Defined in
+
+[hsi.ts:80](../../src/hsi.ts#L80)
 
 ___
 
 ### toLAB
 
-▸ **toLAB**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*LAB*](lab.md#lab)
+▸ **toLAB**(`color`): [`LAB`](lab.md#lab)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*LAB*](lab.md#lab)
+#### Returns
 
-Defined in: [hsi.ts:100](../../src/hsi.ts#L100)
+[`LAB`](lab.md#lab)
+
+#### Defined in
+
+[hsi.ts:100](../../src/hsi.ts#L100)
 
 ___
 
 ### toLCH
 
-▸ **toLCH**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*LCH*](lch.md#lch)
+▸ **toLCH**(`color`): [`LCH`](lch.md#lch)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*LCH*](lch.md#lch)
+#### Returns
 
-Defined in: [hsi.ts:104](../../src/hsi.ts#L104)
+[`LCH`](lch.md#lch)
+
+#### Defined in
+
+[hsi.ts:104](../../src/hsi.ts#L104)
 
 ___
 
 ### toRGB
 
-▸ **toRGB**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*RGB*](rgb.md#rgb)
+▸ **toRGB**(`color`): [`RGB`](rgb.md#rgb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*RGB*](rgb.md#rgb)
+#### Returns
 
-Defined in: [hsi.ts:38](../../src/hsi.ts#L38)
+[`RGB`](rgb.md#rgb)
+
+#### Defined in
+
+[hsi.ts:38](../../src/hsi.ts#L38)
 
 ___
 
 ### toXYZ
 
-▸ **toXYZ**(`color`: [*partialHSI*](hsi.md#partialhsi)): [*XYZ*](xyz.md#xyz)
+▸ **toXYZ**(`color`): [`XYZ`](xyz.md#xyz)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSI*](hsi.md#partialhsi) |
+| `color` | [`partialHSI`](hsi.md#partialhsi) |
 
-**Returns:** [*XYZ*](xyz.md#xyz)
+#### Returns
 
-Defined in: [hsi.ts:96](../../src/hsi.ts#L96)
+[`XYZ`](xyz.md#xyz)
+
+#### Defined in
+
+[hsi.ts:96](../../src/hsi.ts#L96)

@@ -2,9 +2,9 @@
 
 ## Table of contents
 
-- [useDerivedState](modules/usederivedstate.md)
-- [useLocal](modules/uselocal.md)
-- [useLocalStorage](modules/uselocalstorage.md)
-- [usePrevious](modules/useprevious.md)
-- [useWhyDidIRender](modules/usewhydidirender.md)
-- [useWindowSize](modules/usewindowsize.md)
+- [useDerivedState](modules/useDerivedState.md)
+- [useLocal](modules/useLocal.md)
+- [useLocalStorage](modules/useLocalStorage.md)
+- [usePrevious](modules/usePrevious.md)
+- [useWhyDidIRender](modules/useWhyDidIRender.md)
+- [useWindowSize](modules/useWindowSize.md)

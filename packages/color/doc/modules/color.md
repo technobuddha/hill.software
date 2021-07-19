@@ -229,31 +229,37 @@ Re-exports: [partialXYZ](xyz.md#partialxyz)
 
 ### Alpha
 
-Ƭ **Alpha**: *object*
+Ƭ **Alpha**: `Object`
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `alpha?` | *number* |
+| `alpha?` | `number` |
 
-Defined in: [color.ts:14](../../src/color.ts#L14)
+#### Defined in
+
+[color.ts:14](../../src/color.ts#L14)
 
 ___
 
 ### AmountRatio
 
-Ƭ **AmountRatio**: { `ratio`: *number*  } \| { `amount`: *number*  } \| *number*
+Ƭ **AmountRatio**: { `ratio`: `number`  } \| { `amount`: `number`  } \| `number`
 
-Defined in: [color.ts:42](../../src/color.ts#L42)
+#### Defined in
+
+[color.ts:42](../../src/color.ts#L42)
 
 ___
 
 ### Color
 
-Ƭ **Color**: [*RGB*](rgb.md#rgb) \| [*HSL*](hsl.md#hsl) \| [*HSV*](hsv.md#hsv) \| [*HSI*](hsi.md#hsi) \| [*HWB*](hwb.md#hwb) \| [*HCG*](hcg.md#hcg) \| [*CMY*](cmy.md#cmy) \| [*CMYK*](cmyk.md#cmyk) \| [*XYZ*](xyz.md#xyz) \| [*LAB*](lab.md#lab) \| [*LCH*](lch.md#lch)
+Ƭ **Color**: [`RGB`](rgb.md#rgb) \| [`HSL`](hsl.md#hsl) \| [`HSV`](hsv.md#hsv) \| [`HSI`](hsi.md#hsi) \| [`HWB`](hwb.md#hwb) \| [`HCG`](hcg.md#hcg) \| [`CMY`](cmy.md#cmy) \| [`CMYK`](cmyk.md#cmyk) \| [`XYZ`](xyz.md#xyz) \| [`LAB`](lab.md#lab) \| [`LCH`](lch.md#lch)
 
-Defined in: [color.ts:39](../../src/color.ts#L39)
+#### Defined in
+
+[color.ts:39](../../src/color.ts#L39)
 
 ___
 
@@ -261,815 +267,991 @@ ___
 
 Ƭ **ColorFormat**: ``"name"`` \| ``"hex"`` \| ``"css"`` \| ``"default"``
 
-Defined in: [color.ts:142](../../src/color.ts#L142)
+#### Defined in
+
+[color.ts:142](../../src/color.ts#L142)
 
 ___
 
 ### ColorSpecification
 
-Ƭ **ColorSpecification**: [*PartialColor*](color.md#partialcolor) \| *string*
+Ƭ **ColorSpecification**: [`PartialColor`](color.md#partialcolor) \| `string`
 
-Defined in: [color.ts:41](../../src/color.ts#L41)
+#### Defined in
+
+[color.ts:41](../../src/color.ts#L41)
 
 ___
 
 ### PartialColor
 
-Ƭ **PartialColor**: [*partialRGB*](rgb.md#partialrgb) \| [*partialHSL*](hsl.md#partialhsl) \| [*partialHSV*](hsv.md#partialhsv) \| [*partialHSI*](hsi.md#partialhsi) \| [*partialHWB*](hwb.md#partialhwb) \| [*partialHCG*](hcg.md#partialhcg) \| [*partialCMY*](cmy.md#partialcmy) \| [*partialCMYK*](cmyk.md#partialcmyk) \| [*partialXYZ*](xyz.md#partialxyz) \| [*partialLAB*](lab.md#partiallab) \| [*partialLCH*](lch.md#partiallch)
+Ƭ **PartialColor**: [`partialRGB`](rgb.md#partialrgb) \| [`partialHSL`](hsl.md#partialhsl) \| [`partialHSV`](hsv.md#partialhsv) \| [`partialHSI`](hsi.md#partialhsi) \| [`partialHWB`](hwb.md#partialhwb) \| [`partialHCG`](hcg.md#partialhcg) \| [`partialCMY`](cmy.md#partialcmy) \| [`partialCMYK`](cmyk.md#partialcmyk) \| [`partialXYZ`](xyz.md#partialxyz) \| [`partialLAB`](lab.md#partiallab) \| [`partialLCH`](lch.md#partiallch)
 
-Defined in: [color.ts:40](../../src/color.ts#L40)
+#### Defined in
+
+[color.ts:40](../../src/color.ts#L40)
 
 ___
 
 ### StringFormat
 
-Ƭ **StringFormat**: [*ColorFormat*](color.md#colorformat) \| *Partial*<[*StringOptions*](color.md#stringoptions)\>
+Ƭ **StringFormat**: [`ColorFormat`](color.md#colorformat) \| `Partial`<[`StringOptions`](color.md#stringoptions)\>
 
-Defined in: [color.ts:148](../../src/color.ts#L148)
+#### Defined in
+
+[color.ts:148](../../src/color.ts#L148)
 
 ___
 
 ### StringOptions
 
-Ƭ **StringOptions**: *object*
+Ƭ **StringOptions**: `Object`
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
 | `cssVersion` | ``3`` \| ``4`` |
-| `format` | [*ColorFormat*](color.md#colorformat) |
-| `hexShorthand` | *boolean* |
+| `format` | [`ColorFormat`](color.md#colorformat) |
+| `hexShorthand` | `boolean` |
 
-Defined in: [color.ts:143](../../src/color.ts#L143)
+#### Defined in
+
+[color.ts:143](../../src/color.ts#L143)
 
 ## Properties
 
 ### default
 
-• **default**: *object*
+• **default**: `Object`
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `alpha` | (`input`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `attributes` | *object* |
-| `attributes.blackness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `attributes.chroma` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `attributes.greyness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `attributes.intensity` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `attributes.lightness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `attributes.saturation` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `attributes.value` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `attributes.whiteness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `blackness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `chroma` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `colorDistance` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `contrast` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `deltaC` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `deltaCMC` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `deltaE1976` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `deltaE1994` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `deltaE2000` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `deltaH` | (`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `grayscale` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*Color*](color.md#color) |
-| `greyness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `hue` | (`color`: [*ColorSpecification*](color.md#colorspecification), `degrees`: *number*) => [*Color*](color.md#color) |
-| `intensity` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `isDark` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => *boolean* |
-| `isLight` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => *boolean* |
-| `lightness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `luminosity` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => *number* |
-| `negate` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*Color*](color.md#color) |
-| `parse` | (`input`: *string*) => [*Color*](color.md#color) |
-| `saturation` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `scheme` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => *Record*<string, [*Color*](color.md#color)[]\> |
-| `string` | (`color`: [*ColorSpecification*](color.md#colorspecification), `format?`: [*StringFormat*](color.md#stringformat)) => [*ColorSpecification*](color.md#colorspecification) |
-| `to` | (`color`: [*ColorSpecification*](color.md#colorspecification), `space`: keyof *typeof* [*colorSpaces*](color.md#colorspaces)) => [*Color*](color.md#color) |
-| `toCMY` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*CMY*](cmy.md#cmy) |
-| `toCMYK` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*CMYK*](cmyk.md#cmyk) |
-| `toHCG` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HCG*](hcg.md#hcg) |
-| `toHSI` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HSI*](hsi.md#hsi) |
-| `toHSL` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HSL*](hsl.md#hsl) |
-| `toHSV` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HSV*](hsv.md#hsv) |
-| `toHWB` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*HWB*](hwb.md#hwb) |
-| `toLAB` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*LAB*](lab.md#lab) |
-| `toLCH` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*LCH*](lch.md#lch) |
-| `toRGB` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*RGB*](rgb.md#rgb) |
-| `toXYZ` | (`color`: [*ColorSpecification*](color.md#colorspecification)) => [*XYZ*](xyz.md#xyz) |
-| `value` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `whiteness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `alpha` | (`input`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `attributes` | `Object` |
+| `attributes.blackness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `attributes.chroma` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `attributes.greyness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `attributes.intensity` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `attributes.lightness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `attributes.saturation` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `attributes.value` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `attributes.whiteness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `blackness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `chroma` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `colorDistance` | (`color1`: [`ColorSpecification`](color.md#colorspecification), `color2`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `contrast` | (`color1`: [`ColorSpecification`](color.md#colorspecification), `color2`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `deltaC` | (`color1`: [`ColorSpecification`](color.md#colorspecification), `color2`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `deltaCMC` | (`color1`: [`ColorSpecification`](color.md#colorspecification), `color2`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `deltaE1976` | (`color1`: [`ColorSpecification`](color.md#colorspecification), `color2`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `deltaE1994` | (`color1`: [`ColorSpecification`](color.md#colorspecification), `color2`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `deltaE2000` | (`color1`: [`ColorSpecification`](color.md#colorspecification), `color2`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `deltaH` | (`color1`: [`ColorSpecification`](color.md#colorspecification), `color2`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `grayscale` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`Color`](color.md#color) |
+| `greyness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `hue` | (`color`: [`ColorSpecification`](color.md#colorspecification), `degrees`: `number`) => [`Color`](color.md#color) |
+| `intensity` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `isDark` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => `boolean` |
+| `isLight` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => `boolean` |
+| `lightness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `luminosity` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => `number` |
+| `negate` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`Color`](color.md#color) |
+| `parse` | (`input`: `string`) => [`Color`](color.md#color) |
+| `saturation` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `scheme` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => `Record`<`string`, [`Color`](color.md#color)[]\> |
+| `string` | (`color`: [`ColorSpecification`](color.md#colorspecification), `format?`: [`StringFormat`](color.md#stringformat)) => [`ColorSpecification`](color.md#colorspecification) |
+| `to` | (`color`: [`ColorSpecification`](color.md#colorspecification), `space`: keyof typeof [`colorSpaces`](color.md#colorspaces)) => [`Color`](color.md#color) |
+| `toCMY` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`CMY`](cmy.md#cmy) |
+| `toCMYK` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`CMYK`](cmyk.md#cmyk) |
+| `toHCG` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`HCG`](hcg.md#hcg) |
+| `toHSI` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`HSI`](hsi.md#hsi) |
+| `toHSL` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`HSL`](hsl.md#hsl) |
+| `toHSV` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`HSV`](hsv.md#hsv) |
+| `toHWB` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`HWB`](hwb.md#hwb) |
+| `toLAB` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`LAB`](lab.md#lab) |
+| `toLCH` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`LCH`](lch.md#lch) |
+| `toRGB` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`RGB`](rgb.md#rgb) |
+| `toXYZ` | (`color`: [`ColorSpecification`](color.md#colorspecification)) => [`XYZ`](xyz.md#xyz) |
+| `value` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `whiteness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
 
 ## Variables
 
 ### attributes
 
-• `Const` **attributes**: *object*
+• `Const` **attributes**: `Object`
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `blackness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `chroma` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `greyness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `intensity` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `lightness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `saturation` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `value` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
-| `whiteness` | (`color`: [*ColorSpecification*](color.md#colorspecification), `amount`: [*AmountRatio*](color.md#amountratio)) => [*Color*](color.md#color) |
+| `blackness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `chroma` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `greyness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `intensity` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `lightness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `saturation` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `value` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
+| `whiteness` | (`color`: [`ColorSpecification`](color.md#colorspecification), `amount`: [`AmountRatio`](color.md#amountratio)) => [`Color`](color.md#color) |
 
-Defined in: [color.ts:639](../../src/color.ts#L639)
+#### Defined in
+
+[color.ts:639](../../src/color.ts#L639)
 
 ___
 
 ### colorSpaces
 
-• `Const` **colorSpaces**: *object*
+• `Const` **colorSpaces**: `Object`
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `CMY` | [*ColorSpace*](color_space.md#colorspace)<[*CMY*](cmy.md#cmy), [*partialCMY*](cmy.md#partialcmy), internalCMY\> |
-| `CMYK` | [*ColorSpace*](color_space.md#colorspace)<[*CMYK*](cmyk.md#cmyk), [*partialCMYK*](cmyk.md#partialcmyk), internalCMYK\> |
-| `HCG` | [*ColorSpace*](color_space.md#colorspace)<[*HCG*](hcg.md#hcg), [*partialHCG*](hcg.md#partialhcg), internalHCG\> |
-| `HSI` | [*ColorSpace*](color_space.md#colorspace)<[*HSI*](hsi.md#hsi), [*partialHSI*](hsi.md#partialhsi), internalHSI\> |
-| `HSL` | [*ColorSpace*](color_space.md#colorspace)<[*HSL*](hsl.md#hsl), [*partialHSL*](hsl.md#partialhsl), internalHSL\> |
-| `HSV` | [*ColorSpace*](color_space.md#colorspace)<[*HSV*](hsv.md#hsv), [*partialHSV*](hsv.md#partialhsv), internalHSV\> |
-| `HWB` | [*ColorSpace*](color_space.md#colorspace)<[*HWB*](hwb.md#hwb), [*partialHWB*](hwb.md#partialhwb), internalHWB\> |
-| `LAB` | [*ColorSpace*](color_space.md#colorspace)<[*LAB*](lab.md#lab), [*partialLAB*](lab.md#partiallab), internalLAB\> |
-| `LCH` | [*ColorSpace*](color_space.md#colorspace)<[*LCH*](lch.md#lch), [*partialLCH*](lch.md#partiallch), internalLCH\> |
-| `RGB` | [*ColorSpace*](color_space.md#colorspace)<[*RGB*](rgb.md#rgb), [*partialRGB*](rgb.md#partialrgb), internalRGB\> |
-| `XYZ` | [*ColorSpace*](color_space.md#colorspace)<[*XYZ*](xyz.md#xyz), [*partialXYZ*](xyz.md#partialxyz), internalXYZ\> |
+| `CMY` | [`ColorSpace`](color_space.md#colorspace)<[`CMY`](cmy.md#cmy), [`partialCMY`](cmy.md#partialcmy), `internalCMY`\> |
+| `CMYK` | [`ColorSpace`](color_space.md#colorspace)<[`CMYK`](cmyk.md#cmyk), [`partialCMYK`](cmyk.md#partialcmyk), `internalCMYK`\> |
+| `HCG` | [`ColorSpace`](color_space.md#colorspace)<[`HCG`](hcg.md#hcg), [`partialHCG`](hcg.md#partialhcg), `internalHCG`\> |
+| `HSI` | [`ColorSpace`](color_space.md#colorspace)<[`HSI`](hsi.md#hsi), [`partialHSI`](hsi.md#partialhsi), `internalHSI`\> |
+| `HSL` | [`ColorSpace`](color_space.md#colorspace)<[`HSL`](hsl.md#hsl), [`partialHSL`](hsl.md#partialhsl), `internalHSL`\> |
+| `HSV` | [`ColorSpace`](color_space.md#colorspace)<[`HSV`](hsv.md#hsv), [`partialHSV`](hsv.md#partialhsv), `internalHSV`\> |
+| `HWB` | [`ColorSpace`](color_space.md#colorspace)<[`HWB`](hwb.md#hwb), [`partialHWB`](hwb.md#partialhwb), `internalHWB`\> |
+| `LAB` | [`ColorSpace`](color_space.md#colorspace)<[`LAB`](lab.md#lab), [`partialLAB`](lab.md#partiallab), `internalLAB`\> |
+| `LCH` | [`ColorSpace`](color_space.md#colorspace)<[`LCH`](lch.md#lch), [`partialLCH`](lch.md#partiallch), `internalLCH`\> |
+| `RGB` | [`ColorSpace`](color_space.md#colorspace)<[`RGB`](rgb.md#rgb), [`partialRGB`](rgb.md#partialrgb), `internalRGB`\> |
+| `XYZ` | [`ColorSpace`](color_space.md#colorspace)<[`XYZ`](xyz.md#xyz), [`partialXYZ`](xyz.md#partialxyz), `internalXYZ`\> |
 
-Defined in: [color.ts:47](../../src/color.ts#L47)
+#### Defined in
+
+[color.ts:47](../../src/color.ts#L47)
 
 ___
 
 ### defaultStringOptions
 
-• `Let` **defaultStringOptions**: [*StringOptions*](color.md#stringoptions)
+• `Let` **defaultStringOptions**: [`StringOptions`](color.md#stringoptions)
 
-Defined in: [color.ts:150](../../src/color.ts#L150)
+#### Defined in
+
+[color.ts:150](../../src/color.ts#L150)
 
 ## Functions
 
 ### alpha
 
-▸ **alpha**(`input`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **alpha**(`input`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `input` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `input` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:540](../../src/color.ts#L540)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:540](../../src/color.ts#L540)
 
 ___
 
 ### blackness
 
-▸ **blackness**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **blackness**(`color`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:516](../../src/color.ts#L516)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:516](../../src/color.ts#L516)
 
 ___
 
 ### chroma
 
-▸ **chroma**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **chroma**(`color`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:522](../../src/color.ts#L522)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:522](../../src/color.ts#L522)
 
 ___
 
 ### colorDistance
 
-▸ **colorDistance**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **colorDistance**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*ColorSpecification*](color.md#colorspecification) |
-| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+| `color1` | [`ColorSpecification`](color.md#colorspecification) |
+| `color2` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:611](../../src/color.ts#L611)
+`number`
+
+#### Defined in
+
+[color.ts:611](../../src/color.ts#L611)
 
 ___
 
 ### contrast
 
-▸ **contrast**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **contrast**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*ColorSpecification*](color.md#colorspecification) |
-| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+| `color1` | [`ColorSpecification`](color.md#colorspecification) |
+| `color2` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:461](../../src/color.ts#L461)
+`number`
+
+#### Defined in
+
+[color.ts:461](../../src/color.ts#L461)
 
 ___
 
 ### deltaC
 
-▸ **deltaC**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **deltaC**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*ColorSpecification*](color.md#colorspecification) |
-| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+| `color1` | [`ColorSpecification`](color.md#colorspecification) |
+| `color2` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:615](../../src/color.ts#L615)
+`number`
+
+#### Defined in
+
+[color.ts:615](../../src/color.ts#L615)
 
 ___
 
 ### deltaCMC
 
-▸ **deltaCMC**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **deltaCMC**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*ColorSpecification*](color.md#colorspecification) |
-| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+| `color1` | [`ColorSpecification`](color.md#colorspecification) |
+| `color2` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:635](../../src/color.ts#L635)
+`number`
+
+#### Defined in
+
+[color.ts:635](../../src/color.ts#L635)
 
 ___
 
 ### deltaE1976
 
-▸ **deltaE1976**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **deltaE1976**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*ColorSpecification*](color.md#colorspecification) |
-| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+| `color1` | [`ColorSpecification`](color.md#colorspecification) |
+| `color2` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:623](../../src/color.ts#L623)
+`number`
+
+#### Defined in
+
+[color.ts:623](../../src/color.ts#L623)
 
 ___
 
 ### deltaE1994
 
-▸ **deltaE1994**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **deltaE1994**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*ColorSpecification*](color.md#colorspecification) |
-| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+| `color1` | [`ColorSpecification`](color.md#colorspecification) |
+| `color2` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:627](../../src/color.ts#L627)
+`number`
+
+#### Defined in
+
+[color.ts:627](../../src/color.ts#L627)
 
 ___
 
 ### deltaE2000
 
-▸ **deltaE2000**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **deltaE2000**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*ColorSpecification*](color.md#colorspecification) |
-| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+| `color1` | [`ColorSpecification`](color.md#colorspecification) |
+| `color2` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:631](../../src/color.ts#L631)
+`number`
+
+#### Defined in
+
+[color.ts:631](../../src/color.ts#L631)
 
 ___
 
 ### deltaH
 
-▸ **deltaH**(`color1`: [*ColorSpecification*](color.md#colorspecification), `color2`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **deltaH**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*ColorSpecification*](color.md#colorspecification) |
-| `color2` | [*ColorSpecification*](color.md#colorspecification) |
+| `color1` | [`ColorSpecification`](color.md#colorspecification) |
+| `color2` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:619](../../src/color.ts#L619)
+`number`
+
+#### Defined in
+
+[color.ts:619](../../src/color.ts#L619)
 
 ___
 
 ### getStringOptions
 
-▸ **getStringOptions**(`so?`: [*StringFormat*](color.md#stringformat)): [*StringOptions*](color.md#stringoptions)
+▸ **getStringOptions**(`so?`): [`StringOptions`](color.md#stringoptions)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `so?` | [*StringFormat*](color.md#stringformat) |
+| `so?` | [`StringFormat`](color.md#stringformat) |
 
-**Returns:** [*StringOptions*](color.md#stringoptions)
+#### Returns
 
-Defined in: [color.ts:156](../../src/color.ts#L156)
+[`StringOptions`](color.md#stringoptions)
+
+#### Defined in
+
+[color.ts:156](../../src/color.ts#L156)
 
 ___
 
 ### grayscale
 
-▸ **grayscale**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*Color*](color.md#color)
+▸ **grayscale**(`color`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:605](../../src/color.ts#L605)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:605](../../src/color.ts#L605)
 
 ___
 
 ### greyness
 
-▸ **greyness**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **greyness**(`color`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:528](../../src/color.ts#L528)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:528](../../src/color.ts#L528)
 
 ___
 
 ### hue
 
-▸ **hue**(`color`: [*ColorSpecification*](color.md#colorspecification), `degrees?`: *number*): [*Color*](color.md#color)
+▸ **hue**(`color`, `degrees?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `degrees` | *number* | 45 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `degrees` | `number` | `45` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:484](../../src/color.ts#L484)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:484](../../src/color.ts#L484)
 
 ___
 
 ### intensity
 
-▸ **intensity**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **intensity**(`color`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:534](../../src/color.ts#L534)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:534](../../src/color.ts#L534)
 
 ___
 
 ### isDark
 
-▸ **isDark**(`color`: [*ColorSpecification*](color.md#colorspecification)): *boolean*
+▸ **isDark**(`color`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *boolean*
+#### Returns
 
-Defined in: [color.ts:468](../../src/color.ts#L468)
+`boolean`
+
+#### Defined in
+
+[color.ts:468](../../src/color.ts#L468)
 
 ___
 
 ### isLight
 
-▸ **isLight**(`color`: [*ColorSpecification*](color.md#colorspecification)): *boolean*
+▸ **isLight**(`color`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *boolean*
+#### Returns
 
-Defined in: [color.ts:475](../../src/color.ts#L475)
+`boolean`
+
+#### Defined in
+
+[color.ts:475](../../src/color.ts#L475)
 
 ___
 
 ### lightness
 
-▸ **lightness**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **lightness**(`color`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:498](../../src/color.ts#L498)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:498](../../src/color.ts#L498)
 
 ___
 
 ### luminosity
 
-▸ **luminosity**(`color`: [*ColorSpecification*](color.md#colorspecification)): *number*
+▸ **luminosity**(`color`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color.ts:452](../../src/color.ts#L452)
+`number`
+
+#### Defined in
+
+[color.ts:452](../../src/color.ts#L452)
 
 ___
 
 ### negate
 
-▸ **negate**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*Color*](color.md#color)
+▸ **negate**(`color`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:479](../../src/color.ts#L479)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:479](../../src/color.ts#L479)
 
 ___
 
 ### parse
 
-▸ **parse**(`input`: *string*): [*Color*](color.md#color)
+▸ **parse**(`input`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | *string* |
+| `input` | `string` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:123](../../src/color.ts#L123)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:123](../../src/color.ts#L123)
 
 ___
 
 ### saturation
 
-▸ **saturation**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **saturation**(`color`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:492](../../src/color.ts#L492)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:492](../../src/color.ts#L492)
 
 ___
 
 ### scheme
 
-▸ **scheme**(`color`: [*ColorSpecification*](color.md#colorspecification)): *Record*<string, [*Color*](color.md#color)[]\>
+▸ **scheme**(`color`): `Record`<`string`, [`Color`](color.md#color)[]\>
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** *Record*<string, [*Color*](color.md#color)[]\>
+#### Returns
 
-Defined in: [color.ts:597](../../src/color.ts#L597)
+`Record`<`string`, [`Color`](color.md#color)[]\>
+
+#### Defined in
+
+[color.ts:597](../../src/color.ts#L597)
 
 ___
 
 ### string
 
-▸ **string**(`color`: [*ColorSpecification*](color.md#colorspecification), `format?`: [*StringFormat*](color.md#stringformat)): [*ColorSpecification*](color.md#colorspecification)
+▸ **string**(`color`, `format?`): [`ColorSpecification`](color.md#colorspecification)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
-| `format?` | [*StringFormat*](color.md#stringformat) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
+| `format?` | [`StringFormat`](color.md#stringformat) |
 
-**Returns:** [*ColorSpecification*](color.md#colorspecification)
+#### Returns
 
-Defined in: [color.ts:170](../../src/color.ts#L170)
+[`ColorSpecification`](color.md#colorspecification)
+
+#### Defined in
+
+[color.ts:170](../../src/color.ts#L170)
 
 ___
 
 ### to
 
-▸ **to**(`color`: [*ColorSpecification*](color.md#colorspecification), `space`: keyof *typeof* [*colorSpaces*](color.md#colorspaces)): [*Color*](color.md#color)
+▸ **to**(`color`, `space`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
-| `space` | keyof *typeof* [*colorSpaces*](color.md#colorspaces) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
+| `space` | keyof typeof [`colorSpaces`](color.md#colorspaces) |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:191](../../src/color.ts#L191)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:191](../../src/color.ts#L191)
 
 ___
 
 ### toCMY
 
-▸ **toCMY**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*CMY*](cmy.md#cmy)
+▸ **toCMY**(`color`): [`CMY`](cmy.md#cmy)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*CMY*](cmy.md#cmy)
+#### Returns
 
-Defined in: [color.ts:340](../../src/color.ts#L340)
+[`CMY`](cmy.md#cmy)
+
+#### Defined in
+
+[color.ts:340](../../src/color.ts#L340)
 
 ___
 
 ### toCMYK
 
-▸ **toCMYK**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*CMYK*](cmyk.md#cmyk)
+▸ **toCMYK**(`color`): [`CMYK`](cmyk.md#cmyk)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*CMYK*](cmyk.md#cmyk)
+#### Returns
 
-Defined in: [color.ts:359](../../src/color.ts#L359)
+[`CMYK`](cmyk.md#cmyk)
+
+#### Defined in
+
+[color.ts:359](../../src/color.ts#L359)
 
 ___
 
 ### toColor
 
-▸ **toColor**(`input`: [*ColorSpecification*](color.md#colorspecification)): [*Color*](color.md#color)
+▸ **toColor**(`input`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | [*ColorSpecification*](color.md#colorspecification) |
+| `input` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:209](../../src/color.ts#L209)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:209](../../src/color.ts#L209)
 
 ___
 
 ### toHCG
 
-▸ **toHCG**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HCG*](hcg.md#hcg)
+▸ **toHCG**(`color`): [`HCG`](hcg.md#hcg)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*HCG*](hcg.md#hcg)
+#### Returns
 
-Defined in: [color.ts:321](../../src/color.ts#L321)
+[`HCG`](hcg.md#hcg)
+
+#### Defined in
+
+[color.ts:321](../../src/color.ts#L321)
 
 ___
 
 ### toHSI
 
-▸ **toHSI**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HSI*](hsi.md#hsi)
+▸ **toHSI**(`color`): [`HSI`](hsi.md#hsi)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*HSI*](hsi.md#hsi)
+#### Returns
 
-Defined in: [color.ts:283](../../src/color.ts#L283)
+[`HSI`](hsi.md#hsi)
+
+#### Defined in
+
+[color.ts:283](../../src/color.ts#L283)
 
 ___
 
 ### toHSL
 
-▸ **toHSL**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HSL*](hsl.md#hsl)
+▸ **toHSL**(`color`): [`HSL`](hsl.md#hsl)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*HSL*](hsl.md#hsl)
+#### Returns
 
-Defined in: [color.ts:245](../../src/color.ts#L245)
+[`HSL`](hsl.md#hsl)
+
+#### Defined in
+
+[color.ts:245](../../src/color.ts#L245)
 
 ___
 
 ### toHSV
 
-▸ **toHSV**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HSV*](hsv.md#hsv)
+▸ **toHSV**(`color`): [`HSV`](hsv.md#hsv)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*HSV*](hsv.md#hsv)
+#### Returns
 
-Defined in: [color.ts:264](../../src/color.ts#L264)
+[`HSV`](hsv.md#hsv)
+
+#### Defined in
+
+[color.ts:264](../../src/color.ts#L264)
 
 ___
 
 ### toHWB
 
-▸ **toHWB**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*HWB*](hwb.md#hwb)
+▸ **toHWB**(`color`): [`HWB`](hwb.md#hwb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*HWB*](hwb.md#hwb)
+#### Returns
 
-Defined in: [color.ts:302](../../src/color.ts#L302)
+[`HWB`](hwb.md#hwb)
+
+#### Defined in
+
+[color.ts:302](../../src/color.ts#L302)
 
 ___
 
 ### toLAB
 
-▸ **toLAB**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*LAB*](lab.md#lab)
+▸ **toLAB**(`color`): [`LAB`](lab.md#lab)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*LAB*](lab.md#lab)
+#### Returns
 
-Defined in: [color.ts:397](../../src/color.ts#L397)
+[`LAB`](lab.md#lab)
+
+#### Defined in
+
+[color.ts:397](../../src/color.ts#L397)
 
 ___
 
 ### toLCH
 
-▸ **toLCH**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*LCH*](lch.md#lch)
+▸ **toLCH**(`color`): [`LCH`](lch.md#lch)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*LCH*](lch.md#lch)
+#### Returns
 
-Defined in: [color.ts:416](../../src/color.ts#L416)
+[`LCH`](lch.md#lch)
+
+#### Defined in
+
+[color.ts:416](../../src/color.ts#L416)
 
 ___
 
 ### toRGB
 
-▸ **toRGB**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*RGB*](rgb.md#rgb)
+▸ **toRGB**(`color`): [`RGB`](rgb.md#rgb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*RGB*](rgb.md#rgb)
+#### Returns
 
-Defined in: [color.ts:226](../../src/color.ts#L226)
+[`RGB`](rgb.md#rgb)
+
+#### Defined in
+
+[color.ts:226](../../src/color.ts#L226)
 
 ___
 
 ### toXYZ
 
-▸ **toXYZ**(`color`: [*ColorSpecification*](color.md#colorspecification)): [*XYZ*](xyz.md#xyz)
+▸ **toXYZ**(`color`): [`XYZ`](xyz.md#xyz)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) |
+| `color` | [`ColorSpecification`](color.md#colorspecification) |
 
-**Returns:** [*XYZ*](xyz.md#xyz)
+#### Returns
 
-Defined in: [color.ts:378](../../src/color.ts#L378)
+[`XYZ`](xyz.md#xyz)
+
+#### Defined in
+
+[color.ts:378](../../src/color.ts#L378)
 
 ___
 
 ### value
 
-▸ **value**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **value**(`color`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:504](../../src/color.ts#L504)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:504](../../src/color.ts#L504)
 
 ___
 
 ### whiteness
 
-▸ **whiteness**(`color`: [*ColorSpecification*](color.md#colorspecification), `amount?`: [*AmountRatio*](color.md#amountratio)): [*Color*](color.md#color)
+▸ **whiteness**(`color`, `amount?`): [`Color`](color.md#color)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `color` | [*ColorSpecification*](color.md#colorspecification) | - |
-| `amount` | [*AmountRatio*](color.md#amountratio) | 0.25 |
+| `color` | [`ColorSpecification`](color.md#colorspecification) | `undefined` |
+| `amount` | [`AmountRatio`](color.md#amountratio) | `0.25` |
 
-**Returns:** [*Color*](color.md#color)
+#### Returns
 
-Defined in: [color.ts:510](../../src/color.ts#L510)
+[`Color`](color.md#color)
+
+#### Defined in
+
+[color.ts:510](../../src/color.ts#L510)

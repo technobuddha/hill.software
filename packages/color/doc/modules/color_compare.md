@@ -22,135 +22,163 @@
 
 ### default
 
-• **default**: *object*
+• **default**: `Object`
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `colorDistance` | (`color`: [*RGB*](rgb.md#rgb), `other`: [*RGB*](rgb.md#rgb)) => *number* |
-| `deltaC` | (`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)) => *number* |
-| `deltaCMC` | (`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)) => *number* |
-| `deltaE1976` | (`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)) => *number* |
-| `deltaE1994` | (`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)) => *number* |
-| `deltaE2000` | (`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)) => *number* |
-| `deltaH` | (`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)) => *number* |
+| `colorDistance` | (`color`: [`RGB`](rgb.md#rgb), `other`: [`RGB`](rgb.md#rgb)) => `number` |
+| `deltaC` | (`color1`: [`LAB`](lab.md#lab), `color2`: [`LAB`](lab.md#lab)) => `number` |
+| `deltaCMC` | (`color1`: [`LAB`](lab.md#lab), `color2`: [`LAB`](lab.md#lab)) => `number` |
+| `deltaE1976` | (`color1`: [`LAB`](lab.md#lab), `color2`: [`LAB`](lab.md#lab)) => `number` |
+| `deltaE1994` | (`color1`: [`LAB`](lab.md#lab), `color2`: [`LAB`](lab.md#lab)) => `number` |
+| `deltaE2000` | (`color1`: [`LAB`](lab.md#lab), `color2`: [`LAB`](lab.md#lab)) => `number` |
+| `deltaH` | (`color1`: [`LAB`](lab.md#lab), `color2`: [`LAB`](lab.md#lab)) => `number` |
 
 ## Functions
 
 ### colorDistance
 
-▸ **colorDistance**(`color`: [*RGB*](rgb.md#rgb), `other`: [*RGB*](rgb.md#rgb)): *number*
+▸ **colorDistance**(`color`, `other`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*RGB*](rgb.md#rgb) |
-| `other` | [*RGB*](rgb.md#rgb) |
+| `color` | [`RGB`](rgb.md#rgb) |
+| `other` | [`RGB`](rgb.md#rgb) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color-compare.ts:7](../../src/color-compare.ts#L7)
+`number`
+
+#### Defined in
+
+[color-compare.ts:7](../../src/color-compare.ts#L7)
 
 ___
 
 ### deltaC
 
-▸ **deltaC**(`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)): *number*
+▸ **deltaC**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*LAB*](lab.md#lab) |
-| `color2` | [*LAB*](lab.md#lab) |
+| `color1` | [`LAB`](lab.md#lab) |
+| `color2` | [`LAB`](lab.md#lab) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color-compare.ts:25](../../src/color-compare.ts#L25)
+`number`
+
+#### Defined in
+
+[color-compare.ts:25](../../src/color-compare.ts#L25)
 
 ___
 
 ### deltaCMC
 
-▸ **deltaCMC**(`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)): *number*
+▸ **deltaCMC**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*LAB*](lab.md#lab) |
-| `color2` | [*LAB*](lab.md#lab) |
+| `color1` | [`LAB`](lab.md#lab) |
+| `color2` | [`LAB`](lab.md#lab) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color-compare.ts:151](../../src/color-compare.ts#L151)
+`number`
+
+#### Defined in
+
+[color-compare.ts:151](../../src/color-compare.ts#L151)
 
 ___
 
 ### deltaE1976
 
-▸ **deltaE1976**(`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)): *number*
+▸ **deltaE1976**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*LAB*](lab.md#lab) |
-| `color2` | [*LAB*](lab.md#lab) |
+| `color1` | [`LAB`](lab.md#lab) |
+| `color2` | [`LAB`](lab.md#lab) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color-compare.ts:39](../../src/color-compare.ts#L39)
+`number`
+
+#### Defined in
+
+[color-compare.ts:39](../../src/color-compare.ts#L39)
 
 ___
 
 ### deltaE1994
 
-▸ **deltaE1994**(`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)): *number*
+▸ **deltaE1994**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*LAB*](lab.md#lab) |
-| `color2` | [*LAB*](lab.md#lab) |
+| `color1` | [`LAB`](lab.md#lab) |
+| `color2` | [`LAB`](lab.md#lab) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color-compare.ts:45](../../src/color-compare.ts#L45)
+`number`
+
+#### Defined in
+
+[color-compare.ts:45](../../src/color-compare.ts#L45)
 
 ___
 
 ### deltaE2000
 
-▸ **deltaE2000**(`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)): *number*
+▸ **deltaE2000**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*LAB*](lab.md#lab) |
-| `color2` | [*LAB*](lab.md#lab) |
+| `color1` | [`LAB`](lab.md#lab) |
+| `color2` | [`LAB`](lab.md#lab) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color-compare.ts:81](../../src/color-compare.ts#L81)
+`number`
+
+#### Defined in
+
+[color-compare.ts:81](../../src/color-compare.ts#L81)
 
 ___
 
 ### deltaH
 
-▸ **deltaH**(`color1`: [*LAB*](lab.md#lab), `color2`: [*LAB*](lab.md#lab)): *number*
+▸ **deltaH**(`color1`, `color2`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color1` | [*LAB*](lab.md#lab) |
-| `color2` | [*LAB*](lab.md#lab) |
+| `color1` | [`LAB`](lab.md#lab) |
+| `color2` | [`LAB`](lab.md#lab) |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [color-compare.ts:32](../../src/color-compare.ts#L32)
+`number`
+
+#### Defined in
+
+[color-compare.ts:32](../../src/color-compare.ts#L32)

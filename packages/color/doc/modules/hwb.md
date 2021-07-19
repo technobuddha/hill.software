@@ -36,279 +36,349 @@
 
 ### HWB
 
-Ƭ **HWB**: [*Alpha*](color.md#alpha) & iHWB & oHWB
+Ƭ **HWB**: [`Alpha`](color.md#alpha) & `iHWB` & `oHWB`
 
-Defined in: [hwb.ts:14](../../src/hwb.ts#L14)
+#### Defined in
+
+[hwb.ts:14](../../src/hwb.ts#L14)
 
 ___
 
 ### partialHWB
 
-Ƭ **partialHWB**: [*Alpha*](color.md#alpha) & iHWB \| oHWB \| iHWB & oHWB
+Ƭ **partialHWB**: [`Alpha`](color.md#alpha) & `iHWB` \| `oHWB` \| `iHWB` & `oHWB`
 
-Defined in: [hwb.ts:13](../../src/hwb.ts#L13)
+#### Defined in
+
+[hwb.ts:13](../../src/hwb.ts#L13)
 
 ## Variables
 
 ### default
 
-• `Const` **default**: [*ColorSpace*](color_space.md#colorspace)<[*HWB*](hwb.md#hwb), [*partialHWB*](hwb.md#partialhwb), internalHWB\>
+• `Const` **default**: [`ColorSpace`](color_space.md#colorspace)<[`HWB`](hwb.md#hwb), [`partialHWB`](hwb.md#partialhwb), `internalHWB`\>
 
-Defined in: [hwb.ts:159](../../src/hwb.ts#L159)
+#### Defined in
+
+[hwb.ts:159](../../src/hwb.ts#L159)
 
 ## Functions
 
 ### external
 
-▸ **external**(`__namedParameters`: internalHWB): [*HWB*](hwb.md#hwb)
+▸ **external**(`__namedParameters`): [`HWB`](hwb.md#hwb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `__namedParameters` | internalHWB |
+| `__namedParameters` | `internalHWB` |
 
-**Returns:** [*HWB*](hwb.md#hwb)
+#### Returns
 
-Defined in: [hwb.ts:27](../../src/hwb.ts#L27)
+[`HWB`](hwb.md#hwb)
+
+#### Defined in
+
+[hwb.ts:27](../../src/hwb.ts#L27)
 
 ___
 
 ### internal
 
-▸ **internal**(`color`: [*partialHWB*](hwb.md#partialhwb)): internalHWB
+▸ **internal**(`color`): `internalHWB`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** internalHWB
+#### Returns
 
-Defined in: [hwb.ts:21](../../src/hwb.ts#L21)
+`internalHWB`
+
+#### Defined in
+
+[hwb.ts:21](../../src/hwb.ts#L21)
 
 ___
 
 ### is
 
-▸ **is**(`color`: [*PartialColor*](color.md#partialcolor)): color is partialHWB
+▸ **is**(`color`): color is partialHWB
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*PartialColor*](color.md#partialcolor) |
+| `color` | [`PartialColor`](color.md#partialcolor) |
 
-**Returns:** color is partialHWB
+#### Returns
 
-Defined in: [hwb.ts:16](../../src/hwb.ts#L16)
+color is partialHWB
+
+#### Defined in
+
+[hwb.ts:16](../../src/hwb.ts#L16)
 
 ___
 
 ### parse
 
-▸ **parse**(`input`: *string*): [*HWB*](hwb.md#hwb) \| *undefined*
+▸ **parse**(`input`): [`HWB`](hwb.md#hwb) \| `undefined`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | *string* |
+| `input` | `string` |
 
-**Returns:** [*HWB*](hwb.md#hwb) \| *undefined*
+#### Returns
 
-Defined in: [hwb.ts:122](../../src/hwb.ts#L122)
+[`HWB`](hwb.md#hwb) \| `undefined`
+
+#### Defined in
+
+[hwb.ts:122](../../src/hwb.ts#L122)
 
 ___
 
 ### string
 
-▸ **string**(`input`: [*partialHWB*](hwb.md#partialhwb), `options`: [*StringOptions*](color.md#stringoptions)): *string*
+▸ **string**(`input`, `options`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | [*partialHWB*](hwb.md#partialhwb) |
-| `options` | [*StringOptions*](color.md#stringoptions) |
+| `input` | [`partialHWB`](hwb.md#partialhwb) |
+| `options` | [`StringOptions`](color.md#stringoptions) |
 
-**Returns:** *string*
+#### Returns
 
-Defined in: [hwb.ts:148](../../src/hwb.ts#L148)
+`string`
+
+#### Defined in
+
+[hwb.ts:148](../../src/hwb.ts#L148)
 
 ___
 
 ### toCMY
 
-▸ **toCMY**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*CMY*](cmy.md#cmy)
+▸ **toCMY**(`color`): [`CMY`](cmy.md#cmy)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*CMY*](cmy.md#cmy)
+#### Returns
 
-Defined in: [hwb.ts:102](../../src/hwb.ts#L102)
+[`CMY`](cmy.md#cmy)
+
+#### Defined in
+
+[hwb.ts:102](../../src/hwb.ts#L102)
 
 ___
 
 ### toCMYK
 
-▸ **toCMYK**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*CMYK*](cmyk.md#cmyk)
+▸ **toCMYK**(`color`): [`CMYK`](cmyk.md#cmyk)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*CMYK*](cmyk.md#cmyk)
+#### Returns
 
-Defined in: [hwb.ts:106](../../src/hwb.ts#L106)
+[`CMYK`](cmyk.md#cmyk)
+
+#### Defined in
+
+[hwb.ts:106](../../src/hwb.ts#L106)
 
 ___
 
 ### toHCG
 
-▸ **toHCG**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*HCG*](hcg.md#hcg)
+▸ **toHCG**(`color`): [`HCG`](hcg.md#hcg)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*HCG*](hcg.md#hcg)
+#### Returns
 
-Defined in: [hwb.ts:90](../../src/hwb.ts#L90)
+[`HCG`](hcg.md#hcg)
+
+#### Defined in
+
+[hwb.ts:90](../../src/hwb.ts#L90)
 
 ___
 
 ### toHSI
 
-▸ **toHSI**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*HSI*](hsi.md#hsi)
+▸ **toHSI**(`color`): [`HSI`](hsi.md#hsi)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*HSI*](hsi.md#hsi)
+#### Returns
 
-Defined in: [hwb.ts:82](../../src/hwb.ts#L82)
+[`HSI`](hsi.md#hsi)
+
+#### Defined in
+
+[hwb.ts:82](../../src/hwb.ts#L82)
 
 ___
 
 ### toHSL
 
-▸ **toHSL**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*HSL*](hsl.md#hsl)
+▸ **toHSL**(`color`): [`HSL`](hsl.md#hsl)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*HSL*](hsl.md#hsl)
+#### Returns
 
-Defined in: [hwb.ts:74](../../src/hwb.ts#L74)
+[`HSL`](hsl.md#hsl)
+
+#### Defined in
+
+[hwb.ts:74](../../src/hwb.ts#L74)
 
 ___
 
 ### toHSV
 
-▸ **toHSV**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*HSV*](hsv.md#hsv)
+▸ **toHSV**(`color`): [`HSV`](hsv.md#hsv)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*HSV*](hsv.md#hsv)
+#### Returns
 
-Defined in: [hwb.ts:78](../../src/hwb.ts#L78)
+[`HSV`](hsv.md#hsv)
+
+#### Defined in
+
+[hwb.ts:78](../../src/hwb.ts#L78)
 
 ___
 
 ### toHWB
 
-▸ **toHWB**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*HWB*](hwb.md#hwb)
+▸ **toHWB**(`color`): [`HWB`](hwb.md#hwb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*HWB*](hwb.md#hwb)
+#### Returns
 
-Defined in: [hwb.ts:86](../../src/hwb.ts#L86)
+[`HWB`](hwb.md#hwb)
+
+#### Defined in
+
+[hwb.ts:86](../../src/hwb.ts#L86)
 
 ___
 
 ### toLAB
 
-▸ **toLAB**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*LAB*](lab.md#lab)
+▸ **toLAB**(`color`): [`LAB`](lab.md#lab)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*LAB*](lab.md#lab)
+#### Returns
 
-Defined in: [hwb.ts:114](../../src/hwb.ts#L114)
+[`LAB`](lab.md#lab)
+
+#### Defined in
+
+[hwb.ts:114](../../src/hwb.ts#L114)
 
 ___
 
 ### toLCH
 
-▸ **toLCH**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*LCH*](lch.md#lch)
+▸ **toLCH**(`color`): [`LCH`](lch.md#lch)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*LCH*](lch.md#lch)
+#### Returns
 
-Defined in: [hwb.ts:118](../../src/hwb.ts#L118)
+[`LCH`](lch.md#lch)
+
+#### Defined in
+
+[hwb.ts:118](../../src/hwb.ts#L118)
 
 ___
 
 ### toRGB
 
-▸ **toRGB**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*RGB*](rgb.md#rgb)
+▸ **toRGB**(`color`): [`RGB`](rgb.md#rgb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*RGB*](rgb.md#rgb)
+#### Returns
 
-Defined in: [hwb.ts:40](../../src/hwb.ts#L40)
+[`RGB`](rgb.md#rgb)
+
+#### Defined in
+
+[hwb.ts:40](../../src/hwb.ts#L40)
 
 ___
 
 ### toXYZ
 
-▸ **toXYZ**(`color`: [*partialHWB*](hwb.md#partialhwb)): [*XYZ*](xyz.md#xyz)
+▸ **toXYZ**(`color`): [`XYZ`](xyz.md#xyz)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHWB*](hwb.md#partialhwb) |
+| `color` | [`partialHWB`](hwb.md#partialhwb) |
 
-**Returns:** [*XYZ*](xyz.md#xyz)
+#### Returns
 
-Defined in: [hwb.ts:110](../../src/hwb.ts#L110)
+[`XYZ`](xyz.md#xyz)
+
+#### Defined in
+
+[hwb.ts:110](../../src/hwb.ts#L110)

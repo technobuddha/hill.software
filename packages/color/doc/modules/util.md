@@ -32,222 +32,276 @@
 
 ### alpha
 
-• `Const` **alpha**: *RegExp*
+• `Const` **alpha**: `RegExp`
 
-Defined in: [util.ts:45](../../src/util.ts#L45)
+#### Defined in
+
+[util.ts:45](../../src/util.ts#L45)
 
 ___
 
 ### angle
 
-• `Const` **angle**: *RegExp*
+• `Const` **angle**: `RegExp`
 
-Defined in: [util.ts:44](../../src/util.ts#L44)
+#### Defined in
+
+[util.ts:44](../../src/util.ts#L44)
 
 ___
 
 ### cp
 
-• `Const` **cp**: *RegExp*
+• `Const` **cp**: `RegExp`
 
-Defined in: [util.ts:40](../../src/util.ts#L40)
+#### Defined in
+
+[util.ts:40](../../src/util.ts#L40)
 
 ___
 
 ### num
 
-• `Const` **num**: *RegExp*
+• `Const` **num**: `RegExp`
 
-Defined in: [util.ts:41](../../src/util.ts#L41)
+#### Defined in
+
+[util.ts:41](../../src/util.ts#L41)
 
 ___
 
 ### number
 
-• `Const` **number**: *RegExp*
+• `Const` **number**: `RegExp`
 
-Defined in: [util.ts:42](../../src/util.ts#L42)
+#### Defined in
+
+[util.ts:42](../../src/util.ts#L42)
 
 ___
 
 ### op
 
-• `Const` **op**: *RegExp*
+• `Const` **op**: `RegExp`
 
-Defined in: [util.ts:39](../../src/util.ts#L39)
+#### Defined in
+
+[util.ts:39](../../src/util.ts#L39)
 
 ___
 
 ### percent
 
-• `Const` **percent**: *RegExp*
+• `Const` **percent**: `RegExp`
 
-Defined in: [util.ts:43](../../src/util.ts#L43)
+#### Defined in
+
+[util.ts:43](../../src/util.ts#L43)
 
 ___
 
 ### sep
 
-• `Const` **sep**: *RegExp*
+• `Const` **sep**: `RegExp`
 
-Defined in: [util.ts:37](../../src/util.ts#L37)
+#### Defined in
+
+[util.ts:37](../../src/util.ts#L37)
 
 ___
 
 ### space
 
-• `Const` **space**: *RegExp*
+• `Const` **space**: `RegExp`
 
-Defined in: [util.ts:38](../../src/util.ts#L38)
+#### Defined in
+
+[util.ts:38](../../src/util.ts#L38)
 
 ## Functions
 
 ### approxEq
 
-▸ **approxEq**(`a`: *number*, `b`: *number*): *boolean*
+▸ **approxEq**(`a`, `b`): `boolean`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `a` | *number* |
-| `b` | *number* |
+| `a` | `number` |
+| `b` | `number` |
 
-**Returns:** *boolean*
+#### Returns
 
-Defined in: [util.ts:7](../../src/util.ts#L7)
+`boolean`
+
+#### Defined in
+
+[util.ts:7](../../src/util.ts#L7)
 
 ___
 
 ### getAngle
 
-▸ **getAngle**(`input`: *string*, `precision?`: *number*): *number*
+▸ **getAngle**(`input`, `precision?`): `number`
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `input` | *string* | - |
-| `precision` | *number* | 2 |
+| `input` | `string` | `undefined` |
+| `precision` | `number` | `2` |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [util.ts:53](../../src/util.ts#L53)
+`number`
+
+#### Defined in
+
+[util.ts:53](../../src/util.ts#L53)
 
 ___
 
 ### getNumber
 
-▸ **getNumber**(`input`: *string*, `precision?`: *number*): *number*
+▸ **getNumber**(`input`, `precision?`): `number`
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `input` | *string* | - |
-| `precision` | *number* | 2 |
+| `input` | `string` | `undefined` |
+| `precision` | `number` | `2` |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [util.ts:65](../../src/util.ts#L65)
+`number`
+
+#### Defined in
+
+[util.ts:65](../../src/util.ts#L65)
 
 ___
 
 ### getPercent
 
-▸ **getPercent**(`input`: *string*, `scale`: *number*, `precision?`: *number*): *number*
+▸ **getPercent**(`input`, `scale`, `precision?`): `number`
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `input` | *string* | - |
-| `scale` | *number* | - |
-| `precision` | *number* | 2 |
+| `input` | `string` | `undefined` |
+| `scale` | `number` | `undefined` |
+| `precision` | `number` | `2` |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [util.ts:47](../../src/util.ts#L47)
+`number`
+
+#### Defined in
+
+[util.ts:47](../../src/util.ts#L47)
 
 ___
 
 ### modulo
 
-▸ **modulo**(`dividend`: *number*, `divisor`: *number*): *number*
+▸ **modulo**(`dividend`, `divisor`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `dividend` | *number* |
-| `divisor` | *number* |
+| `dividend` | `number` |
+| `divisor` | `number` |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [util.ts:2](../../src/util.ts#L2)
+`number`
+
+#### Defined in
+
+[util.ts:2](../../src/util.ts#L2)
 
 ___
 
 ### re
 
-▸ **re**(`template`: TemplateStringsArray, ...`args`: RegExp[]): RegExp
+▸ **re**(`template`, ...`args`): `RegExp`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `template` | TemplateStringsArray |
-| `...args` | RegExp[] |
+| `template` | `TemplateStringsArray` |
+| `...args` | `RegExp`[] |
 
-**Returns:** RegExp
+#### Returns
 
-Defined in: [util.ts:26](../../src/util.ts#L26)
+`RegExp`
+
+#### Defined in
+
+[util.ts:26](../../src/util.ts#L26)
 
 ___
 
 ### round
 
-▸ **round**(`n`: *number*, `precision`: *number*): *number*
+▸ **round**(`n`, `precision`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `n` | *number* |
-| `precision` | *number* |
+| `n` | `number` |
+| `precision` | `number` |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [util.ts:19](../../src/util.ts#L19)
+`number`
+
+#### Defined in
+
+[util.ts:19](../../src/util.ts#L19)
 
 ___
 
 ### toDegrees
 
-▸ **toDegrees**(`angle`: *number*): *number*
+▸ **toDegrees**(`angle`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `angle` | *number* |
+| `angle` | `number` |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [util.ts:11](../../src/util.ts#L11)
+`number`
+
+#### Defined in
+
+[util.ts:11](../../src/util.ts#L11)
 
 ___
 
 ### toRadians
 
-▸ **toRadians**(`angle`: *number*): *number*
+▸ **toRadians**(`angle`): `number`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `angle` | *number* |
+| `angle` | `number` |
 
-**Returns:** *number*
+#### Returns
 
-Defined in: [util.ts:15](../../src/util.ts#L15)
+`number`
+
+#### Defined in
+
+[util.ts:15](../../src/util.ts#L15)

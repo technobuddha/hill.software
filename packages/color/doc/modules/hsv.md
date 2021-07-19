@@ -36,279 +36,349 @@
 
 ### HSV
 
-Ƭ **HSV**: [*Alpha*](color.md#alpha) & iHSV & oHSV
+Ƭ **HSV**: [`Alpha`](color.md#alpha) & `iHSV` & `oHSV`
 
-Defined in: [hsv.ts:15](../../src/hsv.ts#L15)
+#### Defined in
+
+[hsv.ts:15](../../src/hsv.ts#L15)
 
 ___
 
 ### partialHSV
 
-Ƭ **partialHSV**: [*Alpha*](color.md#alpha) & iHSV \| oHSV \| iHSV & oHSV
+Ƭ **partialHSV**: [`Alpha`](color.md#alpha) & `iHSV` \| `oHSV` \| `iHSV` & `oHSV`
 
-Defined in: [hsv.ts:14](../../src/hsv.ts#L14)
+#### Defined in
+
+[hsv.ts:14](../../src/hsv.ts#L14)
 
 ## Variables
 
 ### default
 
-• `Const` **default**: [*ColorSpace*](color_space.md#colorspace)<[*HSV*](hsv.md#hsv), [*partialHSV*](hsv.md#partialhsv), internalHSV\>
+• `Const` **default**: [`ColorSpace`](color_space.md#colorspace)<[`HSV`](hsv.md#hsv), [`partialHSV`](hsv.md#partialhsv), `internalHSV`\>
 
-Defined in: [hsv.ts:164](../../src/hsv.ts#L164)
+#### Defined in
+
+[hsv.ts:164](../../src/hsv.ts#L164)
 
 ## Functions
 
 ### external
 
-▸ **external**(`__namedParameters`: internalHSV): [*HSV*](hsv.md#hsv)
+▸ **external**(`__namedParameters`): [`HSV`](hsv.md#hsv)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `__namedParameters` | internalHSV |
+| `__namedParameters` | `internalHSV` |
 
-**Returns:** [*HSV*](hsv.md#hsv)
+#### Returns
 
-Defined in: [hsv.ts:28](../../src/hsv.ts#L28)
+[`HSV`](hsv.md#hsv)
+
+#### Defined in
+
+[hsv.ts:28](../../src/hsv.ts#L28)
 
 ___
 
 ### internal
 
-▸ **internal**(`color`: [*partialHSV*](hsv.md#partialhsv)): internalHSV
+▸ **internal**(`color`): `internalHSV`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** internalHSV
+#### Returns
 
-Defined in: [hsv.ts:22](../../src/hsv.ts#L22)
+`internalHSV`
+
+#### Defined in
+
+[hsv.ts:22](../../src/hsv.ts#L22)
 
 ___
 
 ### is
 
-▸ **is**(`color`: [*PartialColor*](color.md#partialcolor)): color is partialHSV
+▸ **is**(`color`): color is partialHSV
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*PartialColor*](color.md#partialcolor) |
+| `color` | [`PartialColor`](color.md#partialcolor) |
 
-**Returns:** color is partialHSV
+#### Returns
 
-Defined in: [hsv.ts:17](../../src/hsv.ts#L17)
+color is partialHSV
+
+#### Defined in
+
+[hsv.ts:17](../../src/hsv.ts#L17)
 
 ___
 
 ### parse
 
-▸ **parse**(`input`: *string*): [*HSV*](hsv.md#hsv) \| *undefined*
+▸ **parse**(`input`): [`HSV`](hsv.md#hsv) \| `undefined`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | *string* |
+| `input` | `string` |
 
-**Returns:** [*HSV*](hsv.md#hsv) \| *undefined*
+#### Returns
 
-Defined in: [hsv.ts:127](../../src/hsv.ts#L127)
+[`HSV`](hsv.md#hsv) \| `undefined`
+
+#### Defined in
+
+[hsv.ts:127](../../src/hsv.ts#L127)
 
 ___
 
 ### string
 
-▸ **string**(`input`: [*partialHSV*](hsv.md#partialhsv), `options`: [*StringOptions*](color.md#stringoptions)): *string*
+▸ **string**(`input`, `options`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | [*partialHSV*](hsv.md#partialhsv) |
-| `options` | [*StringOptions*](color.md#stringoptions) |
+| `input` | [`partialHSV`](hsv.md#partialhsv) |
+| `options` | [`StringOptions`](color.md#stringoptions) |
 
-**Returns:** *string*
+#### Returns
 
-Defined in: [hsv.ts:153](../../src/hsv.ts#L153)
+`string`
+
+#### Defined in
+
+[hsv.ts:153](../../src/hsv.ts#L153)
 
 ___
 
 ### toCMY
 
-▸ **toCMY**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*CMY*](cmy.md#cmy)
+▸ **toCMY**(`color`): [`CMY`](cmy.md#cmy)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*CMY*](cmy.md#cmy)
+#### Returns
 
-Defined in: [hsv.ts:107](../../src/hsv.ts#L107)
+[`CMY`](cmy.md#cmy)
+
+#### Defined in
+
+[hsv.ts:107](../../src/hsv.ts#L107)
 
 ___
 
 ### toCMYK
 
-▸ **toCMYK**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*CMYK*](cmyk.md#cmyk)
+▸ **toCMYK**(`color`): [`CMYK`](cmyk.md#cmyk)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*CMYK*](cmyk.md#cmyk)
+#### Returns
 
-Defined in: [hsv.ts:111](../../src/hsv.ts#L111)
+[`CMYK`](cmyk.md#cmyk)
+
+#### Defined in
+
+[hsv.ts:111](../../src/hsv.ts#L111)
 
 ___
 
 ### toHCG
 
-▸ **toHCG**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*HCG*](hcg.md#hcg)
+▸ **toHCG**(`color`): [`HCG`](hcg.md#hcg)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*HCG*](hcg.md#hcg)
+#### Returns
 
-Defined in: [hsv.ts:95](../../src/hsv.ts#L95)
+[`HCG`](hcg.md#hcg)
+
+#### Defined in
+
+[hsv.ts:95](../../src/hsv.ts#L95)
 
 ___
 
 ### toHSI
 
-▸ **toHSI**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*HSI*](hsi.md#hsi)
+▸ **toHSI**(`color`): [`HSI`](hsi.md#hsi)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*HSI*](hsi.md#hsi)
+#### Returns
 
-Defined in: [hsv.ts:87](../../src/hsv.ts#L87)
+[`HSI`](hsi.md#hsi)
+
+#### Defined in
+
+[hsv.ts:87](../../src/hsv.ts#L87)
 
 ___
 
 ### toHSL
 
-▸ **toHSL**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*HSL*](hsl.md#hsl)
+▸ **toHSL**(`color`): [`HSL`](hsl.md#hsl)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*HSL*](hsl.md#hsl)
+#### Returns
 
-Defined in: [hsv.ts:68](../../src/hsv.ts#L68)
+[`HSL`](hsl.md#hsl)
+
+#### Defined in
+
+[hsv.ts:68](../../src/hsv.ts#L68)
 
 ___
 
 ### toHSV
 
-▸ **toHSV**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*HSV*](hsv.md#hsv)
+▸ **toHSV**(`color`): [`HSV`](hsv.md#hsv)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*HSV*](hsv.md#hsv)
+#### Returns
 
-Defined in: [hsv.ts:83](../../src/hsv.ts#L83)
+[`HSV`](hsv.md#hsv)
+
+#### Defined in
+
+[hsv.ts:83](../../src/hsv.ts#L83)
 
 ___
 
 ### toHWB
 
-▸ **toHWB**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*HWB*](hwb.md#hwb)
+▸ **toHWB**(`color`): [`HWB`](hwb.md#hwb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*HWB*](hwb.md#hwb)
+#### Returns
 
-Defined in: [hsv.ts:91](../../src/hsv.ts#L91)
+[`HWB`](hwb.md#hwb)
+
+#### Defined in
+
+[hsv.ts:91](../../src/hsv.ts#L91)
 
 ___
 
 ### toLAB
 
-▸ **toLAB**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*LAB*](lab.md#lab)
+▸ **toLAB**(`color`): [`LAB`](lab.md#lab)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*LAB*](lab.md#lab)
+#### Returns
 
-Defined in: [hsv.ts:119](../../src/hsv.ts#L119)
+[`LAB`](lab.md#lab)
+
+#### Defined in
+
+[hsv.ts:119](../../src/hsv.ts#L119)
 
 ___
 
 ### toLCH
 
-▸ **toLCH**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*LCH*](lch.md#lch)
+▸ **toLCH**(`color`): [`LCH`](lch.md#lch)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*LCH*](lch.md#lch)
+#### Returns
 
-Defined in: [hsv.ts:123](../../src/hsv.ts#L123)
+[`LCH`](lch.md#lch)
+
+#### Defined in
+
+[hsv.ts:123](../../src/hsv.ts#L123)
 
 ___
 
 ### toRGB
 
-▸ **toRGB**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*RGB*](rgb.md#rgb)
+▸ **toRGB**(`color`): [`RGB`](rgb.md#rgb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*RGB*](rgb.md#rgb)
+#### Returns
 
-Defined in: [hsv.ts:41](../../src/hsv.ts#L41)
+[`RGB`](rgb.md#rgb)
+
+#### Defined in
+
+[hsv.ts:41](../../src/hsv.ts#L41)
 
 ___
 
 ### toXYZ
 
-▸ **toXYZ**(`color`: [*partialHSV*](hsv.md#partialhsv)): [*XYZ*](xyz.md#xyz)
+▸ **toXYZ**(`color`): [`XYZ`](xyz.md#xyz)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialHSV*](hsv.md#partialhsv) |
+| `color` | [`partialHSV`](hsv.md#partialhsv) |
 
-**Returns:** [*XYZ*](xyz.md#xyz)
+#### Returns
 
-Defined in: [hsv.ts:115](../../src/hsv.ts#L115)
+[`XYZ`](xyz.md#xyz)
+
+#### Defined in
+
+[hsv.ts:115](../../src/hsv.ts#L115)

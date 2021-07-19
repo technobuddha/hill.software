@@ -36,279 +36,349 @@
 
 ### CMY
 
-Ƭ **CMY**: [*Alpha*](color.md#alpha) & iCMY & oCMY
+Ƭ **CMY**: [`Alpha`](color.md#alpha) & `iCMY` & `oCMY`
 
-Defined in: [cmy.ts:12](../../src/cmy.ts#L12)
+#### Defined in
+
+[cmy.ts:12](../../src/cmy.ts#L12)
 
 ___
 
 ### partialCMY
 
-Ƭ **partialCMY**: [*Alpha*](color.md#alpha) & iCMY \| oCMY \| iCMY & oCMY
+Ƭ **partialCMY**: [`Alpha`](color.md#alpha) & `iCMY` \| `oCMY` \| `iCMY` & `oCMY`
 
-Defined in: [cmy.ts:11](../../src/cmy.ts#L11)
+#### Defined in
+
+[cmy.ts:11](../../src/cmy.ts#L11)
 
 ## Variables
 
 ### default
 
-• `Const` **default**: [*ColorSpace*](color_space.md#colorspace)<[*CMY*](cmy.md#cmy), [*partialCMY*](cmy.md#partialcmy), internalCMY\>
+• `Const` **default**: [`ColorSpace`](color_space.md#colorspace)<[`CMY`](cmy.md#cmy), [`partialCMY`](cmy.md#partialcmy), `internalCMY`\>
 
-Defined in: [cmy.ts:133](../../src/cmy.ts#L133)
+#### Defined in
+
+[cmy.ts:133](../../src/cmy.ts#L133)
 
 ## Functions
 
 ### external
 
-▸ **external**(`__namedParameters`: internalCMY): [*CMY*](cmy.md#cmy)
+▸ **external**(`__namedParameters`): [`CMY`](cmy.md#cmy)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `__namedParameters` | internalCMY |
+| `__namedParameters` | `internalCMY` |
 
-**Returns:** [*CMY*](cmy.md#cmy)
+#### Returns
 
-Defined in: [cmy.ts:25](../../src/cmy.ts#L25)
+[`CMY`](cmy.md#cmy)
+
+#### Defined in
+
+[cmy.ts:25](../../src/cmy.ts#L25)
 
 ___
 
 ### internal
 
-▸ **internal**(`color`: [*partialCMY*](cmy.md#partialcmy)): internalCMY
+▸ **internal**(`color`): `internalCMY`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** internalCMY
+#### Returns
 
-Defined in: [cmy.ts:19](../../src/cmy.ts#L19)
+`internalCMY`
+
+#### Defined in
+
+[cmy.ts:19](../../src/cmy.ts#L19)
 
 ___
 
 ### is
 
-▸ **is**(`color`: [*PartialColor*](color.md#partialcolor)): color is partialCMY
+▸ **is**(`color`): color is partialCMY
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*PartialColor*](color.md#partialcolor) |
+| `color` | [`PartialColor`](color.md#partialcolor) |
 
-**Returns:** color is partialCMY
+#### Returns
 
-Defined in: [cmy.ts:14](../../src/cmy.ts#L14)
+color is partialCMY
+
+#### Defined in
+
+[cmy.ts:14](../../src/cmy.ts#L14)
 
 ___
 
 ### parse
 
-▸ **parse**(`input`: *string*): [*CMY*](cmy.md#cmy) \| *undefined*
+▸ **parse**(`input`): [`CMY`](cmy.md#cmy) \| `undefined`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | *string* |
+| `input` | `string` |
 
-**Returns:** [*CMY*](cmy.md#cmy) \| *undefined*
+#### Returns
 
-Defined in: [cmy.ts:97](../../src/cmy.ts#L97)
+[`CMY`](cmy.md#cmy) \| `undefined`
+
+#### Defined in
+
+[cmy.ts:97](../../src/cmy.ts#L97)
 
 ___
 
 ### string
 
-▸ **string**(`input`: [*partialCMY*](cmy.md#partialcmy), `options`: [*StringOptions*](color.md#stringoptions)): *string*
+▸ **string**(`input`, `options`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `input` | [*partialCMY*](cmy.md#partialcmy) |
-| `options` | [*StringOptions*](color.md#stringoptions) |
+| `input` | [`partialCMY`](cmy.md#partialcmy) |
+| `options` | [`StringOptions`](color.md#stringoptions) |
 
-**Returns:** *string*
+#### Returns
 
-Defined in: [cmy.ts:122](../../src/cmy.ts#L122)
+`string`
+
+#### Defined in
+
+[cmy.ts:122](../../src/cmy.ts#L122)
 
 ___
 
 ### toCMY
 
-▸ **toCMY**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*CMY*](cmy.md#cmy)
+▸ **toCMY**(`color`): [`CMY`](cmy.md#cmy)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*CMY*](cmy.md#cmy)
+#### Returns
 
-Defined in: [cmy.ts:63](../../src/cmy.ts#L63)
+[`CMY`](cmy.md#cmy)
+
+#### Defined in
+
+[cmy.ts:63](../../src/cmy.ts#L63)
 
 ___
 
 ### toCMYK
 
-▸ **toCMYK**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*CMYK*](cmyk.md#cmyk)
+▸ **toCMYK**(`color`): [`CMYK`](cmyk.md#cmyk)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*CMYK*](cmyk.md#cmyk)
+#### Returns
 
-Defined in: [cmy.ts:67](../../src/cmy.ts#L67)
+[`CMYK`](cmyk.md#cmyk)
+
+#### Defined in
+
+[cmy.ts:67](../../src/cmy.ts#L67)
 
 ___
 
 ### toHCG
 
-▸ **toHCG**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*HCG*](hcg.md#hcg)
+▸ **toHCG**(`color`): [`HCG`](hcg.md#hcg)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*HCG*](hcg.md#hcg)
+#### Returns
 
-Defined in: [cmy.ts:59](../../src/cmy.ts#L59)
+[`HCG`](hcg.md#hcg)
+
+#### Defined in
+
+[cmy.ts:59](../../src/cmy.ts#L59)
 
 ___
 
 ### toHSI
 
-▸ **toHSI**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*HSI*](hsi.md#hsi)
+▸ **toHSI**(`color`): [`HSI`](hsi.md#hsi)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*HSI*](hsi.md#hsi)
+#### Returns
 
-Defined in: [cmy.ts:51](../../src/cmy.ts#L51)
+[`HSI`](hsi.md#hsi)
+
+#### Defined in
+
+[cmy.ts:51](../../src/cmy.ts#L51)
 
 ___
 
 ### toHSL
 
-▸ **toHSL**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*HSL*](hsl.md#hsl)
+▸ **toHSL**(`color`): [`HSL`](hsl.md#hsl)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*HSL*](hsl.md#hsl)
+#### Returns
 
-Defined in: [cmy.ts:43](../../src/cmy.ts#L43)
+[`HSL`](hsl.md#hsl)
+
+#### Defined in
+
+[cmy.ts:43](../../src/cmy.ts#L43)
 
 ___
 
 ### toHSV
 
-▸ **toHSV**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*HSV*](hsv.md#hsv)
+▸ **toHSV**(`color`): [`HSV`](hsv.md#hsv)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*HSV*](hsv.md#hsv)
+#### Returns
 
-Defined in: [cmy.ts:47](../../src/cmy.ts#L47)
+[`HSV`](hsv.md#hsv)
+
+#### Defined in
+
+[cmy.ts:47](../../src/cmy.ts#L47)
 
 ___
 
 ### toHWB
 
-▸ **toHWB**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*HWB*](hwb.md#hwb)
+▸ **toHWB**(`color`): [`HWB`](hwb.md#hwb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*HWB*](hwb.md#hwb)
+#### Returns
 
-Defined in: [cmy.ts:55](../../src/cmy.ts#L55)
+[`HWB`](hwb.md#hwb)
+
+#### Defined in
+
+[cmy.ts:55](../../src/cmy.ts#L55)
 
 ___
 
 ### toLAB
 
-▸ **toLAB**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*LAB*](lab.md#lab)
+▸ **toLAB**(`color`): [`LAB`](lab.md#lab)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*LAB*](lab.md#lab)
+#### Returns
 
-Defined in: [cmy.ts:89](../../src/cmy.ts#L89)
+[`LAB`](lab.md#lab)
+
+#### Defined in
+
+[cmy.ts:89](../../src/cmy.ts#L89)
 
 ___
 
 ### toLCH
 
-▸ **toLCH**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*LCH*](lch.md#lch)
+▸ **toLCH**(`color`): [`LCH`](lch.md#lch)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*LCH*](lch.md#lch)
+#### Returns
 
-Defined in: [cmy.ts:93](../../src/cmy.ts#L93)
+[`LCH`](lch.md#lch)
+
+#### Defined in
+
+[cmy.ts:93](../../src/cmy.ts#L93)
 
 ___
 
 ### toRGB
 
-▸ **toRGB**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*RGB*](rgb.md#rgb)
+▸ **toRGB**(`color`): [`RGB`](rgb.md#rgb)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*RGB*](rgb.md#rgb)
+#### Returns
 
-Defined in: [cmy.ts:38](../../src/cmy.ts#L38)
+[`RGB`](rgb.md#rgb)
+
+#### Defined in
+
+[cmy.ts:38](../../src/cmy.ts#L38)
 
 ___
 
 ### toXYZ
 
-▸ **toXYZ**(`color`: [*partialCMY*](cmy.md#partialcmy)): [*XYZ*](xyz.md#xyz)
+▸ **toXYZ**(`color`): [`XYZ`](xyz.md#xyz)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `color` | [*partialCMY*](cmy.md#partialcmy) |
+| `color` | [`partialCMY`](cmy.md#partialcmy) |
 
-**Returns:** [*XYZ*](xyz.md#xyz)
+#### Returns
 
-Defined in: [cmy.ts:85](../../src/cmy.ts#L85)
+[`XYZ`](xyz.md#xyz)
+
+#### Defined in
+
+[cmy.ts:85](../../src/cmy.ts#L85)
