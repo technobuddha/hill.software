@@ -11,7 +11,7 @@ export const genServerWebpackConfig: ((isDevelopment?: boolean) => Webpack.Confi
         name:   'server',
         mode:   isDevelopment ? 'development' : 'production',
         entry: {
-            'server': paths.serverEntry,
+            'server': isDevelopment ? paths.serverEntryDevelopment : paths.serverEntryProduction,
         },
         output: {
             filename:   '[name].js',

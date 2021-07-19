@@ -40,6 +40,13 @@ const topPackage  = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'packa
 const packages    = Object.fromEntries((JSON.parse(shell.exec('lerna list --json', { silent: true })) as LernaPackage[])
                     .filter(p => p.name !== '@technobuddha/vt100')
                     .map(p => [ p.name, p ]));
+packages['hill.software'] = {
+    name: 'hill.software',
+    version: topPackage.version!,
+    private: true,
+    location: path.resolve(__dirname, '..')
+
+};
 const versions:   Record<string, string>   = {};
 const dependsOn:  Record<string, string[]> = Object.fromEntries(Object.keys(packages).map(name => [name, []]));
 

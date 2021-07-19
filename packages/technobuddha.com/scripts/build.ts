@@ -117,16 +117,17 @@ webpack(
                     Object.entries(pj.dependencies!)
                     .map(([ k, v ]) => [ k, v.startsWith('^') ? v.slice(1) : v ])
                 );
-                pj.devDependencies = Object.fromEntries(
-                    Object.entries(pj.devDependencies!)
-                    .map(([ k, v ]) => [ k, v.startsWith('^') ? v.slice(1) : v ])
-                );
+                delete pj.devDependencies;
+                //pj.devDependencies = Object.fromEntries(
+                //     Object.entries(pj.devDependencies!)
+                //     .map(([ k, v ]) => [ k, v.startsWith('^') ? v.slice(1) : v ])
+                // );
 
                 fs.writeFileSync('deploy/package.json', JSON.stringify(pj, undefined, 2), 'utf8');
                 finish();
 
                 start('npm', 'install');
-                shell.exec('npm install --prefix ./deploy', { silent: true });
+                run(shell.exec('npm install --prefix ./deploy', { silent: true }));
                 finish();
 
                 out(`\n--${chalk.green('done')}\n`);

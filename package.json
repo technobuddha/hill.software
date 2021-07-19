@@ -59,6 +59,7 @@
     "postcss-comment": "^2.0.0",
     "postcss-import": "^14.0.2",
     "postcss-loader": "^4.3.0",
+    "postcss-mui-theme": "^1.1.0",
     "postcss-nested": "^4.2.3",
     "postcss-preset-env": "^6.7.0",
     "postcss-property-lookup": "^2.0.0",
