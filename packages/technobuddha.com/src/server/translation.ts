@@ -1,14 +1,32 @@
 import process                          from 'process';
 import { setTimeout, clearTimeout }     from 'timers';
-import keys    from 'lodash/keys';
-import omit    from 'lodash/omit';
-import isNil   from 'lodash/isNil';
-import i18next from '#settings/i18next';
+import keys                             from 'lodash/keys';
+import omit                             from 'lodash/omit';
+import isNil                            from 'lodash/isNil';
+import i18next                          from '#settings/i18next';
 import { translate, readTranslations, writeTranslations } from '#util/translation';
 
+import type { Application }     from 'express';
 import type { Logger }          from 'winston';
 import type { TranslateReturn } from '#util/translation';
-export class TranslationWorker {
+
+export function translation(app: Application, logger: Logger) {
+    if(process.env.GCLOUD_PROJECT && process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        const translationWorker     = new TranslationWorker(logger);
+
+        app.post(
+            '/locales/*',
+            (req, res) => {
+                const [ ,,, nsfile ] = req.url.split('/');
+                const [ ns ]         = nsfile.split('.');
+                translationWorker.enqueue(ns, req.body);
+                res.end();
+            }
+        );
+    }
+}
+
+class TranslationWorker {
     private static readonly interval                = 1000;
 
     private queue:  {[key: string]: string[] }     = {};
@@ -83,4 +101,4 @@ export class TranslationWorker {
     }
 }
 
-export default TranslationWorker;
+export default translation;
