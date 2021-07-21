@@ -3,16 +3,13 @@ import isDate   from 'lodash/isDate';
 import isNumber from 'lodash/isNumber';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
+import { isoDate, numeric } from '@technobuddha/library/regexp';
 import { rendererFactory, headerFactory, collatorFactory } from './columnCompiler';
 
 import type { Column, ColumnType, ColumnSpecifications } from './column';
 
 export type IdentifiedType = 'string' | 'number' | 'boolean' | 'symbol' | 'object' | 'function' | 'undefined' | 'iso-date' | 'null' | 'date' | 'array';
 export type Shape          = 'key-value' | 'array' | 'primitive' | 'polymorphic';
-
-// eslint-disable-next-line max-len
-const isoDate       = /^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))$/u;
-const numberString  = /^((?:NaN|[+-]?(?:(?:\d+|\d*\.\d+)(?:[Ee][+-]?\d+)?|[+-]?Infinity)))$/u;
 
 export type AnalyzerResults<T = unknown> = {
     getColumnType: (key: string) => ColumnType;
@@ -173,7 +170,7 @@ function identify(value: unknown, identifyArrays = true): IdentifiedType {
         case 'string': {
             if(isoDate.test(value as string))
                 return 'iso-date';
-            else if(numberString.test(value as string))
+            else if(numeric.test(value as string))
                 return 'number';
             return 'string';
         }
