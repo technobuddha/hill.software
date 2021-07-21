@@ -9,15 +9,15 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
-  
+
         "strict": true,
         "noImplicitAny": true,
+        "noImplicitOverride": true,
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "experimentalDecorators": true      
+        "experimentalDecorators": true
     }
 }
-  

@@ -38,7 +38,7 @@ export function arrayIndicator<T = unknown>({ Icon, name, title }: IndicatorArgs
                     style={styles?.root}
                     icon={Icon && <Icon />}
                     color="secondary"
-                    label={`${title ?? name}: ${str}`}
+                    label={`${title ?? name.toString()}: ${str}`}
                     onDelete={handleFilterDelete}
                 />
             );
