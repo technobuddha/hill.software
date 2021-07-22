@@ -241,7 +241,7 @@ export const PasswordValidation: React.FC<PasswordValidationProps> = ({
                 <Box className={css.rules}>
                     {
                         (zip(validationRules, pass) as [ ValidationRule, boolean ][])
-                        .filter(([ , ok ]) => !showInvalidOnly && ok === false)
+                        .filter(([ , ok ]) => !showInvalidOnly && !ok)
                         .map(([ rule, ok ], i) => (
                             <React.Fragment key={i}>
                                 {ok ? <FaThumbsUp className={css.good} /> : <FaThumbsDown className={css.bad} />}

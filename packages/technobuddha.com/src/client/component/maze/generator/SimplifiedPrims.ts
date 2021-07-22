@@ -4,8 +4,8 @@ import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
 export class SimplifiedPrims extends MazeGenerator {
-    private visited:      boolean[][];
-    public activeCells:   Cell[];
+    private readonly    visited:      boolean[][];
+    public              activeCells:  Cell[];
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -18,7 +18,7 @@ export class SimplifiedPrims extends MazeGenerator {
         this.visited[this.start.x][this.start.y] = true;
     }
 
-    public step() {
+    public override step() {
         const { maze } = this;
 
         const cellIndex     = Math.floor(this.random() * this.activeCells.length);

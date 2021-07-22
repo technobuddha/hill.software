@@ -4,9 +4,9 @@ import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
 export class HuntAndKill extends MazeGenerator {
-    private visited:            boolean[][];
-    private startHuntingFrom:   Cell;
-    private hunting:            boolean;
+    private readonly    visited:            boolean[][];
+    private             startHuntingFrom:   Cell;
+    private             hunting:            boolean;
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -21,7 +21,7 @@ export class HuntAndKill extends MazeGenerator {
         this.visited = create2DArray(width, height, false);
     }
 
-    public step() {
+    public override step() {
         const { maze }          = this;
 
         if(!this.hunting) {

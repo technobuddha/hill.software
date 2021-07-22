@@ -5,7 +5,7 @@ import type { MazeGeneratorProperties } from './MazeGenerator';
 type Rect           = { x: number; y: number; width: number; height: number };
 
 export class RecursiveDivision extends MazeGenerator {
-    private walls: CellDirection[];
+    private readonly    walls: CellDirection[];
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -79,7 +79,7 @@ export class RecursiveDivision extends MazeGenerator {
         }
     }
 
-    public step() {
+    public override step() {
         if(this.walls.length) {
             const wall = this.walls.shift()!;
             this.maze.addWall(wall, wall.direction);

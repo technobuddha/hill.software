@@ -7,7 +7,7 @@ export class TenPrint extends MazeGenerator {
         this.currentCell = { x: 0, y: 0 };
     }
 
-    public step() {
+    public override step() {
         const { maze }          = this;
         const { width, height } = maze;
 

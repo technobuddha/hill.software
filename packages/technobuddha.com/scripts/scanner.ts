@@ -19,7 +19,7 @@ function out(text: string | undefined) {
         process.stdout.write(text);
 }
 
-(async function main() {
+void (async function main() {
     const foreign = i18next.supportedLngs ? i18next.supportedLngs.filter(lng => lng !== 'en') : [];
 
     for(const ns of isString(i18next.ns) ? [ i18next.ns ] : i18next.ns ?? [ 'translation' ]) {

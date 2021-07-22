@@ -12,7 +12,7 @@ function out(text: string | undefined) {
     }
 }
 
-(async function main() {
+void (async function main() {
     out(chalk.magenta('Scanning for new artwork...'));
 
     const files = await glob('/mnt/music/Library/**/AlbumArt*_@(Large|Small).jpg')

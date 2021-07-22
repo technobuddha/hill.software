@@ -4,8 +4,8 @@ import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
 export class Wilsons extends MazeGenerator {
-    private visited:      boolean[][];
-    private unvisited:    Cell[];
+    private readonly    visited:      boolean[][];
+    private readonly    unvisited:    Cell[];
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -28,7 +28,7 @@ export class Wilsons extends MazeGenerator {
             this.unvisited.splice(index, 1);
     }
 
-    public step() {
+    public override step() {
         const { maze } = this;
 
         this.currentCell = this.unvisited[Math.floor(this.random() * this.unvisited.length)];

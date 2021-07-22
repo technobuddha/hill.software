@@ -200,7 +200,7 @@ export class SquareMaze extends Maze {
         }
     }
 
-    public toString() {
+    public override toString() {
         let str = '';
 
         for(let y = 0; y < this.height; ++y) {

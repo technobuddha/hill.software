@@ -88,7 +88,7 @@ module.exports = (tsconfigPath) => ({
         'block-scoped-var':                                             'error',
         'class-methods-use-this':                                       'off',
         'complexity':                                                   'off',
-        'consistent-return':                                            'error',
+        'consistent-return':                                            'off',
         'curly':                                                        [ 'warn', 'multi-or-nest', 'consistent' ],
         'default-case':                                                 'off',
         'default-case-last':                                            'error',
@@ -132,7 +132,7 @@ module.exports = (tsconfigPath) => ({
         'no-nonoctal-decimal-escape':                                   'error',
         'no-octal':                                                     RECOMMENDED('error'),
         'no-octal-escape':                                              'error',
-        'no-param-reassign':                                            'off',      //TODO maybe
+        'no-param-reassign':                                            'off',
         'no-proto':                                                     'error',
         'no-redeclare':                                                 TYPESCRIPT,
         'no-restricted-properties':                                     'off',
@@ -152,12 +152,12 @@ module.exports = (tsconfigPath) => ({
         'no-useless-escape':                                            RECOMMENDED('error'),
         'no-useless-return':                                            'warn',
         'no-void':                                                      'off',
-        'no-warning-comments':                                          'off',      // TODO this would eliminate TODO comments (like this one)
+        'no-warning-comments':                                          'off',
         'no-with':                                                      RECOMMENDED('error'),
         'prefer-named-capture-group':                                   'off',
         'prefer-promise-reject-errors':                                 'error',
         'prefer-regex-literals':                                        'error',
-        'radix':                                                        'error',
+        'radix':                                                        'off',
         'require-await':                                                TYPESCRIPT,
         'require-unicode-regexp':                                       'warn',
         'vars-on-top':                                                  'off',
@@ -261,7 +261,7 @@ module.exports = (tsconfigPath) => ({
         'padding-line-between-statements':                              'off',
         'prefer-exponentiation-operator':                               'off',
         'prefer-object-spread':                                         'warn',
-        'quote-props':                                                  'off', // TODO [ 'warn', 'consistent-as-needed' ],
+        'quote-props':                                                  'off',
         'quotes':                                                       TYPESCRIPT,
         'semi':                                                         TYPESCRIPT,
         'semi-spacing':                                                 [ 'warn', { before: false, after: true }],
@@ -344,7 +344,7 @@ module.exports = (tsconfigPath) => ({
         '@typescript-eslint/no-for-in-array':                           TC(RECOMMENDED('error')),
         '@typescript-eslint/no-implicit-any-catch':                     'warn',
         '@typescript-eslint/no-inferrable-types':                       OVERRIDE('warn', RECOMMENDED('error')),
-        '@typescript-eslint/no-invalid-void-type':                      'off', // TODO Investigate
+        '@typescript-eslint/no-invalid-void-type':                      'off',
         '@typescript-eslint/no-misused-new':                            RECOMMENDED('error'),
         '@typescript-eslint/no-misused-promises':                       TC(RECOMMENDED('error')),
         '@typescript-eslint/no-namespace':                              OVERRIDE('off', RECOMMENDED('error')),
@@ -376,7 +376,7 @@ module.exports = (tsconfigPath) => ({
         '@typescript-eslint/prefer-nullish-coalescing':                 TC('error'),
         '@typescript-eslint/prefer-optional-chain':                     'error',
         '@typescript-eslint/prefer-readonly':                           TC('warn'),
-        '@typescript-eslint/prefer-readonly-parameter-types':           'off',  // TODO maybe??
+        '@typescript-eslint/prefer-readonly-parameter-types':           'off',
         '@typescript-eslint/prefer-reduce-type-parameter':              TC('warn'),
         '@typescript-eslint/prefer-regexp-exec':                        TC(RECOMMENDED('error')),
         '@typescript-eslint/prefer-string-starts-ends-with':            TC('warn'),
@@ -435,7 +435,6 @@ module.exports = (tsconfigPath) => ({
         '@typescript-eslint/no-invalid-this':                           'error',
         '@typescript-eslint/no-loop-func':                              'warn',
         '@typescript-eslint/no-loss-of-precision':                      'error',
-        // TODO this is a nice rule, but it seems a little too expansive
         '@typescript-eslint/no-magic-numbers': [
             'off',
             { 'ignoreEnums': true, 'ignoreNumericLiteralTypes': true, ignoreReadonlyClassProperties: true },
@@ -625,7 +624,15 @@ module.exports = (tsconfigPath) => ({
         'jsx-a11y/tabindex-no-positive':                                RECOMMENDED('error'),
 
         // tsdoc
-        // TODO producing too many errors now, turned off
-        'tsdoc/syntax':                                                 OVERRIDE('off', OVERRIDE('error', RECOMMENDED('warn'))),
+        'tsdoc/syntax':                                                 OVERRIDE('off', RECOMMENDED('warn')),
     },
+    overrides: [
+        {
+            files: [ '**/*.js' ],
+            rules: {
+                '@typescript-eslint/no-var-requires':                   'off',
+                '@typescript-eslint/no-require-imports':                'off',
+            },
+        },
+    ]
 });

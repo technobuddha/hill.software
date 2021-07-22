@@ -8,9 +8,9 @@ import type { MazeGeneratorProperties } from './MazeGenerator';
 type SubRegion = 'a' | 'b' | 'm';
 
 class Region {
-    private width:  number;
-    private height: number;
-    public subregions: (SubRegion | null)[][];
+    private readonly    width:  number;
+    private readonly    height: number;
+    public              subregions: (SubRegion | null)[][];
 
     constructor({ width, height }: { width: number; height: number }) {
         this.width      = width;
@@ -62,8 +62,8 @@ type BlobProperties = MazeGeneratorProperties & {
 };
 
 export class Blob extends MazeGenerator {
-    private threshold:  number;
-    private walls:      CellDirection[] = [];
+    private readonly    threshold:  number;
+    private readonly    walls:      CellDirection[] = [];
 
     constructor({ threshold = 3, ...props }: BlobProperties) {
         super({ ...props });
@@ -120,7 +120,7 @@ export class Blob extends MazeGenerator {
         }
     }
 
-    protected step() {
+    protected override step() {
         const { maze } = this;
 
         if(this.walls.length) {

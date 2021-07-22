@@ -5,12 +5,12 @@ import { MazeSolver } from './MazeSolver';
 import type { MazeSolverProperties, SolveArguments } from './MazeSolver';
 
 export class WallWalking extends MazeSolver {
-    private turn:  (direction: Direction) => Direction[];
+    private readonly    turn:  (direction: Direction) => Direction[];
 
     constructor(props: MazeSolverProperties) {
         super(props);
 
-        this.turn = Math.random() < 0.5 ? this.maze.rightTurn : this.maze.leftTurn;
+        this.turn = Math.random() < 0.5 ? this.maze.rightTurn.bind(this) : this.maze.leftTurn.bind(this);
     }
 
     public async solve({ entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {

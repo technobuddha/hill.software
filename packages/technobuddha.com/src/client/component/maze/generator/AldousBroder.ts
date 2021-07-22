@@ -4,8 +4,8 @@ import create2DArray from '@technobuddha/library/create2DArray';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
 export class AldousBroder extends MazeGenerator {
-    private visited: boolean[][] = [];
-    private totalVisited         = 0;
+    private readonly    visited: boolean[][] = [];
+    private             totalVisited         = 0;
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -16,7 +16,7 @@ export class AldousBroder extends MazeGenerator {
         this.visited[this.currentCell.x][this.currentCell.y] = true;
     }
 
-    public step() {
+    public override step() {
         const { maze } = this;
 
         for(;;) {

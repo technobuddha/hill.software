@@ -7,11 +7,11 @@ import type { MazeGeneratorProperties } from './MazeGenerator';
 type Mode = 'horizontal' | 'vertical';
 
 export class Ellers extends MazeGenerator {
-    private visited:                    boolean[][];
-    private mode:                       Mode;
-    private cellSets:                   number[][];
-    private sets:                       Record<number, Cell[]>;
-    private cellsToConnectVertically:   Cell[];
+    private readonly    visited:                    boolean[][];
+    private             mode:                       Mode;
+    private readonly    cellSets:                   number[][];
+    private             sets:                       Record<number, Cell[]>;
+    private             cellsToConnectVertically:   Cell[];
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -35,7 +35,7 @@ export class Ellers extends MazeGenerator {
         this.initializeRow();
     }
 
-    public step() {
+    public override step() {
         return this.mode === 'horizontal' ? this.horizontalStep() : this.verticalStep();
     }
 

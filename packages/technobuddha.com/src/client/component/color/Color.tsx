@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ColorSpace   from './ColorSpace';
 import color  from '@technobuddha/color';

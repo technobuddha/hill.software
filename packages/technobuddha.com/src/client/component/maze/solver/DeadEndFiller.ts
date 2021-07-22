@@ -29,7 +29,7 @@ export class DeadEndFiller extends MazeSolver {
                                                 walls[cell.x][cell.y][direction] = true;
                                                 maze.drawWall({ ...cell, direction });
 
-                                                const cell2 = maze.move(cell!, direction);
+                                                const cell2 = maze.move(cell, direction);
                                                 if(cell2 && maze.inMaze(cell2)) {
                                                     walls[cell2.x][cell2.y][maze.opposite(direction)] = true;
                                                     maze.drawWall({ ...cell2, direction: maze.opposite(direction) });

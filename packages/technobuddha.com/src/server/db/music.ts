@@ -3,7 +3,7 @@ import { db }         from './driver';
 import type { SnakeCase }  from 'type-fest';
 import type { Track }      from '#schema/track';
 
-type DBTrack                     = {[Key in keyof Track as SnakeCase<Key>]: Track[Key]};
+type DBTrack                     = {[Key in keyof Track as SnakeCase<Key>]: Track[Key] };
 type Scalar<T extends unknown[]> = T[0];
 
 type GetTrackPick = 'contentId'  | 'artist' | 'album' | 'discNumber'  | 'trackNumber'  | 'title' | 'genre';

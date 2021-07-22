@@ -12,7 +12,7 @@ export class Sidewinder extends MazeGenerator {
         this.runSet      = [];
     }
 
-    public step() {
+    public override step() {
         const { maze }          = this;
         const { width, height } = maze;
 

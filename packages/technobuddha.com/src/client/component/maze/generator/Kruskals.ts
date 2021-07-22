@@ -4,8 +4,8 @@ import { MazeGenerator } from './MazeGenerator';
 import type { MazeGeneratorProperties } from './MazeGenerator';
 
 export class Kruskals extends MazeGenerator {
-    private disjointSubsets: DisjointSet;
-    private edges: CellDirection[];
+    private readonly    disjointSubsets: DisjointSet;
+    private readonly    edges: CellDirection[];
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -31,7 +31,7 @@ export class Kruskals extends MazeGenerator {
         return cell.y * width + cell.x;
     }
 
-    public step() {
+    public override step() {
         const { maze } = this;
 
         const edge  = this.edges.pop()!;
@@ -56,8 +56,8 @@ export class Kruskals extends MazeGenerator {
 export default Kruskals;
 
 class DisjointSet {
-    private sets:       number[];
-    private setSizes:   number[];
+    private             sets:       number[];
+    private readonly    setSizes:   number[];
 
     constructor(numberOfItems = 0) {
         //Array of items. Each item has an index which points to the parent set.

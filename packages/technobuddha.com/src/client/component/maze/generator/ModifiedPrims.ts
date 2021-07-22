@@ -4,9 +4,9 @@ import type { MazeGeneratorProperties } from './MazeGenerator';
 import create2DArray from '@technobuddha/library/create2DArray';
 
 export class ModifiedPrims extends MazeGenerator {
-    private visited:      boolean[][];
-    private activeCells:  Cell[];
-    private costs:        number[][];
+    private readonly    visited:      boolean[][];
+    private readonly    activeCells:  Cell[];
+    private readonly    costs:        number[][];
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -19,7 +19,7 @@ export class ModifiedPrims extends MazeGenerator {
         this.costs = create2DArray(width, height, this.random);
     }
 
-    public step() {
+    public override step() {
         const { maze } = this;
 
         let minCost     = Infinity;

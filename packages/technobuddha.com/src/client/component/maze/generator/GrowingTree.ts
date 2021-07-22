@@ -6,8 +6,8 @@ import type { MazeGeneratorProperties } from './MazeGenerator';
 type SelectionMethod = 'newest' | 'oldest' | 'middle' | 'random';
 
 export class GrowingTree extends MazeGenerator {
-    private visited:  boolean[][];
-    private list:     Cell[];
+    private readonly    visited:  boolean[][];
+    private readonly    list:     Cell[];
 
     constructor(props: MazeGeneratorProperties) {
         super(props);
@@ -59,7 +59,7 @@ export class GrowingTree extends MazeGenerator {
         }
     }
 
-    public step() {
+    public override step() {
         const { maze }   = this;
         const index      = this.selectCell(this.selectMethod());
         this.currentCell = this.list[index];

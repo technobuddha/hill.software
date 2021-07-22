@@ -34,7 +34,7 @@ function err(text: string | undefined) {
         process.stderr.write(text);
 }
 
-(async function main() {
+void (async function main() {
     const b1 = new cliProgress.SingleBar({
         format: `Tracks |${chalk.cyan('{bar}')}| {percentage}% || {value}/{total}`,
         barCompleteChar: '\u2588',
