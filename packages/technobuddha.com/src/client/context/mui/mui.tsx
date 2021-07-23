@@ -27,7 +27,6 @@ export function useTheme(): Theme {
     return muiUseTheme();
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function makeStyles<Props extends object = {}, ClassKey extends string = string>(
     style: Styles<Theme, Props, ClassKey>,
     options?: WithStylesOptions<Theme>

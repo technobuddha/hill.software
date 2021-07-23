@@ -39,7 +39,6 @@ export const TabbedRouter: React.FC<TabbedRouterProps> = ({ tabs }) => {
     const match = useRouteMatch();
     const history = useHistory();
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
     const handleChange = (_event: React.ChangeEvent<{}>, newValue: any) => {
         history.push(newValue);
     };

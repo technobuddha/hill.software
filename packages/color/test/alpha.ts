@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/quotes */
-//import fs from 'fs-extra';
 import expect from '../util/expect';
 import color from '../src/color';
 

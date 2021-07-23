@@ -18,6 +18,7 @@ module.exports = (tsconfigPath) => ({
     },
     'plugins': [
         '@typescript-eslint',
+        'eslint-comments',
         'react',
         'eslint-plugin-react-hooks',
         'jsx-a11y',
@@ -463,6 +464,20 @@ module.exports = (tsconfigPath) => ({
         '@typescript-eslint/space-before-function-paren':               [ 'warn', { 'anonymous': 'never', 'named': 'never', 'asyncArrow': 'always' }],
         '@typescript-eslint/space-infix-ops':                           'warn',
 
+        // Best Practices
+        'eslint-comments/disable-enable-pair':                          [ RECOMMENDED('error'), { allowWholeFile: true }],
+        'eslint-comments/no-aggregating-enable':                        RECOMMENDED('error'),
+        'eslint-comments/no-duplicate-disable':                         RECOMMENDED('error'),
+        'eslint-comments/no-unlimited-disable':                         RECOMMENDED('error'),
+        'eslint-comments/no-unused-disable':                            RECOMMENDED('error'),
+        'eslint-comments/no-unused-enable':                             RECOMMENDED('error'),
+
+        // Stylistic Issues
+        'eslint-comments/no-restricted-disable':                        'off',
+        'eslint-comments/no-use':                                       'off',
+        'eslint-comments/require-description':                          'off',
+
+
         'react/boolean-prop-naming':                                    'off',
         'react/button-has-type':                                        'off',
         'react/default-props-match-prop-types':                         'off',
@@ -632,6 +647,12 @@ module.exports = (tsconfigPath) => ({
             rules: {
                 '@typescript-eslint/no-var-requires':                   'off',
                 '@typescript-eslint/no-require-imports':                'off',
+            },
+        },
+        {
+            files: [ '**/*.css.d.ts' ],
+            rules: {
+                'eslint-comments/no-unused-disable':                    'off',
             },
         },
     ]

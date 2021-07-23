@@ -1,6 +1,6 @@
 import React                from 'react';
 import { create2DArray }    from '@technobuddha/library/create2DArray';
-import { useDerivedState }   from '@technobuddha/react-hooks';
+import { useDerivedState }  from '@technobuddha/react-hooks';
 import splitLines           from '@technobuddha/library/splitLines';
 import clean                from '@technobuddha/library/clean';
 import { space }            from '@technobuddha/library/constants';
@@ -55,7 +55,6 @@ const LifeBoard: React.FC<LifeBoardProps> = ({ boxWidth, boxHeight, start }: Lif
 
             for(let i = 0; i < w; ++i) {
                 for(let j = 0; j < h; ++j) {
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     if(((lines[j][i]) ?? space) !== space)
                         b[i + x][j + y] = true;
                 }

@@ -1,32 +1,31 @@
-/* eslint-disable */
 import React from 'react';
 import ColorSpace   from './ColorSpace';
 import color  from '@technobuddha/color';
 import css from './Color.css';
 
-import type { RGB } from '@technobuddha/color';
+import type { ColorSpecification } from '@technobuddha/color';
 
 type ColorProps = {
     children?: never;
 };
 
 export const Color: React.FC<ColorProps> = () => {
-    const [ rgb, setRGB ] = React.useState<RGB>({ r: 27, g: 108, b: 168 });
+    const [ rgb, setRGB ] = React.useState<ColorSpecification>({ r: 27, g: 108, b: 168 });
 
-    const hsl = color.toHSL(rgb);
-    const hsv = color.toHSV(rgb);
-    const hwb = color.toHWB(rgb);
-    const hcg = color.toHCG(rgb);
-    const cmyk = color.toCMYK(rgb);
-    const xyz = color.toXYZ(rgb);
+    // const hsl = color.toHSL(rgb);
+    // const hsv = color.toHSV(rgb);
+    // const hwb = color.toHWB(rgb);
+    // const hcg = color.toHCG(rgb);
+    // const cmyk = color.toCMYK(rgb);
+    // const xyz = color.toXYZ(rgb);
     const lab = color.toLAB(rgb);
 
-    const handleChange = (c: RGB) => { setRGB(c); };
+    const handleChange = (c: ColorSpecification) => { setRGB(c); };
 
     return (
         <div className={css.color}>
-            <div className={css.swatch} style={{ backgroundColor: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})` }} />
-            {/* <ColorSpace
+            {/* <div className={css.swatch} style={{ backgroundColor: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})` }} />
+            <ColorSpace
                 color={{ r: rgb.r, g: rgb.g, b: rgb.b }}
                 colorSpace={{
                     r: { min: 0, max: 255 },
