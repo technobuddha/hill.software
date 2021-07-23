@@ -16,9 +16,12 @@ module.exports = (tsconfigPath) => ({
         'sourceType':       'module',
         'impliedStrict':    true,
     },
+    // Other plugins to consider:
+    // eslint-plugin-jsonc - scan json files
     'plugins': [
         '@typescript-eslint',
         'eslint-comments',
+        'no-secrets',
         'react',
         'eslint-plugin-react-hooks',
         'jsx-a11y',
@@ -477,6 +480,10 @@ module.exports = (tsconfigPath) => ({
         'eslint-comments/no-use':                                       'off',
         'eslint-comments/require-description':                          'off',
 
+        'no-secrets/no-secrets': [
+            RECOMMENDED('error'),
+            { ignoreContent: [ /^CMTD/u, /^ABCDEF/ui, /^NowIsThe/ui ]},
+        ],
 
         'react/boolean-prop-naming':                                    'off',
         'react/button-has-type':                                        'off',
