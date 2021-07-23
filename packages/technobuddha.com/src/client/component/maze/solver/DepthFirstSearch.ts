@@ -41,13 +41,11 @@ export class DepthFirstSearch extends MazeSolver {
                                     if(!this.maze.walls[cell.x][cell.y][direction]) {
                                         const next = this.maze.move(cell, direction);
 
-                                        if(next && maze.inMaze(next)) {
-                                            if(!discovered[next.x][next.y]) {
-                                                discovered[next.x][next.y] = true;
-                                                distances[next.x][next.y]  = distances[cell.x][cell.y] + 1;
+                                        if(next && maze.inMaze(next) && !discovered[next.x][next.y]) {
+                                            discovered[next.x][next.y] = true;
+                                            distances[next.x][next.y]  = distances[cell.x][cell.y] + 1;
 
-                                                queue.push({ ...next, parent: cell });
-                                            }
+                                            queue.push({ ...next, parent: cell });
                                         }
                                     }
                                 }

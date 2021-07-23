@@ -27,6 +27,7 @@ module.exports = (tsconfigPath) => ({
         'eslint-plugin-react-hooks',
         'jsx-a11y',
         'eslint-plugin-tsdoc',
+        'sonarjs',
     ],
     'extends': [
     ],
@@ -661,6 +662,41 @@ module.exports = (tsconfigPath) => ({
 
         // tsdoc
         'tsdoc/syntax':                                                 OVERRIDE('off', RECOMMENDED('warn')),
+
+        // SonarJS
+        // Bug Detection
+        'sonarjs/no-all-duplicated-branches':                           RECOMMENDED('error'),
+        'sonarjs/no-element-overwrite':                                 RECOMMENDED('error'),
+        'sonarjs/no-empty-collection':                                  RECOMMENDED('error'),
+        'sonarjs/no-extra-arguments':                                   RECOMMENDED('error'),
+        'sonarjs/no-identical-conditions':                              RECOMMENDED('error'),
+        'sonarjs/no-ignored-return':                                    TC(RECOMMENDED('error')),
+        'sonarjs/no-one-iteration-loop':                                RECOMMENDED('error'),
+        'sonarjs/no-use-of-empty-return-value':                         RECOMMENDED('error'),
+        'sonarjs/non-existent-operator':                                RECOMMENDED('error'),
+
+        // Code Smell
+        'sonarjs/cognitive-complexity':                                 OVERRIDE('off', RECOMMENDED('error')),
+        'sonarjs/elseif-without-else':                                  'off',
+        'sonarjs/max-switch-cases':                                     OVERRIDE('off', RECOMMENDED('error')),
+        'sonarjs/no-collapsible-if':                                    RECOMMENDED('error'),
+        'sonarjs/no-collection-size-mischeck':                          TC(RECOMMENDED('error')),
+        'sonarjs/no-duplicate-string':                                  OVERRIDE('off', RECOMMENDED('error')),
+        'sonarjs/no-duplicated-branches':                               RECOMMENDED('error'),
+        'sonarjs/no-gratuitous-expressions':                            RECOMMENDED('error'),
+        'sonarjs/no-identical-functions':                               RECOMMENDED('error'),
+        'sonarjs/no-inverted-boolean-check':                            RECOMMENDED('error'),
+        'sonarjs/no-nested-switch':                                     RECOMMENDED('error'),
+        'sonarjs/no-nested-template-literals':                          OVERRIDE('off', RECOMMENDED('error')),
+        'sonarjs/no-redundant-boolean':                                 RECOMMENDED('error'),
+        'sonarjs/no-redundant-jump':                                    RECOMMENDED('error'),
+        'sonarjs/no-same-line-conditional':                             RECOMMENDED('error'),
+        'sonarjs/no-small-switch':                                      RECOMMENDED('error'),
+        'sonarjs/no-unused-collection':                                 RECOMMENDED('error'),
+        'sonarjs/no-useless-catch':                                     RECOMMENDED('error'),
+        'sonarjs/prefer-immediate-return':                              RECOMMENDED('error'),
+        'sonarjs/prefer-single-boolean-return':                         RECOMMENDED('error'),
+        'sonarjs/prefer-while':                                         RECOMMENDED('error'),
     },
     overrides: [
         {
@@ -676,5 +712,11 @@ module.exports = (tsconfigPath) => ({
                 'eslint-comments/no-unused-disable':                    'off',
             },
         },
+        {
+            files: [ '**/test/*' ],
+            rules: {
+                'sonarjs/no-identical-functions':                       'off',
+            },
+        }
     ]
 });

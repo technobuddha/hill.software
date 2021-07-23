@@ -16,14 +16,12 @@ export function authentication(_logger: Logger) {
 
                 if(sessionId) {
                     const session = await db.getSession(sessionId);
-                    if(session) {
-                        if(session.expires >= new Date()) {
-                            const account = await db.getAccountById(session.account_id);
+                    if(session && session.expires >= new Date()) {
+                        const account = await db.getAccountById(session.account_id);
 
-                            if(account) {
-                                res.status(200).json(account);
-                                return;
-                            }
+                        if(account) {
+                            res.status(200).json(account);
+                            return;
                         }
                     }
                 }

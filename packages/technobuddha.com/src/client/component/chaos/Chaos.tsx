@@ -6,7 +6,7 @@ import { useTranslation }   from '#context/i18n';
 import { chaos }            from '#worker/chaos';
 import css                  from './Chaos.css';
 
-import type { RGB }        from '@technobuddha/color';
+type RGB = { r: number; g: number; b: number };
 
 const SIZE          = 1;
 const MAX_ITERATION = 1024;
@@ -83,24 +83,22 @@ const ChaosBoard: React.FC<ChaosBoardProps> = ({ boxWidth, boxHeight }: ChaosBoa
     };
 
     const handleMouseUp         = (event: React.MouseEvent<HTMLCanvasElement>) => {
-        if(mode === 'display') {
-            if(mouseIsDown.current) {
-                const click  = coordinates(event);
+        if(mode === 'display' && mouseIsDown.current) {
+            const click  = coordinates(event);
 
-                if(Math.abs(click.x - corner.current.x) < 10 || Math.abs(click.y - corner.current.y) < 10) {
-                    clearOverlay();
-                } else {
-                    const first  = scaledCoordinates(corner.current);
-                    const second = scaledCoordinates(click);
+            if(Math.abs(click.x - corner.current.x) < 10 || Math.abs(click.y - corner.current.y) < 10) {
+                clearOverlay();
+            } else {
+                const first  = scaledCoordinates(corner.current);
+                const second = scaledCoordinates(click);
 
-                    x_min.current = Math.min(first.x, second.x);
-                    x_max.current = Math.max(first.x, second.x);
-                    y_min.current = Math.min(first.y, second.y);
-                    y_max.current = Math.max(first.y, second.y);
-                    setMode('compute');
-                }
-                mouseIsDown.current = false;
+                x_min.current = Math.min(first.x, second.x);
+                x_max.current = Math.max(first.x, second.x);
+                y_min.current = Math.min(first.y, second.y);
+                y_max.current = Math.max(first.y, second.y);
+                setMode('compute');
             }
+            mouseIsDown.current = false;
         }
     };
 
@@ -130,7 +128,7 @@ const ChaosBoard: React.FC<ChaosBoardProps> = ({ boxWidth, boxHeight }: ChaosBoa
 
                 chaos.mandelbrot(width, height, x_min.current, x_max.current, y_min.current, y_max.current, MAX_ITERATION)
                 .then(result => {
-                    grid.current = result.colors;
+                    grid.current  = result.colors;
                     x_min.current = result.x_min;
                     x_max.current = result.x_max;
                     y_min.current = result.y_min;
