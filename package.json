@@ -46,6 +46,7 @@
     "eslint-plugin-no-secrets": "^0.8.9",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "expect": "^27.0.6",
     "file-loader": "^6.2.0",
