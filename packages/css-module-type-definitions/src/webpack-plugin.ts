@@ -25,7 +25,8 @@ export class CMTDWebpackPlugin implements webpack.Plugin {
                 if(this.isWatching)  return Promise.resolve();
 
                 this.isWatching = true;
-                return this.cmtd.scan().then(() => { this.cmtd.watch(); });
+                await this.cmtd.scan();
+                this.cmtd.watch();
             }
         );
     }

@@ -28,6 +28,7 @@ module.exports = (tsconfigPath) => ({
         'jsx-a11y',
         'eslint-plugin-tsdoc',
         'sonarjs',
+        'promise',
     ],
     'extends': [
     ],
@@ -697,6 +698,21 @@ module.exports = (tsconfigPath) => ({
         'sonarjs/prefer-immediate-return':                              RECOMMENDED('error'),
         'sonarjs/prefer-single-boolean-return':                         RECOMMENDED('error'),
         'sonarjs/prefer-while':                                         RECOMMENDED('error'),
+
+        // Promise
+        'promise/catch-or-return':                                      OVERRIDE('off', RECOMMENDED('error')),
+        'promise/no-return-wrap':                                       RECOMMENDED('error'),
+        'promise/param-names':                                          RECOMMENDED('error'),
+        'promise/always-return':                                        OVERRIDE('off', RECOMMENDED('error')),
+        'promise/no-native':                                            'off',
+        'promise/no-nesting':                                           RECOMMENDED('warn'),
+        'promise/no-promise-in-callback':                               RECOMMENDED('warn'),
+        'promise/no-new':                                               'off',
+        'promise/no-new-statics':                                       RECOMMENDED('error'),
+        'promise/no-return-in-finally':                                 RECOMMENDED('warn'),
+        'promise/valid-params':                                         RECOMMENDED('warn'),
+        'promise/prefer-await-to-then':                                 'off',
+        'promise/prefer-await-to-callbacks':                            'off',
     },
     overrides: [
         {

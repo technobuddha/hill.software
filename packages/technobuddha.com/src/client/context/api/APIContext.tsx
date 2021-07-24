@@ -65,6 +65,7 @@ export const APIProvider: React.FC = (props: { children?: React.ReactNode }) => 
             response => {
                 if(validStatuses.includes(response.status)) {
                     return (
+                        // eslint-disable-next-line promise/no-nesting
                         response.text()
                         .then(str => {
                             return {

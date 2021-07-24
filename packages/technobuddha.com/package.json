@@ -24,7 +24,7 @@
     "clean": "rm -rf deploy && mkdir deploy deploy/bin deploy/dist"
   },
   "dependencies": {
-    "@technobuddha/library": "^1.8.0",
+    "@technobuddha/library": "^1.9.0",
     "browserslist": "^4.16.1",
     "browserslist-useragent": "^3.0.3",
     "caniuse-lite": "^1.0.30001230",

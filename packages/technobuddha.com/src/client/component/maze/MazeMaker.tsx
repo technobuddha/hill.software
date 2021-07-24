@@ -94,6 +94,7 @@ export const MazeBoard: React.FC<MazeBoardProps> = ({ boxWidth, boxHeight }) => 
                     maze.draw();
                     setTimeout(() => {
                         //maze.drawDistances();
+                        // eslint-disable-next-line promise/no-nesting
                         void randomPick(solvers)!({ maze, context: contextSolve1 }).solve({})
                         .then(() => {
                             setTimeout(

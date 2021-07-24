@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/technobuddha/hill.software/tree/main/packages/react-hooks#readme",
   "dependencies": {
-    "@technobuddha/library": "^1.8.0"
+    "@technobuddha/library": "^1.9.0"
   },
   "peerDependencies": {
     "react": "^16.14.0",

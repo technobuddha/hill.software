@@ -40,19 +40,14 @@ export async function parser(
         );
     };
 
-    return new Promise<ParserReturn>(
-        (resolve, reject) => {
-            fs.readFile(filePath, 'utf-8').then(
-                source => {
-                    postcss((plugins ?? defaultPlugins).concat([ gatherPlugIn ]))
-                    .process(source, {
-                        from: filePath,
-                        parser: comment,
-                    }).then(_result => { resolve(exportTokens); }).catch(reject);
-                }
-            ).catch(reject);
-        }
-    );
+    const source = fs.readFile(filePath, 'utf-8');
+    await postcss((plugins ?? defaultPlugins).concat([ gatherPlugIn ]))
+    .process(source, {
+        from: filePath,
+        parser: comment,
+    });
+
+    return exportTokens;
 }
 
 export default parser;
