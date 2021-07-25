@@ -4,13 +4,16 @@
   "description": "Generate Type Definitions for CSS Modules",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "build": "npm run compile",
     "postbuild": "../../scripts/bootstrap.ts --update css-module-type-definitions",
     "compile": "npm-run-all compile:clean compile:compile",
     "compile:clean": "rm -rf dist && mkdir dist",
     "compile:compile": "tsc",
-    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts ",
     "clean": "npm-run-all *:clean",
     "pub": "npm-run-all clean build:compile pub:version pub:publish",
     "pub:version": "npm --no-tag-git-version version prerelease",

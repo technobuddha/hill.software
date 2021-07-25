@@ -11,26 +11,21 @@ export class HuntAndKill extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        const { maze }          = this;
-        const { width, height } = maze;
-
         this.currentCell      = this.start;
         this.startHuntingFrom = this.currentCell;
         this.hunting          = false;
 
-        this.visited = create2DArray(width, height, false);
+        this.visited = create2DArray(this.maze.width, this.maze.height, false);
     }
 
     public override step() {
-        const { maze }          = this;
-
         if(!this.hunting) {
             this.visited[this.currentCell.x][this.currentCell.y] = true;
 
-            const unvisitedNeighbors = maze.neighbors(this.currentCell).filter(cell => !this.visited[cell.x][cell.y]);
+            const unvisitedNeighbors = this.maze.neighbors(this.currentCell).filter(cell => !this.visited[cell.x][cell.y]);
             if(unvisitedNeighbors.length > 0) {
                 const cell = this.selectNeighbor(unvisitedNeighbors);
-                maze.removeWall(this.currentCell, cell.direction);
+                this.maze.removeWall(this.currentCell, cell.direction);
                 this.currentCell = cell;
 
                 if(
@@ -52,14 +47,13 @@ export class HuntAndKill extends MazeGenerator {
                 this.currentCell = this.startHuntingFrom;
             }
         } else if(!this.visited[this.currentCell.x][this.currentCell.y]) {
-            const visitedNeighbors = maze.neighbors(this.currentCell).filter(cell => this.visited[cell.x][cell.y]);
+            const visitedNeighbors = this.maze.neighbors(this.currentCell).filter(cell => this.visited[cell.x][cell.y]);
             if(visitedNeighbors.length > 0) {
-                if(this.currentCell.y !== 0 && !this.visited[this.currentCell.y][this.currentCell.y - 1])
-                    this.startHuntingFrom = { x: this.currentCell.x, y: this.currentCell.y - 1 };
-                else
-                    this.startHuntingFrom = this.currentCell;
+                this.startHuntingFrom = this.currentCell.y !== 0 && !this.visited[this.currentCell.y][this.currentCell.y - 1]
+                    ? { x: this.currentCell.x, y: this.currentCell.y - 1 }
+                    : this.currentCell;
 
-                maze.removeWall(
+                this.maze.removeWall(
                     this.currentCell,
                     this.selectNeighbor(visitedNeighbors).direction
                 );
@@ -69,8 +63,8 @@ export class HuntAndKill extends MazeGenerator {
         }
 
         if(this.hunting) {
-            this.currentCell = maze.scan(this.currentCell);
-            return maze.inMaze(this.currentCell);
+            this.currentCell = this.maze.scan(this.currentCell);
+            return this.maze.inMaze(this.currentCell);
         }
 
         return true;

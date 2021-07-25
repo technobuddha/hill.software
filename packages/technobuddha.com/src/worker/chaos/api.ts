@@ -53,7 +53,7 @@ function mandelbrot(width: number, height: number, x_min: number, x_max: number,
         }
     }
 
-    const hues = Array(iterations).fill(0);
+    const hues = new Array(iterations).fill(0);
 
     let total = 0;
     for(let i = 0; i < iterations; ++i)

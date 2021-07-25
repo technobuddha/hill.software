@@ -67,10 +67,7 @@ export function deltaE1994(color1: LAB, color2: LAB): number {
     let ΔC = C1 - C2;
     let ΔE = deltaE1976(color1, color2);
     let ΔH = ΔE ** 2 - ΔL ** 2 - ΔC ** 2;
-    if(ΔH > 0)
-        ΔH = Math.sqrt(ΔH);
-    else
-        ΔH = 0;
+    ΔH = ΔH > 0 ? Math.sqrt(ΔH) : 0;
     let Sl = 1.0;
     let Sc = 1 + (K1 * C1);
     let Sh = 1 + (K2 * C1);

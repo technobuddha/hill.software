@@ -34,11 +34,12 @@ export function re(template: TemplateStringsArray, ...args: RegExp[]): RegExp {
     return new RegExp(res.filter(Boolean).join(''), 'iu');
 }
 
+// eslint-disable-next-line unicorn/better-regex
 export const sep        = /(?:\s*,\s*|\s+)/;
 export const space      = /\s+/;
 export const op         = /(?:\s*\(\s*)/;
 export const cp         = /(?:\s*\)\s*)/;
-export const num        = /[+-]?\d*\.?\d+(?:[eE][+-]?\d+)?/;
+export const num        = /[+-]?\d*\.?\d+(?:[Ee][+-]?\d+)?/;
 export const number     = re`(${num})`;
 export const percent    = re`(${num}%?)`;
 export const angle      = re`(${num}(?:deg|rad|grad|turn)?)`;

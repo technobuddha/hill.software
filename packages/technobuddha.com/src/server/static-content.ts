@@ -82,7 +82,7 @@ export function staticContent(app: Application, logger: Logger) {
     .get(
         '/cdn/*',
         (req, res) => {
-            const name = req.url.substr(5);         // 5 is the length of '/cdn/'
+            const name = req.url.slice(5);         // 5 is the length of '/cdn/'
             res.sendFile(path.join(paths.node_modules, name));
         }
     )

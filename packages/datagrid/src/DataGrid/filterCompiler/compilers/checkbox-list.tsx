@@ -19,7 +19,7 @@ import type { OnSelectionChangedParams }    from '../../DataGrid';
 import type { Filter, FilterActuatorProps } from '../../filter';
 import type { CompilerOptions }             from './options';
 
-// TODO implement clear functionality
+// TODO [2021-12-13] implement clear functionality
 export type CheckboxCompilerOptions<T = unknown> = CompilerOptions & {
     type:           'checkbox-list';
     name:           keyof T;

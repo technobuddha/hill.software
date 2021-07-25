@@ -16,16 +16,13 @@ export class Ellers extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        const { maze }          = this;
-        const { width, height } = maze;
-
-        this.visited        = create2DArray(width, height, false);
+        this.visited        = create2DArray(this.maze.width, this.maze.height, false);
         this.currentCell    = { x: 0, y: 0 };
         this.visited[this.currentCell.x][this.currentCell.y] = true;
 
         this.sets       = {};
-        this.cellSets   = create2DArray(width, height, (x, y) => {
-            const setId = x + y * width;
+        this.cellSets   = create2DArray(this.maze.width, this.maze.height, (x, y) => {
+            const setId = x + y * this.maze.width;
             this.sets[setId] = [{ x, y }];
             return setId;
         });
@@ -45,24 +42,21 @@ export class Ellers extends MazeGenerator {
     }
 
     private horizontalStep() {
-        const { maze } = this;
-        const { width, height } = maze;
-
         const c0 = this.currentCell;
-        const c1 = maze.move(c0, 'E')!;
+        const c1 = this.maze.move(c0, 'E')!;
 
         if(
             (this.cellSets[c0.x][c0.y] !== this.cellSets[c1.x][c1.y]) &&
-            ((c0.y === height - 1) || (this.random() > 0.5))
+            ((c0.y === this.maze.height - 1) || (this.random() > 0.5))
         ) {
             this.merge(c0, c1);
-            maze.removeWall(c0, 'E');
+            this.maze.removeWall(c0, 'E');
         }
 
         this.currentCell.x++;
 
-        if(this.currentCell.x >= width - 1) {
-            if(this.currentCell.y === height - 1)
+        if(this.currentCell.x >= this.maze.width - 1) {
+            if(this.currentCell.y === this.maze.height - 1)
                 return false;
 
             this.mode = 'vertical';
@@ -101,8 +95,6 @@ export class Ellers extends MazeGenerator {
     }
 
     private verticalStep() {
-        const { maze } = this;
-
         //no cells left to connect vertically
         if(this.cellsToConnectVertically.length === 0) {
             this.currentCell.y++;
@@ -115,7 +107,7 @@ export class Ellers extends MazeGenerator {
                 { x: this.currentCell.x, y: this.currentCell.y + 1 },
             );
 
-            maze.removeWall(this.currentCell, 'S');
+            this.maze.removeWall(this.currentCell, 'S');
         }
 
         return true;

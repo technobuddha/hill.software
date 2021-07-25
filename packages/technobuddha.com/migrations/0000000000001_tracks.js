@@ -1,8 +1,8 @@
-exports.shorthands = undefined;
+module.exports.shorthands = undefined;
 
 const names = [ 'track', 'track_old', 'track_new' ];
 
-exports.up = pgm => {
+module.exports.up = pgm => {
     for(const name of names) {
         pgm.createTable(
             name,
@@ -62,7 +62,7 @@ exports.up = pgm => {
     }
 };
 
-exports.down = pgm => {
+module.exports.down = pgm => {
     for(const name of names)
         pgm.dropTable(name);
 };

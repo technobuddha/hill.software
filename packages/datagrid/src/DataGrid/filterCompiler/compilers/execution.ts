@@ -33,7 +33,7 @@ export function searchExecute<T = unknown>(name: keyof T, shape: Shape) {
         }
 
         case 'array': {
-            const key = parseInt(name as string, 10);
+            const key = Number.parseInt(name as string, 10);
 
             return (data: T[], value: FilterValue) => {
                 const filterValue = normalizeFilterValue(value);
@@ -100,7 +100,7 @@ export function equalityExecute<T = unknown>(name: keyof T, shape: Shape) {
         }
 
         case 'array': {
-            const key = parseInt(name as string, 10);
+            const key = Number.parseInt(name as string, 10);
 
             return (data: T[], value: FilterValue) => {
                 const filterValue   = normalizeFilterArray(value);

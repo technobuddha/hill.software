@@ -27,7 +27,7 @@ function not<T>(a: T[], b: T[]) {
     return a.filter(value => !b.includes(value));
 }
 
-// TODO implement the clear functionality
+// TODO [2021-12-31] implement the clear functionality
 export function filterCompilerTransfer<T = unknown>({ name, title, Icon }: TransferCompilerOptions<T>, { getShape }: AnalyzerResults<T>): Filter<T> {
     return {
         name,

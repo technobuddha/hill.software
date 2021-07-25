@@ -101,10 +101,7 @@ export function toLCH(color: partialLAB): LCH {
     let hue = approxEq(redGreen, 0) && approxEq(blueYellow, 0)
         ?   0
         :   Math.atan2(blueYellow, redGreen);
-    if(hue > 0)
-        hue = hue / (Math.PI * 2);
-    else
-        hue = 1 - Math.abs(hue / (Math.PI * 2));
+    hue = hue > 0 ? hue / (Math.PI * 2) : 1 - Math.abs(hue / (Math.PI * 2));
     if(hue >= 1) hue -= 1;
 
     let chroma    = Math.sqrt(redGreen ** 2 + blueYellow ** 2);

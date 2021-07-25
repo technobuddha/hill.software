@@ -10,21 +10,17 @@ export class RecursiveBacktracker extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        const { maze: { width, height }} = this;
-
-        this.visited = create2DArray(width, height, false);
+        this.visited = create2DArray(this.maze.width, this.maze.height, false);
         this.currentCell = this.start;
         this.stack  = [ this.currentCell ];
         this.visited[this.currentCell.x][this.currentCell.y] = true;
     }
 
     public override step() {
-        const { maze } = this;
-
-        const unvisitedNeighbors = maze.neighbors(this.currentCell).filter(cell => !this.visited[cell.x][cell.y]);
+        const unvisitedNeighbors = this.maze.neighbors(this.currentCell).filter(cell => !this.visited[cell.x][cell.y]);
         if(unvisitedNeighbors.length > 0) {
             const newCell = this.selectNeighbor(unvisitedNeighbors);
-            maze.removeWall(this.currentCell, newCell.direction);
+            this.maze.removeWall(this.currentCell, newCell.direction);
             this.visited[newCell.x][newCell.y] = true;
 
             this.stack.push(newCell);

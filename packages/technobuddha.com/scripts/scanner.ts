@@ -35,14 +35,12 @@ void (async function main() {
             )
             .then(
                 results => {
-                    results.forEach(
-                        result => {
-                            if(!isNil(result.translation)) {
-                                out(`${chalk.green('translated')} ${chalk.grey(`${ns} ${lng}`)} ${result.key}\n`);
-                                t[result.key] = result.translation;
-                            }
+                    for(const result of results) {
+                        if(!isNil(result.translation)) {
+                            out(`${chalk.green('translated')} ${chalk.grey(`${ns} ${lng}`)} ${result.key}\n`);
+                            t[result.key] = result.translation;
                         }
-                    );
+                    }
 
                     writeTranslations(t, lng, ns, 'external');
                 }

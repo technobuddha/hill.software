@@ -136,7 +136,7 @@ const ChaosBoard: React.FC<ChaosBoardProps> = ({ boxWidth, boxHeight }: ChaosBoa
                     setMode('display');
                 })
                 // eslint-disable-next-line no-console
-                .catch(err => { console.error(err); });  // TODO use snackbar to show error
+                .catch(err => { console.error(err); });  // TODO [2021-09-30] use snackbar to show error
             } else {
                 setTimeout(
                     () => {

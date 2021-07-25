@@ -12,26 +12,24 @@ type DD = {
 
 export class BreadthFirstSearch extends MazeSolver {
     public async solve({ color = 'lime', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
-        const { maze } = this;
-
-        maze.prepareContext(this.context);
+        this.maze.prepareContext(this.context);
 
         return new Promise<void>(resolve => {
             const queue: Cell[] = [];
-            const distances     = create2DArray(maze.width, maze.height, () => ({ dist: Infinity } as DD));
+            const distances     = create2DArray(this.maze.width, this.maze.height, () => ({ dist: Infinity } as DD));
             distances[entrance.x][entrance.y]  = { dist: 0 };
             queue.unshift(entrance);
-            maze.drawCell(entrance, color);
+            this.maze.drawCell(entrance, color);
 
-            for(const direction of maze.directions) {
-                if(!maze.walls[entrance.x][entrance.y][direction])
-                    maze.drawWall({ ...entrance, direction }, color);
+            for(const direction of this.maze.directions) {
+                if(!this.maze.walls[entrance.x][entrance.y][direction])
+                    this.maze.drawWall({ ...entrance, direction }, color);
             }
 
             const go = () => {
                 requestAnimationFrame(
                     () => {
-                        if(queue.length) {
+                        if(queue.length > 0) {
                             const cell      = queue.pop()!;
 
                             if(cell.x === exit.x && cell.y === exit.y) {
@@ -40,30 +38,30 @@ export class BreadthFirstSearch extends MazeSolver {
                             } else {
                                 const distance  = distances[cell.x][cell.y].dist + 1;
                                 const neighbors = randomShuffle(
-                                    maze.validMoves(cell)
+                                    this.maze.validMoves(cell)
                                     .filter(n => distances[n.x][n.y].dist > distance)
                                 );
 
                                 for(const neighbor of neighbors) {
                                     distances[neighbor.x][neighbor.y]  = { dir: neighbor.direction, dist: distance };
-                                    maze.drawCell(neighbor, color);
-                                    for(const direction of maze.directions) {
-                                        if(maze.walls[neighbor.x][neighbor.y][direction] === false)
-                                            maze.drawWall({ ...neighbor, direction }, color);
+                                    this.maze.drawCell(neighbor, color);
+                                    for(const direction of this.maze.directions) {
+                                        if(this.maze.walls[neighbor.x][neighbor.y][direction] === false)
+                                            this.maze.drawWall({ ...neighbor, direction }, color);
                                     }
                                     queue.unshift(neighbor);
                                 }
                                 go();
                             }
                         } else {
-                            maze.clear();
+                            this.maze.clear();
 
-                            let cell = { ...exit, direction: maze.opposite(exit.direction) };
+                            let cell = { ...exit, direction: this.maze.opposite(exit.direction) };
                             for(;;) {
-                                maze.drawPath({ ...cell, direction: maze.opposite(cell.direction) }, color);
+                                this.maze.drawPath({ ...cell, direction: this.maze.opposite(cell.direction) }, color);
                                 if(cell.x === entrance.x && cell.y === entrance.y)
                                     break;
-                                cell = maze.move(cell, maze.opposite(distances[cell.x][cell.y].dir!))!;
+                                cell = this.maze.move(cell, this.maze.opposite(distances[cell.x][cell.y].dir!))!;
                             }
                             resolve();
                         }

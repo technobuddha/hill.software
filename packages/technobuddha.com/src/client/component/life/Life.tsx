@@ -138,62 +138,54 @@ const LifeBoard: React.FC<LifeBoardProps> = ({ boxWidth, boxHeight, start }: Lif
                         context.fillRect(0, 0, width * SIZE, height * SIZE);
 
                         context.fillStyle = 'black';
-                        board.forEach(
-                            (row, i) => {
-                                row.forEach(
-                                    (cell, j) => {
-                                        if(cell)
-                                            context.fillRect(i * SIZE, j * SIZE, SIZE, SIZE);
-                                    }
-                                );
+                        for(const [ i, row ] of board.entries()) {
+                            for(const [ j, cell ] of row.entries()) {
+                                if(cell)
+                                    context.fillRect(i * SIZE, j * SIZE, SIZE, SIZE);
                             }
-                        );
+                        }
 
                         setMove(1);
                     } else {
                         const nextBoard = create2DArray(width, height, false);
-                        board.forEach(
-                            (row, i) => {
-                                row.forEach(
-                                    (cell, j) => {
-                                        const neighbors = MOVES.reduce(
-                                            (acc, [ deltaX, deltaY ]) => {
-                                                const newX = i + deltaX;
-                                                const newY = j + deltaY;
+                        for(const [ i, row ] of board.entries()) {
+                            for(const [ j, cell ] of row.entries()) {
+                                const neighbors = MOVES.reduce(
+                                    (acc, [ deltaX, deltaY ]) => {
+                                        const newX = i + deltaX;
+                                        const newY = j + deltaY;
 
-                                                return acc + ((newX >= 0 && newX < width && newY >= 0 && newY < height && board[newX][newY]) ? 1 : 0);
-                                            },
-                                            0
-                                        );
-
-                                        switch(neighbors) {
-                                            case 0: case 1: case 4: case 5: case 6: case 7: case 8:
-                                                if(cell) {
-                                                    context.fillStyle = 'white';
-                                                    context.fillRect(i * SIZE, j * SIZE, SIZE, SIZE);
-                                                }
-                                                nextBoard[i][j] = false;
-                                                break;
-
-                                            case 2:
-                                                nextBoard[i][j] = cell;
-                                                break;
-
-                                            case 3:
-                                                if(!cell) {
-                                                    context.fillStyle = 'black';
-                                                    context.fillRect(i * SIZE, j * SIZE, SIZE, SIZE);
-                                                }
-                                                nextBoard[i][j] = true;
-                                                break;
-
-                                            default:
-                                                break;
-                                        }
-                                    }
+                                        return acc + ((newX >= 0 && newX < width && newY >= 0 && newY < height && board[newX][newY]) ? 1 : 0);
+                                    },
+                                    0
                                 );
+
+                                switch(neighbors) {
+                                    case 0: case 1: case 4: case 5: case 6: case 7: case 8:
+                                        if(cell) {
+                                            context.fillStyle = 'white';
+                                            context.fillRect(i * SIZE, j * SIZE, SIZE, SIZE);
+                                        }
+                                        nextBoard[i][j] = false;
+                                        break;
+
+                                    case 2:
+                                        nextBoard[i][j] = cell;
+                                        break;
+
+                                    case 3:
+                                        if(!cell) {
+                                            context.fillStyle = 'black';
+                                            context.fillRect(i * SIZE, j * SIZE, SIZE, SIZE);
+                                        }
+                                        nextBoard[i][j] = true;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
                             }
-                        );
+                        }
 
                         detectGlider(nextBoard, context);
 

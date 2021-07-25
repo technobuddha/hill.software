@@ -6,11 +6,13 @@ import dotenvExpand from 'dotenv-expand';
 if(!process.env.NODE_ENV)
     process.env.NODE_ENV = 'development';
 
-[
-    `${paths.env}.${process.env.NODE_ENV}.local`,
-    `${paths.env}.${process.env.NODE_ENV}`,
-    `${paths.env}.local`,
-    paths.env,
-]
-.filter(fs.existsSync)
-.forEach(path => dotenvExpand(config({ path })));
+for(const path of
+    [
+        `${paths.env}.${process.env.NODE_ENV}.local`,
+        `${paths.env}.${process.env.NODE_ENV}`,
+        `${paths.env}.local`,
+        paths.env,
+    ]
+    .filter(file => fs.existsSync(file))
+)
+    dotenvExpand(config({ path }));

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-switch */
 import React                from 'react';
 import toDate               from '@technobuddha/library/toDate';
 import Box                  from '@material-ui/core/Box';
@@ -39,7 +40,7 @@ export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, typ
         }
 
         case 'array': {
-            const key = isNumber(column.name) ? column.name : parseFloat(column.name);
+            const key = isNumber(column.name) ? column.name : Number.parseFloat(column.name);
 
             switch(type.dataType) {
                 case 'number':

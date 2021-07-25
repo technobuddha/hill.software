@@ -74,10 +74,7 @@ function attributes(color: partialRGB) {
 
         if(hue < 0) hue += 1;
 
-        if(lightness <= 0.5)
-            hslSaturation = chroma / (max + min);
-        else
-            hslSaturation = chroma / (2 - max - min);
+        hslSaturation = lightness <= 0.5 ? chroma / (max + min) : chroma / (2 - max - min);
     }
 
     if(!approxEq(max, 0))
@@ -177,7 +174,7 @@ export function parse(input: string): RGB | undefined {
     let match: RegExpMatchArray | null;
     if(testHEX.test(input)) {
         //#region HEX
-        const n = parseInt(input.slice(1), 16);
+        const n = Number.parseInt(input.slice(1), 16);
 
         switch(input.length - 1) {
             case 3:   // abc => aabbcc

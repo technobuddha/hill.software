@@ -72,7 +72,7 @@ type GridAreaClasses = {
     header?:         string;
     detail?:         string;
 };
-type GridAreaStyles = {[key in keyof GridAreaClasses]: React.CSSProperties};
+type GridAreaStyles = {[key in keyof GridAreaClasses]: React.CSSProperties };
 
 function Grid<T = unknown>({
     classes,
@@ -109,9 +109,6 @@ function Grid<T = unknown>({
             />
         );
     };
-
-    // eslint-disable-next-line no-console
-    // console.log('Grid rendering...');   // TODO Remove debug
 
     return (
         <>

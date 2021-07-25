@@ -4,11 +4,14 @@
   "description": "A small library of React hooks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "build": "npm run compile",
     "compile": "./scripts/build.ts",
     "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/react-hooks",
-    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts ",
     "x-prepublishOnly": "npm version patch -m 'Publish Release %s'",
     "x-preversion": "npm run build",
     "x-postversion": "git push && git push --tags"

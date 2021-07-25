@@ -3,11 +3,14 @@
   "version": "1.1.0",
   "description": "Adds a theme() function to get attributes of the material-ui theme.",
   "main": "index.js",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "build": "npm run compile",
     "postbuild": "../../scripts/bootstrap.ts --update postcss-mui-theme",
     "compile": "echo --done--",
-    "lint": "LINT_LEVEL=1 eslint --ext .js *.js --fix",
+    "lint": "LINT_LEVEL=1 eslint --ext .js *.js ",
     "pub": "npm-run-all pub:version pub:publish",
     "pub:version": "npm --no-tag-git-version version prerelease",
     "pub:publish": "npm publish",

@@ -12,38 +12,60 @@ export function parsePoint(p: CSpecification, width: number, height: number): Ce
     let x: number;
     let y: number;
 
-    if(p === 'top left') {
-        x = 0;
-        y = 0;
-    } else if(p === 'top middle') {
-        x = Math.floor(width / 2);
-        y = 0;
-    } else if(p === 'top right') {
-        x = width  - 1;
-        y = 0;
-    } else if(p === 'middle right') {
-        x = width  - 1;
-        y = Math.floor(height / 2);
-    } else if(p === 'bottom right') {
-        x = width  - 1;
-        y = height - 1;
-    } else if(p === 'bottom middle') {
-        x = Math.floor(width / 2);
-        y = height - 1;
-    } else if(p === 'bottom left') {
-        x = 0;
-        y = height - 1;
-    } else if(p === 'middle left') {
-        x = 0;
-        y = Math.floor(height / 2);
-    } else if(p === 'middle') {
-        x = Math.floor(width / 2);
-        y = Math.floor(height / 2);
-    } else if(p === 'random') {
-        x = Math.floor(Math.random() * width);
-        y = Math.floor(Math.random() * height);
-    } else {
-        ({ x, y } = p);
+    switch(p) {
+        case 'top left': {
+            x = 0;
+            y = 0;
+            break;
+        }
+        case 'top middle': {
+            x = Math.floor(width / 2);
+            y = 0;
+            break;
+        }
+        case 'top right': {
+            x = width  - 1;
+            y = 0;
+            break;
+        }
+        case 'middle right': {
+            x = width  - 1;
+            y = Math.floor(height / 2);
+            break;
+        }
+        case 'bottom right': {
+            x = width  - 1;
+            y = height - 1;
+            break;
+        }
+        case 'bottom middle': {
+            x = Math.floor(width / 2);
+            y = height - 1;
+            break;
+        }
+        case 'bottom left': {
+            x = 0;
+            y = height - 1;
+            break;
+        }
+        case 'middle left': {
+            x = 0;
+            y = Math.floor(height / 2);
+            break;
+        }
+        case 'middle': {
+            x = Math.floor(width / 2);
+            y = Math.floor(height / 2);
+            break;
+        }
+        case 'random': {
+            x = Math.floor(Math.random() * width);
+            y = Math.floor(Math.random() * height);
+            break;
+        }
+        default: {
+            ({ x, y } = p);
+        }
     }
 
     if(x < 0)       x = 0;

@@ -71,19 +71,16 @@ export class Blob extends MazeGenerator {
         this.threshold  = threshold;
         this.walls      = [];
 
-        const { maze }          = this;
-        const { width, height } = maze;
+        this.maze.removeInteriorWalls();
 
-        maze.removeInteriorWalls();
-
-        const allRegion = new Region({ width, height });
-        for(let x = 0; x < width; ++x) {
-            for(let y = 0; y < height; ++y)
+        const allRegion = new Region({ width: this.maze.width, height: this.maze.height });
+        for(let x = 0; x < this.maze.width; ++x) {
+            for(let y = 0; y < this.maze.height; ++y)
                 allRegion.addCell({ x, y });
         }
 
         const stack = [ allRegion ];
-        while(stack.length) {
+        while(stack.length > 0) {
             const region = stack.pop()!;
 
             const [ seedA, seedB ] = randomShuffle(region.cells());
@@ -92,11 +89,11 @@ export class Blob extends MazeGenerator {
 
             const frontier = [ seedA, seedB ];
 
-            while(frontier.length) {
+            while(frontier.length > 0) {
                 const index = Math.floor(Math.random() * frontier.length);
                 const cell  = frontier[index];
 
-                const neighbors = maze.neighbors(cell)
+                const neighbors = this.maze.neighbors(cell)
                 .filter(n => region.subregions[n.x][n.y] === 'm');
 
                 if(neighbors.length > 0) {
@@ -109,23 +106,21 @@ export class Blob extends MazeGenerator {
             }
 
             const boundary = region.cells('a')
-            .flatMap(cell => maze.neighbors(cell).filter(n => region.subregions[n.x][n.y] === 'b'));
+            .flatMap(cell => this.maze.neighbors(cell).filter(n => region.subregions[n.x][n.y] === 'b'));
 
             boundary.splice(Math.floor(Math.random() * boundary.length), 1);
 
             for(const cd of boundary)
-                this.walls.push({ ...cd, direction: maze.opposite(cd.direction) });
+                this.walls.push({ ...cd, direction: this.maze.opposite(cd.direction) });
 
             stack.push(...region.split(this.threshold));
         }
     }
 
     protected override step() {
-        const { maze } = this;
-
-        if(this.walls.length) {
+        if(this.walls.length > 0) {
             const wall = this.walls.shift()!;
-            maze.addWall(wall, wall.direction);
+            this.maze.addWall(wall, wall.direction);
             return true;
         }
         return false;

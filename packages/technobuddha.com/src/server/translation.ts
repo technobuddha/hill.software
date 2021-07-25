@@ -17,8 +17,8 @@ export function translation(app: Application, logger: Logger) {
         app.post(
             '/locales/*',
             (req, res) => {
-                const [ ,,, nsfile ] = req.url.split('/');
-                const [ ns ]         = nsfile.split('.');
+                const nsfile = req.url.split('/')[3];
+                const [ ns ] = nsfile.split('.');
                 translationWorker.enqueue(ns, req.body);
                 res.end();
             }

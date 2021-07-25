@@ -22,7 +22,7 @@ export type TransferButtonClasses = {
     button:     string;
     divider:    string;
 };
-export type TransferButtonStyles = {[key in keyof TransferButtonClasses]: React.CSSProperties};
+export type TransferButtonStyles = {[key in keyof TransferButtonClasses]: React.CSSProperties };
 
 export type DispatchFunction = (args: { rAll?: boolean; rSel?: boolean; lAll?: boolean; lSel?: boolean }) => void;
 

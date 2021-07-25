@@ -12,7 +12,7 @@ type RowClassnames = {
     stub?:                  string;
 };
 export type RowClasses = RowClassnames & { header?: HeaderClasses; column?: Record<string, string> };
-export type RowStyles  = {[key in keyof RowClassnames]: React.CSSProperties} & { header?: HeaderStyles; column?: Record<string, React.CSSProperties> };
+export type RowStyles  = {[key in keyof RowClassnames]: React.CSSProperties } & { header?: HeaderStyles; column?: Record<string, React.CSSProperties> };
 
 export type HeaderClasses = {
     button?:                string;
@@ -20,7 +20,7 @@ export type HeaderClasses = {
     buttonTitle?:           string;
     buttonSortIndicator?:   string;
 };
-export type HeaderStyles = {[key in keyof HeaderClasses]: React.CSSProperties};
+export type HeaderStyles = {[key in keyof HeaderClasses]: React.CSSProperties };
 
 const ucs = makeStyles(theme => ({
     root: {

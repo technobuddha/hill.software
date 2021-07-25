@@ -4,13 +4,16 @@
   "description": "Material-UI component to measure size of children",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "build": "npm run compile",
     "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/mui-size",
     "compile": "npm-run-all compile:clean compile:compile",
     "compile:clean": "rm -rf dist && mkdir dist",
     "compile:compile": "tsc",
-    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix",
+    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts ",
     "issue": "npm-run-all build issue:version issue:publish",
     "issue:version": "npm --no-tag-git-version version prerelease",
     "issue:publish": "npm publish",

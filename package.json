@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "hill.software monorepo",
   "main": "index.js",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "bootstrap": "lerna bootstrap && scripts/bootstrap.ts",
     "build": "lerna run prebuild && lerna run compile --ignore technobuddha.com && scripts/bootstrap.ts --no-recompile"
@@ -44,12 +47,14 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-no-secrets": "^0.8.9",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-sonarjs": "^0.9.1",
     "eslint-plugin-tsdoc": "^0.2.14",
+    "eslint-plugin-unicorn": "^34.0.1",
     "expect": "^27.0.6",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",

@@ -8,12 +8,11 @@ export function useWhyDidIRender(name: string, props: Record<string, unknown>) {
         () => {
             if(previousProps.current) {
                 console.log('[WDIR]:', name);
-                Object.keys({ ...previousProps.current, ...props }).forEach(
-                    key => {
-                        if(previousProps.current![key] !== props[key])
-                            console.log('...', key);
-                    }
-                );
+                for(const key of Object.keys({ ...previousProps.current, ...props })) {
+                    if(previousProps.current[key] !== props[key])
+                        console.log('...', key);
+                }
+
                 console.log(':[WDIR]');
             }
 

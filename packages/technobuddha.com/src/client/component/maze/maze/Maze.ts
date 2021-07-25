@@ -95,7 +95,7 @@ export abstract class Maze {
 
         const adjacent = this.adjacent(cell);
         const outside  = adjacent.filter(c => !this.inMaze(c));
-        if(outside.length)
+        if(outside.length > 0)
             return { ...cell, direction: randomPick(outside)!.direction };
 
         return { ...cell, direction: randomPick(adjacent)!.direction };

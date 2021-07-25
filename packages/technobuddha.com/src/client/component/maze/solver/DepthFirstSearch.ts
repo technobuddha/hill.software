@@ -6,9 +6,7 @@ import { MazeSolver }           from './MazeSolver';
 import type { SolveArguments }  from './MazeSolver';
 export class DepthFirstSearch extends MazeSolver {
     public async solve({ color = 'red', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
-        const { maze } = this;
-
-        maze.prepareContext(this.context);
+        this.maze.prepareContext(this.context);
 
         return new Promise<void>(resolve => {
             type CP = Cell & { parent?: CP; direction: Direction };
@@ -18,21 +16,21 @@ export class DepthFirstSearch extends MazeSolver {
             const distances     = create2DArray(this.maze.width, this.maze.height, 0);
 
             discovered[entrance.x][entrance.y] = true;
-            maze.drawPath(entrance);
+            this.maze.drawPath(entrance);
             queue.unshift(entrance);
 
             const go = () => {
-                if(queue.length) {
+                if(queue.length > 0) {
                     requestAnimationFrame(
                         () => {
-                            maze.clear();
+                            this.maze.clear();
 
                             const cell = queue.pop();
                             let   path = cell;
                             while(path) {
                                 const next = path.parent;
                                 if(next)
-                                    maze.drawPath({ ...next, direction: path.direction }, color);
+                                    this.maze.drawPath({ ...next, direction: path.direction }, color);
                                 path = next;
                             }
 
@@ -41,7 +39,7 @@ export class DepthFirstSearch extends MazeSolver {
                                     if(!this.maze.walls[cell.x][cell.y][direction]) {
                                         const next = this.maze.move(cell, direction);
 
-                                        if(next && maze.inMaze(next) && !discovered[next.x][next.y]) {
+                                        if(next && this.maze.inMaze(next) && !discovered[next.x][next.y]) {
                                             discovered[next.x][next.y] = true;
                                             distances[next.x][next.y]  = distances[cell.x][cell.y] + 1;
 
@@ -52,7 +50,7 @@ export class DepthFirstSearch extends MazeSolver {
 
                                 go();
                             } else {
-                                maze.drawPath(exit);
+                                this.maze.drawPath(exit);
                                 resolve();
                             }
                         }

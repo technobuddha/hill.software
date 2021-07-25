@@ -33,9 +33,8 @@ const exit = () => {
     process.exit(0);
 };
 
-[ 'SIGINT', 'SIGTERM', 'SIGHUP', 'SIGQUIT', 'exit', 'uncaughtexception' ].forEach(
-    sig => process.on(sig, exit)
-);
+for(const sig of [ 'SIGINT', 'SIGTERM', 'SIGHUP', 'SIGQUIT', 'exit', 'uncaughtexception' ])
+    process.on(sig, exit);
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
@@ -104,11 +103,11 @@ function header() {
     ];
 
     let output = '';
-    for(let i = 0; i < logo.length; ++i) {
+    for(const [ i, element ] of logo.entries()) {
         for(let j = 8; j > i; --j)
             output += '  ';
 
-        output += logo[i];
+        output += element;
         for(let j = 8; j > i; --j)
             output += '  ';
 

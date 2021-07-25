@@ -17,7 +17,7 @@ export type TranslateReturn = {
 };
 
 export async function translate(key: string, language: string): Promise<TranslateReturn> {
-    const phrase = key.endsWith('_plural') ? plural(key.slice(0, key.length - 7)) : key;
+    const phrase = key.endsWith('_plural') ? plural(key.slice(0, -7)) : key;
 
     if(language === 'en')
         return Promise.resolve({ key, language, translation: phrase });

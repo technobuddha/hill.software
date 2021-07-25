@@ -29,12 +29,12 @@ export type FilterActuatorClasses = {
     icon:       string;
     title:      string;
 };
-export type FilterActuatorStyles = {[key in keyof FilterActuatorClasses]: React.CSSProperties};
+export type FilterActuatorStyles = {[key in keyof FilterActuatorClasses]: React.CSSProperties };
 
 export type FilterIndicatorClasses = {
     root:       string;
 };
-export type FilterIndicatorStyles = {[key in keyof FilterIndicatorClasses]: React.CSSProperties};
+export type FilterIndicatorStyles = {[key in keyof FilterIndicatorClasses]: React.CSSProperties };
 
 function queryStringizeFilterValue<T = unknown>(filterValues: FilterValues<T>) {
     return JSON.stringify(mapValues(filterValues, filterValue => {
@@ -60,12 +60,8 @@ export function Filterer<T = unknown>({ filters, children }: FiltererProps<T>) {
     const { data, filterValues } = useGrid<T>();
     const filteredData           = React.useMemo(
         () => {
-            // TODO Remove debugging
-            // eslint-disable-next-line no-console
-            // console.log('Filtering...');
-
             let fData = [ ...data ];
-            filters.forEach(filter => { fData = filter.execute(fData, filterValues[filter.name]); });
+            for(const filter of filters)  fData = filter.execute(fData, filterValues[filter.name]);
             return fData;
         },
         [ data, filters, queryStringizeFilterValue(filterValues) ]

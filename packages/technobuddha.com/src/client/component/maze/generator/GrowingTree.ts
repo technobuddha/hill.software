@@ -12,10 +12,7 @@ export class GrowingTree extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        const { maze }          = this;
-        const { width, height } = maze;
-
-        this.visited = create2DArray(width, height, false);
+        this.visited = create2DArray(this.maze.width, this.maze.height, false);
         this.list  = [ this.start ];
         this.visited[this.start.x][this.start.y] = true;
     }
@@ -60,14 +57,13 @@ export class GrowingTree extends MazeGenerator {
     }
 
     public override step() {
-        const { maze }   = this;
         const index      = this.selectCell(this.selectMethod());
         this.currentCell = this.list[index];
 
-        const unvisitedNeighbors = maze.neighbors(this.currentCell).filter(cell => !this.visited[cell.x][cell.y]);
+        const unvisitedNeighbors = this.maze.neighbors(this.currentCell).filter(cell => !this.visited[cell.x][cell.y]);
         if(unvisitedNeighbors.length > 0) {
             const cell = this.selectNeighbor(unvisitedNeighbors);
-            maze.removeWall(this.currentCell, cell.direction);
+            this.maze.removeWall(this.currentCell, cell.direction);
             this.visited[cell.x][cell.y] = true;
 
             this.list.push(cell);

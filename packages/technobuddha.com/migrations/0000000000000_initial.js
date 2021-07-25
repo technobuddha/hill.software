@@ -1,6 +1,6 @@
-exports.shorthands = undefined;
+module.exports.shorthands = undefined;
 
-exports.up = pgm => {
+module.exports.up = pgm => {
     pgm.createExtension('uuid-ossp',    { ifNotExists: true });
     pgm.createExtension('pgcrypto',     { ifNotExists: true });
     pgm.createExtension('citext',       { ifNotExists: true });
@@ -35,7 +35,7 @@ exports.up = pgm => {
     );
 };
 
-exports.down = pgm => {
+module.exports.down = pgm => {
     pgm.dropTable('session');
     pgm.dropTable('account');
 

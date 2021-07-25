@@ -24,19 +24,19 @@ function report(error: Error | null, stats: webpack.Stats): void {
         process.exit(1);
     }
 
-    if(stats.compilation.errors.length) {
+    if(stats.compilation.errors.length > 0) {
         out(`${chalk.red('Errors:')}\n`);
         for(const e of stats.compilation.errors)
             out(`${e.message}\n`);
     }
 
-    if(stats.compilation.warnings.length) {
+    if(stats.compilation.warnings.length > 0) {
         out(`${chalk.yellow('Warnings:')}\n`);
         for(const w of stats.compilation.warnings)
             out(`${w.message}\n`);
     }
 
-    if(stats.compilation.errors.length) process.exit(1);
+    if(stats.compilation.errors.length > 0) process.exit(1);
 
     for(const [ filename, asset ] of Object.entries(stats.compilation.assets)) {
         const a: any = asset;

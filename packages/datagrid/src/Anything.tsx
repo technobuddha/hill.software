@@ -59,12 +59,8 @@ const useStyles = makeStyles(theme => ({
             borderRight: `1px dotted ${theme.palette.divider}`,
         },
     },
-    top: {
-
-    },
-    null: {
-
-    },
+    top: {},
+    null: {},
     primitive: {
         paddingRight: theme.spacing(0.25),
         paddingLeft: theme.spacing(0.25),
@@ -86,7 +82,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 function isNonDateObject(value: any): value is object {
     return isObject(value) && !isDate(value);
 }

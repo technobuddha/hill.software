@@ -30,16 +30,14 @@ export function Frame<T = unknown>({ className, style, columns, controlWidth, me
 
                 if(menu)       rowWidth -= controlWidth;
 
-                columns.forEach(
-                    column => {
-                        if(isNumber(column.width))
-                            rowWidth -= column.width;
-                        else
-                            stars    += parseInt(column.width, 10) || 1;
-                    }
-                );
+                for(const column of columns) {
+                    if(isNumber(column.width))
+                        rowWidth -= column.width;
+                    else
+                        stars    += Number.parseInt(column.width, 10) || 1;
+                }
 
-                const columnWidths = columns.map(column => (isNumber(column.width) ? column.width : (rowWidth * (parseInt(column.width, 10) || 1)) / stars));
+                const columnWidths = columns.map(column => (isNumber(column.width) ? column.width : (rowWidth * (Number.parseInt(column.width, 10) || 1)) / stars));
                 return children({ width, height, scrollbarWidth, scrollbarHeight, columnWidths });
             }}
         </SizeScrollbar>

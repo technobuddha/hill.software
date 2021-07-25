@@ -21,7 +21,7 @@ module.exports = (opts = {}) => {
                                 decl.value = reduceFunctionCall(
                                     decl.value,
                                     'mui-theme',
-                                    body => get(theme, body.replace(/-/ug, '.'))
+                                    body => get(theme, body.replaceAll('-', '.'))
                                 );
                             }
 

@@ -60,45 +60,43 @@ function analyze<T = unknown>({ data, columns }: { data: T[]; columns?: ColumnSp
     const shapes        = new Set<Shape>();
 
     if(columns) {
-        columns.forEach(
-            column => {
-                if(isString(column) || isNumber(column)) {
-                    used.add(column.toString());
-                } else {
-                    used.add(column.name.toString());
+        for(const column of columns) {
+            if(isString(column) || isNumber(column)) {
+                used.add(column.toString());
+            } else {
+                used.add(column.name.toString());
 
-                    if(isArray(column.sortBy))
-                        column.sortBy.forEach(sort => used.add(sort.toString()));
+                if(isArray(column.sortBy))
+                    for(const sort of column.sortBy)  used.add(sort.toString());
 
-                    if(column.type) {
-                        if(isString(column.type))
-                            types[column.name] = { dataType: column.type, nullable: false };
-                        else
-                            types[column.name] = column.type;
-                    }
+                if(column.type) {
+                    if(isString(column.type))
+                        types[column.name] = { dataType: column.type, nullable: false };
+                    else
+                        types[column.name] = column.type;
                 }
             }
-        );
+        }
     }
 
-    data.slice(0, 1000).forEach(datum => {
+    for(const datum of data.slice(0, 1000)) {
         if(isObject(datum) && !isDate(datum)) {
-            Object.keys(datum).forEach(key => {
+            for(const key of Object.keys(datum)) {
                 if(!(key in columnData))
                     columnData[key] = new Set<IdentifiedType>();
 
                 columnData[key]!.add(identify((datum as Record<string, unknown>)[key]));
-            });
+            }
 
             shapes.add('key-value');
         } else if(isArray(datum)) {
-            for(let i = 0; i < datum.length; ++i) {
+            for(const [ i, element ] of datum.entries()) {
                 const key = i.toString();
 
                 if(!(key in columnData))
                     columnData[key] = new Set<IdentifiedType>();
 
-                columnData[key]!.add(identify(datum[i]));
+                columnData[key]!.add(identify(element));
             }
 
             shapes.add('array');
@@ -121,7 +119,7 @@ function analyze<T = unknown>({ data, columns }: { data: T[]; columns?: ColumnSp
 
             shapes.add('primitive');
         }
-    });
+    }
 
     for(const [ key, identified ] of Object.entries(columnData)) {
         if(!(key in types)) {
@@ -158,9 +156,6 @@ function analyze<T = unknown>({ data, columns }: { data: T[]; columns?: ColumnSp
 
     const shape = (shapes.size === 1) ? shapes.values().next().value : 'polymorphic';
 
-    // TODO Remove debugging
-    // eslint-disable-next-line no-console
-    // console.log('analyser', { types, shape });
     return { types, shape };
 }
 
@@ -186,7 +181,7 @@ function identify(value: unknown, identifyArrays = true): IdentifiedType {
                 return 'date';
             } else if(identifyArrays && isArray(value)) {
                 const arrayTypes = new Set<IdentifiedType>();
-                value.forEach(val => { arrayTypes.add(identify(val, false)); });
+                for(const val of value)  arrayTypes.add(identify(val, false));
 
                 if((arrayTypes.size === 1 && arrayTypes.has('string')) ||
                    (arrayTypes.size === 2 && arrayTypes.has('string') && arrayTypes.has('iso-date')) ||

@@ -2,17 +2,16 @@ import { MazeSolver } from './MazeSolver';
 
 export class DeadEndFiller extends MazeSolver {
     public async solve() {
-        const { maze } = this;
-        const walls = maze.walls.map(row => [ ...row ]);
+        const walls = this.maze.walls.map(row => [ ...row ]);
 
-        maze.prepareContext(this.context);
+        this.maze.prepareContext(this.context);
         return new Promise<void>(resolve => {
-            const deadEnds = maze.deadEnds();
+            const deadEnds = this.maze.deadEnds();
             for(const end of deadEnds)
-                maze.drawX(end, 'red');
+                this.maze.drawX(end, 'red');
 
             const go = () => {
-                if(deadEnds.length) {
+                if(deadEnds.length > 0) {
                     const index = Math.floor(deadEnds.length * Math.random());
                     let cell    = deadEnds[index];
                     deadEnds.splice(index, 1);
@@ -21,23 +20,23 @@ export class DeadEndFiller extends MazeSolver {
                         requestAnimationFrame(
                             () => {
                                 if(cell) {
-                                    const moves = maze.validMoves(cell, { walls });
+                                    const moves = this.maze.validMoves(cell, { walls });
 
-                                    if(maze.isDeadEnd(cell)) {
-                                        for(const direction of maze.directions) {
+                                    if(this.maze.isDeadEnd(cell)) {
+                                        for(const direction of this.maze.directions) {
                                             if(!walls[cell.x][cell.y][direction]) {
                                                 walls[cell.x][cell.y][direction] = true;
-                                                maze.drawWall({ ...cell, direction });
+                                                this.maze.drawWall({ ...cell, direction });
 
-                                                const cell2 = maze.move(cell, direction);
-                                                if(cell2 && maze.inMaze(cell2)) {
-                                                    walls[cell2.x][cell2.y][maze.opposite(direction)] = true;
-                                                    maze.drawWall({ ...cell2, direction: maze.opposite(direction) });
+                                                const cell2 = this.maze.move(cell, direction);
+                                                if(cell2 && this.maze.inMaze(cell2)) {
+                                                    walls[cell2.x][cell2.y][this.maze.opposite(direction)] = true;
+                                                    this.maze.drawWall({ ...cell2, direction: this.maze.opposite(direction) });
                                                 }
                                             }
                                         }
 
-                                        maze.drawCell(cell, maze.wallColor);
+                                        this.maze.drawCell(cell, this.maze.wallColor);
                                         [ cell ] = moves;
                                         gogo();
                                     } else {

@@ -4,11 +4,14 @@
   "description": "Material-UI general purpose data grid",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "build": "npm run compile",
     "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/datagrid",
     "compile": "tsc",
-    "lint": "LINT_LEVEL=1 eslint --ext .ts src/*.ts --fix"
+    "lint": "LINT_LEVEL=1 eslint src --ext .ts,.tsx"
   },
   "repository": {
     "type": "git",

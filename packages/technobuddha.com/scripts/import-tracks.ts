@@ -4,6 +4,8 @@ import nReadLines  from 'n-readlines';
 import cliProgress from 'cli-progress';
 import chalk       from 'chalk';
 
+import type { Buffer }  from 'buffer';
+
 const partOfSet = /^([0-9]+)(\/[0-9]+)?(\s*.*)$/u;
 function parsePartOfSet(text: string | null | undefined) {
     let disc                 = 1;
@@ -186,9 +188,9 @@ void (async function main() {
                         );
                     } catch(error: unknown) {
                         if(error instanceof Error)
-                            err(`${json.Path}\n${error.message}\n`);
+                            err(`${Path}\n${error.message}\n`);
                         else
-                            err(`${json.Path}\n${(error as any).toString()}\n`);
+                            err(`${Path}\n${(error as any).toString()}\n`);
                     }
 
                     b1.increment();

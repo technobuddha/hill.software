@@ -10,8 +10,7 @@ export class Wilsons extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        const { maze }          = this;
-        const { width, height } = maze;
+        const { width, height } = this.maze;
 
         this.visited = create2DArray(width, height, false);
         this.unvisited = create2DArray(width, height, (x, y) => ({ x, y })).flat();
@@ -29,22 +28,20 @@ export class Wilsons extends MazeGenerator {
     }
 
     public override step() {
-        const { maze } = this;
-
         this.currentCell = this.unvisited[Math.floor(this.random() * this.unvisited.length)];
         let path: (Cell | CellDirection)[] = [ this.currentCell ];
 
         while(!this.visited[this.currentCell.x][this.currentCell.y]) {
-            const cell = this.selectNeighbor(maze.neighbors(this.currentCell));
+            const cell = this.selectNeighbor(this.maze.neighbors(this.currentCell));
 
             let cellVisited = false;
             let cellPreviousIndex = -1;
-            path.forEach((pathCell, index) => {
+            for(const [ index, pathCell ]  of path.entries()) {
                 if(pathCell.x === cell.x && pathCell.y === cell.y) {
                     cellVisited = true;
                     cellPreviousIndex = index;
                 }
-            });
+            }
 
             if(!cellVisited) {
                 path.push(cell);
@@ -57,7 +54,7 @@ export class Wilsons extends MazeGenerator {
 
         for(const cell of path) {
             if('direction' in cell)
-                maze.removeWall(cell, maze.opposite(cell.direction));
+                this.maze.removeWall(cell, this.maze.opposite(cell.direction));
             this.markAsVisited(cell);
         }
 

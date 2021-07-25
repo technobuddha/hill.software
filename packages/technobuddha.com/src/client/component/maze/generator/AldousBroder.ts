@@ -17,13 +17,11 @@ export class AldousBroder extends MazeGenerator {
     }
 
     public override step() {
-        const { maze } = this;
-
         for(;;) {
-            const cell = this.selectNeighbor(maze.neighbors(this.currentCell));
+            const cell = this.selectNeighbor(this.maze.neighbors(this.currentCell));
 
             if(!this.visited[cell.x][cell.y]) {
-                maze.removeWall(this.currentCell, cell.direction);
+                this.maze.removeWall(this.currentCell, cell.direction);
                 this.visited[cell.x][cell.y] = true;
                 this.totalVisited++;
                 break;
@@ -32,7 +30,7 @@ export class AldousBroder extends MazeGenerator {
             this.currentCell = cell;
         }
 
-        return this.totalVisited < maze.width * maze.height;
+        return this.totalVisited < this.maze.width * this.maze.height;
     }
 }
 

@@ -68,29 +68,27 @@ export class CMTD {
             const outputFilePath        = path.join(outputDirectoryPath, `${outputFileBase}.d.ts`);
 
             const declarations: string[]    = [];
-            Array.from(tokens.keys()).sort().forEach(
-                token => {
-                    let key   = token;
-                    let valid = validateToken(key);
+            for(const token of Array.from(tokens.keys()).sort()) {
+                let key   = token;
+                let valid = validateToken(key);
 
-                    if(this.camelCase) {
-                        const camelKey = CMTD.toCamelCase(key);
+                if(this.camelCase) {
+                    const camelKey = CMTD.toCamelCase(key);
 
-                        if(camelKey !== key) {
-                            declarations.push(`'${key}'`);
-                            key     = camelKey;
-                            valid   = validateToken(key);
-                        }
-                    }
-
-                    if(valid.isValid) {
+                    if(camelKey !== key) {
                         declarations.push(`'${key}'`);
-                    } else {
-                        declarations.push(`'${key}'`);
-                        this.logger.warn(`{CMTD} ${chalk.yellow(`${fileName}: ${valid.message}`)}`);
+                        key     = camelKey;
+                        valid   = validateToken(key);
                     }
                 }
-            );
+
+                if(valid.isValid) {
+                    declarations.push(`'${key}'`);
+                } else {
+                    declarations.push(`'${key}'`);
+                    this.logger.warn(`{CMTD} ${chalk.yellow(`${fileName}: ${valid.message}`)}`);
+                }
+            }
 
             if(!CMTD.exists(outputDirectoryPath))
                 fs.mkdirpSync(outputDirectoryPath);
@@ -103,7 +101,7 @@ export class CMTD {
                 '',
             ];
 
-            if(declarations.length) {
+            if(declarations.length > 0) {
                 fileContent.push(
                     `export type Keys = ${declarations.join(' | ')};`,
                     'export type Css = {[key in Keys]: string };',

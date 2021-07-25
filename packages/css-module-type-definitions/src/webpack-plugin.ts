@@ -1,6 +1,6 @@
-import type webpack                  from 'webpack';
-import type { CMTDOptions } from './index';
-import CMTD    from './index';
+import type webpack         from 'webpack';
+import type { CMTDOptions } from '.';
+import CMTD                 from '.';
 
 export class CMTDWebpackPlugin implements webpack.Plugin {
     private readonly cmtd:       CMTD;

@@ -34,17 +34,15 @@ export function GridProvider<T = unknown>({ data, defaultSort, useLocation, chil
         (columnName: string) => {
             let newSort: SortKey;
 
-            if(isUndefined(sortCode)) {
-                newSort = {
-                    sortBy: columnName,
-                    sortAscending: true,
-                };
-            } else {
-                newSort = {
-                    sortBy: columnName,
-                    sortAscending: columnName === sortCode.sortBy ? !sortCode.sortAscending : true,
-                };
-            }
+            newSort = isUndefined(sortCode)
+                ?   {
+                        sortBy: columnName,
+                        sortAscending: true,
+                    }
+                :   {
+                        sortBy: columnName,
+                        sortAscending: columnName === sortCode.sortBy ? !sortCode.sortAscending : true,
+                    };
 
             setSortCode(newSort);
             if(useLocation)

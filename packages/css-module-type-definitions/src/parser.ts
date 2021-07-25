@@ -12,7 +12,7 @@ export async function parser(
     config:     any,
     plugins:    AcceptedPlugin[] | null = null,
 ):  Promise<ParserReturn> {
-    // TODO config is 'any' this could probably use some better type definitions, but I can't find them :(
+    // TODO [2021-12-31] config is 'any' this could probably use some better type definitions, but I can't find them :(
     if(config === undefined)
         config = cosmiconfigSync('postcss').search()?.config ?? {};
 

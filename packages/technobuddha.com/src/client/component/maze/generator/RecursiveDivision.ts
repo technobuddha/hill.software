@@ -11,13 +11,11 @@ export class RecursiveDivision extends MazeGenerator {
         super(props);
         this.walls = [];
 
-        const { maze }          = this;
+        this.maze.removeInteriorWalls();
 
-        maze.removeInteriorWalls();
+        const stack: Rect[] = [{ x: 0, y: 0, width: this.maze.width, height: this.maze.height }];
 
-        const stack: Rect[] = [{ x: 0, y: 0, width: maze.width, height: maze.height }];
-
-        while(stack.length) {
+        while(stack.length > 0) {
             const border: CellDirection[]   = [];
             const region                    = stack.pop()!;
 
@@ -28,7 +26,7 @@ export class RecursiveDivision extends MazeGenerator {
                     y:  region.y + Math.floor(this.random() * (region.height - 2)),
                 };
 
-                border.push(...maze.divider(wall, { x: wall.x + region.width, y: wall.y }));
+                border.push(...this.maze.divider(wall, { x: wall.x + region.width, y: wall.y }));
 
                 const index = Math.floor(this.random() * border.length);
                 //this.maze.drawWall(border[index], 'yellow');
@@ -56,7 +54,7 @@ export class RecursiveDivision extends MazeGenerator {
                     y:  region.y,
                 };
 
-                border.push(...maze.divider(wall, { x: wall.x, y: wall.y + region.height }));
+                border.push(...this.maze.divider(wall, { x: wall.x, y: wall.y + region.height }));
 
                 border.splice(Math.floor(this.random() * border.length), 1);
                 //border.forEach(b => this.maze.addWall(b, b.direction));
@@ -80,7 +78,7 @@ export class RecursiveDivision extends MazeGenerator {
     }
 
     public override step() {
-        if(this.walls.length) {
+        if(this.walls.length > 0) {
             const wall = this.walls.shift()!;
             this.maze.addWall(wall, wall.direction);
             return true;

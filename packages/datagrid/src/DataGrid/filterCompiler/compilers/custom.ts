@@ -7,6 +7,7 @@ export type CustomCompilerOptions<T = unknown> = CompilerOptions & {
 };
 
 export function filterCompilerCustom<T = unknown>(options: CustomCompilerOptions<T>, data: T[]): Filter<T> {
+    // eslint-disable-next-line unicorn/no-array-method-this-argument, unicorn/no-array-callback-reference
     return options.filter(data, options.clear);
 }
 

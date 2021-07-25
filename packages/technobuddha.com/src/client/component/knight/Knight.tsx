@@ -18,8 +18,7 @@ const blackKnight        = '♞';
 const MOVES = [[ 1, 2 ], [ 2, 1 ], [ -1, 2 ], [ -2, 1 ], [ 1, -2 ], [ 2, -1 ], [ -1, -2 ], [ -2, -1 ]];
 
 class Square {
-    constructor(public x: number, public y: number) {
-    }
+    constructor(public x: number, public y: number) {}
 
     public moves(board: (number | null)[][], move: number): Square[] {
         return Array.from((function *makeBoard(x: number, y: number) {
@@ -266,7 +265,7 @@ export const KnightSolver: React.FC<KnightSolverProps> = ({ height, width, start
     React.useEffect(
         () => {
             if(positions.length > 0) {
-                positions.forEach(pos => { board[pos.x][pos.y] = move; });
+                for(const pos of positions)  board[pos.x][pos.y] = move;
                 const timer = setTimeout(
                     () => {
                         setPositions(positions.flatMap(pos => pos.moves(board, move + 1)));

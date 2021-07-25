@@ -78,7 +78,7 @@ export const Nav: React.FC = () => {
 
     const [ menuOpen, setMenuOpen ] = React.useState(false);
     const [ clicked,  setClicked ]  = React.useState(false);
-    const timer                     = React.useRef<number | undefined>(undefined);
+    const timer                     = React.useRef<number | undefined>();
 
     const cancelTimer = () => {
         if(timer.current) {

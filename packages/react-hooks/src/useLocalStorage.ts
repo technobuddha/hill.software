@@ -20,7 +20,7 @@ export function useLocalStorage<T>(key: string, initialState: T) {
         try {
             const item = localStorage.getItem(key);
             return item ? JSON.parse(item) : initialState;
-        } catch(error: unknown) {
+        } catch{
             return initialState;
         }
     });
@@ -31,7 +31,7 @@ export function useLocalStorage<T>(key: string, initialState: T) {
                 const val = isFunction(newValue) ? newValue(oldValue) : newValue;
 
                 // eslint-disable-next-line no-empty
-                try { localStorage.setItem(key, JSON.stringify(val)); } catch(error: unknown) {}
+                try { localStorage.setItem(key, JSON.stringify(val)); } catch{}
 
                 return val;
             });

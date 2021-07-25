@@ -16,17 +16,16 @@ export type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
     variant?:           MuiLinkProps['variant'];
 };
 
-export const Link: React.FC<LinkProps> = (props: LinkProps) => {
+export const Link: React.FC<LinkProps> = ({ replace, to, ...myProps }: LinkProps) => {
     const history = useHistory();
-    const { replace, to, ...myProps } = props;
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         event.preventDefault();
 
         if(replace)
-            history.replace(props.to);
+            history.replace(to);
         else
-            history.push(props.to);
+            history.push(to);
     };
 
     return (

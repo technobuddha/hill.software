@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-switch */
 import toNumber     from '@technobuddha/library/toNumber';
 import toDate       from '@technobuddha/library/toDate';
 import isNil        from 'lodash/isNil';
@@ -75,7 +76,7 @@ export function collatorFactory<T = unknown>(column: ColumnSpecification<T>, typ
         }
 
         case 'array': {
-            const key = isNumber(column.name) ? column.name : parseInt(column.name, 10);
+            const key = isNumber(column.name) ? column.name : Number.parseInt(column.name, 10);
 
             switch(type.dataType) {
                 case 'string':

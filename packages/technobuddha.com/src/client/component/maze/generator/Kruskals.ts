@@ -10,15 +10,14 @@ export class Kruskals extends MazeGenerator {
     constructor(props: MazeGeneratorProperties) {
         super(props);
 
-        const { maze }          = this;
-        const { width, height } = maze;
-
-        this.disjointSubsets = new DisjointSet(width * height);
+        this.disjointSubsets = new DisjointSet(this.maze.width * this.maze.height);
 
         this.edges = [];
-        for(let x = 0; x < width; ++x) {
-            for(let y = 0; y < height; ++y)
-                maze.edges({ x, y }).forEach(direction => { this.edges.push({ x, y, direction }); });
+        for(let x = 0; x < this.maze.width; ++x) {
+            for(let y = 0; y < this.maze.height; ++y) {
+                for(const direction of this.maze.edges({ x, y }))
+                    this.edges.push({ x, y, direction });
+            }
         }
         this.edges = randomShuffle(this.edges);
 
@@ -32,11 +31,9 @@ export class Kruskals extends MazeGenerator {
     }
 
     public override step() {
-        const { maze } = this;
-
         const edge  = this.edges.pop()!;
         const cell1 = { ...edge };
-        const cell2 = maze.move(cell1, edge.direction)!;
+        const cell2 = this.maze.move(cell1, edge.direction)!;
 
         let idx1 = this.getCellIndex(cell1);
         let idx2 = this.getCellIndex(cell2);
@@ -45,7 +42,7 @@ export class Kruskals extends MazeGenerator {
         let parent2 = this.disjointSubsets.findParent(idx2);
 
         if(parent1 !== parent2) {
-            maze.removeWall(cell1, edge.direction);
+            this.maze.removeWall(cell1, edge.direction);
             this.disjointSubsets.union(idx1, idx2);
         }
 

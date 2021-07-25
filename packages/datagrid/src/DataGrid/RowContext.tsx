@@ -40,17 +40,11 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
             let   selectedCount   = 0;
             const map             = new Map<T, RowProperties>();
 
-            data.forEach(
-                datum => {
-                    const datumSelected = Boolean(selected?.(datum));
-                    if(datumSelected) ++selectedCount;
-                    map.set(datum, defaultRowProperties(datumSelected));
-                }
-            );
-
-            // TODO remove debugging
-            // eslint-disable-next-line no-console
-            // console.log('Row Provider initialized with ', selectedCount, data.length);
+            for(const datum of data) {
+                const datumSelected = Boolean(selected?.(datum));
+                if(datumSelected) ++selectedCount;
+                map.set(datum, defaultRowProperties(datumSelected));
+            }
 
             return { map, selectedCount, unselectedCount: data.length - selectedCount, now: Date.now() };
         },
@@ -62,9 +56,6 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
             const current = state.map.get(datum);
             if(current)
                 return current.selected;
-            // TODO remove debugging
-            // eslint-disable-next-line no-console
-            // console.error('Attempt to get selected state for row not in dataset', datum);
             return false;
         },
         [ state ]
@@ -87,9 +78,7 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
                     }
                 }
             } else {
-                // TODO better error recovery
-                // eslint-disable-next-line no-console
-                // console.error('Attempt to set selected state for row not in dataset', datum);
+                // TODO [2021-12-31] better error recovery
             }
         },
         [ state ]
@@ -98,7 +87,7 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
     const setSelected = React.useCallback(
         (row: T | T[], isSelected: boolean) => {
             if(isArray(row))
-                row.forEach(datum => { setDatumSelected(datum, isSelected); });
+                for(const datum of row)  setDatumSelected(datum, isSelected);
             else
                 setDatumSelected(row, isSelected);
         },
@@ -109,16 +98,14 @@ export function RowProvider<T = unknown>({ selected, onSelectionChanged, childre
         (rows: T[]) => {
             let cntSelected    = 0;
             let cntUnselected  = 0;
-            rows.forEach(datum => {
+            for(const datum of rows) {
                 const datumState = state.map.get(datum);
                 if(datumState) {
                     if(datumState.selected) cntSelected++; else cntUnselected++;
                 } else {
-                    // TODO remove debugging
-                    // eslint-disable-next-line no-console
-                    // console.error('Row is not in the WeakMap');
+                    // TODO [2021-12-31] Better error recovery
                 }
-            });
+            }
 
             return { selected: cntSelected, unselected: cntUnselected };
         },
