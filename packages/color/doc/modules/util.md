@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[util.ts:45](../../src/util.ts#L45)
+[util.ts:46](../../src/util.ts#L46)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[util.ts:44](../../src/util.ts#L44)
+[util.ts:45](../../src/util.ts#L45)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[util.ts:40](../../src/util.ts#L40)
+[util.ts:41](../../src/util.ts#L41)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[util.ts:41](../../src/util.ts#L41)
+[util.ts:42](../../src/util.ts#L42)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[util.ts:42](../../src/util.ts#L42)
+[util.ts:43](../../src/util.ts#L43)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[util.ts:39](../../src/util.ts#L39)
+[util.ts:40](../../src/util.ts#L40)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[util.ts:43](../../src/util.ts#L43)
+[util.ts:44](../../src/util.ts#L44)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[util.ts:37](../../src/util.ts#L37)
+[util.ts:38](../../src/util.ts#L38)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[util.ts:38](../../src/util.ts#L38)
+[util.ts:39](../../src/util.ts#L39)
 
 ## Functions
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[util.ts:53](../../src/util.ts#L53)
+[util.ts:54](../../src/util.ts#L54)
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 #### Defined in
 
-[util.ts:65](../../src/util.ts#L65)
+[util.ts:66](../../src/util.ts#L66)
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Defined in
 
-[util.ts:47](../../src/util.ts#L47)
+[util.ts:48](../../src/util.ts#L48)
 
 ___
 

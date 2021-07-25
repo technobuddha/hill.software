@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[color-compare.ts:151](../../src/color-compare.ts#L151)
+[color-compare.ts:148](../../src/color-compare.ts#L148)
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 #### Defined in
 
-[color-compare.ts:81](../../src/color-compare.ts#L81)
+[color-compare.ts:78](../../src/color-compare.ts#L78)
 
 ___
 

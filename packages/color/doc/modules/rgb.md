@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:276](../../src/rgb.ts#L276)
+[rgb.ts:273](../../src/rgb.ts#L273)
 
 ## Functions
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:176](../../src/rgb.ts#L176)
+[rgb.ts:173](../../src/rgb.ts#L173)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:236](../../src/rgb.ts#L236)
+[rgb.ts:233](../../src/rgb.ts#L233)
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:134](../../src/rgb.ts#L134)
+[rgb.ts:131](../../src/rgb.ts#L131)
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:139](../../src/rgb.ts#L139)
+[rgb.ts:136](../../src/rgb.ts#L136)
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:129](../../src/rgb.ts#L129)
+[rgb.ts:126](../../src/rgb.ts#L126)
 
 ___
 
@@ -270,7 +270,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:119](../../src/rgb.ts#L119)
+[rgb.ts:116](../../src/rgb.ts#L116)
 
 ___
 
@@ -290,7 +290,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:109](../../src/rgb.ts#L109)
+[rgb.ts:106](../../src/rgb.ts#L106)
 
 ___
 
@@ -310,7 +310,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:114](../../src/rgb.ts#L114)
+[rgb.ts:111](../../src/rgb.ts#L111)
 
 ___
 
@@ -330,7 +330,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:124](../../src/rgb.ts#L124)
+[rgb.ts:121](../../src/rgb.ts#L121)
 
 ___
 
@@ -350,7 +350,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:165](../../src/rgb.ts#L165)
+[rgb.ts:162](../../src/rgb.ts#L162)
 
 ___
 
@@ -370,7 +370,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:169](../../src/rgb.ts#L169)
+[rgb.ts:166](../../src/rgb.ts#L166)
 
 ___
 
@@ -390,7 +390,7 @@ ___
 
 #### Defined in
 
-[rgb.ts:105](../../src/rgb.ts#L105)
+[rgb.ts:102](../../src/rgb.ts#L102)
 
 ___
 
@@ -410,4 +410,4 @@ ___
 
 #### Defined in
 
-[rgb.ts:150](../../src/rgb.ts#L150)
+[rgb.ts:147](../../src/rgb.ts#L147)

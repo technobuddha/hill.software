@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[lab.ts:153](../../src/lab.ts#L153)
+[lab.ts:150](../../src/lab.ts#L150)
 
 ## Functions
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[lab.ts:115](../../src/lab.ts#L115)
+[lab.ts:112](../../src/lab.ts#L112)
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 #### Defined in
 
-[lab.ts:142](../../src/lab.ts#L142)
+[lab.ts:139](../../src/lab.ts#L139)
 
 ___
 

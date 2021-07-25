@@ -239,7 +239,7 @@ Re-exports: [partialXYZ](xyz.md#partialxyz)
 
 #### Defined in
 
-[color.ts:14](../../src/color.ts#L14)
+[color.ts:26](../../src/color.ts#L26)
 
 ___
 
@@ -398,7 +398,7 @@ ___
 
 #### Defined in
 
-[color.ts:639](../../src/color.ts#L639)
+[color.ts:640](../../src/color.ts#L640)
 
 ___
 
@@ -434,7 +434,7 @@ ___
 
 #### Defined in
 
-[color.ts:150](../../src/color.ts#L150)
+[color.ts:151](../../src/color.ts#L151)
 
 ## Functions
 
@@ -455,7 +455,7 @@ ___
 
 #### Defined in
 
-[color.ts:540](../../src/color.ts#L540)
+[color.ts:541](../../src/color.ts#L541)
 
 ___
 
@@ -476,7 +476,7 @@ ___
 
 #### Defined in
 
-[color.ts:516](../../src/color.ts#L516)
+[color.ts:517](../../src/color.ts#L517)
 
 ___
 
@@ -497,7 +497,7 @@ ___
 
 #### Defined in
 
-[color.ts:522](../../src/color.ts#L522)
+[color.ts:523](../../src/color.ts#L523)
 
 ___
 
@@ -518,7 +518,7 @@ ___
 
 #### Defined in
 
-[color.ts:611](../../src/color.ts#L611)
+[color.ts:612](../../src/color.ts#L612)
 
 ___
 
@@ -539,7 +539,7 @@ ___
 
 #### Defined in
 
-[color.ts:461](../../src/color.ts#L461)
+[color.ts:462](../../src/color.ts#L462)
 
 ___
 
@@ -560,7 +560,7 @@ ___
 
 #### Defined in
 
-[color.ts:615](../../src/color.ts#L615)
+[color.ts:616](../../src/color.ts#L616)
 
 ___
 
@@ -581,7 +581,7 @@ ___
 
 #### Defined in
 
-[color.ts:635](../../src/color.ts#L635)
+[color.ts:636](../../src/color.ts#L636)
 
 ___
 
@@ -602,7 +602,7 @@ ___
 
 #### Defined in
 
-[color.ts:623](../../src/color.ts#L623)
+[color.ts:624](../../src/color.ts#L624)
 
 ___
 
@@ -623,7 +623,7 @@ ___
 
 #### Defined in
 
-[color.ts:627](../../src/color.ts#L627)
+[color.ts:628](../../src/color.ts#L628)
 
 ___
 
@@ -644,7 +644,7 @@ ___
 
 #### Defined in
 
-[color.ts:631](../../src/color.ts#L631)
+[color.ts:632](../../src/color.ts#L632)
 
 ___
 
@@ -665,7 +665,7 @@ ___
 
 #### Defined in
 
-[color.ts:619](../../src/color.ts#L619)
+[color.ts:620](../../src/color.ts#L620)
 
 ___
 
@@ -685,7 +685,7 @@ ___
 
 #### Defined in
 
-[color.ts:156](../../src/color.ts#L156)
+[color.ts:157](../../src/color.ts#L157)
 
 ___
 
@@ -705,7 +705,7 @@ ___
 
 #### Defined in
 
-[color.ts:605](../../src/color.ts#L605)
+[color.ts:606](../../src/color.ts#L606)
 
 ___
 
@@ -726,7 +726,7 @@ ___
 
 #### Defined in
 
-[color.ts:528](../../src/color.ts#L528)
+[color.ts:529](../../src/color.ts#L529)
 
 ___
 
@@ -747,7 +747,7 @@ ___
 
 #### Defined in
 
-[color.ts:484](../../src/color.ts#L484)
+[color.ts:485](../../src/color.ts#L485)
 
 ___
 
@@ -768,7 +768,7 @@ ___
 
 #### Defined in
 
-[color.ts:534](../../src/color.ts#L534)
+[color.ts:535](../../src/color.ts#L535)
 
 ___
 
@@ -788,7 +788,7 @@ ___
 
 #### Defined in
 
-[color.ts:468](../../src/color.ts#L468)
+[color.ts:469](../../src/color.ts#L469)
 
 ___
 
@@ -808,7 +808,7 @@ ___
 
 #### Defined in
 
-[color.ts:475](../../src/color.ts#L475)
+[color.ts:476](../../src/color.ts#L476)
 
 ___
 
@@ -829,7 +829,7 @@ ___
 
 #### Defined in
 
-[color.ts:498](../../src/color.ts#L498)
+[color.ts:499](../../src/color.ts#L499)
 
 ___
 
@@ -849,7 +849,7 @@ ___
 
 #### Defined in
 
-[color.ts:452](../../src/color.ts#L452)
+[color.ts:453](../../src/color.ts#L453)
 
 ___
 
@@ -869,7 +869,7 @@ ___
 
 #### Defined in
 
-[color.ts:479](../../src/color.ts#L479)
+[color.ts:480](../../src/color.ts#L480)
 
 ___
 
@@ -910,7 +910,7 @@ ___
 
 #### Defined in
 
-[color.ts:492](../../src/color.ts#L492)
+[color.ts:493](../../src/color.ts#L493)
 
 ___
 
@@ -930,7 +930,7 @@ ___
 
 #### Defined in
 
-[color.ts:597](../../src/color.ts#L597)
+[color.ts:598](../../src/color.ts#L598)
 
 ___
 
@@ -951,7 +951,7 @@ ___
 
 #### Defined in
 
-[color.ts:170](../../src/color.ts#L170)
+[color.ts:171](../../src/color.ts#L171)
 
 ___
 
@@ -972,7 +972,7 @@ ___
 
 #### Defined in
 
-[color.ts:191](../../src/color.ts#L191)
+[color.ts:192](../../src/color.ts#L192)
 
 ___
 
@@ -992,7 +992,7 @@ ___
 
 #### Defined in
 
-[color.ts:340](../../src/color.ts#L340)
+[color.ts:341](../../src/color.ts#L341)
 
 ___
 
@@ -1012,7 +1012,7 @@ ___
 
 #### Defined in
 
-[color.ts:359](../../src/color.ts#L359)
+[color.ts:360](../../src/color.ts#L360)
 
 ___
 
@@ -1032,7 +1032,7 @@ ___
 
 #### Defined in
 
-[color.ts:209](../../src/color.ts#L209)
+[color.ts:210](../../src/color.ts#L210)
 
 ___
 
@@ -1052,7 +1052,7 @@ ___
 
 #### Defined in
 
-[color.ts:321](../../src/color.ts#L321)
+[color.ts:322](../../src/color.ts#L322)
 
 ___
 
@@ -1072,7 +1072,7 @@ ___
 
 #### Defined in
 
-[color.ts:283](../../src/color.ts#L283)
+[color.ts:284](../../src/color.ts#L284)
 
 ___
 
@@ -1092,7 +1092,7 @@ ___
 
 #### Defined in
 
-[color.ts:245](../../src/color.ts#L245)
+[color.ts:246](../../src/color.ts#L246)
 
 ___
 
@@ -1112,7 +1112,7 @@ ___
 
 #### Defined in
 
-[color.ts:264](../../src/color.ts#L264)
+[color.ts:265](../../src/color.ts#L265)
 
 ___
 
@@ -1132,7 +1132,7 @@ ___
 
 #### Defined in
 
-[color.ts:302](../../src/color.ts#L302)
+[color.ts:303](../../src/color.ts#L303)
 
 ___
 
@@ -1152,7 +1152,7 @@ ___
 
 #### Defined in
 
-[color.ts:397](../../src/color.ts#L397)
+[color.ts:398](../../src/color.ts#L398)
 
 ___
 
@@ -1172,7 +1172,7 @@ ___
 
 #### Defined in
 
-[color.ts:416](../../src/color.ts#L416)
+[color.ts:417](../../src/color.ts#L417)
 
 ___
 
@@ -1192,7 +1192,7 @@ ___
 
 #### Defined in
 
-[color.ts:226](../../src/color.ts#L226)
+[color.ts:227](../../src/color.ts#L227)
 
 ___
 
@@ -1212,7 +1212,7 @@ ___
 
 #### Defined in
 
-[color.ts:378](../../src/color.ts#L378)
+[color.ts:379](../../src/color.ts#L379)
 
 ___
 
@@ -1233,7 +1233,7 @@ ___
 
 #### Defined in
 
-[color.ts:504](../../src/color.ts#L504)
+[color.ts:505](../../src/color.ts#L505)
 
 ___
 
@@ -1254,4 +1254,4 @@ ___
 
 #### Defined in
 
-[color.ts:510](../../src/color.ts#L510)
+[color.ts:511](../../src/color.ts#L511)
