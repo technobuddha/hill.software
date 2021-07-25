@@ -165,3 +165,5 @@ export function genClientWebpackConfig(isDevelopment = true, logger?: Logger): w
         plugins,
     };
 }
+
+export default genClientWebpackConfig;

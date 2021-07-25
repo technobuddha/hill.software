@@ -1,14 +1,14 @@
 #!/bin/env -S ts-node -r ./config/env.ts -r tsconfig-paths/register
 import path                       from 'path';
 import webpack                    from 'webpack';
-import chalk                      from 'chalk'; chalk.level = 3;    // Tell chalk that we support full RGB colors
+import chalk                      from 'chalk';
 import { spawn }                  from 'child_process';
 import repeat                     from 'lodash/repeat';
 import { genServerWebpackConfig } from '#server/webpack.config';
 import paths                      from '#config/paths';
-
 import type { ChildProcess } from 'child_process';
 
+chalk.level = 3;    // Tell chalk that we support full RGB colors
 const esc = '\u001b';
 let serverProcess: ChildProcess | null = null;
 

@@ -42,3 +42,5 @@ export const genServerWebpackConfig: ((isDevelopment?: boolean) => Webpack.Confi
         stats:          'normal',
     };
 };
+
+export default genServerWebpackConfig;

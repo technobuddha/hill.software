@@ -2,8 +2,6 @@ import lerp  from '@technobuddha/library/lerp';
 
 type RGB = { r: number; g: number; b: number };
 
-export type MandelbrotReturn = { colors: RGB[][]; x_min: number; x_max: number; y_min: number; y_max: number };
-
 function mandelbrot(width: number, height: number, x_min: number, x_max: number, y_min: number, y_max: number, iterations: number): MandelbrotReturn {
     const counts: number[][] = [];
     const histo = new Array(iterations).fill(0);
@@ -103,8 +101,6 @@ function mandelbrot(width: number, height: number, x_min: number, x_max: number,
     return { colors, x_min, x_max, y_min, y_max };
 }
 
-export const exports = {
-    mandelbrot,
-};
-
+export type MandelbrotReturn = { colors: RGB[][]; x_min: number; x_max: number; y_min: number; y_max: number };
 export type ChaosAPI = typeof exports;
+export const exports = { mandelbrot };

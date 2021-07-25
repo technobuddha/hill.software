@@ -1,9 +1,9 @@
 import create2DArray            from '@technobuddha/library/create2DArray';
 import randomShuffle                  from '@technobuddha/library/randomShuffle';
-import type { Cell, Direction } from '../maze/Maze';
-
 import { MazeSolver }           from './MazeSolver';
+import type { Cell, Direction } from '../maze/Maze';
 import type { SolveArguments }  from './MazeSolver';
+
 export class DepthFirstSearch extends MazeSolver {
     public async solve({ color = 'red', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
         this.maze.prepareContext(this.context);

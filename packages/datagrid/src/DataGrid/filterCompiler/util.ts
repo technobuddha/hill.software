@@ -16,3 +16,5 @@ export function getUniqueValues<T = unknown>(data: T[], name: keyof T) {
 
     return Array.from(set.values());
 }
+
+export default getUniqueValues;

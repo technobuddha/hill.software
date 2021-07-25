@@ -9,8 +9,8 @@ import binaryUnits                  from '@technobuddha/library/binaryUnits';
 import { genServerWebpackConfig }   from '#server/webpack.config';
 import { genClientWebpackConfig }   from '#client/webpack.config';
 import type { PackageJson }         from 'type-fest';
-chalk.level = 3;
 
+chalk.level = 3;
 process.env.NODE_ENV = 'production';
 
 function out(text: string | undefined) {

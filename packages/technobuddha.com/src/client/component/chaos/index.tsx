@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import DelayedLoading      from '#control/delayedLoading';
 
 const LazyChaos = React.lazy(async () => import(
-    /* webpackMode:      "lazy"  */
     /* webpackChunkName: "chaos" */
     './Chaos'
 ));

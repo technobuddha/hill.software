@@ -31,7 +31,8 @@ module.exports = (tsconfigPath) => ({
         'sonarjs',
         'promise',
         'node',
-        'unicorn'
+        'unicorn',
+        'import',
     ],
     'extends': [
     ],
@@ -835,6 +836,54 @@ module.exports = (tsconfigPath) => ({
         'unicorn/require-post-message-target-origin':                   RECOMMENDED('error'),
         'unicorn/string-content':                                       'error',
         'unicorn/throw-new-error':                                      RECOMMENDED('error'),
+
+        // Import
+        // Static Analysis
+        'import/no-unresolved':                                         OVERRIDE('off', RECOMMENDED('error')),
+        'import/named':                                                 RECOMMENDED('off'),
+        'import/default':                                               RECOMMENDED('error'),
+        'import/namespace':                                             RECOMMENDED('error'),
+        'import/no-restricted-paths':                                   'off',
+        'import/no-absolute-path':                                      'error',
+        'import/no-dynamic-require':                                    'error',
+        'import/no-internal-modules':                                   'off',
+        'import/no-webpack-loader-syntax':                              'off',
+        'import/no-self-import':                                        'error',
+        'import/no-cycle':                                              'error',
+        'import/no-useless-path-segments':                              'error',
+        'import/no-relative-packages':                                  'error',
+
+        // Helpful warnings
+        'import/export':                                                'error',
+        'import/no-named-as-default':                                   RECOMMENDED('warn'),
+        'import/no-named-as-default-member':                            RECOMMENDED('warn'),
+        'import/no-deprecated':                                         'error',
+        'import/no-extraneous-dependencies':                            'off',
+        'import/no-mutable-exports':                                    'error',
+        'import/no-unused-modules':                                     'warn',
+
+        // Module systems
+        'import/unambiguous':                                           'off',
+        'import/no-commonjs':                                           REDUNDANT('@typescript-eslint/no-require-imports'),
+        'import/no-amd':                                                'warn',
+        'import/no-nodejs-modules':                                     'off',
+        'import/no-import-module-exports':                              'warn',
+
+        // Style Guide
+        'import/first':                                                 'error',
+        'import/exports-last':                                          'off',
+        'import/no-duplicates':                                         RECOMMENDED('warn'),
+        'import/no-namespace':                                          'error',
+        'import/extensions':                                            'off',
+        'import/order':                                                 'off',
+        'import/newline-after-import':                                  'warn',
+        'import/prefer-default-export':                                 'warn',
+        'import/max-dependencies':                                      'off',
+        'import/no-unassigned-import':                                  'off',
+        'import/no-named-default':                                      'warn',
+        'import/no-default-export':                                     'off',
+        'import/group-exports':                                         'off',
+        'import/dynamic-import-chunkname':                              'warn',
 
     },
     overrides: [

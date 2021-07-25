@@ -11,29 +11,29 @@ import lab  from './lab';
 import lch  from './lch';
 import colorCompare from './color-compare';
 
-export type Alpha = { alpha?: number };
-
 import type { RGB, partialRGB } from './rgb';
-export type { RGB, partialRGB } from './rgb';
 import type { HSL, partialHSL } from './hsl';
-export type { HSL, partialHSL } from './hsl';
 import type { HSV, partialHSV } from './hsv';
-export type { HSV, partialHSV } from './hsv';
 import type { HSI, partialHSI } from './hsi';
-export type { HSI, partialHSI } from './hsi';
 import type { HWB, partialHWB } from './hwb';
-export type { HWB, partialHWB } from './hwb';
 import type { HCG, partialHCG } from './hcg';
-export type { HCG, partialHCG } from './hcg';
 import type { CMY, partialCMY } from './cmy';
-export type { CMY, partialCMY } from './cmy';
 import type { CMYK, partialCMYK } from './cmyk';
-export type { CMYK, partialCMYK } from './cmyk';
 import type { XYZ, partialXYZ } from './xyz';
-export type { XYZ, partialXYZ } from './xyz';
 import type { LAB, partialLAB } from './lab';
-export type { LAB, partialLAB } from './lab';
 import type { LCH, partialLCH } from './lch';
+
+export type Alpha = { alpha?: number };
+export type { RGB, partialRGB } from './rgb';
+export type { HSL, partialHSL } from './hsl';
+export type { HSV, partialHSV } from './hsv';
+export type { HSI, partialHSI } from './hsi';
+export type { HWB, partialHWB } from './hwb';
+export type { HCG, partialHCG } from './hcg';
+export type { CMY, partialCMY } from './cmy';
+export type { CMYK, partialCMYK } from './cmyk';
+export type { XYZ, partialXYZ } from './xyz';
+export type { LAB, partialLAB } from './lab';
 export type { LCH, partialLCH } from './lch';
 
 export type Color               = RGB | HSL | HSV | HSI | HWB | HCG | CMY | CMYK | XYZ | LAB | LCH;
@@ -147,6 +147,7 @@ export type StringOptions = {
 };
 export type StringFormat = ColorFormat | Partial<StringOptions>;
 
+// eslint-disable-next-line import/no-mutable-exports
 export let defaultStringOptions: StringOptions = {
     format: 'default',
     cssVersion: 4,

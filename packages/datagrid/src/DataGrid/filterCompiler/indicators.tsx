@@ -48,3 +48,5 @@ export function arrayIndicator<T = unknown>({ Icon, name, title }: IndicatorArgs
         return <></>;
     };
 }
+
+export default arrayIndicator;
