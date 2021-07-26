@@ -24,7 +24,7 @@ fs.writeFileSync('./test/data/conversion.json', JSON.stringify(conversion, null,
 type Levels = '+25%' | '+50%' | '+75%' | '-25%' | '-50%' | '-75%' | '+25' | '+50' | '+75' | '-25' | '-50' | '-75' ;
 function attribute(attr: string, fn: ((rgb: ColorSpecification, amount: AmountRatio) => Color)) {
     const value: ({ name: string; rgb: RGB } & {[key in Levels]: Color })[] = [];
-    colorNames.forEach(cn => {
+    for(const cn of colorNames) {
         const rgb = color.toRGB(cn.color);
 
         value.push({
@@ -43,11 +43,10 @@ function attribute(attr: string, fn: ((rgb: ColorSpecification, amount: AmountRa
             '-50':  fn(rgb, { amount: -0.50 }),
             '-75':  fn(rgb, { amount: -0.75 }),
         });
-    });
+    }
     fs.writeFileSync(`./test/data/${attr}.json`, JSON.stringify(value, null, 2));
 }
-Object.entries(color.attributes)
-.forEach(([ attr, fn ]) => { attribute(attr, fn); });
+for(const [ attr, fn ] of Object.entries(color.attributes))  attribute(attr, fn);
 
 fs.writeFileSync(
     './test/data/hue.json',

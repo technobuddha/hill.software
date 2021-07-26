@@ -177,14 +177,14 @@ export function parse(input: string): RGB | undefined {
         const n = Number.parseInt(input.slice(1), 16);
 
         switch(input.length - 1) {
-            case 3:   // abc => aabbcc
+            case 3:
                 return toRGB({
                     r:      (((n >> 8) & 0x0f) | ((n >> 4) & 0xf0)),
                     g:      (((n >> 4) & 0x0f) | ((n)      & 0xf0)),
                     b:      (((n)      & 0x0f) | ((n << 4) & 0xf0)),
                 });
 
-            case 4:     // abcd => aabbccdd
+            case 4:
                 return toRGB({
                     r:      (((n >> 12) & 0x0f) | ((n >> 8) & 0xf0)),
                     g:      (((n >>  8) & 0x0f) | ((n >> 4) & 0xf0)),
@@ -192,14 +192,14 @@ export function parse(input: string): RGB | undefined {
                     alpha:  (((n)       & 0x0f) | ((n << 4) & 0xf0)) / 255,
                 });
 
-            case 6:  // abcdef
+            case 6:
                 return toRGB({
                     r:      ((n >> 16) & 0xff),
                     g:      ((n >>  8) & 0xff),
                     b:      ((n)       & 0xff),
                 });
 
-            case 8: // abcdef00
+            case 8:
                 return toRGB({
                     r:      ((n >> 24) & 0xff),
                     g:      ((n >> 16) & 0xff),

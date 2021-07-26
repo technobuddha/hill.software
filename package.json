@@ -8,7 +8,8 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap && scripts/bootstrap.ts",
-    "build": "lerna run prebuild && lerna run compile --ignore technobuddha.com && scripts/bootstrap.ts --no-recompile"
+    "build": "lerna run prebuild && lerna run compile --ignore technobuddha.com && scripts/bootstrap.ts --no-recompile",
+    "spell": "npx cspell -c ./cspell.json --relative --no-progress --color \"**/*.ts\" \"**/*.tsx\" \"**/*.js\" \"**/*.json\" | sort | less -r"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "@typescript-eslint/parser": "^4.28.4",
     "cli-progress": "^3.9.0",
     "commander": "^8.0.0",
+    "cspell": "^5.6.6",
     "css-hot-loader": "^1.4.4",
     "css-loader": "^4.3.0",
     "eslint": "^7.31.0",

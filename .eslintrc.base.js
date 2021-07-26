@@ -1,3 +1,4 @@
+/* cspell: disable */
 const lintLevel         = parseInt(process.env.LINT_LEVEL ?? '0', 10);
 const usingTypechecking = lintLevel >= 0;
 
@@ -743,6 +744,7 @@ module.exports = (tsconfigPath) => ({
         'node/file-extension-in-import':                                'off',
         'node/prefer-global/buffer':                                    [ 'error', 'never' ],
         'node/prefer-global/console':                                   [ 'error', 'always' ],
+        'node/prefer-global/process':                                   [ 'error', 'never' ],
         'node/prefer-global/text-decoder':                              [ 'error', 'never' ],
         'node/prefer-global/text-encoder':                              [ 'error', 'never' ],
         'node/prefer-global/url-search-params':                         [ 'error', 'never' ],
