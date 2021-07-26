@@ -6,7 +6,7 @@ import type { Logger }      from 'winston';
 import type { Application } from 'express';
 import type { AddressInfo } from 'net';
 
-export function proxy(app: Application, logger: Logger) {
+export function proxy(app: Application, logger: Logger): void {
     app.use(
         [
             '/Autodiscover',

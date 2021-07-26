@@ -8,7 +8,7 @@ export type { Component } from '#settings/components';
 
 const PagesContext = React.createContext<Component[]>(null!);
 
-export function useComponents() {
+export function useComponents(): Component[] {
     return React.useContext(PagesContext);
 }
 

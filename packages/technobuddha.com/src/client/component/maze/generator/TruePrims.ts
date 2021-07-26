@@ -41,7 +41,7 @@ export class TruePrims extends MazeGenerator {
         }
     }
 
-    public override step() {
+    public override step(): boolean {
         let minCost      = Infinity;
         let passageIndex = 0;
 

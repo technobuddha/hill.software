@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
 
-export function useWhyDidIRender(name: string, props: Record<string, unknown>) {
+export function useWhyDidIRender(name: string, props: Record<string, unknown>): void {
     const previousProps = React.useRef<Record<string, unknown>>();
 
     React.useEffect(

@@ -15,7 +15,7 @@ export type SorterRenderProps<T = unknown> = {
     data:               T[];
 };
 
-export function Sorter<T = unknown>({ data, columns, children }: SorterProps<T>) {
+export function Sorter<T = unknown>({ data, columns, children }: SorterProps<T>): React.ReactElement {
     const { sort } = useGrid<T>();
 
     if(!isUndefined(sort)) {

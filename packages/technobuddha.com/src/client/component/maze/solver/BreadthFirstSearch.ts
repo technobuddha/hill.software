@@ -11,7 +11,7 @@ type DD = {
 };
 
 export class BreadthFirstSearch extends MazeSolver {
-    public async solve({ color = 'lime', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
+    public async solve({ color = 'lime', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}): Promise<void> {
         this.maze.prepareContext(this.context);
 
         return new Promise<void>(resolve => {

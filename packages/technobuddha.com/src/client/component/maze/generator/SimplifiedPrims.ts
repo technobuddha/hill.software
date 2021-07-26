@@ -15,7 +15,7 @@ export class SimplifiedPrims extends MazeGenerator {
         this.visited[this.start.x][this.start.y] = true;
     }
 
-    public override step() {
+    public override step(): boolean {
         const cellIndex     = Math.floor(this.random() * this.activeCells.length);
         this.currentCell    = this.activeCells[cellIndex];
 

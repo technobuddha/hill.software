@@ -2,6 +2,7 @@ import type { FetchAPI } from '../APIContext';
 import type { Account }  from '#schema/account';
 
 type CPS = { score: number; warning: string; suggestions: string[] };
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const authentication = (fetchAPI: FetchAPI) => ({
     async readSession() {
         return fetchAPI<Account>('/api/authentication/session', { method: 'GET', validStatuses: [ 200, 401 ]});

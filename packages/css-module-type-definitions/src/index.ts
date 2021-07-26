@@ -133,7 +133,7 @@ export class CMTD {
         }
     }
 
-    public async scan() {
+    public async scan(): Promise<void> {
         try {
             const files = await glob(
                 path.join(path.resolve(this.rootDirectoryPath, this.inputDirectoryName), this.globPattern)
@@ -146,7 +146,7 @@ export class CMTD {
         }
     }
 
-    public watch() {
+    public watch(): void {
         const DELAY     = 10;       // Number of milliseconds to delay for file to finish writing
         const target    = path.resolve(this.rootDirectoryPath, this.inputDirectoryName);
 

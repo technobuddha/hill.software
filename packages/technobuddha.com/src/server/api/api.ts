@@ -5,6 +5,7 @@ import authentication        from './router/authentication';
 import music                 from './router/music';
 
 import type { Logger } from 'winston';
+import type { Router } from 'express';
 
 export class TimeoutError extends Error {
     constructor() {
@@ -15,7 +16,7 @@ export class TimeoutError extends Error {
 
 export type GraphQLQuery = <T>(query: string) => Promise<T>;
 
-export function api(logger: Logger) {
+export function api(logger: Logger): Router {
     return express.Router()
     .use('/authentication',         authentication(logger))
     .use('/music',                  music(logger))

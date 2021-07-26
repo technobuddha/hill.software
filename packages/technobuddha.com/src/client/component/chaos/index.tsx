@@ -6,7 +6,7 @@ const LazyChaos = React.lazy(async () => import(
     './Chaos'
 ));
 
-export const Chaos = () => {
+export const Chaos: React.FC = () => {
     return (
         <Suspense fallback={<DelayedLoading />}>
             <LazyChaos />

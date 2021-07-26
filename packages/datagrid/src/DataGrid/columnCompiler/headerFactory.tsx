@@ -39,7 +39,11 @@ const useHeaderStyles = makeStyles(theme => ({
     },
 }));
 
-export function headerFactory<T = unknown>(column: ColumnSpecification<T>, _type: ColumnType, _shape: Shape) {
+export function headerFactory<T = unknown>(
+    column: ColumnSpecification<T>,
+    _type: ColumnType,
+    _shape: Shape
+): (({ classes, styles }: ColumnHeaderProps<T>) => React.ReactElement) {
     if(isString(column.header) || isUndefined(column.header)) {
         const text = column.header ?? column.name;
 

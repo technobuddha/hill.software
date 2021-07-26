@@ -15,7 +15,7 @@ type AuthenticationState = {
 
 const AuthenticationContext = React.createContext<AuthenticationState>(null!);
 
-export function useAuthentication() {
+export function useAuthentication(): AuthenticationState {
     return React.useContext(AuthenticationContext);
 }
 

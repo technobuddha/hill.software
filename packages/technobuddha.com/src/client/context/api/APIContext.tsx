@@ -21,7 +21,7 @@ type APIState   = {
 };
 
 const APIContext = React.createContext<APIState>(null!);
-export function useAPI() {
+export function useAPI(): APIState {
     return React.useContext(APIContext);
 }
 

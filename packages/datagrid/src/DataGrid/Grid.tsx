@@ -86,7 +86,7 @@ function Grid<T = unknown>({
     columnWidths,
     filters,
     menu,
-}: GridProps<T>) {
+}: GridProps<T>): React.ReactElement {
     const css = useGridStyles();
 
     const GridRow = (rowProps: ListChildComponentProps) => {

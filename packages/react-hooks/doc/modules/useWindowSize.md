@@ -22,7 +22,7 @@ Renames and exports: [useWindowSize](useWindowSize.md#usewindowsize)
 
 ### useWindowSize
 
-▸ **useWindowSize**(): `Object`
+▸ **useWindowSize**(): `Size` & { `count`: `number`  }
 
 Gets the current window size, including the dimensions of the scroll bars.
 
@@ -31,18 +31,10 @@ has been resized since the first render.
 
 #### Returns
 
-`Object`
+`Size` & { `count`: `number`  }
 
 [{ width, height, scrollbarWidth, scrollbarHeight, count }
 
-| Name | Type |
-| :------ | :------ |
-| `count` | `number` |
-| `height` | `number` |
-| `scrollbarHeight` | `number` |
-| `scrollbarWidth` | `number` |
-| `width` | `number` |
-
 #### Defined in
 
-[useWindowSize.ts:13](../../src/useWindowSize.ts#L13)
+[useWindowSize.ts:14](../../src/useWindowSize.ts#L14)

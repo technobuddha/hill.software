@@ -8,7 +8,7 @@ import paths                        from '#config/paths';
 import type { Logger }      from 'winston';
 import type { Application } from 'express';
 
-export function setup(app: Application, logger: Logger) {
+export function setup(app: Application, logger: Logger): void {
     app
     .set('view engine', hbs)
     .set('views',       paths.views)

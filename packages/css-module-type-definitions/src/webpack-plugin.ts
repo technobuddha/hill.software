@@ -11,7 +11,7 @@ export class CMTDWebpackPlugin implements webpack.Plugin {
         this.isWatching = false;
     }
 
-    public apply(compiler: webpack.Compiler) {
+    public apply(compiler: webpack.Compiler): void {
         compiler.hooks.beforeRun.tap(
             'CMTDWebpackPlugin',
             (_compilation, _callback) => {

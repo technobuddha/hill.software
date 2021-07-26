@@ -44,7 +44,7 @@ export type RowRenderProps<T = unknown> = {
 
 export function Row<T = unknown>(
     { datum, index, columns, rowRenderer, columnWidths, scrollbarWidth, controlWidth, rowHeight, menu, className, style, classes, styles }: RowProps<T>
-) {
+): React.ReactElement {
     const css = useColumnStyles({ scrollbarWidth, controlWidth });
 
     const handleMenuClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {

@@ -1,6 +1,6 @@
 import range from 'lodash/range';
 import { Maze } from './Maze';
-import type { Cell, CellDirection, CellCorner, Direction, MazeProperties } from './Maze';
+import type { Cell, CellDirection, CellCorner, Direction, MazeProperties, Wall } from './Maze';
 
 export class SquareMaze extends Maze {
     constructor({ cellSize = 67, wallSize = 1, ...props }: MazeProperties) {
@@ -15,7 +15,7 @@ export class SquareMaze extends Maze {
         return [ this.wallSize * 2, this.cellSize ];
     }
 
-    protected initialWalls() {
+    protected initialWalls(): Wall {
         return { N: true, E: true, W: true, S: true };
     }
 
@@ -59,17 +59,17 @@ export class SquareMaze extends Maze {
         }
     }
 
-    public isDeadEnd(cell: Cell) {
+    public isDeadEnd(cell: Cell): boolean {
         return this.sides(cell) === 3 &&
             (cell.x !== this.entrance.x || cell.y !== this.entrance.y) &&
             (cell.x !== this.exit.x || cell.y !== this.exit.y);
     }
 
-    public edges(cell: Cell) {
+    public edges(cell: Cell): string[] {
         return this.neighbors(cell, { dirs: [ 'S', 'W' ]}).map(cd => cd.direction);
     }
 
-    public divider(cell1: Cell, cell2: Cell) {
+    public divider(cell1: Cell, cell2: Cell): CellDirection[] {
         if(cell1.x === cell2.x)
             return range(cell1.y, cell2.y).map(y => ({ x: cell1.x, y, direction: 'E' }));
         else if(cell1.y === cell2.y)
@@ -78,7 +78,7 @@ export class SquareMaze extends Maze {
         throw new Error('Cells must be aligned vertically or horizontally');
     }
 
-    private offsets({ x, y }: Cell) {
+    private offsets({ x, y }: Cell): Record<string, number> {
         const margin = Math.floor(this.cellSize / 8);
 
         const x0 = x  * this.cellSize;
@@ -100,7 +100,7 @@ export class SquareMaze extends Maze {
         return { x0, x1, x2, xc, x3, x4, x5, y0, y1, y2, yc, y3, y4, y5 };
     }
 
-    public drawFloor(cell: Cell, color = this.cellColor) {
+    public drawFloor(cell: Cell, color = this.cellColor): void {
         if(this.context) {
             const { x0, x5, y0, y5 } = this.offsets(cell);
 
@@ -114,7 +114,7 @@ export class SquareMaze extends Maze {
         }
     }
 
-    public drawWall(cd: CellDirection, color = this.wallColor) {
+    public drawWall(cd: CellDirection, color = this.wallColor): void {
         if(this.context) {
             const { x0, x1, x4, x5, y0, y1, y4, y5 } = this.offsets(cd);
 
@@ -128,7 +128,7 @@ export class SquareMaze extends Maze {
         }
     }
 
-    public drawPillar({ x, y, corner }: CellCorner, color = this.wallColor) {
+    public drawPillar({ x, y, corner }: CellCorner, color = this.wallColor): void {
         if(this.context) {
             const { x0, x1, x4, x5, y0, y1, y4, y5 } = this.offsets({ x, y });
 
@@ -140,7 +140,7 @@ export class SquareMaze extends Maze {
         }
     }
 
-    public drawPath(cell: CellDirection, color = 'red') {
+    public drawPath(cell: CellDirection, color = 'red'): void {
         if(this.context) {
             const { x1, x2, xc, x3, x4, y1, y2, yc, y3, y4 } = this.offsets(cell);
 
@@ -184,7 +184,7 @@ export class SquareMaze extends Maze {
         }
     }
 
-    public drawX(cell: Cell, color = 'black', cellColor = this.cellColor) {
+    public drawX(cell: Cell, color = 'black', cellColor = this.cellColor): void {
         if(this.context) {
             const { x1, x4, y1, y4 } = this.offsets(cell);
 
@@ -200,7 +200,7 @@ export class SquareMaze extends Maze {
         }
     }
 
-    public override toString() {
+    public override toString(): string {
         let str = '';
 
         for(let y = 0; y < this.height; ++y) {

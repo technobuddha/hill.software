@@ -36,7 +36,7 @@ const useFilterActuatorStyles = makeStyles(theme => ({
     },
 }));
 
-export const FilterActuator = ({ classes, styles, Icon, onButtonClick, title }: FilterActuatorProps) => {
+export const FilterActuator: React.FC<FilterActuatorProps> = ({ classes, styles, Icon, onButtonClick, title }) => {
     const css = useFilterActuatorStyles();
 
     const handleButtonClick = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => { onButtonClick?.(); };

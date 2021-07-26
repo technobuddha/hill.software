@@ -1,7 +1,7 @@
 import isArray  from 'lodash/isArray';
 import isNil    from 'lodash/isNil';
 
-export function getUniqueValues<T = unknown>(data: T[], name: keyof T) {
+export function getUniqueValues<T = unknown>(data: T[], name: keyof T): string[] {
     const set    = new Set<string>();
     for(const datum of data) {
         const v = datum[name];

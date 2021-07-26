@@ -11,7 +11,7 @@ type IndicatorArgs<T = unknown> = {
     Icon?: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
 };
 
-export function arrayIndicator<T = unknown>({ Icon, name, title }: IndicatorArgs<T>) {
+export function arrayIndicator<T = unknown>({ Icon, name, title }: IndicatorArgs<T>): ((args: FilterIndicatorProps) => React.ReactElement) {
     return ({ classes, styles }: FilterIndicatorProps) => {
         const { filterValues, changeFilter }  = useGrid<T>();
         const filterValue                     = normalizeFilterArray(filterValues[name]);

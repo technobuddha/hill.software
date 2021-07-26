@@ -5,8 +5,9 @@ import settings             from '#settings/authentication';
 import db                   from '#server/db/authentication';
 
 import type { Logger } from 'winston';
+import type { Router } from 'express';
 
-export function authentication(_logger: Logger) {
+export function authentication(_logger: Logger): Router {
     return express.Router()
     .get(
         '/session',

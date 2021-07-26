@@ -17,7 +17,7 @@ type RowProperties = {
 };
 
 const RowContext = React.createContext<RowState<any>>(null!);
-export function useRow<T = unknown>() {
+export function useRow<T = unknown>(): RowState<T> {
     return React.useContext(RowContext) as RowState<T>;
 }
 
@@ -31,7 +31,7 @@ function defaultRowProperties(selected = false) {
     return { selected };
 }
 
-export function RowProvider<T = unknown>({ selected, onSelectionChanged, children }: RowProviderProps<T>) {
+export function RowProvider<T = unknown>({ selected, onSelectionChanged, children }: RowProviderProps<T>): React.ReactElement {
     const { data }          = useGrid<T>();
     const [ , forceUpdate ]   = React.useReducer<(x: number) => number>(x => x + 1, 0);
 

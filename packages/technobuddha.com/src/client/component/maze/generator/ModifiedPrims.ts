@@ -17,7 +17,7 @@ export class ModifiedPrims extends MazeGenerator {
         this.costs = create2DArray(this.maze.width, this.maze.height, this.random);
     }
 
-    public override step() {
+    public override step(): boolean {
         let minCost     = Infinity;
         let cellIndex   = 0;
         for(const [ index, cell ] of this.activeCells.entries()) {

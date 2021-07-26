@@ -40,7 +40,7 @@ export async function parser(
         );
     };
 
-    const source = fs.readFile(filePath, 'utf-8');
+    const source = fs.readFileSync(filePath, 'utf-8');
     await postcss((plugins ?? defaultPlugins).concat([ gatherPlugIn ]))
     .process(source, {
         from: filePath,

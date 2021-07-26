@@ -1,7 +1,7 @@
 import React                                             from 'react';
 import { BrowserRouter, useHistory as routerUseHistory } from 'react-router-dom';
 
-import type { Location } from 'history';
+import type { Location, History } from 'history';
 
 type HistoryState = { referrer: Location<HistoryState> };
 
@@ -13,7 +13,7 @@ export const Router: React.FC = ({ children }: { children?: React.ReactNode }) =
     );
 };
 
-export const useHistory = () => {
+export const useHistory = (): History<HistoryState>  => {
     return routerUseHistory<HistoryState>();
 };
 

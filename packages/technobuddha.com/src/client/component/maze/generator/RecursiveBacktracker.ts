@@ -16,7 +16,7 @@ export class RecursiveBacktracker extends MazeGenerator {
         this.visited[this.currentCell.x][this.currentCell.y] = true;
     }
 
-    public override step() {
+    public override step(): boolean {
         const unvisitedNeighbors = this.maze.neighbors(this.currentCell).filter(cell => !this.visited[cell.x][cell.y]);
         if(unvisitedNeighbors.length > 0) {
             const newCell = this.selectNeighbor(unvisitedNeighbors);

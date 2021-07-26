@@ -51,7 +51,7 @@ if(process.env.USE_CDN === 'true') {
     .join('\n        ');
 }
 
-export function staticContent(app: Application, logger: Logger) {
+export function staticContent(app: Application, logger: Logger): void {
     app
     .get(
         '/oeoaa',

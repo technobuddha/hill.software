@@ -1,4 +1,4 @@
 declare module 'postcss-comment' {
     export type PostCssCommentParser = () => any;
-    export = () => 0 as any;
+    export = (): any => 0 as any;
 }

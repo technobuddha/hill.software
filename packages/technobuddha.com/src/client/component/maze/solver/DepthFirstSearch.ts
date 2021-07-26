@@ -5,7 +5,7 @@ import type { Cell, Direction } from '../maze/Maze';
 import type { SolveArguments }  from './MazeSolver';
 
 export class DepthFirstSearch extends MazeSolver {
-    public async solve({ color = 'red', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
+    public async solve({ color = 'red', entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}): Promise<void> {
         this.maze.prepareContext(this.context);
 
         return new Promise<void>(resolve => {

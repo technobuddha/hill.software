@@ -1,6 +1,6 @@
 import range from 'lodash/range';
 import { Maze } from './Maze';
-import type { Cell, CellDirection, CellCorner, Direction, MazeProperties } from './Maze';
+import type { Cell, CellDirection, CellCorner, Direction, MazeProperties, Wall } from './Maze';
 
 const COS30 = Math.cos(Math.PI / 6);
 const TAN30 = Math.tan(Math.PI / 6);
@@ -19,7 +19,7 @@ export class HexagonMaze extends Maze {
         return [ this.wallSize * 2 + this.cellSize * SIN60 / 2, this.cellSize * SIN60 ];
     }
 
-    protected initialWalls() {
+    protected initialWalls(): Wall {
         return { A: true, B: true, C: true, D: true, E: true, F: true };
     }
 
@@ -83,17 +83,17 @@ export class HexagonMaze extends Maze {
         }
     }
 
-    public isDeadEnd(cell: Cell) {
+    public isDeadEnd(cell: Cell): boolean {
         return this.sides(cell) === 5 &&
             (cell.x !== this.entrance.x || cell.y !== this.entrance.y) &&
             (cell.x !== this.exit.x || cell.y !== this.exit.y);
     }
 
-    public edges(cell: Cell) {
+    public edges(cell: Cell): string[] {
         return this.neighbors(cell, { dirs: [ 'B', 'C', 'D' ]}).map(cd => cd.direction);
     }
 
-    public divider(cell1: Cell, cell2: Cell) {
+    public divider(cell1: Cell, cell2: Cell): CellDirection[] {
         if(cell1.x === cell2.x) {
             const walls: CellDirection[] = range(cell1.y, cell2.y)
             .flatMap(y => [
@@ -164,7 +164,7 @@ export class HexagonMaze extends Maze {
         return { x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, xA, xB, y0, y1, y2, y3, y4, y5, y6, y7, y8 };
     }
 
-    public drawFloor(cell: Cell, color = this.cellColor) {
+    public drawFloor(cell: Cell, color = this.cellColor): void {
         if(this.context) {
             const { x0, x3, x8, xB, y0, y4, y8 } = this.offsets(cell);
 
@@ -180,7 +180,7 @@ export class HexagonMaze extends Maze {
         }
     }
 
-    public drawWall(cd: CellDirection, color = this.wallColor) {
+    public drawWall(cd: CellDirection, color = this.wallColor): void {
         if(this.context) {
             const ctx = this.context;
 
@@ -240,7 +240,7 @@ export class HexagonMaze extends Maze {
         }
     }
 
-    public drawPillar(cell: CellCorner, color = this.wallColor) {
+    public drawPillar(cell: CellCorner, color = this.wallColor): void {
         if(this.context) {
             const ctx = this.context;
             const { x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, xA, xB, y0, y1, y2, y3, y4, y5, y6, y7, y8 } = this.offsets(cell);
@@ -289,7 +289,7 @@ export class HexagonMaze extends Maze {
         }
     }
 
-    public drawPath(cd: CellDirection, color = 'red') {
+    public drawPath(cd: CellDirection, color = 'red'): void {
         if(this.context) {
             const ctx = this.context;
 
@@ -335,7 +335,7 @@ export class HexagonMaze extends Maze {
         }
     }
 
-    public drawX(cell: Cell, color = 'black', cellColor = this.cellColor) {
+    public drawX(cell: Cell, color = 'black', cellColor = this.cellColor): void {
         if(this.context) {
             const { x2, x5, x6, x9, y2, y4, y6 } = this.offsets(cell);
 

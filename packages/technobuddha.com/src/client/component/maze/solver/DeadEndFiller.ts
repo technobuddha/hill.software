@@ -1,7 +1,7 @@
 import { MazeSolver } from './MazeSolver';
 
 export class DeadEndFiller extends MazeSolver {
-    public async solve() {
+    public async solve(): Promise<void> {
         const walls = this.maze.walls.map(row => [ ...row ]);
 
         this.maze.prepareContext(this.context);

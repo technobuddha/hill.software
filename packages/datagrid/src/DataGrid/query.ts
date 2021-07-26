@@ -43,14 +43,14 @@ export function getSortFromQueryString(): SortKey | undefined {
     return decodeSort(sort);
 }
 
-export function setSortInQueryString(sort: SortKey | undefined) {
+export function setSortInQueryString(sort: SortKey | undefined): void {
     const search: Record<string, any> = queryString.parse(location.search);
 
     search[KEY_SORT] = encodeSort(sort);
     history.pushState(null, '', `${location.pathname}?${queryString.stringify(search)}${location.hash}`);
 }
 
-export function getFiltersFromQueryString() {
+export function getFiltersFromQueryString(): Record<string, string | string[] | null> {
     const { [KEY_SORT]: _, ...filterValues } = mapValues(
         queryString.parse(location.search),
         q => q ?? null
@@ -59,7 +59,7 @@ export function getFiltersFromQueryString() {
     return filterValues;
 }
 
-export function setFiltersInQueryString(filterValues: ParsedQuery) {
+export function setFiltersInQueryString(filterValues: ParsedQuery): void {
     const sort      = getSortFromQueryString();
     const search    = { ...filterValues, [KEY_SORT]: sort };
 

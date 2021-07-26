@@ -8,10 +8,14 @@ import toString     from 'lodash/toString';
 import type { Shape }                           from '../analyzer';
 import type { ColumnSpecification, ColumnType } from '../column';
 
-export const nullCollator = () => () => 0;
+export const nullCollator: (() => () => number) = () => () => 0;
 const intlCollator = new Intl.Collator(undefined, { sensitivity: 'base' });
 
-export function collatorFactory<T = unknown>(column: ColumnSpecification<T>, type: ColumnType, shape: Shape) {
+export function collatorFactory<T = unknown>(
+    column: ColumnSpecification<T>,
+    type: ColumnType,
+    shape: Shape
+): ((ascending: boolean) => (x: T, y: T) => number) {
     if(column.collate)
         return column.collate;
 

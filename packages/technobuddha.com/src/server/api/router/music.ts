@@ -2,8 +2,9 @@ import express  from 'express';
 import db       from '#server/db/music';
 
 import type { Logger } from 'winston';
+import type { Router } from 'express';
 
-export function music(_logger: Logger) {
+export function music(_logger: Logger): Router {
     return express.Router()
     .get(
         '/tracks',

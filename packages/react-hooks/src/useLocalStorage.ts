@@ -15,7 +15,7 @@ import isFunction   from 'lodash/isFunction';
  * @param initialState Initial state value, or a function that returns the initial state value.
  * @returns [ stateValue, setterFunction ]
  */
-export function useLocalStorage<T>(key: string, initialState: T) {
+export function useLocalStorage<T>(key: string, initialState: T): readonly [ T, (newValue: T | ((oldValue: T) => T)) => void ] {
     const [ value, setValue ] = React.useState<T>(() => {
         try {
             const item = localStorage.getItem(key);

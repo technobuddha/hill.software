@@ -49,7 +49,7 @@ export class MazeFactory {
         mazeMaker: (props: MazeProperties) => Maze,
         Generator: typeof MazeGenerator,
         speed = 0
-    ) {
+    ): Promise<Maze> {
         const mg = new Generator({
             maze: mazeMaker({
                 context:    this.context,

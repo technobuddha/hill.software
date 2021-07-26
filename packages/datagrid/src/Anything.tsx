@@ -86,7 +86,7 @@ function isNonDateObject(value: any): value is object {
     return isObject(value) && !isDate(value);
 }
 
-export function Anything({ children, type, className, top = true }: AnythingParams) {
+export const Anything: React.FC<AnythingParams> = ({ children, type, className, top = true }: AnythingParams) => {
     const css = useStyles();
 
     if(isNil(children) || (isNonDateObject(children) && isEmpty(children)))
@@ -121,4 +121,6 @@ export function Anything({ children, type, className, top = true }: AnythingPara
         default:
             return <div className={clsx(className, css.primitive, css.left)}>{toString(children)}</div>;
     }
-}
+};
+
+export default Anything;

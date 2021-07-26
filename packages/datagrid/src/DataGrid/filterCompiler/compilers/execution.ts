@@ -6,7 +6,7 @@ import { normalizeFilterValue, normalizeFilterArray } from './normalization';
 import type { FilterValue } from '../../filter';
 import type { Shape }       from '../../analyzer';
 
-export function searchExecute<T = unknown>(name: keyof T, shape: Shape) {
+export function searchExecute<T = unknown>(name: keyof T, shape: Shape): ((data: T[], value: FilterValue) => T[]) {
     switch(shape) {
         case 'key-value': {
             return (data: T[], value: FilterValue) => {
@@ -75,7 +75,7 @@ export function searchExecute<T = unknown>(name: keyof T, shape: Shape) {
     }
 }
 
-export function equalityExecute<T = unknown>(name: keyof T, shape: Shape) {
+export function equalityExecute<T = unknown>(name: keyof T, shape: Shape): ((data: T[], value: FilterValue) => T[]) {
     switch(shape) {
         case 'key-value': {
             return (data: T[], value: FilterValue) => {

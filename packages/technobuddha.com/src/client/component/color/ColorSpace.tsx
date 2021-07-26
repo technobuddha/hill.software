@@ -16,7 +16,7 @@ type Attributes = {
     max: number;
 };
 
-export function ColorSpace<T extends string>({ colorSpace, color, onChange }: ColorSpaceProps<T>) {
+export function ColorSpace<T extends string>({ colorSpace, color, onChange }: ColorSpaceProps<T>): React.ReactElement {
     const handleChange = (key: T) =>
         (_: React.ChangeEvent<{}>, value: number | number[] | undefined) => {
             onChange?.(toRGB({ ...color, [key]: value as number } as any));

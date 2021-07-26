@@ -30,7 +30,7 @@ export class Kruskals extends MazeGenerator {
         return cell.y * width + cell.x;
     }
 
-    public override step() {
+    public override step(): boolean {
         const edge  = this.edges.pop()!;
         const cell1 = { ...edge };
         const cell2 = this.maze.move(cell1, edge.direction)!;

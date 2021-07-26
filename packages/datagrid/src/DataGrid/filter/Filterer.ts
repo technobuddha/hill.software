@@ -56,7 +56,7 @@ export type FiltererRenderProps<T = unknown> = {
     data:       T[];
 };
 
-export function Filterer<T = unknown>({ filters, children }: FiltererProps<T>) {
+export function Filterer<T = unknown>({ filters, children }: FiltererProps<T>): React.ReactElement {
     const { data, filterValues } = useGrid<T>();
     const filteredData           = React.useMemo(
         () => {

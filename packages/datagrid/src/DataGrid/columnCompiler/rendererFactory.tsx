@@ -24,7 +24,11 @@ const useCellStyles = makeStyles(_theme => ({
     },
 }));
 
-export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, type: ColumnType, shape: Shape) {
+export function rendererFactory<T = unknown>(
+    column: ColumnSpecification<T>,
+    type: ColumnType,
+    shape: Shape
+): (({ datum }: ColumnRenderProps<T>) => React.ReactElement) {
     if(column.render)
         return column.render;
 
@@ -34,7 +38,7 @@ export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, typ
 
             return ({ datum }: ColumnRenderProps<T>) => {
                 const css = useCellStyles();
-                const field = (datum as Record<string, unknown>)[key];
+                const field = (datum as Record<string, any>)[key];
                 return <Anything className={css.cell} type={type.dataType}>{field}</Anything>;
             };
         }
@@ -61,14 +65,14 @@ export function rendererFactory<T = unknown>(column: ColumnSpecification<T>, typ
                 case 'object':
                     return ({ datum }: ColumnRenderProps<T>) => {
                         const css = useCellStyles();
-                        const field = (datum as unknown as unknown[])[key];
+                        const field = (datum as unknown as any[])[key];
                         return <Box className={clsx(css.cell, css.left)}><Anything>{field}</Anything></Box>;
                     };
 
                 case 'array':
                     return ({ datum }: ColumnRenderProps<T>) => {
                         const css = useCellStyles();
-                        const field = (datum as unknown as unknown[])[key] as unknown[];
+                        const field = (datum as unknown as any[])[key] as unknown[];
                         return <Box className={clsx(css.cell, css.left)}><Anything>{field}</Anything></Box>;
                     };
 

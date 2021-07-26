@@ -58,18 +58,20 @@ const useStyles = makeStyles({
     },
 });
 
-export function Transfer<T = unknown>({
-    left: leftProp,
-    right: rightProp,
-    rowHeight,
-    name,
-    title,
-    onTransfer,
-    className,
-    style,
-    classes,
-    styles,
-}: TransferProps<T>) {
+export function Transfer<T = unknown>(
+    {
+        left: leftProp,
+        right: rightProp,
+        rowHeight,
+        name,
+        title,
+        onTransfer,
+        className,
+        style,
+        classes,
+        styles,
+    }: TransferProps<T>
+): React.ReactElement {
     const css               = useStyles();
     const dispatch          = React.useRef<DispatchFunction | null>(null);
     const [ left, setLeft ]   = useDerivedState(leftProp,                                                                     [ leftProp ]);

@@ -14,7 +14,7 @@ type GridState<T = unknown> = {
 };
 
 const GridContext = React.createContext<GridState>(null!);
-export function useGrid<T = unknown>() {
+export function useGrid<T = unknown>(): GridState<T> {
     return React.useContext(GridContext) as GridState<T>;
 }
 
@@ -25,7 +25,7 @@ type GridProviderProps<T = unknown> = {
     children:           React.ReactNode;
 };
 
-export function GridProvider<T = unknown>({ data, defaultSort, useLocation, children }: GridProviderProps<T>) {
+export function GridProvider<T = unknown>({ data, defaultSort, useLocation, children }: GridProviderProps<T>): React.ReactElement {
     function baseSort(): SortKey | undefined {
         return (useLocation ? getSortFromQueryString() : undefined) ?? decodeSort(defaultSort);
     }

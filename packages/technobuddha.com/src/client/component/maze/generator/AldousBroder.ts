@@ -16,7 +16,7 @@ export class AldousBroder extends MazeGenerator {
         this.visited[this.currentCell.x][this.currentCell.y] = true;
     }
 
-    public override step() {
+    public override step(): boolean {
         for(;;) {
             const cell = this.selectNeighbor(this.maze.neighbors(this.currentCell));
 

@@ -12,7 +12,7 @@ export type RowSelectionIndicatorProps<T = unknown> = BaseSelectionIndicatorProp
     datum:          T;
 };
 
-export function RowSelectionIndicator<T = unknown>({ datum, className, style }: RowSelectionIndicatorProps<T>) {
+export function RowSelectionIndicator<T = unknown>({ datum, className, style }: RowSelectionIndicatorProps<T>): React.ReactElement {
     const { setSelected, getSelected } = useRow();
 
     const handleCheckboxChange = React.useCallback(
@@ -36,7 +36,7 @@ export type MasterSelectionIndicatorProps<T = unknown> = BaseSelectionIndicatorP
     data: T[];
 };
 
-export function MasterSelectionIndicator<T = unknown>({ data, className, style }: MasterSelectionIndicatorProps<T>) {
+export function MasterSelectionIndicator<T = unknown>({ data, className, style }: MasterSelectionIndicatorProps<T>): React.ReactElement {
     const { setSelected, countSelected }    = useRow();
     const { selected, unselected }            = countSelected(data);
 

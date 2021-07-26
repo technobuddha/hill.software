@@ -27,7 +27,7 @@ export type RowHeaderProps<T = unknown> = {
 
 export function RowHeader<T = unknown>(
     { data, index, columns, columnWidths, scrollbarWidth, controlWidth, rowHeight, menu, className, style, classes, styles }: RowHeaderProps<T>
-) {
+): React.ReactElement {
     const css = useColumnStyles({ scrollbarWidth, controlWidth });
 
     const handleMenuClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {

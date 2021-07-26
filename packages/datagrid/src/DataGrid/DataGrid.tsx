@@ -66,7 +66,7 @@ const useDataGridStyles = makeStyles(theme => ({
 export function DataGrid<T = unknown>(
     { data, columns, rowRenderer, className, style, classes, styles, selection, selected, filters, menu, defaultSort, rowHeight, controlWidth, useLocation,
         onSelectionChanged }: DataGridProps<T>
-) {
+): React.ReactElement {
     const css               = useDataGridStyles();
     const analysis          = React.useMemo(() => analyzer({ data, columns }), [ data, columns ]);
     const compiledColumns   = React.useMemo(

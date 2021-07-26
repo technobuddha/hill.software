@@ -43,7 +43,7 @@ export class GrowingTree extends MazeGenerator {
         // return res.method;
     }
 
-    public selectCell(selectionMethod: SelectionMethod) {
+    public selectCell(selectionMethod: SelectionMethod): number {
         switch(selectionMethod) {
             case 'newest':
                 return this.list.length - 1;
@@ -56,7 +56,7 @@ export class GrowingTree extends MazeGenerator {
         }
     }
 
-    public override step() {
+    public override step(): boolean {
         const index      = this.selectCell(this.selectMethod());
         this.currentCell = this.list[index];
 

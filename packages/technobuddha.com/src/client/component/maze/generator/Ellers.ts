@@ -32,7 +32,7 @@ export class Ellers extends MazeGenerator {
         this.initializeRow();
     }
 
-    public override step() {
+    public override step(): boolean {
         return this.mode === 'horizontal' ? this.horizontalStep() : this.verticalStep();
     }
 

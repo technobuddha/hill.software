@@ -10,7 +10,7 @@ import type { Application }     from 'express';
 import type { Logger }          from 'winston';
 import type { TranslateReturn } from '#util/translation';
 
-export function translation(app: Application, logger: Logger) {
+export function translation(app: Application, logger: Logger): void {
     if(process.env.GCLOUD_PROJECT && process.env.GOOGLE_APPLICATION_CREDENTIALS) {
         const translationWorker     = new TranslationWorker(logger);
 

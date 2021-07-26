@@ -4,7 +4,7 @@ import settings from '#settings/authentication';
 import type { Account, AccountCreate } from '#schema/account';
 import type { Session }                from '#schema/session';
 
-export async function getAccountById(id: number) {
+export async function getAccountById(id: number): Promise<Account | null> {
     return db.oneOrNone<Account>(
         `
         SELECT  id, email, first, last, admin, disabled, confirmed, failed_logins, locked,
@@ -15,7 +15,7 @@ export async function getAccountById(id: number) {
     );
 }
 
-export async function getAccountByEmail(email: string) {
+export async function getAccountByEmail(email: string): Promise<Account | null> {
     return db.oneOrNone<Account>(
         `
         SELECT  id, email, first, last, admin, disabled, confirmed, failed_logins, locked,
@@ -26,7 +26,7 @@ export async function getAccountByEmail(email: string) {
     );
 }
 
-export async function createAccount(account: AccountCreate) {
+export async function createAccount(account: AccountCreate): Promise<Account> {
     return db.one<Account>(
         `
         INSERT  INTO account(
@@ -58,7 +58,7 @@ export async function createAccount(account: AccountCreate) {
     );
 }
 
-export async function verifyPassword(email: string, password: string) {
+export async function verifyPassword(email: string, password: string): Promise<Account | null> {
     return db.oneOrNone<Account>(
         `
         SELECT  id, email, first, last, admin, disabled, confirmed, failed_logins, locked,
@@ -69,7 +69,7 @@ export async function verifyPassword(email: string, password: string) {
     );
 }
 
-export async function getSession(id: string) {
+export async function getSession(id: string): Promise<Session | null> {
     return db.oneOrNone<Session>(
         `
         SELECT id, account_id, created, expires
@@ -79,7 +79,7 @@ export async function getSession(id: string) {
     );
 }
 
-export async function createSession(account_id: number) {
+export async function createSession(account_id: number): Promise<Session> {
     return db.one<Session>(
         `
         INSERT INTO session(account_id, created, expires)
@@ -90,7 +90,7 @@ export async function createSession(account_id: number) {
     );
 }
 
-export async function renewSession(session_id: string) {
+export async function renewSession(session_id: string): Promise<Session> {
     return db.one<Session>(
         `
         UPDATE      session
@@ -102,7 +102,7 @@ export async function renewSession(session_id: string) {
     );
 }
 
-export async function deleteSession(id: string) {
+export async function deleteSession(id: string): Promise<null> {
     return db.none(
         `
         DELETE FROM session WHERE id = $(id);
@@ -111,7 +111,7 @@ export async function deleteSession(id: string) {
     );
 }
 
-export async function deleteConcurrentSessions(account_id: number) {
+export async function deleteConcurrentSessions(account_id: number): Promise<null> {
     return db.none(
         `
         DELETE FROM session WHERE account_id = $(account_id)

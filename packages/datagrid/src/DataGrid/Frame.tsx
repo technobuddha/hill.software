@@ -18,7 +18,7 @@ export type FrameRenderProps = SizeScrollbarRenderProps & {
     columnWidths:   number[];
 };
 
-export function Frame<T = unknown>({ className, style, columns, controlWidth, menu, children }: FrameProps<T>) {
+export function Frame<T = unknown>({ className, style, columns, controlWidth, menu, children }: FrameProps<T>): React.ReactElement {
     return (
         <SizeScrollbar
             className={className}

@@ -1,6 +1,7 @@
 import React             from 'react';
 import throttle          from 'lodash/throttle';
 import { measureWindow } from '@technobuddha/library/measure';
+import type { Size }     from '@technobuddha/library/measure';
 
 /**
  * Gets the current window size, including the dimensions of the scroll bars.
@@ -10,7 +11,7 @@ import { measureWindow } from '@technobuddha/library/measure';
  *
  * @returns [{ width, height, scrollbarWidth, scrollbarHeight, count }
  */
-export function useWindowSize() {
+export function useWindowSize(): Size & { count: number } {
     const [ count, setCount ]   = React.useState(0);
     const [ size, setSize ]     = React.useState(measureWindow());
 

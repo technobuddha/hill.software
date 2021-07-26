@@ -18,7 +18,7 @@ export class HuntAndKill extends MazeGenerator {
         this.visited = create2DArray(this.maze.width, this.maze.height, false);
     }
 
-    public override step() {
+    public override step(): boolean {
         if(!this.hunting) {
             this.visited[this.currentCell.x][this.currentCell.y] = true;
 

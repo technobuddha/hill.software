@@ -77,7 +77,7 @@ export class RecursiveDivision extends MazeGenerator {
         }
     }
 
-    public override step() {
+    public override step(): boolean {
         if(this.walls.length > 0) {
             const wall = this.walls.shift()!;
             this.maze.addWall(wall, wall.direction);

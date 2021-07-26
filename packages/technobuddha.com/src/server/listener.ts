@@ -7,7 +7,7 @@ import process                      from 'process';
 import type { Logger }      from 'winston';
 import type { Application } from 'express';
 
-export function listener(app: Application, logger: Logger) {
+export function listener(app: Application, logger: Logger): void {
     const HTTP_PORT   = Number.parseInt(process.env.HTTP_PORT  ?? '8080');
     const HTTPS_PORT  = Number.parseInt(process.env.HTTPS_PORT ?? '8443');
 

@@ -27,7 +27,7 @@ export class Wilsons extends MazeGenerator {
             this.unvisited.splice(index, 1);
     }
 
-    public override step() {
+    public override step(): boolean {
         this.currentCell = this.unvisited[Math.floor(this.random() * this.unvisited.length)];
         let path: (Cell | CellDirection)[] = [ this.currentCell ];
 

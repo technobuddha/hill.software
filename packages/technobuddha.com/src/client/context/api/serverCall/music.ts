@@ -1,6 +1,7 @@
 import type { FetchAPI } from '../APIContext';
 import type { GetTracks, GetNewAlbums, GetArtists, GetGenres } from '#server/api';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const music = (fetchAPI: FetchAPI) => ({
     async tracks() {
         return fetchAPI<GetTracks[]>('/api/music/tracks', { method: 'GET', validStatuses: [ 200 ]});

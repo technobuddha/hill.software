@@ -13,7 +13,7 @@ export class WallWalking extends MazeSolver {
         this.turn = Math.random() < 0.5 ? this.maze.rightTurn.bind(this) : this.maze.leftTurn.bind(this);
     }
 
-    public async solve({ entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}) {
+    public async solve({ entrance = this.maze.entrance, exit = this.maze.exit }: SolveArguments = {}): Promise<void> {
         this.maze.prepareContext(this.context);
 
         return new Promise<void>(resolve => {

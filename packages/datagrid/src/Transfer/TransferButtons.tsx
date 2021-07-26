@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const TransferButtons = ({ classes, styles, dispatch, onRAllClick, onRSelClick, onLSelClick, onLAllClick }: TransferButtonsProps) => {
+const TransferButtons: React.FC<TransferButtonsProps> = ({ classes, styles, dispatch, onRAllClick, onRSelClick, onLSelClick, onLAllClick }) => {
     const css                               = useStyles();
     const [ rAllDisabled, setRAllDisabled ]   = React.useState(true);
     const [ rSelDisabled, setRSelDisabled ]   = React.useState(true);

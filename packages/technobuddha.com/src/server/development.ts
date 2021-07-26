@@ -7,7 +7,7 @@ import { genClientWebpackConfig }   from '#client/webpack.config';
 import type { Logger }      from 'winston';
 import type { Application } from 'express';
 
-export function development(app: Application, logger: Logger) {
+export function development(app: Application, logger: Logger): void {
     const clientWebpackConfig   = genClientWebpackConfig(true, logger);
     const compiler              = webpack(clientWebpackConfig);
 

@@ -12,7 +12,7 @@ export class Sidewinder extends MazeGenerator {
         this.runSet      = [];
     }
 
-    public override step() {
+    public override step(): boolean {
         this.runSet.push(this.currentCell);
 
         const dirs: Direction[] = [];

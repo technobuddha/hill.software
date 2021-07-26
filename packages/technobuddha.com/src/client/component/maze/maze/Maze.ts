@@ -117,7 +117,7 @@ export abstract class Maze {
         return undefined;
     }
 
-    public draw() {
+    public draw(): void {
         if(this.context) {
             this.prepareContext();
 
@@ -168,7 +168,7 @@ export abstract class Maze {
         }
     }
 
-    public drawCell(cell: Cell, cellColor = this.cellColor, wallColor = this.wallColor) {
+    public drawCell(cell: Cell, cellColor = this.cellColor, wallColor = this.wallColor): void {
         this.drawFloor(cell, cellColor);
 
         const wall = this.walls[cell.x][cell.y];
@@ -202,7 +202,7 @@ export abstract class Maze {
         return this.neighbors(cell, { dirs }).filter(cd => !walls[cell.x][cell.y][cd.direction]);
     }
 
-    public sides(cell: Cell) {
+    public sides(cell: Cell): number {
         let s = 0;
         for(const direction of this.directions) {
             if(this.walls[cell.x][cell.y][direction])
@@ -211,7 +211,7 @@ export abstract class Maze {
         return s;
     }
 
-    public deadEnds() {
+    public deadEnds(): Cell[] {
         const ends: Cell[] = [];
 
         for(let x = 0; x < this.width; ++x) {
@@ -224,7 +224,7 @@ export abstract class Maze {
         return ends;
     }
 
-    public inMaze(cell: Cell) {
+    public inMaze(cell: Cell): boolean {
         return cell.x >= 0 && cell.x < this.width && cell.y >= 0 && cell.y < this.height;
     }
 
@@ -240,7 +240,7 @@ export abstract class Maze {
         return { x, y };
     }
 
-    public prepareContext(context?: CanvasRenderingContext2D) {
+    public prepareContext(context?: CanvasRenderingContext2D): void {
         if(context)
             this.context = context;
 
@@ -257,7 +257,7 @@ export abstract class Maze {
         }
     }
 
-    public clear(color?: string) {
+    public clear(color?: string): void {
         if(this.context) {
             const [ wBorder, wCell ] = this.drawingWidth();
             const [ hBorder, hCell ] = this.drawingHeight();
@@ -281,7 +281,7 @@ export abstract class Maze {
         }
     }
 
-    public removeWall(cell: Cell, direction: Direction) {
+    public removeWall(cell: Cell, direction: Direction): void {
         if(this.inMaze(cell)) {
             this.walls[cell.x][cell.y][direction] = false;
             this.drawCell(cell);
@@ -296,7 +296,7 @@ export abstract class Maze {
         }
     }
 
-    public removeInteriorWalls() {
+    public removeInteriorWalls(): void {
         for(let x = 0; x < this.width; ++x) {
             for(let y = 0; y < this.height; ++y) {
                 for(const neighbor of this.neighbors({ x, y }))
@@ -305,7 +305,7 @@ export abstract class Maze {
         }
     }
 
-    public addWall(cell: Cell, direction: Direction) {
+    public addWall(cell: Cell, direction: Direction): void {
         if(this.inMaze(cell)) {
             this.walls[cell.x][cell.y][direction] = true;
             //this.drawWall({ ...cell, direction }, , this.wallColor));
