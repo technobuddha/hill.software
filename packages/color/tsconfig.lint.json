@@ -4,6 +4,7 @@
         "./src/*.ts",
         "./test/*.ts",
         "./scripts/*.ts",
+        "./webpack.config.ts",
         ".eslintrc.js",
     ]
 }

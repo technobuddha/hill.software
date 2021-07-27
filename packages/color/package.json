@@ -1,6 +1,6 @@
 {
   "name": "@technobuddha/color",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Color manipulation",
   "keywords": [
     "miscellaneous"
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/technobuddha/hill.software.git"
   },
-  "homepage": "https://github.com/technobuddha/hill.software/tree/main/packages/library#technobuddhacolor",
+  "homepage": "https://github.com/technobuddha/hill.software/tree/main/packages/color/#readme",
   "bugs": {
     "url": "https://github.com/technobuddha/hill.software/issues",
     "email": "phil@technobuddha.com"
@@ -36,6 +36,7 @@
     "document:generate": "typedoc src/*.ts"
   },
   "devDependencies": {
+    "@technobuddha/library": "^1.9.0",
     "jimp": "^0.16.1"
   },
   "publishConfig": {
