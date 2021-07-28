@@ -5,7 +5,6 @@
         "lib": [ "dom", "esnext" ],
         "declaration": true,
         "outDir": "../dist",
-        "rootDir": ".",
         "downlevelIteration": true,
         "types": [ "jest", "node" ],
         "resolveJsonModule": false,
