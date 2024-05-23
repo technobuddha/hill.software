@@ -1,0 +1,38 @@
+{
+  "name": "@technobuddha/discogs-client",
+  "version": "0.0.0",
+  "description": "Discogs API Client",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "build": "npm run compile",
+    "postbuild": "../../scripts/bootstrap.ts --update @technobuddha/discogs-client",
+    "compile": "tsc",
+    "lint": "LINT_LEVEL=1 eslint src --ext .ts,.tsx",
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/technobuddha/hill.software.git"
+  },
+  "keywords": [
+    "discogs"
+  ],
+  "author": "Phil Hill <phil@technobuddha.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/technobuddha/hill.software/issues"
+  },
+  "homepage": "https://github.com/technobuddha/hill.software#readme",
+  "dependencies": {
+    "@technobuddha/library": "^1.9.0",
+    "limiter": "^2.1.0",
+    "node-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "type-fest": "^2.2.0"
+  }
+}
