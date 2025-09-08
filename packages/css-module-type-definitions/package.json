@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/technobuddha/css-module-type-definitions#readme",
   "dependencies": {
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.2",
     "cosmiconfig": "^7.0.0",
     "postcss-comment": "^2.0.0",
     "postcss-import": "^14.0.0",
