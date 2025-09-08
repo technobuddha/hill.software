@@ -45,7 +45,7 @@
     "cosmiconfig": "^7.0.0",
     "postcss-comment": "^2.0.0",
     "postcss-import": "^14.0.0",
-    "postcss-modules-local-by-default": "^4.0.0",
+    "postcss-modules-local-by-default": "^4.2.0",
     "postcss-modules-scope": "^3.0.0",
     "sane": "^5.0.1"
   },
